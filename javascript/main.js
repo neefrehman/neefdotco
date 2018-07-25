@@ -1,3 +1,5 @@
+// Randomise photo order
+
 var cards = $(".photo");
 for(var i = 0; i < cards.length; i++){
     var target = Math.floor(Math.random() * cards.length -1) + 1;
