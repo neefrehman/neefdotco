@@ -7,6 +7,10 @@ body {
 	margin: 40px;
 }
 
+h1 {
+	-webkit-margin-after: 0em;
+}
+
 a {
 	text-decoration: none;
 	color: #000;
