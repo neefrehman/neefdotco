@@ -7,9 +7,9 @@ body {
 	margin: 40px;
 }
 
-/* h1, h3 {
+h1 {
 	-webkit-margin-after: 0em;
-} */
+}
 
 a {
 	text-decoration: none;
