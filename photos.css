@@ -61,7 +61,6 @@ a {
 .image_27 { background-image: url(images/desktop/image_27.jpg); }
 .image_28 { background-image: url(images/desktop/image_28.jpg); }
 .image_29 { background-image: url(images/desktop/image_29.jpg); }
-.image_30 { background-image: url(images/desktop/image_30.jpg); }
 
 
 @media (max-width: 600px) {
@@ -106,7 +105,6 @@ a {
 	.image_27 { background-image: url(images/mobile/image_27.jpg); }
 	.image_28 { background-image: url(images/mobile/image_28.jpg); }
 	.image_29 { background-image: url(images/mobile/image_29.jpg); }
-	.image_30 { background-image: url(images/mobile/image_30.jpg); }
 
 
 }
