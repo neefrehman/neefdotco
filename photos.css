@@ -69,6 +69,7 @@ a {
 .image_35 { background-image: url(images/big/image_35.jpg); }
 .image_36 { background-image: url(images/big/image_36.jpg); }
 .image_37 { background-image: url(images/big/image_37.jpg); }
+.image_38 { background-image: url(images/big/image_38.jpg); }
 
 
 @media (max-width: 768px) {
@@ -120,7 +121,8 @@ a {
 	.image_34 { background-image: url(images/small/image_34.jpg); }
 	.image_35 { background-image: url(images/small/image_35.jpg); }
 	.image_36 { background-image: url(images/small/image_36.jpg); }
-	.image_37 { background-image: url(images/small/image_37.jpg); } */
+	.image_37 { background-image: url(images/small/image_37.jpg); }
+	.image_38 { background-image: url(images/small/image_38.jpg); } */
 
 
 }
