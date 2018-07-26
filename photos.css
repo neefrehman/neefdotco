@@ -71,7 +71,7 @@ a {
 .image_37 { background-image: url(images/big/image_37.jpg); }
 
 
-@media (max-width: 7680px) {
+@media (max-width: 768px) {
 
 	header {
 	  top: 30px;
