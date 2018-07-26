@@ -116,3 +116,12 @@ a {
 
 
 }
+
+
+@media (pointer: coarse) {
+	
+	section{
+		background-attachment: initial;
+	}
+
+}
