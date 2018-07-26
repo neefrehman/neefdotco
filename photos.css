@@ -66,6 +66,9 @@ a {
 .image_32 { background-image: url(images/big/image_32.jpg); }
 .image_33 { background-image: url(images/big/image_33.jpg); }
 .image_34 { background-image: url(images/big/image_34.jpg); }
+.image_35 { background-image: url(images/big/image_35.jpg); }
+.image_36 { background-image: url(images/big/image_36.jpg); }
+.image_37 { background-image: url(images/big/image_37.jpg); }
 
 
 @media (max-width: 600px) {
@@ -114,7 +117,10 @@ a {
 	.image_31 { background-image: url(images/small/image_31.jpg); }
 	.image_32 { background-image: url(images/small/image_32.jpg); }
 	.image_33 { background-image: url(images/small/image_33.jpg); }
-	.image_34 { background-image: url(images/small/image_34.jpg); } */
+	.image_34 { background-image: url(images/small/image_34.jpg); }
+	.image_35 { background-image: url(images/small/image_35.jpg); }
+	.image_36 { background-image: url(images/small/image_36.jpg); }
+	.image_37 { background-image: url(images/small/image_37.jpg); } */
 
 
 }
