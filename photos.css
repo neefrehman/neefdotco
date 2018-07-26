@@ -11,9 +11,11 @@ header {
 section {
   height: 100vh;
   width: 100vw;
-  background-size: cover;
-	background-position: center;
-  background-attachment: fixed;
+	background: no-repeat center center fixed;
+	background-size: cover;
+	-webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
 }
 
 footer {
