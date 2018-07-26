@@ -32,7 +32,7 @@ a:hover {
 }
 
 
-@media (max-width: 520px) {
+@media (max-width: 768px) {
 
 	body {
 		margin: 30px;
