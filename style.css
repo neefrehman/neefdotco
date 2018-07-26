@@ -3,6 +3,7 @@ body {
 	font-size: 14px;
 	line-height: 1.2;
 	color: #333;
+	-webkit-text-size-adjust: 100%;
 
 	margin: 40px;
 }
