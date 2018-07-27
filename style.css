@@ -8,9 +8,12 @@ body {
 	margin: 40px;
 }
 
-h1 {
-	-webkit-margin-before: 0em;
+h1, h2, h3 {
 	-webkit-margin-after: 0em;
+}
+
+p {
+	line-height: 1.4;
 }
 
 a {
@@ -21,6 +24,8 @@ a {
 	background-color: #eee;
 	padding: 0 0.2em;
 }
+
+
 
 a:visited {
 	color: #000;
