@@ -8,12 +8,12 @@ body {
 	margin: 40px;
 }
 
-h1, h2, h3 {
-	-webkit-margin-after: 0em;
+header p {
+	line-height: 1.5;
 }
 
-p {
-	line-height: 1.5;
+h1, h2, h3 {
+	-webkit-margin-after: 0em;
 }
 
 a {
