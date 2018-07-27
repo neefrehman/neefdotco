@@ -11,5 +11,5 @@ for(var i = 0; i < cards.length; i++){
 // unveil
 
 $(document).ready(function() {
-  $("section").unveil(2000);
+  $("section").unveil(3000);
 });
