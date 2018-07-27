@@ -12,4 +12,5 @@ for(var i = 0; i < cards.length; i++){
 
 $(document).ready(function() {
   $("section").unveil(4000);
+  $("section").trigger("unveil");
 });
