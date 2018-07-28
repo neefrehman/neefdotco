@@ -16,7 +16,7 @@ h1, h2, h3 {
 	-webkit-margin-after: 0em;
 }
 
-a {
+a, a:visited {
 	text-decoration: none;
 	color: #000;
 
@@ -24,12 +24,6 @@ a {
 	background-color: #eee;
 	padding: 0 0.2em;
 	line-height: normal;
-}
-
-
-
-a:visited {
-	color: #000;
 }
 
 a:hover {
