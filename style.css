@@ -1,41 +1,36 @@
 body {
-	font-family: helvetica neue, helvetica, arial, sans-serif;
-	font-size: 14px;
-	line-height: 1.2;
-	color: #333;
-	-webkit-text-size-adjust: 100%;
-
-	margin: 40px;
+  font-family: helvetica neue, helvetica, arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.2;
+  color: #333;
+  -webkit-text-size-adjust: 100%;
+  margin: 40px;
 }
 
 header p {
-	line-height: 1.5;
+  line-height: 1.5;
 }
 
 h1, h2, h3 {
-	-webkit-margin-after: 0em;
+  -webkit-margin-after: 0em;
 }
 
 a, a:visited {
-	text-decoration: none;
-	color: #000;
-
-	display: inline-block;
-	background-color: #eee;
-	padding: 0 0.2em;
-	line-height: normal;
+  text-decoration: none;
+  color: #000;
+  display: inline-block;
+  background-color: #eee;
+  padding: 0 0.2em;
+  line-height: normal;
 }
 
 a:hover {
-	color: #fff;
-	background-color: #333;
+  color: #fff;
+  background-color: #333;
 }
 
-
 @media (max-width: 768px) {
-
-	body {
-		margin: 30px;
-	}
-
+  body {
+    margin: 30px;
+  }
 }

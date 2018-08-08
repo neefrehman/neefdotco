@@ -1,5 +1,5 @@
-body{
-	margin: 0px;
+body {
+  margin: 0px;
 }
 
 header {
@@ -12,7 +12,7 @@ section {
   height: 100vh;
   width: 100vw;
   background-size: cover;
-	background-position: center;
+  background-position: center;
   background-attachment: fixed;
 }
 
@@ -23,35 +23,33 @@ footer {
 }
 
 h1, h2, h3, p {
-	-webkit-margin-after: 0.5em;
-	-webkit-margin-before: 0.5em;
+  -webkit-margin-after: 0.5em;
+  -webkit-margin-before: 0.5em;
 }
 
 a {
-	background-color: rgb(238, 238, 238, 0.9);
+  background-color: rgb(238, 238, 238, 0.9);
 }
-
-
 
 @media (max-width: 750px) {
-
-	header {
-	  top: 30px;
-	  left: 30px;
-	}
-
-	footer {
-	  bottom: 30px;
-	  left: 30px;
-	}
-
+  header {
+    top: 30px;
+    left: 30px;
+  }
+  footer {
+    bottom: 30px;
+    left: 30px;
+  }
 }
 
-
 @media (pointer: coarse) {
-
-	section{
+  section {
 		background-attachment: initial;
-	}
-
+		/* height: 90vh;
+	  width: 90vw;
+		margin-top: 5vw;
+		margin-bottom: 5vw;
+		margin-left: auto;
+		margin-right: auto; */
+  }
 }
