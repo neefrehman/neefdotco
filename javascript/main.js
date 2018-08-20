@@ -18,7 +18,7 @@ window.ondevicemotion = function(event) {
 
   $("span.stretch").css("transform", "scale(" + valueMobileX + "," + 1 + ")");
   if(window.innerHeight > window.innerWidth) {
-  $("span.stretch").css("transform", "scale(" + valueMobileY + "," + 1 + ")");
+    $("span.stretch").css("transform", "scale(" + valueMobileZ + "," + 1 + ")");
 }
 }
 
