@@ -1,3 +1,23 @@
+// Header stretch
+
+var $document = $(document);
+
+$document.mousemove(function(e) {
+    var width = $document.width() / 255;
+    var pageX = e.pageX / width;
+    var pageY = e.pageY / width;
+    var valueX = pageX + 100;
+    var valueY = pageY;
+    $("span.stretch").css("transform", "scale(" + valueX/200 + "," + 1 + ")");
+});
+window.ondevicemotion = function(event) {
+  var x = event.accelerationIncludingGravity.x;
+  var y = event.accelerationIncludingGravity.y;
+  var z = event.accelerationIncludingGravity.z;
+  $("span.stretch").css("transform", "scale(" + (x+3)/5 + "," + 1 + ")");
+}
+
+
 // Randomise photo order
 
 var cards = $("section");
