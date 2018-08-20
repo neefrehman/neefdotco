@@ -45,10 +45,10 @@ span.stretch {
     -ms-transform: scale(1,1);
     -o-transform: scale(1,1);
   transform-origin: top left;
-  transition-duration:  0.05s;
+  transition-duration:  0.1s;
 }
 @media (pointer: coarse) {
   span.stretch {
-    transition-duration:  0.15s;
+    transition-duration:  0.1s;
   }
 }
