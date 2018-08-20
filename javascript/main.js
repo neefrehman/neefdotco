@@ -12,7 +12,7 @@ window.ondevicemotion = function(event) {
   var mobileX = event.accelerationIncludingGravity.x;
   var mobileY = event.accelerationIncludingGravity.y;
   var mobileZ = event.accelerationIncludingGravity.z;
-  var valueMobileX = (Math.abs(mobileX) + 10) / 10;
+  var valueMobileX = (Math.abs(mobileX) + 7) / 7;
   $("span.stretch").css("transform", "scale(" + valueMobileX + "," + 1 + ")");
 }
 
