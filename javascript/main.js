@@ -5,7 +5,7 @@ $document.mousemove(function(e) {
     var width = $document.width() / 255;
     var pageX = e.pageX / width;
     var pageY = e.pageY / width;
-    var valueX = pageX + 122.5;
+    var valueX = pageX + 150;
     var valueY = pageY;
     $("span.stretch").css("transform", "scale(" + valueX/200 + "," + 1 + ")");
 });

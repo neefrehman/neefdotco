@@ -29,12 +29,12 @@ a:hover {
   background-color: #333;
 }
 
-
 @media (max-width: 768px) {
   body {
     margin: 30px;
   }
 }
+
 
 
 span.stretch {
@@ -49,6 +49,6 @@ span.stretch {
 }
 @media (pointer: coarse) {
   span.stretch {
-    transition-duration:  0.2s;
+    transition-duration:  0.15s;
   }
 }
