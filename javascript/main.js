@@ -5,15 +5,15 @@ $document.mousemove(function(e) {
     var width = $document.width() / 255;
     var pageX = e.pageX / width;
     var pageY = e.pageY / width;
-    var valueX = pageX + 150;
-    var valueY = pageY;
-    $("span.stretch").css("transform", "scale(" + Math.abs(valueX)/200 + "," + 1 + ")");
+    var valueX = (pageX + 300) / 300;
+    $("span.stretch").css("transform", "scale(" + valueX + "," + 1 + ")");
 });
 window.ondevicemotion = function(event) {
-  var x = event.accelerationIncludingGravity.x;
-  var y = event.accelerationIncludingGravity.y;
-  var z = event.accelerationIncludingGravity.z;
-  $("span.stretch").css("transform", "scale(" + (Math.abs(x)+5)/6 + "," + 1 + ")");
+  var mobileX = event.accelerationIncludingGravity.x;
+  var mobileY = event.accelerationIncludingGravity.y;
+  var mobileZ = event.accelerationIncludingGravity.z;
+  var mobileValueX = (mobileX +5)/6;
+  $("span.stretch").css("transform", "scale(" + mobileValueX + "," + 1 + ")");
 }
 
 
