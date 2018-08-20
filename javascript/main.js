@@ -19,7 +19,7 @@ window.ondevicemotion = function(event) {
   $("span.stretch").css("transform", "scale(" + valueMobileX + "," + 1 + ")");
   if(window.innerWidth > window.innerHeight) {
     $("span.stretch").css("transform", "scale(" + valueMobileY + "," + 1 + ")");
-}
+  }
 }
 
 
