@@ -6,6 +6,7 @@ $document.mousemove(function(e) {
     var pageX = e.pageX / width;
     var pageY = e.pageY / width;
     var valueX = ( Math.abs(pageX) + 300 ) / 300;
+
     $("span.stretch").css("transform", "scale(" + valueX + "," + 1 + ")");
 });
 window.ondevicemotion = function(event) {
@@ -13,8 +14,13 @@ window.ondevicemotion = function(event) {
   var mobileY = event.accelerationIncludingGravity.y;
   var mobileZ = event.accelerationIncludingGravity.z;
   var valueMobileX = ( Math.abs(mobileX) + 7 ) / 7;
+  var valueMobileY = ( Math.abs(mobileY) + 7 ) / 7;
+
   $("span.stretch").css("transform", "scale(" + valueMobileX + "," + 1 + ")");
+  if(window.innerHeight > window.innerWidth) function() {
+      $("span.stretch").css("transform", "scale(" + valueMobileY + "," + 1 + ")");
 }
+
 
 
 // Randomise photo order
