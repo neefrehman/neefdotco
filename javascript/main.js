@@ -17,8 +17,8 @@ window.ondevicemotion = function(event) {
   var valueMobileY = ( Math.abs(mobileY) + 7 ) / 7;
 
   $("span.stretch").css("transform", "scale(" + valueMobileX + "," + 1 + ")");
-  if(window.innerHeight > window.innerWidth) {
-    $("span.stretch").css("transform", "scale(" + valueMobileZ + "," + 1 + ")");
+  if(window.innerWidth > window.innerHeight) {
+    $("span.stretch").css("transform", "scale(" + valueMobileY + "," + 1 + ")");
 }
 }
 
