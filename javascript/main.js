@@ -7,13 +7,13 @@ $document.mousemove(function(e) {
     var pageY = e.pageY / width;
     var valueX = pageX + 150;
     var valueY = pageY;
-    $("span.stretch").css("transform", "scale(" + valueX/200 + "," + 1 + ")");
+    $("span.stretch").css("transform", "scale(" + Math.abs(valueX)/200 + "," + 1 + ")");
 });
 window.ondevicemotion = function(event) {
   var x = event.accelerationIncludingGravity.x;
   var y = event.accelerationIncludingGravity.y;
   var z = event.accelerationIncludingGravity.z;
-  $("span.stretch").css("transform", "scale(" + (Math.abs(x)+5)/5 + "," + 1 + ")");
+  $("span.stretch").css("transform", "scale(" + (Math.abs(x)+5)/6 + "," + 1 + ")");
 }
 
 
