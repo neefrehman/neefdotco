@@ -67,6 +67,10 @@ section.grid {
     bottom: 30px;
     right: 30px;
   }
+  section.grid {
+    width: 270px;
+    height: 180px;
+  }
 }
 
 @media (pointer: coarse) {
