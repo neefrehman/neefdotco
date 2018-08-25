@@ -16,10 +16,17 @@ section {
   background-attachment: fixed;
 }
 
-footer {
+footer p:first-child {
   position: fixed;
   bottom: 40px;
   left: 40px;
+}
+
+footer p:last-child {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  cursor: pointer;
 }
 
 h1, h2, h3, p {
@@ -31,14 +38,34 @@ a {
   background-color: rgb(238, 238, 238, 0.9);
 }
 
+body.grid {
+  margin-left: auto;
+  margin-right: auto;
+  margin: 40px;
+  text-align: center;
+}
+
+section.grid {
+  display: inline-block;
+  background-position: initial;
+  background-attachment: initial;
+  width: 300px;
+  height: 200px;
+  margin: 10px;
+}
+
 @media (max-width: 750px) {
   header {
     top: 30px;
     left: 30px;
   }
-  footer {
+  footer p:first-child {
     bottom: 30px;
     left: 30px;
+  }
+  footer p:last-child {
+    bottom: 30px;
+    right: 30px;
   }
 }
 
