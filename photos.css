@@ -29,11 +29,6 @@ footer p:last-child {
   cursor: pointer;
 }
 
-a.grid_toggle:active {
-  color: #000;
-  background-color: #eee;
-}
-
 h1, h2, h3, p {
   -webkit-margin-after: 0.5em;
   -webkit-margin-before: 0.5em;
@@ -83,5 +78,9 @@ section.grid {
 		margin-bottom: 5vw;
 		margin-left: auto;
 		margin-right: auto; */
+  }
+  a.grid_toggle:hover {
+    color: #000;
+    background-color: #eee;
   }
 }
