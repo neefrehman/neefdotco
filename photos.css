@@ -29,6 +29,11 @@ footer p:last-child {
   cursor: pointer;
 }
 
+a.grid_toggle:active {
+  color: #000;
+  background-color: #eee;
+}
+
 h1, h2, h3, p {
   -webkit-margin-after: 0.5em;
   -webkit-margin-before: 0.5em;
