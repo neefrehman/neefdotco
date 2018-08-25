@@ -47,7 +47,6 @@ body.grid {
 
 section.grid {
   display: inline-block;
-  background-position: initial;
   background-attachment: initial;
   width: 300px;
   height: 200px;
