@@ -22,7 +22,7 @@ footer p:first-child {
   left: 40px;
 }
 
-footer p:last-child {
+footer p:not(:first-child) {
   position: fixed;
   bottom: 40px;
   right: 40px;
@@ -62,14 +62,14 @@ section.grid {
     bottom: 30px;
     left: 30px;
   }
-  footer p:last-child {
+  footer p:not(:first-child) {
     bottom: 30px;
     right: 30px;
   }
 }
 
 @media (max-width: 450px) {
-  footer p:last-child {
+  footer p:not(:first-child) {
     display: none;
   }
 }
