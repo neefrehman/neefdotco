@@ -76,7 +76,7 @@ section.grid:hover {
   margin: 10px;
   width: 900px;
   height: 600px;
-  transition-delay: 0.1s;
+  transition-delay: 0.2s;
 }
 
 @media (max-width: 769px) {

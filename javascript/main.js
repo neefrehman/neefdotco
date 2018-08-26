@@ -20,17 +20,17 @@ window.ondevicemotion = function(event) {
 }
 
 
-// Randomise photo order
+// Photo order & Grid View
+function randomiseOrder () {
 var cards = $("section");
 for(var i = 0; i < cards.length; i++){
     var target = Math.floor(Math.random() * cards.length -1) + 1;
     var target2 = Math.floor(Math.random() * cards.length -1) +1;
     cards.eq(target).before(cards.eq(target2));
-}
+}};
 
-
-// Grid view
 $(document).ready(function () {
+  randomiseOrder();
   if (window.location.hash === "#grid") {
     $("#grid_toggle").click();
   }
