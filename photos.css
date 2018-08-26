@@ -56,7 +56,7 @@ section.grid {
 }
 
 section.grid:nth-child(3n+1) {
-  width: calc(var(--gridWidth) * 1.5);
+  width: calc(var(--gridWidth) * 1.4);
   height: calc(var(--gridHeight) * 1.5);
 }
 section.grid:nth-child(5n-6) {
@@ -68,8 +68,8 @@ section.grid:nth-child(7n+5) {
   height: calc(var(--gridHeight) * 1.4);
 }
 section.grid:nth-child(4n+3) {
-  width: calc(var(--gridWidth) * 1.3);
-  height: calc(var(--gridHeight) * 1.2);
+  width: calc(var(--gridWidth) * 1.2);
+  height: calc(var(--gridHeight) * 1.1);
 }
 
 section.grid:hover {
@@ -94,8 +94,8 @@ section.grid:hover {
   }
   section.grid {
     margin: 12px;
-    --gridWidth: 270px;
-    --gridHeight: 180px;
+    --gridWidth: 250px;
+    --gridHeight: 170px;
   }
 }
 
