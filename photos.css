@@ -69,10 +69,10 @@ section.grid:nth-child(4n+3) {
   height: 240px;
 }
 
-/* section.grid:hover {
+section.grid:hover {
   width: 900px;
   height: 600px;
-} */
+}
 
 
 @media (max-width: 769px) {
