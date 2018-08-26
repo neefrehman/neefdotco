@@ -39,6 +39,7 @@ section {
 }
 
 body.grid {
+  margin: 10px;
   display: flex;
   flex-wrap: wrap;
   align-items: flex-end;
@@ -70,8 +71,10 @@ section.grid:nth-child(4n+3) {
 }
 
 section.grid:hover {
+  margin: 10px;
   width: 900px;
   height: 600px;
+  transition-delay: 0.1s;
 }
 
 

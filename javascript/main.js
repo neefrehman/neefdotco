@@ -6,6 +6,7 @@ $(document).mousemove(function(e) {
     var valueX = ( Math.abs(pageX) + 700 ) / 700;
     $("span.stretch").css("transform", "scale(" + valueX + "," + 1 + ")");
 });
+
 window.ondevicemotion = function(event) {
   var mobileX = event.accelerationIncludingGravity.x;
   var mobileY = event.accelerationIncludingGravity.y;
@@ -14,7 +15,7 @@ window.ondevicemotion = function(event) {
   var valueMobileY = ( Math.abs(mobileY) + 14 ) / 14;
   $("span.stretch").css("transform", "scale(" + valueMobileX + "," + 1 + ")");
   if(window.innerWidth > window.innerHeight) {
-  $("span.stretch").css("transform", "scale(" + valueMobileY + "," + 1 + ")");
+    $("span.stretch").css("transform", "scale(" + valueMobileY + "," + 1 + ")");
   }
 }
 
@@ -29,12 +30,23 @@ for(var i = 0; i < cards.length; i++){
 
 
 // Grid view
+$(document).ready(function () {
+  if (window.location.hash === "#grid") {
+    $("#grid_toggle").click();
+  }
+});
+
 $("#grid_toggle").click(function() {
   $("body").toggleClass("grid");
   $("section").toggleClass("grid");
-  $("section").trigger("unveil");
-  if (this.innerHTML === "Grid view") {this.innerHTML = "Full screen";}
-  else {this.innerHTML = "Grid view";}
+  $("section").unveil(3000);
+  if (this.innerHTML === "Grid view") {
+    this.innerHTML = "Full screen";
+    window.location.hash = "#grid";
+  } else {
+    this.innerHTML = "Grid view";
+    window.location.hash = "";
+  }
 });
 
 
