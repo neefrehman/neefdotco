@@ -66,7 +66,7 @@ section.grid:nth-child(7n+5) {
   height: 280px;
 }
 section.grid:nth-child(4n+3) {
-  width: 360px;
+  width: 380px;
   height: 240px;
 }
 
@@ -76,7 +76,6 @@ section.grid:hover {
   height: 600px;
   transition-delay: 0.1s;
 }
-
 
 @media (max-width: 769px) {
   header {
@@ -93,12 +92,6 @@ section.grid:hover {
   }
   section.grid {
     margin: 12px;
-  }
-}
-
-@media (max-width: 520px) {
-  footer p:nth-child(2) {
-    display: none;
   }
 }
 
