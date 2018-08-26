@@ -3,7 +3,7 @@ $(document).mousemove(function(e) {
     var width = $(document).width() / 255;
     var pageX = e.pageX / width;
     var pageY = e.pageY / width;
-    var valueX = ( Math.abs(pageX) + 700 ) / 700;
+    var valueX = ( Math.abs(pageX) + 750 ) / 750;
     $("span.stretch").css("transform", "scale(" + valueX + "," + 1 + ")");
 });
 
@@ -11,8 +11,8 @@ window.ondevicemotion = function(event) {
   var mobileX = event.accelerationIncludingGravity.x;
   var mobileY = event.accelerationIncludingGravity.y;
   var mobileZ = event.accelerationIncludingGravity.z;
-  var valueMobileX = ( Math.abs(mobileX) + 14 ) / 14;
-  var valueMobileY = ( Math.abs(mobileY) + 14 ) / 14;
+  var valueMobileX = ( Math.abs(mobileX) + 15 ) / 15;
+  var valueMobileY = ( Math.abs(mobileY) + 15 ) / 15;
   $("span.stretch").css("transform", "scale(" + valueMobileX + "," + 1 + ")");
   if(window.innerWidth > window.innerHeight) {
     $("span.stretch").css("transform", "scale(" + valueMobileY + "," + 1 + ")");
@@ -45,7 +45,7 @@ $("#grid_toggle").click(function() {
     window.location.hash = "#grid";
   } else {
     this.innerHTML = "Grid view";
-    window.location.hash = "";
+    history.replaceState("", document.title, window.location.pathname);
   }
 });
 
@@ -57,4 +57,4 @@ $(document).ready(function() {
 
 
 // Console
-console.log("Nothing here. What were you hoping to find? ¯\\_(ツ)_/¯")
+console.log("Nothing here. Hope you weren't looking for something cool. ¯\\_(ツ)_/¯")
