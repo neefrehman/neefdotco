@@ -60,7 +60,7 @@ section.grid:nth-child(3n+1) {
   height: calc(var(--gridHeight) * 1.5);
 }
 section.grid:nth-child(5n-6) {
-  width: calc(var(--gridWidth) * 1);
+  width: calc(var(--gridWidth) * 1.1);
   height: calc(var(--gridHeight) * 1.75);
 }
 section.grid:nth-child(7n+5) {
