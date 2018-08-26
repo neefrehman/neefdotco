@@ -1,8 +1,6 @@
 // Header stretch
-var $document = $(document);
-
-$document.mousemove(function(e) {
-    var width = $document.width() / 255;
+$(document).mousemove(function(e) {
+    var width = $(document).width() / 255;
     var pageX = e.pageX / width;
     var pageY = e.pageY / width;
     var valueX = ( Math.abs(pageX) + 700 ) / 700;
@@ -31,14 +29,12 @@ for(var i = 0; i < cards.length; i++){
 
 
 // Grid view
-$(".grid_toggle").click(function() {
+$("#grid_toggle").click(function() {
   $("body").toggleClass("grid");
   $("section").toggleClass("grid");
   $("section").trigger("unveil");
-
-  var x = document.getElementById("toggle");
-  if (x.innerHTML === "Grid") { x.innerHTML = "Full"; }
-  else { x.innerHTML = "Grid"; }
+  if (this.innerHTML === "Grid view") {this.innerHTML = "Full screen";}
+  else {this.innerHTML = "Grid view";}
 });
 
 
@@ -46,3 +42,7 @@ $(".grid_toggle").click(function() {
 $(document).ready(function() {
   $("section").unveil(3000);
 });
+
+
+// Console
+console.log("Nothing here. What were you hoping to find? ¯\\_(ツ)_/¯")

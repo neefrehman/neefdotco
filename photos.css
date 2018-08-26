@@ -2,18 +2,19 @@ body {
   margin: 0px;
 }
 
+h1, h2, h3, p {
+  -webkit-margin-after: 0.5em;
+  -webkit-margin-before: 0.5em;
+}
+
+a {
+  background-color: rgb(238, 238, 238, 0.9);
+}
+
 header {
   position: fixed;
   top: 40px;
   left: 40px;
-}
-
-section {
-  height: 100vh;
-  width: 100vw;
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
 }
 
 footer p:first-child {
@@ -22,20 +23,19 @@ footer p:first-child {
   left: 40px;
 }
 
-footer p:not(:first-child) {
+footer p:nth-child(2) {
   position: fixed;
   bottom: 40px;
   right: 40px;
   cursor: pointer;
 }
 
-h1, h2, h3, p {
-  -webkit-margin-after: 0.5em;
-  -webkit-margin-before: 0.5em;
-}
-
-a {
-  background-color: rgb(238, 238, 238, 0.9);
+section {
+  height: 100vh;
+  width: 100vw;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 }
 
 body.grid {
@@ -62,14 +62,14 @@ section.grid {
     bottom: 30px;
     left: 30px;
   }
-  footer p:not(:first-child) {
+  footer p:nth-child(2) {
     bottom: 30px;
     right: 30px;
   }
 }
 
 @media (max-width: 450px) {
-  footer p:not(:first-child) {
+  footer p:nth-child(2) {
     display: none;
   }
 }
