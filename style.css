@@ -37,7 +37,6 @@ a:hover {
 
 span.stretch {
   display: inline-block;
-  transform: scale(1,1);
   transform-origin: top left;
   transition-duration:  0.05s;
 }

@@ -72,9 +72,7 @@ section.grid:nth-child(4n+3) {
   height: calc(var(--gridHeight) * 1.1);
 }
 
-/* section.grid:hover,
-section.grid:active,
-section.grid:focus, */
+/* section.grid:hover, */
 section.grid.zoom {
   margin: 10px;
   width: calc(var(--gridWidth) * 2.5);
@@ -112,9 +110,8 @@ section.grid.zoom {
     color: #000;
     background-color: #eee;
   }
-  section.grid:hover,
-  section.grid:active,
-  section.grid:focus {
+  /* section.grid:hover,
+  section.grid.zoom {
     transition-delay: 0s;
-  }
+  } */
 }

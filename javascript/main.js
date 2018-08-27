@@ -1,12 +1,12 @@
 // Header stretch
-$(document).mousemove(function(e) {
+$(document).mousemove(function (e) {
     var width = $(document).width() / 255;
     var pageX = e.pageX / width;
     var pageY = e.pageY / width;
     var valueX = ( Math.abs(pageX) + 750 ) / 750;
     $("span.stretch").css("transform", "scale(" + valueX + "," + 1 + ")");
 });
-window.ondevicemotion = function(event) {
+window.ondevicemotion = function (event) {
     var mobileX = event.accelerationIncludingGravity.x;
     var mobileY = event.accelerationIncludingGravity.y;
     var mobileZ = event.accelerationIncludingGravity.z;
@@ -30,7 +30,7 @@ for(var i = 0; i < cards.length; i++){
 
 
 // Grid view
-$("#grid_toggle").click(function() {
+$("#grid_toggle").click(function () {
     $("body").toggleClass("grid");
     $("section").toggleClass("grid");
     $("section").unveil(3000);
@@ -45,20 +45,24 @@ $("#grid_toggle").click(function() {
 
 
 // Zoom on click
-$("section").click(function() {
+$("section").click(function () {
     $(this).toggleClass("zoom")
     .siblings().removeClass("zoom");
 });
+$(document).click(function (e) {
+    var element = $("section");
+    if (!element.is(e.target) && element.has(e.target).length === 0)
+        element.removeClass("zoom");
+});
 
 
-// Add data-src & onclick HTML attributes, randomise order, execute grid view if hash exists, unveil
+// Add data-src HTML attribute, randomise order, execute grid view if hash exists, unveil
 $(document).ready(function () {
-    $.each($("section"), function(index, value) {
+    $.each($("section"), function (index, value) {
         var num = index + 1;
         $(value).attr("data-src", "images/image_" + num + ".jpg");
-        // $(this).attr("onClick", "void(0)");
     });
-    randomiseOrder();
+    randomiseOrder ();
     if (window.location.hash === "#grid") {
         $("#grid_toggle").click();
     }
