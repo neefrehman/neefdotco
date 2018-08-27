@@ -101,13 +101,6 @@ section.grid:focus {
   }
 }
 
-@media (max-width: 580px) {
-  section.grid {
-    --gridWidth: 220px;
-    --gridHeight: 150px;
-  }
-}
-
 @media (pointer: coarse) {
   section {
 		background-attachment: initial;
