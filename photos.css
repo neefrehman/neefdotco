@@ -61,10 +61,10 @@ section.grid:nth-child(3n+1) {
 }
 section.grid:nth-child(5n-6) {
   width: calc(var(--gridWidth) * 1.1);
-  height: calc(var(--gridHeight) * 1.75);
+  height: calc(var(--gridHeight) * 1.7);
 }
 section.grid:nth-child(7n+5) {
-  width: calc(var(--gridWidth) * 0.95);
+  width: calc(var(--gridWidth) * 0.9);
   height: calc(var(--gridHeight) * 1.4);
 }
 section.grid:nth-child(4n+3) {
@@ -98,6 +98,13 @@ section.grid:focus {
     margin: 12px;
     --gridWidth: 250px;
     --gridHeight: 170px;
+  }
+}
+
+@media (max-width: 580px) {
+  section.grid {
+    --gridWidth: 220px;
+    --gridHeight: 150px;
   }
 }
 
