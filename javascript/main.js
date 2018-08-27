@@ -44,6 +44,13 @@ $("#grid_toggle").click(function() {
 });
 
 
+// Zoom on click
+$("section").click(function() {
+    $("section").not(this).removeClass('zoom');
+    $(this).toggleClass("zoom");
+});
+
+
 // Add data-src & onclick HTML attributes, randomise order, execute grid view if hash exists, unveil
 $(document).ready(function () {
     $.each($("section"), function(index, value) {
