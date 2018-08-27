@@ -72,7 +72,9 @@ section.grid:nth-child(4n+3) {
   height: calc(var(--gridHeight) * 1.1);
 }
 
-section.grid:hover, section.grid:active {
+section.grid:hover,
+section.grid:active,
+section.grid:focus {
   margin: 10px;
   width: 900px;
   height: 600px;
