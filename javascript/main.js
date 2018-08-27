@@ -6,7 +6,6 @@ $(document).mousemove(function(e) {
     var valueX = ( Math.abs(pageX) + 750 ) / 750;
     $("span.stretch").css("transform", "scale(" + valueX + "," + 1 + ")");
 });
-
 window.ondevicemotion = function(event) {
     var mobileX = event.accelerationIncludingGravity.x;
     var mobileY = event.accelerationIncludingGravity.y;
@@ -45,7 +44,7 @@ $("#grid_toggle").click(function() {
 });
 
 
-// Add data-src & onclick attributes, randomise order, execute grid view if hash exists, unveil
+// Add data-src & onclick HTML attributes, randomise order, execute grid view if hash exists, unveil
 $(document).ready(function () {
     $.each($("section"), function(index, value){
         var num = index + 1;
