@@ -48,8 +48,8 @@ $("#grid_toggle").click(function() {
 $(document).ready(function () {
     $.each($("section"), function(index, value) {
         var num = index + 1;
-        $(value).attr("data-src","images/image_" + num + ".jpg");
-        $('section').attr('onClick', 'void(0)');
+        $(value).attr("data-src", "images/image_" + num + ".jpg");
+        $("section").attr("onClick", "void(0)");
     });
     randomiseOrder();
     if (window.location.hash === "#grid") {
