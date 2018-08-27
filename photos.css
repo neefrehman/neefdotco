@@ -64,7 +64,7 @@ section.grid:nth-child(5n-6) {
   height: calc(var(--gridHeight) * 1.75);
 }
 section.grid:nth-child(7n+5) {
-  width: calc(var(--gridWidth) * 1);
+  width: calc(var(--gridWidth) * 0.95);
   height: calc(var(--gridHeight) * 1.4);
 }
 section.grid:nth-child(4n+3) {
@@ -78,7 +78,7 @@ section.grid:focus {
   margin: 10px;
   width: 900px;
   height: 600px;
-  transition-delay: 0.2s;
+  transition-delay: 0.25s;
 }
 
 @media (max-width: 769px) {
