@@ -46,7 +46,7 @@ $("#grid_toggle").click(function() {
 
 // Add data-src & onclick HTML attributes, randomise order, execute grid view if hash exists, unveil
 $(document).ready(function () {
-    $.each($("section"), function(index, value){
+    $.each($("section"), function(index, value) {
         var num = index + 1;
         $(value).attr("data-src","images/image_" + num + ".jpg");
         $('section').attr('onClick', 'void(0)');

@@ -81,6 +81,7 @@ section.grid:focus {
   transition-delay: 0.25s;
 }
 
+
 @media (max-width: 769px) {
   header {
     top: 30px;
@@ -100,6 +101,7 @@ section.grid:focus {
     --gridHeight: 170px;
   }
 }
+
 
 @media (pointer: coarse) {
   section {
