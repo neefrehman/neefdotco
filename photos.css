@@ -111,4 +111,9 @@ section.grid:focus {
     color: #000;
     background-color: #eee;
   }
+  section.grid:hover,
+  section.grid:active,
+  section.grid:focus {
+    transition-delay: 0s;
+  }
 }
