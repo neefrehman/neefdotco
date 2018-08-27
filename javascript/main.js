@@ -43,13 +43,17 @@ $("#grid_toggle").click(function() {
     }
 });
 
+$("section").click(function() {
+    $(this).toggleClass("clicked");
+});
+
 
 // Add data-src & onclick HTML attributes, randomise order, execute grid view if hash exists, unveil
 $(document).ready(function () {
     $.each($("section"), function(index, value) {
         var num = index + 1;
         $(value).attr("data-src", "images/image_" + num + ".jpg");
-        $("section").attr("onClick", "void(0)");
+        // $(this).attr("onClick", "void(0)");
     });
     randomiseOrder();
     if (window.location.hash === "#grid") {
@@ -60,4 +64,4 @@ $(document).ready(function () {
 
 
 // Console log
-console.log("Nothing here. Hope you weren't looking for something cool. ¯\\_(ツ)_/¯")
+console.log("Nothing here. Hope you weren't looking for something cool. ¯\\_(ツ)_/¯");
