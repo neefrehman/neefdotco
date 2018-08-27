@@ -34,6 +34,7 @@ $(document).ready(function () {
   if (window.location.hash === "#grid") {
     $("#grid_toggle").click();
   }
+  $('section').attr('onClick', 'void(0)');
 });
 
 $("#grid_toggle").click(function() {
