@@ -46,8 +46,8 @@ $("#grid_toggle").click(function() {
 
 // Zoom on click
 $("section").click(function() {
-    $("section").not(this).removeClass('zoom');
-    $(this).toggleClass("zoom");
+    $(this).toggleClass("zoom")
+    .siblings().removeClass("zoom");
 });
 
 
@@ -56,7 +56,7 @@ $(document).ready(function () {
     $.each($("section"), function(index, value) {
         var num = index + 1;
         $(value).attr("data-src", "images/image_" + num + ".jpg");
-        $(this).attr("onClick", "void(0)");
+        // $(this).attr("onClick", "void(0)");
     });
     randomiseOrder();
     if (window.location.hash === "#grid") {
