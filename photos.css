@@ -76,8 +76,8 @@ section.grid:hover,
 section.grid:active,
 section.grid:focus {
   margin: 10px;
-  width: 900px;
-  height: 600px;
+  width: calc(var(--gridWidth) * 2.5);
+  height: calc(var(--gridHeight) * 2.5);
   transition-delay: 0.25s;
 }
 
