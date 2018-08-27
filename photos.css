@@ -72,10 +72,10 @@ section.grid:nth-child(4n+3) {
   height: calc(var(--gridHeight) * 1.1);
 }
 
-section.grid.clicked,
+section.grid:hover,
 section.grid:active,
 section.grid:focus,
-section.grid.clicked {
+section.grid.zoom {
   margin: 10px;
   width: calc(var(--gridWidth) * 2.5);
   height: calc(var(--gridHeight) * 2.5);
