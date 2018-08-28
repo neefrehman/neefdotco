@@ -93,7 +93,7 @@ section.grid.zoom {
     bottom: 30px;
     left: 30px;
   }
-  footer p:nth-child(2) {
+  footer p:last-child {
     bottom: 30px;
     right: 30px;
   }
