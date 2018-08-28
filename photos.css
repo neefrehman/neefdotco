@@ -72,7 +72,6 @@ section.grid:nth-child(4n+3) {
   height: calc(var(--gridHeight) * 1.1);
 }
 
-/* section.grid:hover, */
 section.grid.zoom {
   margin: 10px;
   width: calc(var(--gridWidth) * 2.5);
@@ -80,6 +79,9 @@ section.grid.zoom {
 }
 
 /* section.grid:hover {
+  margin: 10px;
+  width: calc(var(--gridWidth) * 2.5);
+  height: calc(var(--gridHeight) * 2.5);
   transition-delay: 0.25s;
 } */
 
