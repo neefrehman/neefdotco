@@ -16,7 +16,7 @@ window.ondevicemotion = function(event) {
     if(window.innerWidth > window.innerHeight) {
         $("span.stretch").css("transform", "scale(" + valueMobileY + "," + 1 + ")");
     }
-}
+};
 
 
 // Photos
@@ -69,4 +69,4 @@ $(document).ready(function() {
 
 
 // Console log
-console.log("Nothing here. Hope you weren't looking for something cool. ¯\\_(ツ)_/¯")
+console.log("Nothing here. Hope you weren't looking for something cool. ¯\\_(ツ)_/¯");
