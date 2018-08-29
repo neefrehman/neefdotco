@@ -26,7 +26,10 @@ $(document).ready(function() {
     $("footer").after(new Array(++n).join("<div></div>"));
     $.each($("div"), function(index, value) {
         var num = index + 1;
-        $(value).attr("data-src", "images/image_" + num + ".jpg");
+        $(value).attr({
+            "data-src": "images/image_" + num + ".jpg",
+            "class": "grid"
+        });
     });
     // Randomise
     var cards = $("div");
@@ -35,22 +38,22 @@ $(document).ready(function() {
         var target2 = Math.floor(Math.random() * cards.length -1) +1;
         cards.eq(target).before(cards.eq(target2));
     };
-    //unveil
+    // unveil
     $("div").unveil(3000);
-    // Grid view & hash execute
+    // Grid view & if hash execute
     $("#grid_toggle").click(function() {
         $("body").toggleClass("grid");
         $("div").toggleClass("grid");
         $("div").unveil(3000);
-        if (this.innerHTML === "Grid view") {
-            this.innerHTML = "Full screen";
-            window.location.hash = "#grid";
-        } else {
+        if (this.innerHTML === "Full screen") {
             this.innerHTML = "Grid view";
+            window.location.hash = "#full";
+        } else {
+            this.innerHTML = "Full screen";
             history.replaceState("", document.title, window.location.pathname);
         }
     });
-    if (window.location.hash === "#grid") {
+    if (window.location.hash === "#full") {
         $("#grid_toggle").click();
     }
     // Zoom on click
