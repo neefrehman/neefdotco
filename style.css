@@ -11,7 +11,7 @@ header p {
   line-height: 1.5;
 }
 
-h1, h2, h3 {
+h1, h2, h3, p {
   -webkit-margin-after: 0em;
 }
 
