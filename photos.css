@@ -30,7 +30,7 @@ footer p:last-child {
   cursor: pointer;
 }
 
-section {
+div {
   height: 100vh;
   width: 100vw;
   background-size: cover;
@@ -46,7 +46,7 @@ body.grid {
   justify-content: space-around;
 }
 
-section.grid {
+div.grid {
   background-attachment: initial;
   margin: 30px;
   --gridWidth: 300px;
@@ -55,30 +55,30 @@ section.grid {
   height: var(--gridHeight);
 }
 
-section.grid:nth-child(3n+1) {
+div.grid:nth-child(3n+1) {
   width: calc(var(--gridWidth) * 1.4);
   height: calc(var(--gridHeight) * 1.5);
 }
-section.grid:nth-child(5n-6) {
+div.grid:nth-child(5n-6) {
   width: calc(var(--gridWidth) * 1.1);
   height: calc(var(--gridHeight) * 1.7);
 }
-section.grid:nth-child(7n+5) {
+div.grid:nth-child(7n+5) {
   width: calc(var(--gridWidth) * 0.9);
   height: calc(var(--gridHeight) * 1.4);
 }
-section.grid:nth-child(4n+3) {
+div.grid:nth-child(4n+3) {
   width: calc(var(--gridWidth) * 1.2);
   height: calc(var(--gridHeight) * 1.1);
 }
 
-section.grid.zoom {
+div.grid.zoom {
   margin: 10px;
   width: calc(var(--gridWidth) * 2.5);
   height: calc(var(--gridHeight) * 2.5);
 }
 
-/* section.grid:hover {
+/* div.grid:hover {
   margin: 10px;
   width: calc(var(--gridWidth) * 2.5);
   height: calc(var(--gridHeight) * 2.5);
@@ -99,7 +99,7 @@ section.grid.zoom {
     bottom: 30px;
     right: 30px;
   }
-  section.grid {
+  div.grid {
     margin: 12px;
     --gridWidth: 250px;
     --gridHeight: 170px;
@@ -108,7 +108,7 @@ section.grid.zoom {
 
 
 @media (pointer: coarse) {
-  section {
+  div {
 		background-attachment: initial;
   }
   a#grid_toggle:hover {

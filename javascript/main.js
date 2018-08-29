@@ -19,54 +19,50 @@ window.ondevicemotion = function(event) {
 }
 
 
-// Randomise photo order
-function randomiseOrder() {
-var cards = $("section");
-for(var i = 0; i < cards.length; i++){
-    var target = Math.floor(Math.random() * cards.length -1) + 1;
-    var target2 = Math.floor(Math.random() * cards.length -1) +1;
-    cards.eq(target).before(cards.eq(target2));
-}};
-
-
-// Grid view
-$("#grid_toggle").click(function() {
-    $("body").toggleClass("grid");
-    $("section").toggleClass("grid");
-    $("section").unveil(3000);
-    if (this.innerHTML === "Grid view") {
-        this.innerHTML = "Full screen";
-        window.location.hash = "#grid";
-    } else {
-        this.innerHTML = "Grid view";
-        history.replaceState("", document.title, window.location.pathname);
-    }
-});
-
-
-// Zoom on click
-$("section").click(function() {
-    $(this).toggleClass("zoom")
-    .siblings().removeClass("zoom");
-});
-$(document).click(function(e) {
-    var element = $("section");
-    if (!element.is(e.target) && element.has(e.target).length === 0)
-        element.removeClass("zoom");
-});
-
-
-// Add data-src HTML attribute, randomise order, execute grid view if hash exists, unveil
+// Photos
 $(document).ready(function() {
-    $.each($("section"), function (index, value) {
+    // Create elements & add data-src HTML attribute
+    var n = 44
+    $("footer").after(new Array(++n).join("<div></div>"));
+    $.each($("div"), function(index, value) {
         var num = index + 1;
         $(value).attr("data-src", "images/image_" + num + ".jpg");
     });
-    randomiseOrder();
+    // Randomise
+    var cards = $("div");
+    for(var i = 0; i < cards.length; i++){
+        var target = Math.floor(Math.random() * cards.length -1) + 1;
+        var target2 = Math.floor(Math.random() * cards.length -1) +1;
+        cards.eq(target).before(cards.eq(target2));
+    };
+    //unveil
+    $("div").unveil(3000);
+    // Grid view & hash execute
+    $("#grid_toggle").click(function() {
+        $("body").toggleClass("grid");
+        $("div").toggleClass("grid");
+        $("div").unveil(3000);
+        if (this.innerHTML === "Grid view") {
+            this.innerHTML = "Full screen";
+            window.location.hash = "#grid";
+        } else {
+            this.innerHTML = "Grid view";
+            history.replaceState("", document.title, window.location.pathname);
+        }
+    });
     if (window.location.hash === "#grid") {
         $("#grid_toggle").click();
     }
-    $("section").unveil(3000);
+    // Zoom on click
+    $("div").click(function() {
+        $(this).toggleClass("zoom")
+        .siblings().removeClass("zoom");
+    });
+    $(document).click(function(e) {
+        var element = $("div");
+        if (!element.is(e.target) && element.has(e.target).length === 0)
+            element.removeClass("zoom");
+    });
 });
 
 
