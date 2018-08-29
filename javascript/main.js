@@ -39,11 +39,10 @@ $(document).ready(function() {
         cards.eq(target).before(cards.eq(target2));
     };
     // unveil
-    $("div").unveil(3000);
+    $("div").unveil(2000);
     // Grid view & hash executor
     $("#grid_toggle").click(function() {
         $("body, div").toggleClass("grid");
-        $("div").unveil(3000);
         if (this.innerHTML === "Full screen") {
             this.innerHTML = "Grid view";
             window.location.hash = "#full";
