@@ -31,7 +31,7 @@ $(document).ready(function() {
             "class": "grid"
         });
     });
-    // Randomise
+    // Randomise order
     var cards = $("div");
     for(var i = 0; i < cards.length; i++){
         var target = Math.floor(Math.random() * cards.length -1) + 1;
