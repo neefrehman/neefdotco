@@ -22,7 +22,7 @@ window.ondevicemotion = function(event) {
 // Photos
 $(document).ready(function() {
     // Create elements & add HTML attributes
-    var n = 44
+    var n = 44;
     $("footer").after(new Array(++n).join("<div></div>"));
     $.each($("div"), function(index, value) {
         var num = index + 1;
@@ -37,7 +37,7 @@ $(document).ready(function() {
         var target = Math.floor(Math.random() * cards.length -1) + 1;
         var target2 = Math.floor(Math.random() * cards.length -1) +1;
         cards.eq(target).before(cards.eq(target2));
-    };
+    }
     // unveil
     $("div").unveil(2000);
     // Grid view & hash executor

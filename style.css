@@ -3,12 +3,12 @@ body {
   font-size: 14px;
   line-height: 1.2;
   color: #333;
-  -webkit-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;
   margin: 40px;
 }
 
 h1, h2, h3, p {
-  -webkit-margin-after: 0em;
+  -webkit-margin-after: 0;
 }
 
 header p {
