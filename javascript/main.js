@@ -21,7 +21,7 @@ window.ondevicemotion = function(event) {
 
 // Photos
 $(document).ready(function() {
-    // Create elements & add data-src HTML attribute
+    // Create elements & add HTML attributes
     var n = 44
     $("footer").after(new Array(++n).join("<div></div>"));
     $.each($("div"), function(index, value) {
@@ -40,10 +40,9 @@ $(document).ready(function() {
     };
     // unveil
     $("div").unveil(3000);
-    // Grid view & if hash execute
+    // Grid view & hash executor
     $("#grid_toggle").click(function() {
-        $("body").toggleClass("grid");
-        $("div").toggleClass("grid");
+        $("body, div").toggleClass("grid");
         $("div").unveil(3000);
         if (this.innerHTML === "Full screen") {
             this.innerHTML = "Grid view";
