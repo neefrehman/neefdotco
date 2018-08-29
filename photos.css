@@ -74,8 +74,8 @@ div.grid:nth-child(4n+3) {
 
 div.grid.zoom {
   margin: 10px;
-  width: calc(var(--gridWidth) * 2.5);
-  height: calc(var(--gridHeight) * 2.5);
+  width: calc(var(--gridWidth) * 2.7);
+  height: calc(var(--gridHeight) * 2.7);
 }
 
 /* div.grid:hover {
@@ -103,6 +103,10 @@ div.grid.zoom {
     margin: 12px;
     --gridWidth: 250px;
     --gridHeight: 170px;
+  }
+  div.grid.zoom {
+    width: calc(var(--gridWidth) * 2.4);
+    height: calc(var(--gridHeight) * 2.5);
   }
 }
 
