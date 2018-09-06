@@ -22,7 +22,7 @@ window.ondevicemotion = function(event) {
 // Photos
 $(document).ready(function() {
     // Create elements & add HTML attributes
-    var n = 44;
+    var n = 45;
     $("footer").after(new Array(++n).join("<div></div>"));
     $.each($("div"), function(index, value) {
         var num = index + 1;
