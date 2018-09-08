@@ -111,6 +111,16 @@ div.grid.zoom {
 }
 
 
+@media (max-width: 325px) {
+
+  header p,
+  footer p {
+    font-size: 13px;
+  }
+
+}
+
+
 @media (pointer: coarse) {
   div {
 		background-attachment: initial;
