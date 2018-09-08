@@ -111,7 +111,7 @@ div.grid.zoom {
 }
 
 
-@media (max-width: 325px) {
+@media (max-width: 375px) {
 
   header p,
   footer p {
