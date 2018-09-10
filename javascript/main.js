@@ -9,7 +9,6 @@ $(document).mousemove(function(e) {
 window.ondevicemotion = function(event) {
     var mobileX = event.accelerationIncludingGravity.x;
     var mobileY = event.accelerationIncludingGravity.y;
-    var mobileZ = event.accelerationIncludingGravity.z;
     var valueMobileX = ( Math.abs(mobileX) + 15 ) / 15;
     var valueMobileY = ( Math.abs(mobileY) + 15 ) / 15;
     $("span.stretch").css("transform", "scale(" + valueMobileX + "," + 1 + ")");
