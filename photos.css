@@ -119,7 +119,7 @@ div.grid.zoom {
   div.grid:nth-child(2n-3) {
     margin-right: auto;
   }
-  div.grid:nth-child(7n-5) {
+  div.grid:nth-child(6n-5) {
     margin-right: auto;
   }
   div.grid.zoom {
