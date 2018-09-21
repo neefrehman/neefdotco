@@ -113,13 +113,7 @@ div.grid.zoom {
   div.grid:nth-child(3n+1) {
     margin-right: auto;
   }
-  div.grid:nth-child(5n-1) {
-    margin-left: auto;
-  }
   div.grid:nth-child(2n-3) {
-    margin-right: auto;
-  }
-  div.grid:nth-child(6n-5) {
     margin-right: auto;
   }
   div.grid.zoom {
