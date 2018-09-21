@@ -100,7 +100,7 @@ div.grid.zoom {
     right: 30px;
   }
   div.grid {
-    margin: 15px;
+    margin: 20px;
     --gridWidth: 240px;
     --gridHeight: 160px;
   }
