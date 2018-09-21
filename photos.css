@@ -100,9 +100,22 @@ div.grid.zoom {
     right: 30px;
   }
   div.grid {
-    margin: 25px;
+    margin: 30px;
     --gridWidth: 250px;
     --gridHeight: 170px;
+  }
+  div.grid.zoom {
+    margin: 25px;
+    width: calc(var(--gridWidth) * 2.4);
+    height: calc(var(--gridHeight) * 2.5);
+  }
+}
+
+
+@media (max-width: 575px) {
+  header p,
+  footer p {
+    font-size: 13px;
   }
   div.grid:nth-child(2n-3) {
     margin-right: auto;
@@ -116,21 +129,6 @@ div.grid.zoom {
   div.grid:nth-child(5n-3) {
     margin-right: auto;
   }
-  div.grid.zoom {
-    margin: 25px;
-    width: calc(var(--gridWidth) * 2.4);
-    height: calc(var(--gridHeight) * 2.5);
-  }
-}
-
-
-@media (max-width: 375px) {
-
-  header p,
-  footer p {
-    font-size: 13px;
-  }
-
 }
 
 
