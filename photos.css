@@ -48,7 +48,7 @@ body.grid {
 
 div.grid {
   background-attachment: initial;
-  margin: 30px 30px 50px 30px;
+  margin: 30px 30px 60px 30px;
   --gridWidth: 300px;
   --gridHeight: 200px;
   width: var(--gridWidth);
