@@ -122,6 +122,9 @@ div.grid.zoom {
   div.grid:nth-child(5n-1) {
     margin-left: auto;
   }
+  div.grid:nth-child(5n+2) {
+    margin-left: auto;
+  }
   div.grid.zoom {
     margin: 25px;
     width: calc(var(--gridWidth) * 2.4);
