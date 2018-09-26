@@ -48,7 +48,7 @@ body.grid {
 
 div.grid {
   background-attachment: initial;
-  margin: 30px 30px 60px 30px;
+  margin: 45px 30px;
   --gridWidth: 300px;
   --gridHeight: 200px;
   width: var(--gridWidth);
@@ -102,7 +102,7 @@ div.grid.zoom {
   div.grid {
     margin: 30px;
     --gridWidth: 250px;
-    --gridHeight: 170px;
+    --gridHeight: 160px;
   }
   div.grid.zoom {
     margin: 25px;

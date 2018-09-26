@@ -31,6 +31,7 @@ a:hover {
 
 @media (max-width: 769px) {
   body {
+    font-size: 13px;
     margin: 30px;
   }
 }
