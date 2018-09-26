@@ -48,7 +48,7 @@ body.grid {
 
 div.grid {
   background-attachment: initial;
-  margin: 45px 30px;
+  margin: 50px 30px;
   --gridWidth: 300px;
   --gridHeight: 200px;
   width: var(--gridWidth);
@@ -61,7 +61,7 @@ div.grid:nth-child(3n+1) {
 }
 div.grid:nth-child(5n-6) {
   width: calc(var(--gridWidth) * 1.1);
-  height: calc(var(--gridHeight) * 1.7);
+  height: calc(var(--gridHeight) * 1.65);
 }
 div.grid:nth-child(7n+5) {
   width: calc(var(--gridWidth) * 0.9);
