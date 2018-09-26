@@ -100,7 +100,6 @@ div.grid.zoom {
     right: 30px;
   }
   div.grid {
-    margin: 30px;
     --gridWidth: 250px;
     --gridHeight: 160px;
   }
@@ -116,6 +115,9 @@ div.grid.zoom {
   header p,
   footer p {
     font-size: 13px;
+  }
+  div.grid {
+    margin: 30px;
   }
   div.grid:nth-child(2n-3) {
     margin-right: auto;
