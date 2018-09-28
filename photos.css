@@ -73,7 +73,7 @@ div.grid:nth-child(4n+3) {
 }
 
 div.grid.zoom {
-  margin: 10px;
+  margin: 20px 10px;
   width: calc(var(--gridWidth) * 2.7);
   height: calc(var(--gridHeight) * 2.7);
 }
@@ -84,6 +84,14 @@ div.grid.zoom {
   height: calc(var(--gridHeight) * 2.5);
   transition-delay: 0.25s;
 } */
+
+
+@media (max-width: 1024px) {
+  div.grid.zoom {
+    width: calc(var(--gridWidth) * 2.5);
+    height: calc(var(--gridHeight) * 2.5);
+  }
+}
 
 
 @media (max-width: 769px) {
@@ -102,11 +110,6 @@ div.grid.zoom {
   div.grid {
     --gridWidth: 250px;
     --gridHeight: 160px;
-  }
-  div.grid.zoom {
-    margin: 25px;
-    width: calc(var(--gridWidth) * 2.4);
-    height: calc(var(--gridHeight) * 2.5);
   }
 }
 
