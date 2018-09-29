@@ -2,9 +2,13 @@ body {
   font-family: helvetica neue, helvetica, arial, sans-serif;
   font-size: 14px;
   line-height: 1.2;
-  color: #333;
+  color: #393939;
   -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; -moz-text-size-adjust: 100%;
   margin: 40px;
+}
+
+h1::selection, span.stretch::selection, h2::selection, h3::selection, p::selection, a::selection {
+  background: #f4cb3d;
 }
 
 h1, h2, h3, p {
@@ -17,7 +21,7 @@ header p {
 
 a, a:visited {
   text-decoration: none;
-  color: #000;
+  color: #393939;
   display: inline-block;
   background-color: #eee;
   padding: 0 0.2em;
@@ -26,7 +30,7 @@ a, a:visited {
 
 a:hover {
   color: #fff;
-  background-color: #333;
+  background-color: #393939;
 }
 
 @media (max-width: 769px) {
