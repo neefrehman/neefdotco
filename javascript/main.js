@@ -63,6 +63,13 @@ $(document).ready(function() {
         if (!element.is(e.target) && element.has(e.target).length === 0)
             element.removeClass("zoom");
     });
+    // Scroll progress indicator
+    $(document).on("scroll click", function(e) {
+        var PixelsScrolled = $(document).scrollTop();
+        var documentScrolled = $(document).height() - $(window).height();
+        var percentScrolled = (PixelsScrolled / documentScrolled) * 100;
+        $(".progress").css("width", percentScrolled + "%");
+    });
 });
 
 
