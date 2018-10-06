@@ -62,7 +62,7 @@ var vhFix = new VHChromeFix(options);
 
 var options = [
   {
-    selector: 'div', // Mandatory, CSS selector
+    selector: "div", // Mandatory, CSS selector
     vh: 100,  // Mandatory, height in vh units
   },
 ];
