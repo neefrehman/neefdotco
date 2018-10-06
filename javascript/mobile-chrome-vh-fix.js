@@ -66,5 +66,3 @@ var options = [
     vh: 100,  // Mandatory, height in vh units
   },
 ];
-
-var vhFix = new VHChromeFix(options);
