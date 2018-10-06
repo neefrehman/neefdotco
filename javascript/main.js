@@ -43,7 +43,7 @@ $(document).ready(function() {
     // unveil
     $("div").unveil(2000);
 
-    // Grid view & execute if hash in URL
+    // Grid view, maintain scroll %, and execute if hash in URL
     $("#grid_toggle").click(function() {
         $("body, div").toggleClass("grid");
         if (this.innerHTML === "Full screen") {
