@@ -43,7 +43,7 @@ $(document).ready(function() {
     // unveil
     $("div").unveil(2000);
 
-    // Grid view, maintain scroll %, and execute if hash in URL
+    // Grid view
     $("#grid_toggle").click(function() {
         $("body, div").toggleClass("grid");
         if (this.innerHTML === "Full screen") {
@@ -54,9 +54,11 @@ $(document).ready(function() {
             history.replaceState("", document.title, window.location.pathname);
         }
         $("div").unveil(2000);
+        // Maintain scroll %
         var decimalScrolled = ( $(".progress").width() / $(document).width() );
         $(document).scrollTop( decimalScrolled * $(document).height() );
     });
+    // Execute if hash in URL
     if (window.location.hash === "#full") {
         $("#grid_toggle").click();
     }
@@ -66,6 +68,7 @@ $(document).ready(function() {
         $(this).toggleClass("zoom")
         .siblings().removeClass("zoom");
     });
+    // Remove zoom on whitespace click
     $(document).click(function(e) {
         var element = $("div");
         if (!element.is(e.target) && element.has(e.target).length === 0)
