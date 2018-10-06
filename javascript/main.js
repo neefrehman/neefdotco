@@ -20,6 +20,7 @@ window.ondevicemotion = function(event) {
 
 // Photos
 $(document).ready(function() {
+
     // Create elements & add HTML attributes
     var n = 53;
     $("footer").after(new Array(++n).join("<div></div>"));
@@ -30,6 +31,7 @@ $(document).ready(function() {
             "class": "grid"
         });
     });
+
     // Randomise order
     var cards = $("div");
     for(var i = 0; i < cards.length; i++){
@@ -37,9 +39,11 @@ $(document).ready(function() {
         var target2 = Math.floor(Math.random() * cards.length -1) +1;
         cards.eq(target).before(cards.eq(target2));
     }
+
     // unveil
     $("div").unveil(2000);
-    // Grid view & hash executor
+
+    // Grid view & execute grid view if hash in URL
     $("#grid_toggle").click(function() {
         $("body, div").toggleClass("grid");
         if (this.innerHTML === "Full screen") {
@@ -49,10 +53,12 @@ $(document).ready(function() {
             this.innerHTML = "Full screen";
             history.replaceState("", document.title, window.location.pathname);
         }
+        $("div").unveil(2000);
     });
     if (window.location.hash === "#full") {
         $("#grid_toggle").click();
     }
+
     // Zoom on click
     $("div").click(function() {
         $(this).toggleClass("zoom")
@@ -63,11 +69,12 @@ $(document).ready(function() {
         if (!element.is(e.target) && element.has(e.target).length === 0)
             element.removeClass("zoom");
     });
+
     // Scroll progress indicator
     $(document).on("scroll click", function(e) {
-        var PixelsScrolled = $(document).scrollTop();
+        var pixelsScrolled = $(document).scrollTop();
         var documentScrolled = $(document).height() - $(window).height();
-        var percentScrolled = (PixelsScrolled / documentScrolled) * 100;
+        var percentScrolled = (pixelsScrolled / documentScrolled) * 100;
         $(".progress").css("width", percentScrolled + "%");
     });
 });
