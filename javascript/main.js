@@ -75,8 +75,8 @@ $(document).ready(function() {
     // Scroll progress bar
     $(document).on("scroll click", function(e) {
         var pixelsScrolled = $(document).scrollTop();
-        var documentScrolled = $(document).height() - $(window).height();
-        var percentScrolled = (pixelsScrolled / documentScrolled) * 100;
+        var pageHeight = $(document).height() - $(window).height();
+        var percentScrolled = (pixelsScrolled / pageHeight) * 100;
         $(".progress").css("width", percentScrolled + "%");
     });
 });
