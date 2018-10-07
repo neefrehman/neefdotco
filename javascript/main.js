@@ -63,7 +63,7 @@ $(document).ready(function() {
         $("#grid_toggle").click();
     }
 
-    // Zoom on click
+    // Zoom toggle on click
     $("div").click(function() {
         $(this).toggleClass("zoom")
         .siblings().removeClass("zoom");
