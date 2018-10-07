@@ -54,9 +54,9 @@ $(document).ready(function() {
             history.replaceState("", document.title, window.location.pathname);
         }
         $("div").unveil(2000);
-        // Maintain scroll %
+        // Maintain relative scroll height
         var decimalScrolled = ( $(".progress").width() / $(document).width() );
-        $(document).scrollTop( decimalScrolled * $(document).height() );
+        $(document).scrollTop( decimalScrolled * ( $(document).height() - $(window).height() ) );
     });
     // Execute if hash in URL
     if (window.location.hash === "#full") {
