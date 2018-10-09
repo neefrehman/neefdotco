@@ -18,7 +18,6 @@ window.ondevicemotion = function(event) {
 };
 
 
-
 // Photos
 $(document).ready(function() {
 
@@ -47,7 +46,7 @@ $(document).ready(function() {
     // Grid view
     $("#grid_toggle").click(function() {
 
-        // Relative scroll variables
+        // Relative scroll variables (pre-change)
         var pixelsScrolled = $(document).scrollTop();
         var pageHeight = $(document).height() - $(window).height();
         var decimalScrolled = (pixelsScrolled / pageHeight);
@@ -59,7 +58,7 @@ $(document).ready(function() {
         var newPageHeight = $(document).height() - $(window).height();
         $(document).scrollTop(decimalScrolled * newPageHeight);
 
-        // Toggle button name
+        // Toggle button text
         if (this.innerHTML === "Full screen") {
             this.innerHTML = "Grid view";
             window.location.hash = "#full";
@@ -77,11 +76,12 @@ $(document).ready(function() {
         $("#grid_toggle").click();
     }
 
-    // Zoom toggle on lick
+    // Zoom photos on click
     $("div").click(function() {
         $(this).toggleClass("zoom")
         .siblings().removeClass("zoom");
     });
+
     // Remove zoom on whitespace click
     $(document).click(function(e) {
         var element = $("div");
