@@ -18,6 +18,7 @@ window.ondevicemotion = function(event) {
 };
 
 
+
 // Photos
 $(document).ready(function() {
 
@@ -45,7 +46,20 @@ $(document).ready(function() {
 
     // Grid view
     $("#grid_toggle").click(function() {
+
+        // Relative scroll variables
+        var pixelsScrolled = $(document).scrollTop();
+        var pageHeight = $(document).height() - $(window).height();
+        var decimalScrolled = (pixelsScrolled / pageHeight);
+
+        // Execute grid view
         $("body, div").toggleClass("grid");
+
+        // Maintain relative scroll height
+        var newPageHeight = $(document).height() - $(window).height();
+        $(document).scrollTop(decimalScrolled * newPageHeight);
+
+        // Toggle button name
         if (this.innerHTML === "Full screen") {
             this.innerHTML = "Grid view";
             window.location.hash = "#full";
@@ -53,17 +67,17 @@ $(document).ready(function() {
             this.innerHTML = "Full screen";
             history.replaceState("", document.title, window.location.pathname);
         }
+
+        // Re-unveil
         $("div").unveil(2000);
-        // Maintain relative scroll height
-        var decimalScrolled = ( $(".progress").width() / $(document).width() );
-        $(document).scrollTop( decimalScrolled * ( $(document).height() - $(window).height() ) );
     });
-    // Execute if hash in URL
+
+    // Execute grid view if hash in URL
     if (window.location.hash === "#full") {
         $("#grid_toggle").click();
     }
 
-    // Zoom toggle on click
+    // Zoom toggle on lick
     $("div").click(function() {
         $(this).toggleClass("zoom")
         .siblings().removeClass("zoom");
@@ -73,14 +87,6 @@ $(document).ready(function() {
         var element = $("div");
         if (!element.is(e.target) && element.has(e.target).length === 0)
             element.removeClass("zoom");
-    });
-
-    // Scroll progress bar
-    $(document).on("scroll click", function(e) {
-        var pixelsScrolled = $(document).scrollTop();
-        var pageHeight = $(document).height() - $(window).height();
-        var percentScrolled = (pixelsScrolled / pageHeight) * 100;
-        $(".progress").css("width", percentScrolled + "%");
     });
 });
 

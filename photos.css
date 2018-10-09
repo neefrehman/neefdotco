@@ -30,16 +30,6 @@ footer p:last-child {
   cursor: pointer;
 }
 
-.progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 3px;
-  width: 0;
-  background-color: transparent;
-  transition: width 0.1s ease;
-}
-
 div {
   height: 100vh;
   width: 100vw;
