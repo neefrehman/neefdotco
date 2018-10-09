@@ -1,32 +1,30 @@
 // Header stretch
-$(document).mousemove(function(e) {
+$(document).mousemove(function (e) {
     var width = $(document).width() / 255;
     var pageX = e.pageX / width;
     var pageY = e.pageY / width;
-    var valueX = ( Math.abs(pageX) + 1500 ) / 1500;
+    var valueX = (Math.abs(pageX) + 1500) / 1500;
     $("span.stretch").css("transform", "scale(" + valueX + "," + 1 + ")");
 });
-
-// Header stretch mobile
-window.ondevicemotion = function(event) {
+window.ondevicemotion = function (event) {
     var mobileX = event.accelerationIncludingGravity.x;
     var mobileY = event.accelerationIncludingGravity.y;
-    var valueMobileX = ( Math.abs(mobileX) + 15 ) / 15;
-    var valueMobileY = ( Math.abs(mobileY) + 15 ) / 15;
+    var valueMobileX = (Math.abs(mobileX) + 15) / 15;
+    var valueMobileY = (Math.abs(mobileY) + 15) / 15;
     $("span.stretch").css("transform", "scale(" + valueMobileX + "," + 1 + ")");
-    if(window.innerWidth > window.innerHeight) {
+    if (window.innerWidth > window.innerHeight) {
         $("span.stretch").css("transform", "scale(" + valueMobileY + "," + 1 + ")");
     }
 };
 
 
 // Photos
-$(document).ready(function() {
+$(document).ready(function () {
 
     // Create elements & add HTML attributes
     var n = 51;
     $("footer").after(new Array(++n).join("<div></div>"));
-    $.each($("div"), function(index, value) {
+    $.each($("div"), function (index, value) {
         var num = index + 1;
         $(value).attr({
             "data-src": "images/image_" + num + ".jpg",
@@ -36,7 +34,7 @@ $(document).ready(function() {
 
     // Randomise order
     var cards = $("div");
-    for(var i = 0; i < cards.length; i++){
+    for (var i = 0; i < cards.length; i++) {
         var target = Math.floor(Math.random() * cards.length -1) + 1;
         var target2 = Math.floor(Math.random() * cards.length -1) +1;
         cards.eq(target).before(cards.eq(target2));
@@ -46,7 +44,7 @@ $(document).ready(function() {
     $("div").unveil(2000);
 
     // Grid view
-    $("#grid_toggle").click(function() {
+    $("#grid_toggle").click(function () {
 
         // Relative scroll variables (pre-change)
         var pixelsScrolled = $(document).scrollTop();
@@ -71,6 +69,7 @@ $(document).ready(function() {
 
         // Re-unveil
         $("div").unveil(2000);
+
     });
 
     // Execute grid view if hash in URL
@@ -79,17 +78,19 @@ $(document).ready(function() {
     }
 
     // Zoom photos on click
-    $("div").click(function() {
+    $("div").click(function () {
         $(this).toggleClass("zoom")
         .siblings().removeClass("zoom");
     });
 
     // Remove zoom on whitespace click
-    $(document).click(function(e) {
+    $(document).click(function (e) {
         var element = $("div");
-        if (!element.is(e.target) && element.has(e.target).length === 0)
+        if (!element.is(e.target) && element.has(e.target).length === 0) {
             element.removeClass("zoom");
+        }
     });
+
 });
 
 
