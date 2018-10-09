@@ -6,6 +6,7 @@ $(document).mousemove(function(e) {
     var valueX = ( Math.abs(pageX) + 1500 ) / 1500;
     $("span.stretch").css("transform", "scale(" + valueX + "," + 1 + ")");
 });
+
 window.ondevicemotion = function(event) {
     var mobileX = event.accelerationIncludingGravity.x;
     var mobileY = event.accelerationIncludingGravity.y;
