@@ -7,6 +7,7 @@ $(document).mousemove(function(e) {
     $("span.stretch").css("transform", "scale(" + valueX + "," + 1 + ")");
 });
 
+// Header stretch mobile
 window.ondevicemotion = function(event) {
     var mobileX = event.accelerationIncludingGravity.x;
     var mobileY = event.accelerationIncludingGravity.y;
