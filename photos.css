@@ -78,12 +78,12 @@ div.grid.zoom {
   height: calc(var(--gridHeight) * 2.7);
 }
 
-/* div.grid:hover {
-  margin: 10px;
-  width: calc(var(--gridWidth) * 2.5);
-  height: calc(var(--gridHeight) * 2.5);
-  transition-delay: 0.25s;
-} */
+
+@media (min-width: 1520px) {
+  div.grid {
+    margin: 75px 45px;
+  }
+}
 
 
 @media (max-width: 1024px) {
