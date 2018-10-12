@@ -11,7 +11,7 @@ h1::selection, span.stretch::selection, h2::selection, h3::selection, p::selecti
   background: #f4cb3d;
 }
 
-h1, h2, h3, p {
+h1, h2, h3, p:not(.long) {
   -webkit-margin-after: 0;
 }
 
@@ -23,7 +23,7 @@ a, a:visited {
   text-decoration: none;
   color: #333;
   display: inline-block;
-  background-color: #eee;
+  background-color: rgb(230, 230, 230, 0.8);
   padding: 0 0.2em;
   line-height: normal;
 }
@@ -33,18 +33,59 @@ a:hover {
   background-color: #333;
 }
 
+
 @media (max-width: 769px) {
   body {
+    max-width: 100vw;
     font-size: 13px;
     margin: 30px;
   }
 }
 
+
+/* Background hover */
+p.bg {
+  width: max-content;
+}
+
+img.bg {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 101vw;
+  height: 101vh;
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+  opacity: 0;
+}
+
+p:hover img {
+  opacity: 0.8;
+}
+
+img.bg.studiowave {
+  background-image: url(images/studiowave.png);
+}
+img.bg.adventure {
+  background-image: url(images/adventure.png);
+}
+
+@media (pointer: coarse), (max-width:450px) {
+  p:hover img {
+    opacity: 0;
+  }
+}
+
+
+/* Stretch */
 span.stretch {
   display: inline-block;
   transform-origin: top left;
   transition-duration:  0.05s;
 }
+
 @media (pointer: coarse) {
   span.stretch {
     transition-duration:  0.15s;
