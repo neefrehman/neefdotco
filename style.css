@@ -23,7 +23,7 @@ a, a:visited {
   text-decoration: none;
   color: #333;
   display: inline-block;
-  background-color: rgb(230, 230, 230, 0.8);
+  background-color: rgb(230, 230, 230, 0.85);
   padding: 0 0.2em;
   line-height: normal;
 }
@@ -75,6 +75,9 @@ img.bg.adventure {
 @media (pointer: coarse), (max-width:450px) {
   p:hover img {
     opacity: 0;
+  }
+  a, a:visited {
+  background-color: rgb(230, 230, 230, 0.85);
   }
 }
 
