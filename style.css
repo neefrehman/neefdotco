@@ -4,7 +4,7 @@ body {
   line-height: 1.2;
   color: #333;
   -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; -moz-text-size-adjust: 100%;
-  margin: 40px;
+  margin: 45px;
 }
 
 h1::selection, span.stretch::selection, h2::selection, h3::selection, p::selection, a::selection {
@@ -23,7 +23,7 @@ a, a:visited {
   text-decoration: none;
   color: #333;
   display: inline-block;
-  background-color: #eee;
+  background-color: rgb(238, 238, 238, 0.9);
   padding: 0 0.2em;
   line-height: normal;
 }
