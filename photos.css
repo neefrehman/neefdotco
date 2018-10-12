@@ -7,6 +7,10 @@ h1, h2, h3, p {
   -webkit-margin-before: 0.5em;
 }
 
+a {
+  background-color: rgb(238, 238, 238, 0.9);
+}
+
 header {
   position: fixed;
   top: 40px;
