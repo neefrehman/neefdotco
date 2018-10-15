@@ -1,7 +1,3 @@
-p.bg {
-  width: max-content;
-}
-
 img.bg {
   position: fixed;
   left: 50%;
@@ -15,8 +11,9 @@ img.bg {
   display: none;
 }
 
-p:hover img {
-  /* display: block; */
+a:hover img {
+  display: block;
+  opacity: 0.9;
 }
 
 img.bg.studiowave {
@@ -27,7 +24,7 @@ img.bg.adventure {
 }
 
 @media (pointer: coarse), (max-width: 450px) {
-  p:hover img {
+  a:hover img {
     display: none;
   }
 }
