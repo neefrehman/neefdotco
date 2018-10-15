@@ -12,7 +12,7 @@ img.bg {
 }
 
 a:hover img {
-  display: block;
+  /* display: block; */
   opacity: 0.9;
 }
 
