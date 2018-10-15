@@ -1,0 +1,34 @@
+
+p.bg {
+  width: max-content;
+}
+
+img.bg {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 101vw;
+  height: 101vh;
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+  display: none;
+}
+
+p:hover img {
+  /* display: block; */
+}
+
+img.bg.studiowave {
+  background-image: url(images/studiowave.png);
+}
+img.bg.adventure {
+  background-image: url(images/adventure.png);
+}
+
+@media (pointer: coarse), (max-width: 450px) {
+  p:hover img {
+    display: none;
+  }
+}

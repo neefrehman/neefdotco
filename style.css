@@ -57,39 +57,3 @@ a:hover {
     background-color: #eee;
   }
 }
-
-
-/* Background hover */
-p.bg {
-  width: max-content;
-}
-
-img.bg {
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 101vw;
-  height: 101vh;
-  background-size: cover;
-  background-position: center;
-  z-index: -1;
-  opacity: 0;
-}
-
-p:hover img {
-  opacity: 0.8;
-}
-
-img.bg.studiowave {
-  background-image: url(images/studiowave.png);
-}
-img.bg.adventure {
-  background-image: url(images/adventure.png);
-}
-
-@media (pointer: coarse), (max-width: 450px) {
-  p:hover img {
-    opacity: 0;
-  }
-}

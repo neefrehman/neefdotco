@@ -27,7 +27,7 @@ $(document).ready(function () {
     $.each($("div"), function (index, value) {
         var num = index + 1;
         $(value).attr({
-            "data-src": "images/image_" + num + ".jpg",
+            "data-src": "photos/photo_" + num + ".jpg",
             "class": "grid"
         });
     });
