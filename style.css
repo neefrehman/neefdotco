@@ -29,7 +29,7 @@ a, a:visited {
   text-decoration: none;
   color: #333;
   display: inline-block;
-  background-color: rgb(230, 230, 230, 0.85);
+  background-color: rgb(225, 225, 225, 0.8);
   padding: 0 0.2em;
   line-height: normal;
 }
