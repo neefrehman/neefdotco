@@ -7,20 +7,22 @@ h1, h2, h3, p {
   -webkit-margin-before: 0.5em;
 }
 
-header {
+header, footer p {
   position: fixed;
+  z-index: 2;
+}
+
+header {
   top: 40px;
   left: 40px;
 }
 
 footer p:first-child {
-  position: fixed;
   bottom: 40px;
   left: 40px;
 }
 
 footer p:last-child {
-  position: fixed;
   bottom: 40px;
   right: 40px;
   cursor: pointer;
@@ -32,6 +34,7 @@ div {
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
+  opacity: 0.9;
 }
 
 body.grid {
