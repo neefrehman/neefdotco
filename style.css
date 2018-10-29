@@ -29,6 +29,7 @@ a, a:visited {
   text-decoration: none;
   color: #333;
   display: inline-block;
+  background-color: #eee;
   background-color: rgb(225, 225, 225, 0.8);
   padding: 0 0.2em;
   line-height: normal;
@@ -52,8 +53,5 @@ a:hover {
 @media (pointer: coarse) {
   span.stretch {
     transition-duration:  0.15s;
-  }
-  a, a:visited {
-    background-color: #eee;
   }
 }
