@@ -11,16 +11,21 @@ img.bg {
   display: none;
 }
 
+video.bg {
+  object-fit: cover;
+  object-position: center;
+}
+
 a:hover img {
   display: block;
   opacity: 0.9;
 }
 
 img.bg.studiowave {
-  background-image: url(images/studiowave.png);
+  background-image: url(bg/studiowave.png);
 }
 img.bg.adventure {
-  background-image: url(images/adventure.png);
+  background-image: url(bg/adventure.png);
 }
 
 @media (pointer: coarse), (max-width: 450px) {
