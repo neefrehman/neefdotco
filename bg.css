@@ -5,10 +5,8 @@ img.bg {
   transform: translate(-50%, -50%);
   background-size: cover;
   background-position: center;
-  width: 80vh;
-  height: 80vh;
-  /* width: 101vw;
-  height: 101vh; */
+  width: 81vh;
+  height: 81vh;
   z-index: -2;
   opacity: 0.9;
   clip-path: circle(0% at center);
@@ -17,8 +15,11 @@ img.bg {
 
 a:hover img {
   z-index: -1;
-  clip-path: circle(39vh at center);
-  /* clip-path: circle(60vh at center); */
+  clip-path: circle(38vh at center);
+}
+
+a:active img {
+  clip-path: circle(40vh at center);
 }
 
 img.bg.studiowave {
@@ -34,7 +35,7 @@ video.bg {
 }
 
 
-@media (pointer: coarse), (max-width: 500px), (max-height: 400px) {
+@media (pointer: coarse), (max-width: 450px), (max-height: 400px) {
   a:hover img {
     display: none;
   }
