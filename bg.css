@@ -36,7 +36,7 @@ video.bg {
 
 
 @media (pointer: coarse), (max-width: 450px), (max-height: 400px) {
-  a:hover img {
+  img.bg {
     display: none;
   }
 }
