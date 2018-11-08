@@ -3,22 +3,18 @@ img.bg {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 101vw;
-  height: 101vh;
   background-size: cover;
   background-position: center;
+  width: 705px;
+  height: 705px;
   z-index: -1;
-  display: none;
-}
-
-video.bg {
-  object-fit: cover;
-  object-position: center;
+  opacity: 0.9;
+  clip-path: circle(0px at center);
+  transition: clip-path 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
 }
 
 a:hover img {
-  display: block;
-  opacity: 0.9;
+  clip-path: circle(350px at center);
 }
 
 img.bg.studiowave {
@@ -26,6 +22,11 @@ img.bg.studiowave {
 }
 img.bg.adventure {
   background-image: url(bg/adventure.png);
+}
+
+video.bg {
+  object-fit: cover;
+  object-position: center;
 }
 
 @media (pointer: coarse), (max-width: 450px) {
