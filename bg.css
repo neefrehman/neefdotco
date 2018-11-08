@@ -5,17 +5,26 @@ img.bg {
   transform: translate(-50%, -50%);
   background-size: cover;
   background-position: center;
-  width: 705px;
-  height: 705px;
-  z-index: -1;
+  width: 80vh;
+  height: 80vh;
+  z-index: -2;
   opacity: 0.9;
-  clip-path: circle(0px at center);
-  transition: clip-path 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
+  clip-path: circle(0% at center);
+  transition: clip-path 0.4s cubic-bezier(0.65, 0.05, 0.36, 1);
 }
 
 a:hover img {
-  clip-path: circle(350px at center);
+  z-index: -1;
+  clip-path: circle(39vh at center);
 }
+
+/* img.bg {
+  width: 101vw;
+  height: 101vh;
+}
+a:hover img {
+  clip-path: circle(60vh at center);
+} */
 
 img.bg.studiowave {
   background-image: url(bg/studiowave.png);
@@ -29,7 +38,8 @@ video.bg {
   object-position: center;
 }
 
-@media (pointer: coarse), (max-width: 450px) {
+
+@media (pointer: coarse), (max-width: 500px), (max-height: 400px) {
   a:hover img {
     display: none;
   }
