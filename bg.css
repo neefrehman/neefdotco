@@ -7,6 +7,8 @@ img.bg {
   background-position: center;
   width: 80vh;
   height: 80vh;
+  /* width: 101vw;
+  height: 101vh; */
   z-index: -2;
   opacity: 0.9;
   clip-path: circle(0% at center);
@@ -16,15 +18,8 @@ img.bg {
 a:hover img {
   z-index: -1;
   clip-path: circle(39vh at center);
+  /* clip-path: circle(60vh at center); */
 }
-
-/* img.bg {
-  width: 101vw;
-  height: 101vh;
-}
-a:hover img {
-  clip-path: circle(60vh at center);
-} */
 
 img.bg.studiowave {
   background-image: url(bg/studiowave.png);
