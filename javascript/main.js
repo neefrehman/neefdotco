@@ -3,14 +3,14 @@ $(document).mousemove(function (e) {
     var width = $(document).width() / 255;
     var pageX = e.pageX / width;
     var pageY = e.pageY / width;
-    var valueX = 0.2 + ((Math.abs(pageX) + 1200) / 1200);
+    var valueX = 0.15 + ((Math.abs(pageX) + 1200) / 1200);
     $("span.stretch").css("transform", "scale(" + valueX + "," + 1 + ")");
 });
 window.ondevicemotion = function (event) {
     var mobileX = event.accelerationIncludingGravity.x;
     var mobileY = event.accelerationIncludingGravity.y;
-    var valueMobileX = 0.1 + ((Math.abs(mobileX) + 15) / 15);
-    var valueMobileY = 0.1 + ((Math.abs(mobileY) + 15) / 15);
+    var valueMobileX = 0.15 + ((Math.abs(mobileX) + 15) / 15);
+    var valueMobileY = 0.15 + ((Math.abs(mobileY) + 15) / 15);
     if (window.innerHeight > window.innerWidth) {
         $("span.stretch").css("transform", "scale(" + valueMobileX + "," + 1 + ")");
     } else {
