@@ -9,8 +9,8 @@ $(document).mousemove(function (e) {
 window.ondevicemotion = function (event) {
     var mobileX = event.accelerationIncludingGravity.x;
     var mobileY = event.accelerationIncludingGravity.y;
-    var valueMobileX = 0.15 + ((Math.abs(mobileX) + 15) / 15);
-    var valueMobileY = 0.15 + ((Math.abs(mobileY) + 15) / 15);
+    var valueMobileX = 0.15 + ((Math.abs(mobileX) + 14) / 14);
+    var valueMobileY = 0.15 + ((Math.abs(mobileY) + 14) / 14);
     if (window.innerHeight > window.innerWidth) {
         $("span.stretch").css("transform", "scale(" + valueMobileX + "," + 1 + ")");
     } else {

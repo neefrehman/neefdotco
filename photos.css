@@ -77,14 +77,6 @@ div.grid.zoom {
   height: calc(var(--gridHeight) * 2.7);
 }
 
-body:not(.grid) {
-  scroll-snap-type: y proximity;
-}
-
-div:not(.grid) {
-  scroll-snap-align: start;
-}
-
 
 @media (min-width: 1520px) {
   div.grid {
