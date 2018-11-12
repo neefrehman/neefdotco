@@ -21,9 +21,9 @@ header p {
 
 span.stretch {
   display: inline-block;
+  transform: scale(1.2, 1);
   transform-origin: top left;
-  transition-duration:  0.05s;
-  font-family: 'helvetica Neue Extended';
+  transition-duration: 0.05s;
 }
 
 a, a:visited {
@@ -53,6 +53,7 @@ a:hover {
 
 @media (pointer: coarse) {
   span.stretch {
+    transform: scale(1, 1);
     transition-duration:  0.15s;
   }
 }
