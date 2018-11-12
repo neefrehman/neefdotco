@@ -23,6 +23,7 @@ span.stretch {
   display: inline-block;
   transform-origin: top left;
   transition-duration:  0.05s;
+  font-family: 'helvetica Neue Extended';
 }
 
 a, a:visited {
