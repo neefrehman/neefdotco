@@ -21,7 +21,7 @@ header p {
 
 span.stretch {
   display: inline-block;
-  transform: scale(1.15, 1);
+  transform: scale(1.1, 1);
   transform-origin: top left;
   transition-duration: 0.05s;
 }
