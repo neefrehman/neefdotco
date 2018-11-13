@@ -53,6 +53,6 @@ a:hover {
 
 @media (pointer: coarse) {
   span.stretch {
-    transition-duration:  0.15s;
+    transition-duration:  0.1s;
   }
 }
