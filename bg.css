@@ -30,6 +30,12 @@ img.bg.studiowave {
 img.bg.adventure {
   background-image: url(bg/adventure.png);
 }
+img.bg.isyoursiteonline {
+  background-image: url(bg/isyoursiteonline.png);
+}
+img.bg.allergiestravel {
+  background-image: url(bg/allergiestravel.png);
+}
 
 video.bg {
   object-fit: cover;
