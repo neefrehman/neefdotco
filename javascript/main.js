@@ -47,7 +47,7 @@ $(document).ready(function () {
     // Grid view
     $("#grid_toggle").click(function () {
 
-        // Relative scroll variables (pre-change)
+        // Scroll variables (pre-change)
         var pixelsScrolled = $(document).scrollTop();
         var pageHeight = $(document).height() - $(window).height();
         var decimalScrolled = (pixelsScrolled / pageHeight);
@@ -59,7 +59,10 @@ $(document).ready(function () {
         var newPageHeight = $(document).height() - $(window).height();
         $(document).scrollTop(decimalScrolled * newPageHeight);
 
-        // Toggle button text
+        // Re-unveil
+        $("div").unveil(2000);
+
+        // Toggle button text & update URL
         if (this.innerHTML === "Full screen") {
             this.innerHTML = "Grid view";
             window.location.hash = "#full";
@@ -67,9 +70,6 @@ $(document).ready(function () {
             this.innerHTML = "Full screen";
             history.replaceState("", document.title, window.location.pathname);
         }
-
-        // Re-unveil
-        $("div").unveil(2000);
 
     });
 
