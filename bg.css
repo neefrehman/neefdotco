@@ -37,11 +37,6 @@ img.bg.allergiestravel {
   background-image: url(bg/allergiestravel.png);
 }
 
-video.bg {
-  object-fit: cover;
-  object-position: center;
-}
-
 
 @media (pointer: coarse), (max-width: 450px), (max-height: 400px) {
   img.bg {
