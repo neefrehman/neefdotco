@@ -116,7 +116,7 @@ div.grid.zoom {
 
 @media (max-width: 575px) {
   div.grid {
-    margin: 40px 30px;
+    margin: 40px 30px 45px 30px;
   }
   div.grid:nth-child(2n-3) {
     margin-right: auto;
