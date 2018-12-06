@@ -15,7 +15,7 @@
       if (source) {
 
           // lazy load css backgrounds
-          $(this).is('img') ?
+          $(this).is("img") ?
             this.setAttribute("src", source)
             :
             $(this).css("background-image", "url('" + source + "')");
@@ -49,4 +49,4 @@
 
   };
 
-})(window.jQuery || window.Zepto);
+})(window.jQuery);

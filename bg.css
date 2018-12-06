@@ -20,10 +20,6 @@ a:hover img {
   -webkit-clip-path: circle(38vh at center);
 }
 
-a:active img {
-  clip-path: circle(40vh at center);
-}
-
 img.bg.studiowave {
   background-image: url(bg/studiowave.png);
 }
