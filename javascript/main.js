@@ -1,9 +1,9 @@
 // jshint esversion: 6
 
 // Header stretch
-if (document.body.contains(stretch)) {
+const stretch = document.querySelector("span.stretch");
 
-    const stretch = document.querySelector("span.stretch");
+if (document.body.contains(stretch)) {
 
     document.onmousemove = function (e) {
         let width = document.body.clientWidth / 255;
