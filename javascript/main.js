@@ -2,7 +2,6 @@
 
 // Header stretch
 const stretch = document.querySelector("span.stretch");
-
 if (document.body.contains(stretch)) {
 
     document.onmousemove = function (e) {
