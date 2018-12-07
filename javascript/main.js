@@ -1,23 +1,24 @@
+// jshint esversion: 6
 // Header stretch
-$(document).mousemove(function (e) {
-    var width = $(document).width() / 255;
-    var pageX = e.pageX / width;
-    var pageY = e.pageY / width;
-    var valueX = 0.1 + ((Math.abs(pageX) + 1200) / 1200);
-    $("span.stretch").css("transform", "scale(" + valueX + "," + 1 + ")");
-});
-window.ondevicemotion = function (event) {
-    var mobileX = event.accelerationIncludingGravity.x;
-    var mobileY = event.accelerationIncludingGravity.y;
-    var valueMobileX = 0.1 + ((Math.abs(mobileX) + 16) / 16);
-    var valueMobileY = 0.1 + ((Math.abs(mobileY) + 16) / 16);
+const stretch = document.querySelector("span.stretch");
+document.onmousemove = function (e) {
+    let width = document.body.clientWidth / 255;
+    let pageX = e.pageX / width;
+    let pageY = e.pageY / width;
+    let valueX = 0.1 + ( (Math.abs(pageX) + 1200 ) / 1200);
+    stretch.style.transform = `scale(${valueX}, 1)`;
+};
+window.ondevicemotion = function (e) {
+    let mobileX = e.accelerationIncludingGravity.x;
+    let mobileY = e.accelerationIncludingGravity.y;
+    let valueX = 0.1 + ( (Math.abs(mobileX) + 16 ) / 16);
+    let valueY = 0.1 + ( (Math.abs(mobileY) + 16 ) / 16);
     if (window.innerHeight > window.innerWidth) {
-        $("span.stretch").css("transform", "scale(" + valueMobileX + "," + 1 + ")");
+        stretch.style.transform = `scale(${valueX}, 1)`;
     } else {
-        $("span.stretch").css("transform", "scale(" + valueMobileY + "," + 1 + ")");
+        stretch.style.transform = `scale(${valueY}, 1)`;
     }
 };
-
 
 // Photos
 $(document).ready(function () {
