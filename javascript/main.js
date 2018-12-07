@@ -31,7 +31,7 @@ $(document).ready(function () {
 
     // Create divs
     let n = 56;
-    $("footer").after(new Array(++n).join("<div></div>"));
+    $("footer.photos").after(new Array(++n).join("<div></div>"));
 
     // Declare photos variable & add attributes
     const photos = $("div");
