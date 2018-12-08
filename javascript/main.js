@@ -34,7 +34,8 @@ if (document.body.contains(photoChecker)) {
     // Create divs
     let n = 56;
     var photoArray = Array.from({ length: n }, function (item, i) {
-        return `<div class="grid" data-src=photos/photo_${++i}.jpg> </div>`;
+        return `<div class="grid"
+                     data-src=photos/photo_${++i}.jpg> </div>`;
     }).join('');
     $(photoChecker).after(photoArray);
 
