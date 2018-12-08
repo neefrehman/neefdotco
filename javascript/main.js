@@ -67,9 +67,6 @@ if (document.body.contains(photoChecker)) {
         let newPageHeight = $(document).height() - $(window).height();
         $(document).scrollTop(decimalScrolled * newPageHeight);
 
-        // Re-unveil
-        photos.unveil(2000);
-
         // Toggle button text & update URL
         if (this.innerHTML === "Full screen") {
             this.innerHTML = "Grid view";
