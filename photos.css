@@ -10,21 +10,22 @@ h1, h2, h3, p {
 header, footer p {
   position: fixed;
   z-index: 2;
+  --edgeMargin: 40px;
 }
 
 header {
-  top: 40px;
-  left: 40px;
+  top: var(--edgeMargin);
+  left: var(--edgeMargin);
 }
 
 footer p:first-child {
-  bottom: 40px;
-  left: 40px;
+  bottom: var(--edgeMargin);
+  left: var(--edgeMargin);
 }
 
 footer p:last-child {
-  bottom: 40px;
-  right: 40px;
+  bottom: var(--edgeMargin);
+  right: var(--edgeMargin);
   cursor: pointer;
 }
 
@@ -94,17 +95,8 @@ div.grid.zoom {
 
 
 @media (max-width: 769px) {
-  header {
-    top: 30px;
-    left: 30px;
-  }
-  footer p:first-child {
-    bottom: 30px;
-    left: 30px;
-  }
-  footer p:last-child {
-    bottom: 30px;
-    right: 30px;
+  header, footer p {
+    --edgeMargin: 30px;
   }
   div.grid {
     margin: 55px 30px;
