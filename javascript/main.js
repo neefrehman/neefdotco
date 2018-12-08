@@ -23,85 +23,81 @@ if (document.body.contains(stretch)) {
             stretch.style.transform = `scale(${valueY}, 1)`;
         }
     };
+
 }
 
 
 // Photos
 const photoChecker = document.querySelector("footer.photos");
 if (document.body.contains(photoChecker)) {
-    $(document).ready(function () {
 
-        // Create divs
-        let n = 56;
-        $("footer").after(new Array(++n).join("<div></div>"));
+    // Create divs
+    let n = 56;
+    var photoArray = Array.from({ length: n }, function (item, i) {
+        return `<div class="grid" data-src=photos/photo_${++i}.jpg> </div>`;
+    }).join('');
+    $(photoChecker).after(photoArray);
 
-        // Declare photos variable & add attributes
-        const photos = $("div");
-        $.each(photos, function (index, value) {
-            $(value).attr({
-                "data-src": `photos/photo_${++index}.jpg`,
-                "class": "grid"
-            });
-        });
+    // Declare photos variable
+    const photos = $("div");
 
-        // Randomise order
-        for (let i = 0; i < photos.length; i++) {
-            let target = Math.floor(Math.random() * photos.length -1) + 1;
-            let target2 = Math.floor(Math.random() * photos.length -1) + 1;
-            photos.eq(target).before(photos.eq(target2));
-        }
+    // Randomise order
+    for (let i = 0; i < photos.length; i++) {
+        let target = Math.floor(Math.random() * photos.length -1) + 1;
+        let target2 = Math.floor(Math.random() * photos.length -1) + 1;
+        photos.eq(target).before(photos.eq(target2));
+    }
 
-        // unveil
+    // unveil
+    photos.unveil(2000);
+
+    // Grid view
+    $("#grid_toggle").click(function () {
+
+        // Scroll variables (pre-change)
+        let pixelsScrolled = $(document).scrollTop();
+        let pageHeight = $(document).height() - $(window).height();
+        let decimalScrolled = (pixelsScrolled / pageHeight);
+
+        // Execute grid view
+        $("body, div").toggleClass("grid");
+
+        // Maintain relative scroll height
+        let newPageHeight = $(document).height() - $(window).height();
+        $(document).scrollTop(decimalScrolled * newPageHeight);
+
+        // Re-unveil
         photos.unveil(2000);
 
-        // Grid view
-        $("#grid_toggle").click(function () {
-
-            // Scroll variables (pre-change)
-            let pixelsScrolled = $(document).scrollTop();
-            let pageHeight = $(document).height() - $(window).height();
-            let decimalScrolled = (pixelsScrolled / pageHeight);
-
-            // Execute grid view
-            $("body, div").toggleClass("grid");
-
-            // Maintain relative scroll height
-            let newPageHeight = $(document).height() - $(window).height();
-            $(document).scrollTop(decimalScrolled * newPageHeight);
-
-            // Re-unveil
-            photos.unveil(2000);
-
-            // Toggle button text & update URL
-            if (this.innerHTML === "Full screen") {
-                this.innerHTML = "Grid view";
-                window.location.hash = "#full";
-            } else {
-                this.innerHTML = "Full screen";
-                history.replaceState("", document.title, window.location.pathname);
-            }
-
-        });
-
-        // Execute grid view if hash in URL
-        if (window.location.hash === "#full") {
-            $("#grid_toggle").click();
+        // Toggle button text & update URL
+        if (this.innerHTML === "Full screen") {
+            this.innerHTML = "Grid view";
+            window.location.hash = "#full";
+        } else {
+            this.innerHTML = "Full screen";
+            history.replaceState("", document.title, window.location.pathname);
         }
 
-        // Zoom photos on click
-        photos.click(function () {
-            $(this).toggleClass("zoom")
-            .siblings().removeClass("zoom");
-        });
-
-        // Remove zoom on whitespace click
-        $(document).click(function (e) {
-            if (!photos.is(e.target) && photos.has(e.target).length === 0) {
-                photos.removeClass("zoom");
-            }
-        });
-
     });
+
+    // Execute grid view if hash in URL
+    if (window.location.hash === "#full") {
+        $("#grid_toggle").click();
+    }
+
+    // Zoom photos on click
+    photos.click(function () {
+        $(this).toggleClass("zoom")
+        .siblings().removeClass("zoom");
+    });
+
+    // Remove zoom on whitespace click
+    $(document).click(function (e) {
+        if (!photos.is(e.target) && photos.has(e.target).length === 0) {
+            photos.removeClass("zoom");
+        }
+    });
+
 }
 
 
