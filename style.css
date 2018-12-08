@@ -19,13 +19,6 @@ header p {
   line-height: 1.5;
 }
 
-span.stretch {
-  display: inline-block;
-  transform: scale(1.1, 1);
-  transform-origin: top left;
-  transition-duration: 0.05s;
-}
-
 a, a:visited {
   text-decoration: none;
   color: #333;
@@ -47,12 +40,5 @@ a:hover {
     max-width: 100vw;
     font-size: 13px;
     margin: 30px;
-  }
-}
-
-
-@media (pointer: coarse) {
-  span.stretch {
-    transition-duration:  0.1s;
   }
 }

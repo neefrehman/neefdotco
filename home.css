@@ -1,3 +1,10 @@
+span.stretch {
+  display: inline-block;
+  transform: scale(1.1, 1);
+  transform-origin: top left;
+  transition-duration: 0.05s;
+}
+
 img.bg {
   position: fixed;
   left: 50%;
@@ -35,6 +42,9 @@ img.bg.allergiestravel {
 
 
 @media (pointer: coarse), (max-width: 450px), (max-height: 400px) {
+  span.stretch {
+    transition-duration:  0.1s;
+  }
   img.bg {
     display: none;
   }
