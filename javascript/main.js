@@ -79,7 +79,7 @@ if (document.body.contains(photoChecker)) {
             history.replaceState("", document.title, window.location.pathname);
         }
 
-        // return false;
+        return false;
 
     });
 
