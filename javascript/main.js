@@ -79,6 +79,8 @@ if (document.body.contains(photoChecker)) {
             history.replaceState("", document.title, window.location.pathname);
         }
 
+        // return false;
+
     });
 
     // Execute grid view if hash in URL

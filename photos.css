@@ -26,7 +26,6 @@ footer p:first-child {
 footer p:last-child {
   bottom: var(--edgeMargin);
   right: var(--edgeMargin);
-  cursor: pointer;
 }
 
 div {
