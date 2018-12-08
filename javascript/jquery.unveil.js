@@ -14,11 +14,11 @@
       source = source || this.getAttribute("data-src");
       if (source) {
 
-          // lazy load css backgrounds
+          // css background-image support
           $(this).is("img") ?
             this.setAttribute("src", source)
             :
-            $(this).css("background-image", "url('" + source + "')");
+            $(this).css("background-image", `url(${source})`);
 
         if (typeof callback === "function") callback.call(this);
       }
