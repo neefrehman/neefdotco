@@ -48,8 +48,8 @@ if (document.body.contains(photoChecker)) {
         photos.eq(target).before(photos.eq(target2));
     }
 
-    // unveil
-    photos.unveil(2000);
+    // Lazy-load
+    new Blazy({ offset: 2000 });
 
     // Grid view
     $("#grid_toggle").click(function () {
