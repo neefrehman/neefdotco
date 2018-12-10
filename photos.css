@@ -29,6 +29,10 @@ footer p:last-child {
   cursor: pointer;
 }
 
+.photo-container {
+  margin: 0;
+}
+
 div {
   height: 100vh;
   width: 100vw;
@@ -38,8 +42,7 @@ div {
   opacity: 0.9;
 }
 
-.photo-container {
-  margin: 10px;
+.photo-container.grid {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-end;
