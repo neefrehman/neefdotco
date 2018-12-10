@@ -49,8 +49,7 @@ if (document.body.contains(photoChecker)) {
     }
 
     // Lazy-load
-    // lazyImages();
-    const instance = Layzr({ offset: 1500 });
+    lazyAdam({ offset: 1500 });
 
     // Grid view
     $("#grid_toggle").click(function () {
