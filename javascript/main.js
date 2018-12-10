@@ -1,5 +1,3 @@
-// jshint esversion: 6
-
 // Header stretch
 const stretch = document.querySelector("span.stretch");
 if (document.body.contains(stretch)) {
@@ -28,15 +26,15 @@ if (document.body.contains(stretch)) {
 
 
 // Photos
-const photoChecker = document.querySelector("footer.photos");
-if (document.body.contains(photoChecker)) {
+const photoContainer = document.querySelector(".photo-container");
+if (document.body.contains(photoContainer)) {
 
     // Create divs
     let n = 56;
     var photoArray = Array.from({length: n}, function (item, i) {
         return `<div class="grid" data-src="photos/photo_${++i}.jpg"> </div>`;
     }).join('');
-    $(photoChecker).after(photoArray);
+    photoContainer.innerHTML = photoArray;
 
     // Declare photos variable
     const photos = $("[data-src]");

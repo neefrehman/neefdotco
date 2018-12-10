@@ -38,7 +38,7 @@ div {
   opacity: 0.9;
 }
 
-body.grid {
+.photo-container {
   margin: 10px;
   display: flex;
   flex-wrap: wrap;
@@ -55,19 +55,19 @@ div.grid {
   height: var(--gridHeight);
 }
 
-div.grid:nth-child(3n+1) {
+div.grid:nth-child(3n-1) {
   width: calc(var(--gridWidth) * 1.4);
   height: calc(var(--gridHeight) * 1.5);
 }
-div.grid:nth-child(5n-6) {
+div.grid:nth-child(5n-8) {
   width: calc(var(--gridWidth) * 1.1);
   height: calc(var(--gridHeight) * 1.65);
 }
-div.grid:nth-child(7n+5) {
+div.grid:nth-child(7n+3) {
   width: calc(var(--gridWidth) * 0.9);
   height: calc(var(--gridHeight) * 1.4);
 }
-div.grid:nth-child(4n+3) {
+div.grid:nth-child(4n+1) {
   width: calc(var(--gridWidth) * 1.2);
   height: calc(var(--gridHeight) * 1.1);
 }
