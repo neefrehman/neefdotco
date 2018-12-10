@@ -39,7 +39,7 @@ if (document.body.contains(photoChecker)) {
     $(photoChecker).after(photoArray);
 
     // Declare photos variable
-    const photos = $("div");
+    const photos = $("[data-src]");
 
     // Randomise order
     for (let i = 0; i < photos.length; i++) {
@@ -49,7 +49,8 @@ if (document.body.contains(photoChecker)) {
     }
 
     // Lazy-load
-    new Blazy({ offset: 1500 });
+    // lazyImages();
+    const instance = Layzr({ offset: 1500 });
 
     // Grid view
     $("#grid_toggle").click(function () {
