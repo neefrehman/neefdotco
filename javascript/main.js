@@ -49,7 +49,7 @@ if (document.body.contains(photoChecker)) {
     }
 
     // Lazy-load
-    new Blazy({ offset: 2000 });
+    new Blazy({ offset: 1500 });
 
     // Grid view
     $("#grid_toggle").click(function () {

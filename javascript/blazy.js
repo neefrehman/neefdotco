@@ -18,7 +18,7 @@
         var util = scope._util = {};
         util.elements = [];
         scope.options = options || {};
-        scope.options.offset = scope.options.offset || 2000;
+        scope.options.offset = scope.options.offset || 1500;
         scope.options.src = _source = scope.options.src || 'data-src';
         _isRetina = window.devicePixelRatio > 1;
         _viewport = {};
