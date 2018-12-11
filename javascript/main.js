@@ -10,7 +10,7 @@ if (document.body.contains(title)) {
     };
 
     window.ondevicemotion = function(e) {
-        let deviceTilt = (window.innerHeight < window.innerWidth) ?
+        let deviceTilt = (window.innerHeight > window.innerWidth) ?
             e.accelerationIncludingGravity.x:
             e.accelerationIncludingGravity.y;
         let stretchValue = 0.1 + ((Math.abs(deviceTilt) + 16) / 16);
