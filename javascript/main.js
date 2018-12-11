@@ -4,16 +4,16 @@ if (document.body.contains(title)) {
 
     document.onmousemove = function(e) {
         let width = document.body.clientWidth / 255;
-        let mousePercent = e.pageX / width;
-        let stretchValue = 0.1 + (mousePercent + 1200) / 1200;
+        let mousePosition = e.pageX / width;
+        let stretchValue = 0.1 + (mousePosition + 1200) / 1200;
         title.style.transform = `scale(${stretchValue}, 1)`;
     };
 
     window.ondevicemotion = function(e) {
-        let mobileX = e.accelerationIncludingGravity.x;
-        let stretchValue = 0.1 + ((Math.abs(mobileX) + 16) / 16);
+        let deviceTilt = e.accelerationIncludingGravity.x;
+        if (window.innerHeight < window.innerWidth) deviceTilt = e.accelerationIncludingGravity.y;
+        let stretchValue = 0.1 + ((Math.abs(deviceTilt) + 16) / 16);
         title.style.transform = `scale(${stretchValue}, 1)`;
-        if (window.innerHeight < window.innerWidth) mobileX = e.accelerationIncludingGravity.y;
     };
 
 }
@@ -72,9 +72,7 @@ if (document.body.contains(photoContainer)) {
     });
 
     // Execute grid view if hash in URL
-    if (window.location.hash === "#full") {
-        gridToggle.click();
-    }
+    if (window.location.hash == "#full") gridToggle.click();
 
     // Zoom photos on click
     photosJ.click(function() {
