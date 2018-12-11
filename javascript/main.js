@@ -11,15 +11,9 @@ if (document.body.contains(title)) {
 
     window.ondevicemotion = function(e) {
         let deviceTilt = e.accelerationIncludingGravity.x;
-<<<<<<< HEAD
         if (window.innerHeight < window.innerWidth) deviceTilt = e.accelerationIncludingGravity.y;
         let stretchValue = 0.1 + ((Math.abs(deviceTilt) + 16) / 16);
         title.style.transform = `scale(${stretchValue}, 1)`;
-=======
-        let stretchValue = 0.1 + ((Math.abs(deviceTilt) + 16) / 16);
-        title.style.transform = `scale(${stretchValue}, 1)`;
-        if (window.innerHeight < window.innerWidth) { deviceTilt = e.accelerationIncludingGravity.y; }
->>>>>>> 8fa62d9a9784d6c4f21de3207964c0052832243c
     };
 
 }
