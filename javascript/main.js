@@ -10,8 +10,9 @@ if (document.body.contains(title)) {
     };
 
     window.ondevicemotion = function(e) {
-        let deviceTilt = e.accelerationIncludingGravity.x;
-        if (window.innerHeight < window.innerWidth) deviceTilt = e.accelerationIncludingGravity.y;
+        let deviceTilt = (window.innerHeight < window.innerWidth) ?
+            e.accelerationIncludingGravity.x:
+            e.accelerationIncludingGravity.y;
         let stretchValue = 0.1 + ((Math.abs(deviceTilt) + 16) / 16);
         title.style.transform = `scale(${stretchValue}, 1)`;
     };
@@ -25,7 +26,7 @@ if (document.body.contains(photoContainer)) {
 
     // Create divs
     let n = 56;
-    var photoArray = Array.from({length: n}, function(item, i) {
+    const photoArray = Array.from({length: n}, function(item, i) {
         return `<div class="grid" data-src="photos/photo_${++i}.jpg"> </div>`;
     }).join('');
     photoContainer.innerHTML = photoArray;
