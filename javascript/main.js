@@ -1,22 +1,21 @@
 // Header stretch
-const stretch = document.querySelector("span.stretch");
-if (document.body.contains(stretch)) {
+const title = document.querySelector("span.stretch");
+if (document.body.contains(title)) {
 
     document.onmousemove = function(e) {
         let width = document.body.clientWidth / 255;
-        let pageX = e.pageX / width;
-        let valueX = 0.1 + ((Math.abs(pageX) + 1200) / 1200);
-        stretch.style.transform = `scale(${valueX}, 1)`;
+        let mousePercent = e.pageX / width;
+        let stretchValue = 0.1 + (mousePercent + 1200) / 1200;
+        title.style.transform = `scale(${stretchValue}, 1)`;
     };
 
     window.ondevicemotion = function(e) {
-        if (window.innerHeight > window.innerWidth) {
+        let mobileX = e.accelerationIncludingGravity.x;
+        let stretchValue = 0.1 + ((Math.abs(mobileX) + 16) / 16);
+        title.style.transform = `scale(${stretchValue}, 1)`;
+        if (window.innerHeight < window.innerWidth) {
             let mobileX = e.accelerationIncludingGravity.x;
-        } else {
-            let mobileX = e.accelerationIncludingGravity.y;
         }
-        let valueX = 0.1 + ((Math.abs(mobileX) + 16) / 16);
-        stretch.style.transform = `scale(${valueX}, 1)`;
     };
 
 }
