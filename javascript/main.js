@@ -37,20 +37,22 @@ if (document.body.contains(photoContainer)) {
     photoContainer.innerHTML = photoArray;
 
     // Declare photos variable
-    const photos = $("[data-src]");
+    const photos = document.querySelectorAll("[data-src]");
+    const photosJ = $("[data-src]");
 
     // Randomise order
     for (let i = 0; i < photos.length; i++) {
         let target = Math.floor(Math.random() * photos.length -1) + 1;
         let target2 = Math.floor(Math.random() * photos.length -1) + 1;
-        photos.eq(target).before(photos.eq(target2));
+        photosJ.eq(target).before(photosJ.eq(target2));
     }
 
     // Lazy-load
     lazyAdam({ offset: 1500 });
 
     // Grid view
-    $("#grid_toggle").click(function () {
+    const gridToggle = document.querySelector("#grid_toggle");
+    gridToggle.addEventListener("click", function () {
 
         // Scroll variables (pre-change)
         let pixelsScrolled = $(document).scrollTop();
@@ -58,7 +60,7 @@ if (document.body.contains(photoContainer)) {
         let decimalScrolled = (pixelsScrolled / pageHeight);
 
         // Execute grid view
-        $("body, div").toggleClass("grid");
+        $(".photo-container, div").toggleClass("grid");
 
         // Maintain relative scroll height
         let newPageHeight = $(document).height() - $(window).height();
@@ -77,19 +79,19 @@ if (document.body.contains(photoContainer)) {
 
     // Execute grid view if hash in URL
     if (window.location.hash === "#full") {
-        $("#grid_toggle").click();
+        gridToggle.click();
     }
 
     // Zoom photos on click
-    photos.click(function () {
+    photosJ.click(function () {
         $(this).toggleClass("zoom")
         .siblings().removeClass("zoom");
     });
 
     // Remove zoom on whitespace click
-    $(document).click(function (e) {
-        if (!photos.is(e.target) && photos.has(e.target).length === 0) {
-            photos.removeClass("zoom");
+    document.addEventListener("click", function (e) {
+        if (!photosJ.is(e.target) && photosJ.has(e.target).length === 0) {
+            photosJ.removeClass("zoom");
         }
     });
 

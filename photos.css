@@ -43,6 +43,7 @@ div {
 }
 
 .photo-container.grid {
+  margin: 10px;
   display: flex;
   flex-wrap: wrap;
   align-items: flex-end;
@@ -58,6 +59,9 @@ div.grid {
   height: var(--gridHeight);
 }
 
+div.grid:first-child {
+  margin-left: 100px;
+}
 div.grid:nth-child(3n-1) {
   width: calc(var(--gridWidth) * 1.4);
   height: calc(var(--gridHeight) * 1.5);
@@ -112,6 +116,9 @@ div.grid.zoom {
 @media (max-width: 575px) {
   div.grid {
     margin: 40px 30px 45px 30px;
+  }
+  div.grid:first-child {
+    margin-left: 30px;
   }
   div.grid:nth-child(2n-3) {
     margin-right: auto;
