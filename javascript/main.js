@@ -11,8 +11,7 @@ if (document.body.contains(title)) {
 
     window.ondevicemotion = function(e) {
         let deviceTilt = (window.innerHeight > window.innerWidth) ?
-            e.accelerationIncludingGravity.x:
-            e.accelerationIncludingGravity.y;
+            e.accelerationIncludingGravity.x : e.accelerationIncludingGravity.y;
         let stretchValue = 0.1 + ((Math.abs(deviceTilt) + 16) / 16);
         title.style.transform = `scale(${stretchValue}, 1)`;
     };
@@ -26,7 +25,7 @@ if (document.body.contains(photoContainer)) {
 
     // Create divs
     let n = 56;
-    const photoArray = Array.from({length: n}, function(item, i) {
+    let photoArray = Array.from({length: n}, function(item, i) {
         return `<div class="grid" data-src="photos/photo_${++i}.jpg"> </div>`;
     }).join('');
     photoContainer.innerHTML = photoArray;
