@@ -13,9 +13,7 @@ if (document.body.contains(title)) {
         let mobileX = e.accelerationIncludingGravity.x;
         let stretchValue = 0.1 + ((Math.abs(mobileX) + 16) / 16);
         title.style.transform = `scale(${stretchValue}, 1)`;
-        if (window.innerHeight < window.innerWidth) {
-            let mobileX = e.accelerationIncludingGravity.x;
-        }
+        if (window.innerHeight < window.innerWidth) mobileX = e.accelerationIncludingGravity.x;
     };
 
 }
