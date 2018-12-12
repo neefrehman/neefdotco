@@ -4,16 +4,22 @@ if (document.body.contains(title)) {
 
     document.onmousemove = function(e) {
         let width = document.body.clientWidth / 255;
-        let mousePosition = e.pageX / width;
-        let stretchValue = 0.1 + (mousePosition + 1200) / 1200;
-        title.style.transform = `scale(${stretchValue}, 1)`;
+        let pageX = e.pageX / width;
+        let pageY = e.pageY / width;
+        let valueX = 0.1 + ((Math.abs(pageX) + 1200) / 1200);
+        stretch.style.transform = `scale(${valueX}, 1)`;
     };
 
     window.ondevicemotion = function(e) {
-        let deviceTilt = (window.innerHeight > window.innerWidth) ?
-            e.accelerationIncludingGravity.x : e.accelerationIncludingGravity.y;
-        let stretchValue = 0.1 + ((Math.abs(deviceTilt) + 16) / 16);
-        title.style.transform = `scale(${stretchValue}, 1)`;
+      let mobileX = e.accelerationIncludingGravity.x;
+      let mobileY = e.accelerationIncludingGravity.y;
+      let valueX = 0.1 + ((Math.abs(mobileX) + 16) / 16);
+      let valueY = 0.1 + ((Math.abs(mobileY) + 16) / 16);
+      if (window.innerHeight > window.innerWidth) {
+          stretch.style.transform = `scale(${valueX}, 1)`;
+      } else {
+          stretch.style.transform = `scale(${valueY}, 1)`;
+      }
     };
 
 }
