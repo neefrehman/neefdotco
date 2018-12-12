@@ -75,9 +75,12 @@ if (document.body.contains(photoContainer)) {
     if (window.location.hash == "#full") gridToggle.click();
 
     // Zoom photos on click
-    photosJ.click(function() {
-        $(this).toggleClass("zoom")
-        .siblings().removeClass("zoom");
+    photos.forEach(function(photo) {
+        photo.addEventListener( "click", function() {
+            photo.classList.toggle('zoom');
+            const siblings = [...photos].filter(sibling => sibling !== photo);
+            siblings.forEach(sibling => sibling.classList.remove('zoom'));
+        });
     });
 
     // Remove zoom on whitespace click

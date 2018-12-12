@@ -1,17 +1,16 @@
 const lazyAdam = function() {
 
   const images = document.querySelectorAll("[data-src]");
-  const config = {
+  const observer = new IntersectionObserver(onIntersection, {
     rootMargin: "1500px 0px",
     threshold: 0.01
-  };
+  });
 
   function loadImage(imageEl) {
     imageEl.style.backgroundImage = `url(${imageEl.getAttribute("data-src")})`;
-    ["data-src"].forEach(attr => imageEl.removeAttribute(attr));
+    imageEl.removeAttribute("data-src");
   }
 
-  const observer = new IntersectionObserver(onIntersection, config);
   images.forEach(function(image) {
     observer.observe(image);
   });
