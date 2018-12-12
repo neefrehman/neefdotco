@@ -78,16 +78,16 @@ if (document.body.contains(photoContainer)) {
     // Zoom photos on click
     photos.forEach(function(photo) {
         photo.addEventListener( "click", function() {
-            photo.classList.toggle("zoom");
-            const siblings = [...photos].filter(sibling => sibling !== photo);
+            this.classList.toggle("zoom");
+            const siblings = [...photos].filter(sibling => sibling !== this);
             siblings.forEach(sibling => sibling.classList.remove("zoom"));
         });
     });
 
     // Remove zoom on whitespace click
     document.addEventListener("click", function(e) {
-        if (!photosJ.is(e.target) && photosJ.has(e.target).length === 0) {
-            photosJ.removeClass("zoom");
+        if (!photosJ.is(e.target)) {
+            photos.forEach(photo => photo.classList.remove("zoom"));
         }
     });
 
