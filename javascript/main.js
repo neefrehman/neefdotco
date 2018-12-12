@@ -54,7 +54,8 @@ if (document.body.contains(photoContainer)) {
         let decimalScrolled = (pixelsScrolled / pageHeight);
 
         // Execute grid view
-        $(".photo-container, div").toggleClass("grid");
+        photoContainer.classList.toggle("grid");
+        photos.forEach(photo => photo.classList.toggle("grid"));
 
         // Maintain relative scroll height
         let newPageHeight = $(document).height() - $(window).height();
@@ -77,9 +78,9 @@ if (document.body.contains(photoContainer)) {
     // Zoom photos on click
     photos.forEach(function(photo) {
         photo.addEventListener( "click", function() {
-            photo.classList.toggle('zoom');
+            photo.classList.toggle("zoom");
             const siblings = [...photos].filter(sibling => sibling !== photo);
-            siblings.forEach(sibling => sibling.classList.remove('zoom'));
+            siblings.forEach(sibling => sibling.classList.remove("zoom"));
         });
     });
 
