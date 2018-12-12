@@ -86,7 +86,7 @@ if (document.body.contains(photoContainer)) {
 
     // Remove zoom on whitespace click
     document.addEventListener("click", function(e) {
-        if (!photosJ.is(e.target) && photosJ.has(e.target).length === 0) {
+        if (!photosJ.is(e.target)) {
             photos.forEach(photo => photo.classList.remove("zoom"));
         }
     });
