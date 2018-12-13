@@ -50,7 +50,7 @@ if (document.body.contains(photoContainer)) {
 
         // Scroll variables (pre-change)
         let pixelsScrolled = document.documentElement.scrollTop;
-        let pageHeight = document.documentElement.scrollHeight - window.visualViewport.height;
+        let pageHeight = document.documentElement.scrollHeight - window.innerHeight;
         let decimalScrolled = pixelsScrolled / pageHeight;
 
         // Execute grid view
@@ -58,7 +58,7 @@ if (document.body.contains(photoContainer)) {
         photos.forEach(photo => photo.classList.toggle("grid"));
 
         // Maintain relative scroll height
-        let newPageHeight = document.documentElement.scrollHeight - window.visualViewport.height;
+        let newPageHeight = document.documentElement.scrollHeight - window.innerHeight;
         document.documentElement.scrollTop = decimalScrolled * newPageHeight;
 
         // Toggle button text & update URL
