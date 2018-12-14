@@ -27,19 +27,18 @@ if (document.body.contains(photoContainer)) {
     const n = 56;
     const photoArray = Array.from({length: n}, function(item, i) {
         return `<div class="grid" data-src="photos/photo_${++i}.jpg"> </div>`;
-    }).join('');
-    photoContainer.innerHTML = photoArray;
+    });
+    function shuffle(a) {
+        for (let i = a.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+    photoContainer.innerHTML = shuffle(photoArray).join("");
 
     // Declare photos variable
     const photos = document.querySelectorAll("[data-src]");
-    const photosJ = $("[data-src]");
-
-    // Randomise order
-    for (let i = 0; i < photos.length; i++) {
-        let target = Math.floor(Math.random() * photos.length -1) + 1;
-        let target2 = Math.floor(Math.random() * photos.length -1) + 1;
-        photosJ.eq(target).before(photosJ.eq(target2));
-    }
 
     // Lazy-load
     lazyAdam();
@@ -87,7 +86,7 @@ if (document.body.contains(photoContainer)) {
 
     // Remove zoom on whitespace click
     document.addEventListener("click", function(e) {
-        if (!photosJ.is(e.target)) {
+        if (!e.target.matches("div.grid")) {
             photos.forEach(photo => photo.classList.remove("zoom"));
         }
     });
