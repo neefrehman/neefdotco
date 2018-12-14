@@ -24,8 +24,8 @@ const photoContainer = document.querySelector(".photo-container");
 if (document.body.contains(photoContainer)) {
 
     // Create divs
-    let n = 56;
-    let photoArray = Array.from({length: n}, function(item, i) {
+    const n = 56;
+    const photoArray = Array.from({length: n}, function(item, i) {
         return `<div class="grid" data-src="photos/photo_${++i}.jpg"> </div>`;
     }).join('');
     photoContainer.innerHTML = photoArray;
@@ -49,8 +49,9 @@ if (document.body.contains(photoContainer)) {
     gridToggle.addEventListener("click", function() {
 
         // Scroll variables (pre-change)
-        let scrollValue = document.scrollingElement.scrollTop;
-        let pageHeight = document.scrollingElement.scrollHeight - window.innerHeight;
+        const scrollEl = document.scrollingElement;
+        let scrollValue = scrollEl.scrollTop;
+        let pageHeight = scrollEl.scrollHeight - window.innerHeight;
         let decimalScrolled = scrollValue / pageHeight;
 
         // Execute grid view
@@ -58,8 +59,8 @@ if (document.body.contains(photoContainer)) {
         photos.forEach(photo => photo.classList.toggle("grid"));
 
         // Maintain relative scroll height
-        let newPageHeight = document.scrollingElement.scrollHeight - window.innerHeight;
-        document.scrollingElement.scrollTop = decimalScrolled * newPageHeight;
+        let newPageHeight = scrollEl.scrollHeight - window.innerHeight;
+        scrollEl.scrollTop = decimalScrolled * newPageHeight;
 
         // Toggle button text & update URL
         if (this.innerHTML === "Full screen") {
