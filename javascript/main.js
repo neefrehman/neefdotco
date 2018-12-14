@@ -23,11 +23,13 @@ if (document.body.contains(title)) {
 const photoContainer = document.querySelector(".photo-container");
 if (document.body.contains(photoContainer)) {
 
-    // Create divs
+    // Create div array
     const n = 56;
     const photoArray = Array.from({length: n}, function(item, i) {
         return `<div class="grid" data-src="photos/photo_${++i}.jpg"> </div>`;
     });
+
+    // Shuffle div array
     function shuffle(a) {
         for (let i = a.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -35,6 +37,8 @@ if (document.body.contains(photoContainer)) {
         }
         return a;
     }
+
+    // Insert div array to dom
     photoContainer.innerHTML = shuffle(photoArray).join("");
 
     // Declare photos variable
