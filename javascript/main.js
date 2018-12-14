@@ -49,17 +49,17 @@ if (document.body.contains(photoContainer)) {
     gridToggle.addEventListener("click", function() {
 
         // Scroll variables (pre-change)
-        let scrollValue = $(document).scrollTop();
-        let pageHeight = $(document).height() - $(window).height();
-        let decimalScrolled = (scrollValue / pageHeight);
+        let scrollValue = document.scrollingElement.scrollTop;
+        let pageHeight = document.scrollingElement.scrollHeight - window.innerHeight;
+        let decimalScrolled = scrollValue / pageHeight;
 
         // Execute grid view
         photoContainer.classList.toggle("grid");
         photos.forEach(photo => photo.classList.toggle("grid"));
 
         // Maintain relative scroll height
-        let newPageHeight = $(document).height() - $(window).height();
-        $(document).scrollTop(decimalScrolled * newPageHeight);
+        let newPageHeight = document.scrollingElement.scrollHeight - window.innerHeight;
+        document.scrollingElement.scrollTop = decimalScrolled * newPageHeight;
 
         // Toggle button text & update URL
         if (this.innerHTML === "Full screen") {
