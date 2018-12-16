@@ -29,19 +29,10 @@ if (document.body.contains(photoContainer)) {
         return `<div class="grid" data-src="photos/photo_${++i}.jpg"> </div>`;
     });
 
-    // Shuffle div array
-    function shuffle(a) {
-        for (let i = a.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [a[i], a[j]] = [a[j], a[i]];
-        }
-        return a;
-    }
-
-    // Insert div array to dom
+    // Inject array to DOM
     photoContainer.innerHTML = shuffle(photoArray).join("");
 
-    // Declare photos variable
+    // Declare photos const
     const photos = document.querySelectorAll("[data-src]");
 
     // Lazy-load
@@ -81,7 +72,7 @@ if (document.body.contains(photoContainer)) {
 
     // Zoom photos on click
     photos.forEach(function(photo) {
-        photo.addEventListener( "click", function() {
+        photo.addEventListener("click", function() {
             this.classList.toggle("zoom");
             const siblings = [...photos].filter(sibling => sibling !== this);
             siblings.forEach(sibling => sibling.classList.remove("zoom"));
