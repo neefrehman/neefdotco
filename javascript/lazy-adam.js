@@ -2,7 +2,7 @@ const lazyAdam = function() {
 
   const images = document.querySelectorAll("[data-src]");
   const observer = new IntersectionObserver(onIntersection, {
-    rootMargin: "1500px 0px",
+    rootMargin: "1000px 0px",
     threshold: 0.01
   });
 
