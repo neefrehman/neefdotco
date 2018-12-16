@@ -3,16 +3,15 @@ const title = document.querySelector("span.stretch");
 if (document.body.contains(title)) {
 
     document.onmousemove = function(e) {
-        let width = document.body.clientWidth / 255;
-        let mousePosition = e.pageX / width;
-        let stretchValue = 0.1 + (mousePosition + 1200) / 1200;
+        let mousePosition = e.pageX / document.body.clientWidth;
+        let stretchValue = 1.1 + (mousePosition / 5);
         title.style.transform = `scale(${stretchValue}, 1)`;
     };
 
     window.ondevicemotion = function(e) {
         let deviceTilt = (window.innerHeight > window.innerWidth) ?
             e.accelerationIncludingGravity.x : e.accelerationIncludingGravity.y;
-        let stretchValue = 0.1 + ((Math.abs(deviceTilt) + 16) / 16);
+        let stretchValue = 1.1 + (Math.abs(deviceTilt) / 15);
         title.style.transform = `scale(${stretchValue}, 1)`;
     };
 
