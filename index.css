@@ -10,8 +10,7 @@ img.bg {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  background-size: cover;
-  background-position: center;
+  object-fit: cover;
   width: 81vh;
   height: 81vh;
   z-index: -2;
@@ -25,19 +24,6 @@ a:hover img {
   z-index: -1;
   clip-path: circle(38vh at center);
   -webkit-clip-path: circle(38vh at center);
-}
-
-img.bg.studiowave {
-  background-image: url(bg/studiowave.png);
-}
-img.bg.adventure {
-  background-image: url(bg/adventure.png);
-}
-img.bg.isyoursiteonline {
-  background-image: url(bg/isyoursiteonline.png);
-}
-img.bg.allergiestravel {
-  background-image: url(bg/allergiestravel.png);
 }
 
 
