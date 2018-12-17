@@ -2,13 +2,13 @@
 const title = document.querySelector("span.stretch");
 if (document.body.contains(title)) {
 
-    document.onmousemove = function(e) {
+    document.onmousemove = e => {
         let mousePosition = e.pageX / document.body.clientWidth;
         let stretchValue = 1.1 + (mousePosition / 5);
         title.style.transform = `scale(${stretchValue}, 1)`;
     };
 
-    window.ondevicemotion = function(e) {
+    window.ondevicemotion = e => {
         let deviceTilt = (window.innerHeight > window.innerWidth) ?
             e.accelerationIncludingGravity.x : e.accelerationIncludingGravity.y;
         let stretchValue = 1.1 + (Math.abs(deviceTilt) / 15);
@@ -24,9 +24,9 @@ if (document.body.contains(photoContainer)) {
 
     // Create div array
     const n = 56;
-    const photoArray = Array.from({length: n}, function(item, i) {
-        return `<div class="grid" data-src="photos/photo_${++i}.jpg"> </div>`;
-    });
+    const photoArray = Array.from({length: n}, (item, i) =>
+        `<div class="grid" data-src="photos/photo_${++i}.jpg"> </div>`
+    );
 
     // Inject array to DOM
     photoContainer.innerHTML = shuffle(photoArray).join("");
@@ -70,7 +70,7 @@ if (document.body.contains(photoContainer)) {
     if (window.location.hash == "#full") gridToggle.click();
 
     // Zoom photos on click
-    photos.forEach(function(photo) {
+    photos.forEach(photo => {
         photo.addEventListener("click", function() {
             this.classList.toggle("zoom");
             const siblings = [...photos].filter(sibling => sibling !== this);
@@ -79,7 +79,7 @@ if (document.body.contains(photoContainer)) {
     });
 
     // Remove zoom on whitespace click
-    document.addEventListener("click", function(e) {
+    document.addEventListener("click", e => {
         if (!e.target.matches(".photo-container > .grid")) {
             photos.forEach(photo => photo.classList.remove("zoom"));
         }
