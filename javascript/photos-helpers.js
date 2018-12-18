@@ -11,12 +11,10 @@ function lazyAdam() {
     imageEl.removeAttribute("data-src");
   }
 
-  images.forEach(function(image) {
-    observer.observe(image);
-  });
+  images.forEach(image => observer.observe(image));
 
   function onIntersection(entries) {
-    entries.forEach(function(entry) {
+    entries.forEach(entry => {
       if (entry.intersectionRatio > 0) {
         observer.unobserve(entry.target);
         loadImage(entry.target);
