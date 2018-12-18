@@ -1,6 +1,30 @@
+// Night mode
+// const body = document.querySelector("body");
+// const links = document.querySelectorAll("a");
+// const nightModeToggle = body;
+// const nightMode = function() {
+//     body.classList.toggle("night");
+//     links.forEach(link => link.classList.toggle("night"));
+// };
+//
+// // Toggle if saved to storage
+// if (localStorage.getItem("nightMode")) nightMode();
+//
+// // Toggle & save to storage on click
+// nightModeToggle.addEventListener("click", function() {
+//     nightMode();
+//
+//     if (body.classList.contains("night")) {
+//     		localStorage.setItem("nightMode", true);
+//     		return;
+//   	}
+//   	localStorage.removeItem("nightMode");
+// });
+
+
 // Header stretch
 const title = document.querySelector("span.stretch");
-if (document.body.contains(title)) {
+if (title) {
 
     document.onmousemove = e => {
         let mousePosition = e.pageX / document.body.clientWidth;
@@ -20,18 +44,14 @@ if (document.body.contains(title)) {
 
 // Photos
 const photoContainer = document.querySelector(".photo-container");
-if (document.body.contains(photoContainer)) {
+if (photoContainer) {
 
-    // Create div array
+    // Create & insert shuffled div array
     const n = 56;
     const photoArray = Array.from({length: n}, (item, i) =>
         `<div class="grid" data-src="photos/photo_${++i}.jpg"> </div>`
     );
-
-    // Inject array to DOM
     photoContainer.innerHTML = shuffle(photoArray).join("");
-
-    // Declare photos const
     const photos = document.querySelectorAll("[data-src]");
 
     // Lazy-load
