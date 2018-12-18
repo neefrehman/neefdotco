@@ -1,25 +1,25 @@
 // Night mode
-// const body = document.querySelector("body");
-// const links = document.querySelectorAll("a");
-// const nightModeToggle = body;
-// const nightMode = function() {
-//     body.classList.toggle("night");
-//     links.forEach(link => link.classList.toggle("night"));
-// };
-//
-// // Toggle if saved to storage
-// if (localStorage.getItem("nightMode")) nightMode();
-//
-// // Toggle & save to storage on click
-// nightModeToggle.addEventListener("click", function() {
-//     nightMode();
-//
-//     if (body.classList.contains("night")) {
-//     		localStorage.setItem("nightMode", true);
-//     		return;
-//   	}
-//   	localStorage.removeItem("nightMode");
-// });
+const body = document.querySelector("body");
+const links = document.querySelectorAll("a");
+const nightModeToggle = body;
+const nightMode = function() {
+    body.classList.toggle("night");
+    links.forEach(link => link.classList.toggle("night"));
+};
+
+// Toggle if saved to storage
+if (localStorage.getItem("nightMode")) nightMode();
+
+// Toggle & save to storage on click
+nightModeToggle.addEventListener("dblclick", e => {
+    if (!e.target.matches(".photo-container > .grid")) nightMode();
+
+    if (body.classList.contains("night")) {
+    		localStorage.setItem("nightMode", true);
+    		return;
+  	}
+  	localStorage.removeItem("nightMode");
+});
 
 
 // Header stretch
