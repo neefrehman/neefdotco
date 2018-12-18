@@ -7,11 +7,9 @@ const nightMode = function() {
     links.forEach(link => link.classList.toggle("night"));
 };
 
-// Toggle if in storage
-if (localStorage.getItem("nightMode")) nightMode();
-
 // Toggle & save to storage on click
 nightModeToggle.addEventListener("dblclick", e => {
+
     if (!e.target.matches(".photo-container > .grid")) nightMode();
 
     if (body.classList.contains("night")) {
@@ -19,7 +17,10 @@ nightModeToggle.addEventListener("dblclick", e => {
   	} else {
         localStorage.removeItem("nightMode");
     }
+
 });
+
+// if (localStorage.getItem("nightMode")) nightMode();
 
 
 // Header stretch
