@@ -7,7 +7,7 @@ const nightMode = function() {
     links.forEach(link => link.classList.toggle("night"));
 };
 
-// Toggle if saved to storage
+// Toggle if in storage
 if (localStorage.getItem("nightMode")) nightMode();
 
 // Toggle & save to storage on click
@@ -16,9 +16,9 @@ nightModeToggle.addEventListener("dblclick", e => {
 
     if (body.classList.contains("night")) {
     		localStorage.setItem("nightMode", true);
-    		return;
-  	}
-  	localStorage.removeItem("nightMode");
+  	} else {
+        localStorage.removeItem("nightMode");
+    }
 });
 
 
