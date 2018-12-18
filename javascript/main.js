@@ -1,8 +1,8 @@
 // Night mode
 const body = document.querySelector("body");
 const links = document.querySelectorAll("a");
-const nightModeToggle = body;
-const nightMode = function() {
+const nightModeToggle = document.documentElement;
+const nightMode = () => {
     body.classList.toggle("night");
     links.forEach(link => link.classList.toggle("night"));
 };
@@ -10,7 +10,7 @@ const nightMode = function() {
 // Toggle if in storage
 if (localStorage.getItem("nightMode")) nightMode();
 
-// Toggle & save to storage on click
+// Trigger & save to storage
 nightModeToggle.addEventListener("dblclick", e => {
 
     if (!e.target.matches(".photo-container > .grid")) nightMode();
