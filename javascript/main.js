@@ -7,6 +7,9 @@ const nightMode = function() {
     links.forEach(link => link.classList.toggle("night"));
 };
 
+// Toggle if in storage
+if (localStorage.getItem("nightMode")) nightMode();
+
 // Toggle & save to storage on click
 nightModeToggle.addEventListener("dblclick", e => {
 
@@ -19,8 +22,6 @@ nightModeToggle.addEventListener("dblclick", e => {
     }
 
 });
-
-// if (localStorage.getItem("nightMode")) nightMode();
 
 
 // Header stretch
