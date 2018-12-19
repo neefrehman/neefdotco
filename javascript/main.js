@@ -107,14 +107,14 @@ if (photoContainer) {
         }
     });
 
-    // scroll by 100vh on arrow press
-    document.addEventListener("keyup", e => {
+    // Scroll by 100vh on arrow press
+    window.onkeyup = e => {
         if (e.key == "ArrowRight") {
             window.scrollBy(0, window.innerHeight);
         } if (e.key == "ArrowLeft") {
-            window.scrollBy(0, -window.innerHeight);
+            window.scrollBy(0, - window.innerHeight);
         }
-    });
+    };
 
 }
 
