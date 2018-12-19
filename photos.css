@@ -59,6 +59,10 @@ div.grid {
   height: var(--gridHeight);
 }
 
+div.grid:hover {
+  opacity: 1;
+}
+
 div.grid:first-child {
   margin-left: 100px;
 }
