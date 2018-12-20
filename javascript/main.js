@@ -29,15 +29,15 @@ const title = document.querySelector("span.stretch");
 if (title) {
 
     document.onmousemove = e => {
-        let mousePosition = e.pageX / document.body.clientWidth;
-        let stretchValue = 1.1 + (mousePosition / 5);
+        const mousePosition = e.pageX / document.body.clientWidth;
+        const stretchValue = 1.1 + (mousePosition / 5);
         title.style.transform = `scale(${stretchValue}, 1)`;
     };
 
     window.ondevicemotion = e => {
-        let deviceTilt = (window.innerHeight > window.innerWidth) ?
+        const deviceTilt = (window.innerHeight > window.innerWidth) ?
             e.accelerationIncludingGravity.x : e.accelerationIncludingGravity.y;
-        let stretchValue = 1.1 + (Math.abs(deviceTilt) / 15);
+        const stretchValue = 1.1 + (Math.abs(deviceTilt) / 15);
         title.style.transform = `scale(${stretchValue}, 1)`;
     };
 
@@ -65,16 +65,16 @@ if (photoContainer) {
 
         // Scroll variables (pre-change)
         const scrollEl = document.scrollingElement;
-        let scrollValue = scrollEl.scrollTop;
-        let pageHeight = scrollEl.scrollHeight - window.innerHeight;
-        let decimalScrolled = scrollValue / pageHeight;
+        const scrollValue = scrollEl.scrollTop;
+        const pageHeight = scrollEl.scrollHeight - window.innerHeight;
+        const decimalScrolled = scrollValue / pageHeight;
 
         // Execute grid view
         photoContainer.classList.toggle("grid");
         photos.forEach(photo => photo.classList.toggle("grid"));
 
         // Maintain relative scroll height
-        let newPageHeight = scrollEl.scrollHeight - window.innerHeight;
+        const newPageHeight = scrollEl.scrollHeight - window.innerHeight;
         scrollEl.scrollTop = decimalScrolled * newPageHeight;
 
         // Toggle button text & update URL
@@ -107,7 +107,7 @@ if (photoContainer) {
         }
     });
 
-    // Scroll by 100vh on arrow press
+    // Scroll 100vh on arrow press
     window.onkeyup = e => {
         if (e.key == "ArrowRight") {
             window.scrollBy(0, window.innerHeight);
