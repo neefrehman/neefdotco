@@ -113,6 +113,7 @@ if (photoContainer) {
     window.onkeyup = e => {
         if (e.key == "ArrowRight") window.scrollBy(0, window.innerHeight);
         if (e.key == "ArrowLeft") window.scrollBy(0, -window.innerHeight);
+        if (e.key == "n" || e.key == "d") nightMode();
         if (e.key == "g" || e.key == "f") gridToggle.click();
     };
 
