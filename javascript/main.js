@@ -1,24 +1,19 @@
 // Night mode
 const nightModeToggle = document.documentElement;
-const nightMode = () => {
-    document.body.classList.toggle("night");
-    if (document.body.classList.contains("night")) {
-        localStorage.setItem("nightMode", true);
-    } else {
-        localStorage.removeItem("nightMode");
-    }
-};
+const nightMode = () => document.body.classList.toggle("night");
 
 // Triggers
 if (localStorage.getItem("nightMode")) nightMode();
 
 nightModeToggle.addEventListener("dblclick", e => {
     if (!e.target.matches(".photo-container > .grid")) nightMode();
-});
 
-window.onkeyup = e => {
-    if (e.key == "n" || e.key == "d") nightMode();
-};
+    if (document.body.classList.contains("night")) {
+        localStorage.setItem("nightMode", true);
+    } else {
+        localStorage.removeItem("nightMode");
+    }
+});
 
 
 // Header stretch
@@ -109,7 +104,6 @@ if (photoContainer) {
         if (e.key == "ArrowRight") window.scrollBy(0, window.innerHeight);
         if (e.key == "ArrowLeft") window.scrollBy(0, -window.innerHeight);
         if (e.key == "g" || e.key == "f") gridToggle.click();
-        if (e.key == "n" || e.key == "d") nightMode();
     };
 
 }
