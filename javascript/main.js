@@ -20,6 +20,7 @@ if (localStorage.getItem("nightMode")) nightMode();
 nightModeToggle.addEventListener("dblclick", e => {
     if (!e.target.matches(".photo-container > .grid")) nightMode();
 });
+
 window.onkeyup = e => {
     if (e.key == "n" || e.key == "d") nightMode();
 };
