@@ -63,7 +63,7 @@ if (photoContainer) {
 
     // Grid view
     const gridToggle = document.querySelector("#grid_toggle");
-    gridToggle.addEventListener("click", function() {
+    gridToggle.addEventListener("click", () => {
 
         // Scroll variables (pre-change)
         const scrollEl = document.scrollingElement;
@@ -80,11 +80,11 @@ if (photoContainer) {
         scrollEl.scrollTop = decimalScrolled * newPageHeight;
 
         // Toggle button text & update URL
-        if (this.innerHTML === "Full screen") {
-            this.innerHTML = "Grid view";
+        if (gridToggle.innerHTML === "Full screen") {
+            gridToggle.innerHTML = "Grid view";
             window.location.hash = "#full";
         } else {
-            this.innerHTML = "Full screen";
+            gridToggle.innerHTML = "Full screen";
             history.replaceState("", document.title, window.location.pathname);
         }
 
@@ -95,9 +95,9 @@ if (photoContainer) {
 
     // Zoom photos on click
     photos.forEach(photo => {
-        photo.addEventListener("click", function() {
-            this.classList.toggle("zoom");
-            const siblings = [...photos].filter(sibling => sibling !== this);
+        photo.addEventListener("click", () => {
+            photo.classList.toggle("zoom");
+            const siblings = [...photos].filter(sibling => sibling !== photo);
             siblings.forEach(sibling => sibling.classList.remove("zoom"));
         });
     });
