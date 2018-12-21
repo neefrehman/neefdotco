@@ -109,11 +109,9 @@ if (photoContainer) {
 
     // Scroll 100vh on arrow press
     window.onkeyup = e => {
-        if (e.key == "ArrowRight") {
-            window.scrollBy(0, window.innerHeight);
-        } if (e.key == "ArrowLeft") {
-            window.scrollBy(0, - window.innerHeight);
-        }
+        if (e.key == "ArrowRight") window.scrollBy(0, window.innerHeight);
+        if (e.key == "ArrowLeft") window.scrollBy(0, -window.innerHeight);
+        if (e.key == "g" || e.key == "f") gridToggle.click();
     };
 
 }
