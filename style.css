@@ -37,8 +37,8 @@ a:hover {
 }
 
 body.night {
-  background: #212121;
   color: #fff;
+  background-color: #212121;
 }
 
 body.night a {
