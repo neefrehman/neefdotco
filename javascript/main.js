@@ -7,7 +7,7 @@ if (localStorage.getItem("nightMode")) nightMode();
 
 nightModeToggle.addEventListener("dblclick", e => {
     if (!e.target.matches(".photo-container > .grid")) nightMode();
-
+    
     if (document.body.classList.contains("night")) {
         localStorage.setItem("nightMode", true);
     } else {
