@@ -6,7 +6,7 @@ body {
   -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; -moz-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   margin: 45px;
-  min-height: 85vh;
+  min-height: 100vh;
 }
 
 h1::selection, span.stretch::selection, h2::selection, h3::selection, p::selection, a::selection {
