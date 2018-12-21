@@ -1,9 +1,6 @@
-// Night mode
+// Night mode (localStorage trigger in html <head>)
 const nightModeToggle = document.documentElement;
 const nightMode = () => document.documentElement.classList.toggle("night");
-
-// Triggers
-if (localStorage.getItem("nightMode")) nightMode();
 
 nightModeToggle.addEventListener("dblclick", e => {
     if (!e.target.matches(".photo-container > .grid")) nightMode();
