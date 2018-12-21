@@ -5,23 +5,24 @@ const nightModeToggle = document.documentElement;
 const nightMode = () => {
     body.classList.toggle("night");
     links.forEach(link => link.classList.toggle("night"));
+
+    if (body.classList.contains("night")) {
+        localStorage.setItem("nightMode", true);
+    } else {
+        localStorage.removeItem("nightMode");
+    }
 };
 
 // Toggle if in storage
 if (localStorage.getItem("nightMode")) nightMode();
 
-// Trigger & save to storage
+// Triggers
 nightModeToggle.addEventListener("dblclick", e => {
-
     if (!e.target.matches(".photo-container > .grid")) nightMode();
-
-    if (body.classList.contains("night")) {
-    		localStorage.setItem("nightMode", true);
-  	} else {
-        localStorage.removeItem("nightMode");
-    }
-
 });
+window.onkeyup = e => {
+    if (e.key == "n" || e.key == "d") nightMode();
+};
 
 
 // Header stretch
@@ -107,7 +108,7 @@ if (photoContainer) {
         }
     });
 
-    // Scroll 100vh on arrow press
+    // Scroll 100vh on arrow press & grid toggle on g/f
     window.onkeyup = e => {
         if (e.key == "ArrowRight") window.scrollBy(0, window.innerHeight);
         if (e.key == "ArrowLeft") window.scrollBy(0, -window.innerHeight);
