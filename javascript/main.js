@@ -13,10 +13,9 @@ const nightMode = () => {
     }
 };
 
-// Toggle if in storage
+// Triggers
 if (localStorage.getItem("nightMode")) nightMode();
 
-// Triggers
 nightModeToggle.addEventListener("dblclick", e => {
     if (!e.target.matches(".photo-container > .grid")) nightMode();
 });
