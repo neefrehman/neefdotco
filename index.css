@@ -13,7 +13,6 @@ img.bg {
   object-fit: cover;
   width: 81vh;
   height: 81vh;
-  z-index: -2;
   opacity: 0.9;
   clip-path: circle(0% at center);
   -webkit-clip-path: circle(0% at center);
@@ -21,7 +20,6 @@ img.bg {
 }
 
 a:hover img {
-  z-index: -1;
   clip-path: circle(38vh at center);
   -webkit-clip-path: circle(38vh at center);
 }
