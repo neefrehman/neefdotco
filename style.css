@@ -36,6 +36,7 @@ a:hover {
   background-color: #333;
 }
 
+html.night,
 html.night body {
   color: #fff;
   background-color: #212121;
