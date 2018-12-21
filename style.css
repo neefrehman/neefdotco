@@ -40,13 +40,13 @@ body.night {
   color: #fff;
 }
 
-a.night, a.night:visited {
+body.night a {
   color: #fff;
   background-color: #555;
   background-color: rgb(225, 225, 225, 0.3);
 }
 
-a.night:hover {
+body.night a:hover {
   color: #212121;
   background-color: #eee;
 }

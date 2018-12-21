@@ -1,12 +1,8 @@
 // Night mode
-const body = document.querySelector("body");
-const links = document.querySelectorAll("a");
 const nightModeToggle = document.documentElement;
 const nightMode = () => {
-    body.classList.toggle("night");
-    links.forEach(link => link.classList.toggle("night"));
-
-    if (body.classList.contains("night")) {
+    document.body.classList.toggle("night");
+    if (document.body.classList.contains("night")) {
         localStorage.setItem("nightMode", true);
     } else {
         localStorage.removeItem("nightMode");
