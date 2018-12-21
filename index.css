@@ -1,7 +1,7 @@
 span.stretch {
   display: inline-block;
   transform: scale(1.1, 1);
-  transform-origin: top left;
+  transform-origin: left;
   transition-duration: 0.05s;
 }
 
@@ -17,6 +17,7 @@ img.bg {
   clip-path: circle(0% at center);
   -webkit-clip-path: circle(0% at center);
   transition: clip-path 0.4s cubic-bezier(0.65, 0.05, 0.36, 1), -webkit-clip-path 0.4s cubic-bezier(0.65, 0.05, 0.36, 1);
+  pointer-events: none;
 }
 
 a:hover img {
