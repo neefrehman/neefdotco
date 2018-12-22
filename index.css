@@ -21,6 +21,7 @@ img.bg {
 }
 
 a:hover img {
+  z-index: 2;
   clip-path: circle(38vh at center);
   -webkit-clip-path: circle(38vh at center);
 }
