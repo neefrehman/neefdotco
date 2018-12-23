@@ -10,7 +10,7 @@ h1, h2, h3, p {
 
 header, footer p {
   position: fixed;
-  z-index: 2;
+  z-index: 3;
   --edgeMargin: 40px;
 }
 
@@ -63,6 +63,7 @@ div.grid {
 }
 
 div.grid:hover {
+  z-index: 2;
   opacity: 0.95;
   cursor: crosshair;
 }
