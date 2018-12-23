@@ -103,6 +103,9 @@ div.grid.zoom {
 
 
 @media (max-width: 1024px) {
+  div.grid {
+    transform: translate(calc(var(--x) / 1.5), calc(var(--y) / 2));
+  }
   div.grid.zoom {
     width: calc(var(--gridWidth) * 2.5);
     height: calc(var(--gridHeight) * 2.5);
