@@ -58,3 +58,9 @@ html.dark a:hover {
     margin: 30px;
   }
 }
+
+@media (max-width: 485px) {
+  header p {
+    max-width: 315px;
+  }
+}
