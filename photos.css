@@ -41,6 +41,7 @@ div {
   background-position: center;
   background-attachment: fixed;
   opacity: 0.9;
+  background-color: rgba(130, 128, 128, 0.05);
 }
 
 .photo-container.grid {
