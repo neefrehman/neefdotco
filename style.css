@@ -35,19 +35,19 @@ a:hover {
   background-color: #333;
 }
 
-html.night,
-html.night body {
+html.dark,
+html.dark body {
   color: #fff;
   background-color: #212121;
 }
 
-html.night a {
+html.dark a {
   color: #fff;
   background-color: #555;
   background-color: rgb(225, 225, 225, 0.3);
 }
 
-html.night a:hover {
+html.dark a:hover {
   color: #212121;
   background-color: #eee;
 }

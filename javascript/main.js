@@ -1,14 +1,14 @@
-// Night mode (localStorage trigger in html <head>)
-const nightModeToggle = document.documentElement;
-const nightMode = () => document.documentElement.classList.toggle("night");
+// Dark mode (localStorage trigger in html <head>)
+const darkModeToggle = document.documentElement;
+const darkMode = () => document.documentElement.classList.toggle("dark");
 
-nightModeToggle.addEventListener("dblclick", e => {
-    if (!e.target.matches(".photo-container > .grid")) nightMode();
+darkModeToggle.addEventListener("dblclick", e => {
+    if (!e.target.matches(".photo-container > .grid")) darkMode();
 
-    if (document.documentElement.classList.contains("night")) {
-        localStorage.setItem("nightMode", true);
+    if (document.documentElement.classList.contains("dark")) {
+        localStorage.setItem("darkMode", true);
     } else {
-        localStorage.removeItem("nightMode");
+        localStorage.removeItem("darkMode");
     }
 });
 
