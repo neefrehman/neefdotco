@@ -50,8 +50,8 @@ if (photoContainer) {
 
     photos.forEach(photo => {
         // Random translate
-        const x = 30 * (Math.floor(Math.random() * 5)) - 60;
-        const y = 30 * (Math.floor(Math.random() * 5)) - 60;
+        const x = 15 * (Math.floor(Math.random() * 9)) - 60;
+        const y = 15 * (Math.floor(Math.random() * 9)) - 60;
         photo.style.setProperty("--x", `${x}px`);
         photo.style.setProperty("--y", `${y}px`);
 
