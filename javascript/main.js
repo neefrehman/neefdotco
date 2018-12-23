@@ -48,7 +48,29 @@ if (photoContainer) {
     // Lazy-load
     lazyAdam();
 
-    // Grid view
+    photos.forEach(photo => {
+        // Random translate
+        const x = 30 * (Math.floor(Math.random() * 5)) - 60;
+        const y = 30 * (Math.floor(Math.random() * 5)) - 60;
+        photo.style.setProperty("--x", `${x}px`);
+        photo.style.setProperty("--y", `${y}px`);
+
+        // Zoom on click
+        photo.addEventListener("click", () => {
+            photo.classList.toggle("zoom");
+            const siblings = [...photos].filter(sibling => sibling !== photo);
+            siblings.forEach(sibling => sibling.classList.remove("zoom"));
+        });
+    });
+
+    // Remove zoom on whitespace click
+    document.addEventListener("click", e => {
+        if (!e.target.matches(".photo-container > .grid")) {
+            photos.forEach(photo => photo.classList.remove("zoom"));
+        }
+    });
+
+    // Full screen
     const gridToggle = document.querySelector("#grid_toggle");
     gridToggle.addEventListener("click", () => {
 
@@ -58,7 +80,7 @@ if (photoContainer) {
         const pageHeight = scrollEl.scrollHeight - window.innerHeight;
         const decimalScrolled = scrollValue / pageHeight;
 
-        // Execute grid view
+        // Execute full screen
         photoContainer.classList.toggle("grid");
         photos.forEach(photo => photo.classList.toggle("grid"));
 
@@ -77,24 +99,8 @@ if (photoContainer) {
 
     });
 
-    // Execute grid view if hash in URL
+    // Execute full screen if hash in URL
     if (window.location.hash == "#full") gridToggle.click();
-
-    // Zoom photos on click
-    photos.forEach(photo => {
-        photo.addEventListener("click", () => {
-            photo.classList.toggle("zoom");
-            const siblings = [...photos].filter(sibling => sibling !== photo);
-            siblings.forEach(sibling => sibling.classList.remove("zoom"));
-        });
-    });
-
-    // Remove zoom on whitespace click
-    document.addEventListener("click", e => {
-        if (!e.target.matches(".photo-container > .grid")) {
-            photos.forEach(photo => photo.classList.remove("zoom"));
-        }
-    });
 
     // Scroll 100vh on arrow press & grid toggle on g/f
     window.onkeyup = e => {
