@@ -1,3 +1,11 @@
+h1, h2, h3, p {
+  -webkit-margin-after: 0;
+}
+
+header p {
+  line-height: 1.5;
+}
+
 span.stretch {
   display: inline-block;
   transform: scale(1.1, 1);
@@ -27,6 +35,12 @@ a:hover img {
   -webkit-clip-path: circle(38vh at center);
 }
 
+
+@media (max-width: 485px) {
+  header p {
+    max-width: 315px;
+  }
+}
 
 @media (pointer: coarse), (max-width: 450px), (max-height: 400px) {
   span.stretch {

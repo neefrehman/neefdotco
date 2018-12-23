@@ -117,7 +117,7 @@ div.grid.zoom {
     margin: 55px 30px;
     --gridWidth: 250px;
     --gridHeight: 160px;
-    transform: translate(calc(var(--x) / 2), calc(var(--y) / 2));
+    transform: translate(calc(var(--x) / 2), calc(var(--y) / 3));
   }
 }
 
@@ -125,7 +125,7 @@ div.grid.zoom {
 @media (max-width: 575px) {
   div.grid {
     margin: 40px 30px 45px 30px;
-    transform: translate(calc(var(--x) / 3), calc(var(--y) / 3));
+    transform: translate(calc(var(--x) / 3), calc(var(--y) / 4));
   }
   div.grid:first-child {
    margin-left: 50px;
