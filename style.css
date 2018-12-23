@@ -30,6 +30,8 @@ a:hover {
 html.dark body {
   color: #fff;
   background-color: #212121;
+  min-width: 100vw;
+  min-height: 100vh;
 }
 
 html.dark a {
