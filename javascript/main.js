@@ -49,9 +49,9 @@ if (photoContainer) {
     lazyAdam();
 
     photos.forEach(photo => {
-        // Random translate
-        const x = 15 * (Math.floor(Math.random() * 9)) - 60;
-        const y = 15 * (Math.floor(Math.random() * 9)) - 60;
+        // Generate random variables for size & translate
+        const x = 15 * (Math.floor(Math.random() * 7)) - 45;
+        const y = 15 * (Math.floor(Math.random() * 7)) - 45;
         photo.style.setProperty("--x", `${x}px`);
         photo.style.setProperty("--y", `${y}px`);
 
