@@ -124,9 +124,8 @@ div.grid.zoom {
 
 
 @media (pointer: coarse) {
-  div:not(.grid) {
+  div {
 		background-attachment: initial;
-    transition: height 0.1s;
   }
   a#grid_toggle:hover {
     color: #000;
