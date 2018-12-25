@@ -84,6 +84,9 @@ div.grid.zoom {
 
 
 @media (max-width: 1025px) {
+  .photo-container.grid {
+    margin: 10px;
+  }
   div.grid {
     width: calc(var(--x) + 320px);
     height: calc(var(--y) + 260px);
