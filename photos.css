@@ -45,7 +45,7 @@ div {
 }
 
 .photo-container.grid {
-  margin: 10px;
+  margin: 15px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -61,7 +61,7 @@ div.grid {
 
 div.grid:hover {
   z-index: 2;
-  filter: contrast(90%);
+  filter: contrast(90%) brightness(105%);
   cursor: crosshair;
 }
 
@@ -112,6 +112,9 @@ div.grid.zoom {
 
 
 @media (max-width: 575px) {
+  .photo-container.grid {
+    margin: 5px;
+  }
   div.grid {
     margin: 45px 30px;
     transform: translate(calc(var(--x) / 2), calc(var(--y) / 5));
