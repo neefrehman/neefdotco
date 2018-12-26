@@ -55,8 +55,8 @@ div {
 div.grid {
   background-attachment: initial;
   margin: 70px 35px;
-  width: calc(var(--y) + 330px);
-  height: calc(var(--x) + 270px);
+  width: calc(330px + var(--y));
+  height: calc(270px + var(--x));
   transform: translate(var(--x), var(--y));
 }
 
@@ -72,8 +72,8 @@ div.grid:first-child {
 
 div.grid.zoom {
   margin: 20px 10px;
-  width: calc((var(--y) + 340px) * 2.4);
-  height: calc((var(--x) + 260px) * 2.4);
+  width: calc((330px + var(--y)) * 2.4);
+  height: calc((270px + var(--x)) * 2.4);
 }
 
 
@@ -86,13 +86,13 @@ div.grid.zoom {
 
 @media (max-width: 1025px) {
   div.grid {
-    width: calc(var(--y) + 320px);
-    height: calc(var(--x) + 260px);
+    width: calc(320px + var(--y));
+    height: calc(260px + var(--x));
     transform: translate(calc(var(--x) * 0.7), calc(var(--y) * 0.5));
   }
   div.grid.zoom {
-    width: calc((var(--y) + 340px) * 2);
-    height: calc((var(--x) + 260px) * 2);
+    width: calc((320px + var(--y)) * 2);
+    height: calc((260px + var(--x)) * 2);
   }
 }
 
@@ -103,13 +103,13 @@ div.grid.zoom {
   }
   div.grid {
     margin: 55px 30px;
-    width: calc(var(--y) + 280px);
-    height: calc(var(--x) + 220px);
+    width: calc(280px + var(--y));
+    height: calc(220px + var(--x));
     transform: translate(calc(var(--x) * 0.5), calc(var(--y) * 0.3));
   }
   div.grid.zoom {
-    width: calc((var(--y) + 280px) * 1.8);
-    height: calc((var(--x) + 220px) * 1.8);
+    width: calc((280px + var(--y)) * 1.8);
+    height: calc((220px + var(--x)) * 1.8);
   }
 }
 
