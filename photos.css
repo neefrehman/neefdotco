@@ -40,7 +40,7 @@ div {
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  filter: contrast(90%);
+  filter: contrast(85%);
   background-color: rgba(130, 130, 130, 0.1);
 }
 
@@ -62,7 +62,7 @@ div.grid {
 
 div.grid:hover {
   z-index: 2;
-  filter: contrast(90%) brightness(105%);
+  filter: contrast(85%) brightness(105%);
   cursor: crosshair;
 }
 
@@ -88,7 +88,7 @@ div.grid.zoom {
   div.grid {
     width: calc(var(--y) + 320px);
     height: calc(var(--x) + 260px);
-    transform: translate(calc(var(--x) / 1.5), calc(var(--y) / 2));
+    transform: translate(calc(var(--x) * 0.7), calc(var(--y) * 0.5));
   }
   div.grid.zoom {
     width: calc((var(--y) + 340px) * 2);
@@ -105,7 +105,7 @@ div.grid.zoom {
     margin: 55px 30px;
     width: calc(var(--y) + 280px);
     height: calc(var(--x) + 220px);
-    transform: translate(calc(var(--x) / 2), calc(var(--y) / 3));
+    transform: translate(calc(var(--x) * 0.5), calc(var(--y) * 0.3));
   }
   div.grid.zoom {
     width: calc((var(--y) + 280px) * 1.8);
@@ -120,7 +120,7 @@ div.grid.zoom {
   }
   div.grid {
     margin: 45px 30px;
-    transform: translate(calc(var(--x) / 2), calc(var(--y) / 5));
+    transform: translate(calc(var(--x) * 0.5), calc(var(--y) * 0.2));
   }
   div.grid:first-child {
    margin-left: 50px;
