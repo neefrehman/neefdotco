@@ -103,12 +103,12 @@ div.grid.zoom {
   }
   div.grid {
     margin: 55px 30px;
-    width: calc(280px + var(--y));
+    width: calc(275px + var(--y));
     height: calc(220px + var(--x));
     transform: translate(calc(var(--x) * 0.5), calc(var(--y) * 0.3));
   }
   div.grid.zoom {
-    width: calc((280px + var(--y)) * 1.8);
+    width: calc((275px + var(--y)) * 1.8);
     height: calc((220px + var(--x)) * 1.8);
   }
 }
