@@ -125,9 +125,6 @@ div.grid.zoom {
     margin: 45px 30px;
     transform: translate(calc(var(--x) * 0.6), calc(var(--y) * 0.2));
   }
-  div.grid:first-child {
-   margin-left: 30px;
-  }
 }
 
 
