@@ -103,9 +103,12 @@ div.grid.zoom {
   }
   div.grid {
     margin: 55px 30px;
-    width: calc(275px + var(--y));
-    height: calc(220px + var(--x));
-    transform: translate(calc(var(--x) * 0.5), calc(var(--y) * 0.3));
+    width: calc(280px + var(--y));
+    height: calc(225px + var(--x));
+    transform: translate(calc(var(--x) * 0.6), calc(var(--y) * 0.3));
+  }
+  div.grid:first-child {
+   margin-left: 50px;
   }
   div.grid.zoom {
     width: calc((275px + var(--y)) * 1.8);
@@ -120,10 +123,10 @@ div.grid.zoom {
   }
   div.grid {
     margin: 45px 30px;
-    transform: translate(calc(var(--x) * 0.5), calc(var(--y) * 0.2));
+    transform: translate(calc(var(--x) * 0.6), calc(var(--y) * 0.2));
   }
   div.grid:first-child {
-   margin-left: 50px;
+   margin-left: 30px;
   }
 }
 
