@@ -54,7 +54,7 @@ div {
 
 div.grid {
   background-attachment: initial;
-  margin: 70px 35px;
+  margin: 80px 40px;
   width: calc(330px + var(--y));
   height: calc(265px + var(--x));
   transform: translate(var(--x), var(--y));
