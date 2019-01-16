@@ -102,7 +102,7 @@ div.grid.zoom {
     --edgeMargin: 30px;
   }
   div.grid {
-    margin: 55px 30px;
+    margin: 60px 30px;
     width: calc(280px + var(--y));
     height: calc(225px + var(--x));
     transform: translate(calc(var(--x) * 0.6), calc(var(--y) * 0.3));
