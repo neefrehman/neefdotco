@@ -75,18 +75,18 @@ if (photoContainer) {
     gridToggle.addEventListener("click", () => {
 
         // Scroll variables (pre-change)
-        const scrollEl = document.scrollingElement;
-        const scrollValue = scrollEl.scrollTop;
-        const pageHeight = scrollEl.scrollHeight - window.innerHeight;
-        const decimalScrolled = scrollValue / pageHeight;
+        const scrollElement = document.scrollingElement;
+        const pixelsScrolled = scrollElement.scrollTop;
+        const pageHeight = scrollElement.scrollHeight - window.innerHeight;
+        const decimalScrolled = pixelsScrolled / pageHeight;
 
         // Execute full screen
         photoContainer.classList.toggle("grid");
         photos.forEach(photo => photo.classList.toggle("grid"));
 
         // Maintain relative scroll height
-        const newPageHeight = scrollEl.scrollHeight - window.innerHeight;
-        scrollEl.scrollTop = decimalScrolled * newPageHeight;
+        const newPageHeight = scrollElement.scrollHeight - window.innerHeight;
+        scrollElement.scrollTop = decimalScrolled * newPageHeight;
 
         // Toggle button text & update URL
         if (gridToggle.innerHTML === "Full screen") {
