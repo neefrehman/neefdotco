@@ -113,4 +113,4 @@ if (photoContainer) {
 
 
 // Console log
-console.log("Nothing here. Hope you weren't looking for something cool. ¯\\_(ツ)_/¯");
+console.log("%cNothing here. Hope you weren't looking for something cool. ¯\\_(ツ)_/¯", "font-size: 24px; color: #333");
