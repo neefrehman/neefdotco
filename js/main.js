@@ -40,7 +40,7 @@ if (photoContainer) {
     // Create & insert shuffled div array
     const n = 56;
     const photoArray = Array.from({length: n}, (item, i) =>
-        `<div class="grid" data-src="photos/photo_${++i}.jpg"> </div>`
+        `<div class="grid" data-src="../photos/photo_${++i}.jpg"> </div>`
     );
     photoContainer.innerHTML = shuffle(photoArray).join("");
     const photos = document.querySelectorAll("[data-src]");
@@ -112,4 +112,4 @@ if (photoContainer) {
 
 
 // Console log
-console.log("%cNothing here. Hope you weren't looking for something cool. ¯\\_(ツ)_/¯", "font-size: 24px; color: #333");
+console.log("Nothing here. Hope you weren't looking for something cool. ¯\\_(ツ)_/¯");

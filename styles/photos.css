@@ -55,8 +55,8 @@ div {
 div.grid {
   background-attachment: initial;
   margin: 80px 40px;
-  width: calc(330px + var(--y));
-  height: calc(265px + var(--x));
+  width: calc(325px + var(--y));  /* Make 5 smaller */
+  height: calc(260px + var(--x));  /* Make 5 smaller */
   transform: translate(var(--x), var(--y));
 }
 
@@ -67,7 +67,7 @@ div.grid:hover {
 }
 
 div.grid:first-child {
-  margin-left: 100px;
+  margin-left: 90px;
 }
 
 div.grid.zoom {
@@ -79,20 +79,22 @@ div.grid.zoom {
 
 @media (min-width: 1520px) {
   div.grid {
-    margin: 80px 45px;
+    margin: 90px 50px;
+    width: calc(340px + var(--y));
+    height: calc(275px + var(--x));
   }
 }
 
 
 @media (max-width: 1025px) {
   div.grid {
-    width: calc(320px + var(--y));
-    height: calc(260px + var(--x));
+    width: calc(315px + var(--y));
+    height: calc(255px + var(--x));
     transform: translate(calc(var(--x) * 0.7), calc(var(--y) * 0.5));
   }
   div.grid.zoom {
-    width: calc((320px + var(--y)) * 2);
-    height: calc((260px + var(--x)) * 2);
+    width: calc((315px + var(--y)) * 2);
+    height: calc((255px + var(--x)) * 2);
   }
 }
 
