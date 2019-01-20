@@ -50,10 +50,9 @@ if (photoContainer) {
 
     photos.forEach(photo => {
         // Generate random variables for size & translate
-        const x = 10 * (Math.floor(Math.random() * 9)) - 40;
-        const y = 10 * (Math.floor(Math.random() * 9)) - 40;
-        photo.style.setProperty("--x", `${x}px`);
-        photo.style.setProperty("--y", `${y}px`);
+        const r = () => 10 * (Math.floor(Math.random() * 9)) - 40;
+        photo.style.setProperty("--x", `${r()}px`);
+        photo.style.setProperty("--y", `${r()}px`);
 
         // Zoom on click
         photo.addEventListener("click", () => {
