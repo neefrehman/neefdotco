@@ -55,8 +55,8 @@ div {
 div.grid {
   background-attachment: initial;
   margin: 80px 40px;
-  width: calc(325px + var(--y));  /* Make 5 smaller */
-  height: calc(260px + var(--x));  /* Make 5 smaller */
+  width: calc(325px + var(--y));
+  height: calc(260px + var(--x));
   transform: translate(var(--x), var(--y));
 }
 
@@ -80,8 +80,8 @@ div.grid.zoom {
 @media (min-width: 1520px) {
   div.grid {
     margin: 90px 50px;
-    width: calc(340px + var(--y));
-    height: calc(275px + var(--x));
+    width: calc(335px + var(--y));
+    height: calc(270px + var(--x));
   }
 }
 
