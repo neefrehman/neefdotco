@@ -27,11 +27,13 @@ a:hover {
   background-color: #333;
 }
 
+html.dark {
+  background-color: #212121;
+}
+
 html.dark body {
   color: #fff;
   background-color: #212121;
-  min-width: 100vw;
-  min-height: 100vh;
 }
 
 html.dark a {
