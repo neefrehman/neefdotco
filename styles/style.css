@@ -29,6 +29,7 @@ a:hover {
 
 html.dark {
   background-color: #212121;
+  height: 100vh;
 }
 
 html.dark body {
