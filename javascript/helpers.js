@@ -1,8 +1,8 @@
-const lazyAdam = () => {
+const lzy = (offset = 200) => {
 
   const images = document.querySelectorAll("[data-src]");
   const observer = new IntersectionObserver(onIntersection, {
-    rootMargin: "1000px 0px",
+    rootMargin: `${offset}px ${offset}px`,
     threshold: 0.01
   });
 

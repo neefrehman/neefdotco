@@ -46,7 +46,7 @@ if (photoContainer) {
     const photos = document.querySelectorAll("[data-src]");
 
     // Lazy-load
-    lazyAdam();
+    lzy(1000);
 
     photos.forEach(photo => {
         // Generate random variables for size & translate
