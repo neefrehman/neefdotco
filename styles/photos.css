@@ -101,7 +101,7 @@ div.grid.zoom {
 
 @media (max-width: 769px) {
   header, footer a {
-    --edgeMargin: 30px;
+    --edgeMargin: 32px;
   }
   div.grid {
     margin: 60px 30px;
