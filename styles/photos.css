@@ -8,7 +8,7 @@ h1, h2, h3, p {
   -webkit-margin-before: 0.5em;
 }
 
-header, footer p {
+header, footer a {
   position: fixed;
   z-index: 3;
   --edgeMargin: 40px;
@@ -19,12 +19,12 @@ header {
   left: var(--edgeMargin);
 }
 
-footer p:first-child {
+footer a:first-child {
   bottom: var(--edgeMargin);
   left: var(--edgeMargin);
 }
 
-footer p:last-child {
+footer a:last-child {
   bottom: var(--edgeMargin);
   right: var(--edgeMargin);
   cursor: pointer;
@@ -100,7 +100,7 @@ div.grid.zoom {
 
 
 @media (max-width: 769px) {
-  header, footer p {
+  header, footer a {
     --edgeMargin: 30px;
   }
   div.grid {
