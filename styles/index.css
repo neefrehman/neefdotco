@@ -1,52 +1,52 @@
 h1, h2, h3, p {
-  -webkit-margin-after: 0;
+    -webkit-margin-after: 0;
 }
 
 header p {
-  line-height: 1.5;
+    line-height: 1.5;
 }
 
 span.stretch {
-  display: inline-block;
-  transform: scale(1.1, 1);
-  transform-origin: left;
-  transition-duration: 0.05s;
+    display: inline-block;
+    transform: scale(1.1, 1);
+    transform-origin: left;
+    transition-duration: 0.05s;
 }
 
 img.bg {
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  object-fit: cover;
-  width: 81vh;
-  height: 81vh;
-  opacity: 0.9;
-  z-index: -2;
-  clip-path: circle(0% at center);
-  -webkit-clip-path: circle(0% at center);
-  transition: clip-path 0.4s cubic-bezier(0.65, 0.05, 0.36, 1), -webkit-clip-path 0.4s cubic-bezier(0.65, 0.05, 0.36, 1);
-  pointer-events: none;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    width: 81vh;
+    height: 81vh;
+    opacity: 0.9;
+    z-index: -2;
+    clip-path: circle(0% at center);
+    -webkit-clip-path: circle(0% at center);
+    transition: clip-path 0.4s cubic-bezier(0.65, 0.05, 0.36, 1), -webkit-clip-path 0.4s cubic-bezier(0.65, 0.05, 0.36, 1);
+    pointer-events: none;
 }
 
 a:hover img {
-  z-index: -1;
-  clip-path: circle(38vh at center);
-  -webkit-clip-path: circle(38vh at center);
+    z-index: -1;
+    clip-path: circle(38vh at center);
+    -webkit-clip-path: circle(38vh at center);
 }
 
 
 @media (max-width: 485px) {
-  header p {
-    max-width: 275px;
-  }
+    header p {
+        max-width: 275px;
+    }
 }
 
 @media (pointer: coarse), (max-width: 450px), (max-height: 400px) {
-  span.stretch {
-    transition-duration:  0.1s;
-  }
-  img.bg {
-    display: none;
-  }
+    span.stretch {
+        transition-duration:  0.1s;
+    }
+    img.bg {
+        display: none;
+    }
 }
