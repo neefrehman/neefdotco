@@ -30,6 +30,7 @@ a:hover {
 html.dark body {
     color: #fff;
     background-color: #212121;
+    min-height: calc(100vh - 89px); /*  safari fix */
 }
 
 html.dark a {
@@ -48,5 +49,8 @@ html.dark a:hover {
     body {
         font-size: 13px;
         margin: 30px;
+    }
+    html.dark body {
+        min-height: calc(100vh - 59px);
     }
 }
