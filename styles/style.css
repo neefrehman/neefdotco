@@ -30,7 +30,7 @@ a:hover {
 html.dark body {
     color: #fff;
     background-color: #212121;
-    min-height: calc(100vh - 89px); /*  safari fix */
+    min-height: calc(100vh - 89px); /* safari fix */
 }
 
 html.dark a {
