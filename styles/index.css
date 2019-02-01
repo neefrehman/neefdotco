@@ -22,6 +22,7 @@ img.bg {
     width: 81vh;
     height: 81vh;
     opacity: 0.9;
+    z-index: -2;
     clip-path: circle(0% at center);
     -webkit-clip-path: circle(0% at center);
     transition: clip-path 0.4s cubic-bezier(0.65, 0.05, 0.36, 1), -webkit-clip-path 0.4s cubic-bezier(0.65, 0.05, 0.36, 1);
@@ -29,7 +30,7 @@ img.bg {
 }
 
 a:hover img {
-    z-index: 2;
+    z-index: -1;
     clip-path: circle(38vh at center);
     -webkit-clip-path: circle(38vh at center);
 }
