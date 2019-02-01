@@ -27,7 +27,8 @@ a:hover {
     background-color: #333;
 }
 
-html.dark {    /* safari fix */
+html.dark {
+    color: #fff;
     background-color: #212121;
     min-height: 100vh;
 }
