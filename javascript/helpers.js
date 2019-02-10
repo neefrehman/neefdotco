@@ -6,10 +6,10 @@ const lzy = (offset = 200) => {
         threshold: 0.01
     });
 
-    function loadImage(imageEl) {
+    const loadImage = imageEl => {
         imageEl.style.backgroundImage = `url(${imageEl.getAttribute("data-src")})`;
         imageEl.removeAttribute("data-src");
-    }
+    };
 
     images.forEach(image => observer.observe(image));
 

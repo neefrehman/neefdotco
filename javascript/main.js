@@ -48,9 +48,9 @@ if (photoContainer) {
     // Lazy-load
     lzy(1000);
 
+    const r = () => 10 * (Math.floor(Math.random() * 9)) - 40;
     photos.forEach(photo => {
         // Generate random variables for size & translate
-        const r = () => 10 * (Math.floor(Math.random() * 9)) - 40;
         photo.style.setProperty("--x", `${r()}px`);
         photo.style.setProperty("--y", `${r()}px`);
 
