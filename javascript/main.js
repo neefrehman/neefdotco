@@ -39,8 +39,10 @@ if (photoContainer) {
 
     // Create & insert shuffled div array
     const n = 56;
+    const r = () => 10 * (Math.floor(Math.random() * 9)) - 40;
     const photoArray = Array.from({length: n}, (item, i) =>
-        `<div class="grid" data-src="photos/photo_${++i}.jpg"> </div>`
+        `<div class="grid" data-src="photos/photo_${++i}.jpg"
+            style="--x: ${r()}px; --y: ${r()}px"> </div>`
     );
     photoContainer.innerHTML = shuffle(photoArray).join("");
     const photos = document.querySelectorAll("[data-src]");
@@ -48,13 +50,8 @@ if (photoContainer) {
     // Lazy-load
     lzy(1000);
 
-    const r = () => 10 * (Math.floor(Math.random() * 9)) - 40;
+    // Zoom on click
     photos.forEach(photo => {
-        // Generate random variables for size & translate
-        photo.style.setProperty("--x", `${r()}px`);
-        photo.style.setProperty("--y", `${r()}px`);
-
-        // Zoom on click
         photo.addEventListener("click", () => {
             photo.classList.toggle("zoom");
             const siblings = [...photos].filter(sibling => sibling !== photo);
