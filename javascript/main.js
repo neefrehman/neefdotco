@@ -47,8 +47,8 @@ if (title) {
 const photoContainer = document.querySelector(".photo-container");
 if (photoContainer) {
 
-    // Create & insert shuffled div array
-    const n = 56;
+    // Create (with offset) & insert shuffled divs
+    const n = 59;
     const r = () => 10 * (Math.floor(Math.random() * 9)) - 40;
     const photoArray = Array.from({length: n}, (item, i) =>
         `<div class="grid" data-src="photos/photo_${++i}.jpg"
