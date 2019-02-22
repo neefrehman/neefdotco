@@ -47,13 +47,18 @@ if (title) {
 const photoContainer = document.querySelector(".photo-container");
 if (photoContainer) {
 
-    // Create (with offset) & insert shuffled divs
+    // Photo array variables
     const n = 58;
+    const size = (window.innerWidth > 500) ? "large" : "small";
     const r = () => 10 * (Math.floor(Math.random() * 9)) - 40;
+
+    // Create photo array
     const photoArray = Array.from({length: n}, (item, i) =>
-        `<div class="grid" data-src="photos/photo_${++i}.jpg"
+        `<div class="grid" data-src="photos/${size}/photo_${++i}.jpg"
             style="--x: ${r()}px; --y: ${r()}px"> </div>`
     );
+
+    // Add photos to DOM
     photoContainer.innerHTML = shuffle(photoArray).join("");
     const photos = document.querySelectorAll("[data-src]");
 
