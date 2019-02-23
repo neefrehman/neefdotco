@@ -1,11 +1,8 @@
-var ua = navigator.userAgent || navigator.vendor || window.opera;
-var isInstagram = (ua.indexOf('Instagram') > -1) ? true : false;
-
 const lzy = (offset = 200) => {
 
     const images = document.querySelectorAll("[data-src]");
 
-    if (isInstagram) {
+    if (!window.IntersectionObserver) {
 
         images.forEach(image => {
             image.style.backgroundImage = `url(${image.getAttribute("data-src")})`;
