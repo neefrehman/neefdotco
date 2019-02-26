@@ -82,7 +82,7 @@ if (photoContainer) {
     });
 
     // Full screen
-    const gridToggle = document.querySelector("#grid_toggle");
+    const gridToggle = document.querySelector(".grid-toggle");
     gridToggle.addEventListener("click", () => {
 
         // Scroll variables (pre-change)
