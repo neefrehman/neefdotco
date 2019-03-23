@@ -34,7 +34,15 @@ footer a:last-child {
     margin: 0;
 }
 
-div {
+.photo-container.grid {
+    margin: 20px 10px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-around;
+}
+
+.photo-container div {
     height: 100vh;
     width: 100vw;
     background-size: cover;
@@ -42,14 +50,6 @@ div {
     background-attachment: fixed;
     filter: contrast(87%);
     background-color: rgba(130, 130, 130, 0.1);
-}
-
-.photo-container.grid {
-    margin: 20px 10px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-end;
-    justify-content: space-around;
 }
 
 div.grid {
@@ -130,7 +130,7 @@ div.grid.zoom {
 
 
 @media (pointer: coarse) {
-    div {
+    .photo-container div {
         background-attachment: initial;
     }
     a#grid_toggle:hover {
