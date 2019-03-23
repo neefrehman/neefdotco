@@ -48,7 +48,7 @@ const photoContainer = document.querySelector(".photo-container");
 if (photoContainer) {
 
     // Photo array variables
-    const n = 69;
+    const n = 70;
     const size = (window.innerWidth > 500) ? "large" : "small";
     const r = () => 10 * (Math.floor(Math.random() * 9)) - 40;
 
