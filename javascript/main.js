@@ -49,7 +49,7 @@ if (photoContainer) {
 
     // Photo array variables
     const n = 70;
-    const size = (window.innerWidth > 500) ? "large" : "small";
+    const size = (window.matchMedia("min-width: 500px").matches) ? "large" : "small";
     const r = () => 10 * (Math.floor(Math.random() * 9)) - 40;
 
     // Create photo array
