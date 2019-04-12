@@ -27,12 +27,6 @@ darkModeToggle.addEventListener("dblclick", e => {
 const title = document.querySelector("span.stretch");
 if (title) {
 
-    document.onmousemove = e => {
-        const mousePosition = e.pageX / document.body.clientWidth;
-        const stretchValue = 1.1 + (mousePosition / 5);
-        title.style.transform = `scale(${stretchValue}, 1)`;
-    };
-
     window.ondevicemotion = e => {
         const deviceTilt = (window.innerHeight > window.innerWidth) ?
             e.accelerationIncludingGravity.x : e.accelerationIncludingGravity.y;
