@@ -26,14 +26,12 @@ darkModeToggle.addEventListener("dblclick", e => {
 // Header stretch
 const title = document.querySelector("span.stretch");
 if (title) {
-
     window.ondevicemotion = e => {
         const deviceTilt = (window.innerHeight > window.innerWidth) ?
             e.accelerationIncludingGravity.x : e.accelerationIncludingGravity.y;
         const stretchValue = 1.1 + (Math.abs(deviceTilt) / 15);
         title.style.transform = `scale(${stretchValue}, 1)`;
     };
-
 }
 
 
