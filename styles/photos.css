@@ -133,7 +133,7 @@ div.grid.zoom {
     .photo-container div {
         background-attachment: initial;
     }
-    a#grid_toggle:hover {
+    a.grid_toggle:hover {
         color: #000;
         background-color: #eee;
     }
