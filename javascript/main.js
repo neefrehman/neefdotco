@@ -41,14 +41,17 @@ if (photoContainer) {
 
     // Photo array variables
     const n = 70;
-    const size = (window.matchMedia("min-width: 500px").matches) ? "large" : "small";
+    const size = (window.innerWidth > 500) ? "large" : "small";
     const r = () => 10 * (Math.floor(Math.random() * 9)) - 40;
 
     // Create photo array
-    const photoArray = Array.from({length: n}, (item, i) =>
-        `<div class="grid" data-src="photos/${size}/photo_${++i}.jpg"
-            style="--x: ${r()}px; --y: ${r()}px"> </div>`
-    );
+    const photoArray = Array.from({length: n}, (photo, i) => {
+        return `
+            <div class="grid"
+                data-src="photos/${size}/photo_${++i}.jpg"
+                style="--x: ${r()}px; --y: ${r()}px"> </div>
+        `;
+    });
 
     // Add photos to DOM
     photoContainer.innerHTML = shuffle(photoArray).join("");
