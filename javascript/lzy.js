@@ -3,14 +3,11 @@ const lzy = (offset = 200) => {
     const images = document.querySelectorAll("[data-src]");
 
     if (!window.IntersectionObserver) {
-
         images.forEach(image => {
             image.style.backgroundImage = `url(${image.getAttribute("data-src")})`;
             image.removeAttribute("data-src");
         });
-
     } else {
-
         const onIntersection = entries => {
             entries.forEach(entry => {
                 if (entry.intersectionRatio > 0) {
@@ -31,7 +28,6 @@ const lzy = (offset = 200) => {
         };
 
         images.forEach(image => observer.observe(image));
-
     }
 
 };
