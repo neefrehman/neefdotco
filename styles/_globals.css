@@ -49,6 +49,6 @@ html.dark a:hover {
         font-size: 13px;
     }
     html.dark body {
-        min-height: calc(100vh - 59px);
+        min-height: calc(100vh - 59px); /* safari fix */
     }
 }
