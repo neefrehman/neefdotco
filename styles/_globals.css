@@ -5,7 +5,6 @@ body {
     color: #333;
     -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; -moz-text-size-adjust: 100%;
     -webkit-font-smoothing: antialiased;
-    margin: 45px;
 }
 
 h1::selection, span.stretch::selection, h2::selection, h3::selection, p::selection, a::selection {
@@ -48,7 +47,6 @@ html.dark a:hover {
 @media (max-width: 769px) {
     body {
         font-size: 13px;
-        margin: 30px;
     }
     html.dark body {
         min-height: calc(100vh - 59px);

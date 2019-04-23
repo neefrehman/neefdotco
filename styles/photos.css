@@ -124,7 +124,7 @@ div.grid.zoom {
     }
     div.grid {
         margin: 55px 30px;
-        transform: translate(calc(var(--x) * 0.7), calc(var(--y) * 0.3));
+        transform: translate(calc(var(--x) * 0.75), calc(var(--y) * 0.3));
     }
 }
 
