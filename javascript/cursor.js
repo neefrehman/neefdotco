@@ -6,7 +6,7 @@ if (matchMedia("(pointer:fine)").matches) {
 
     const allLinks = document.querySelectorAll("a");
     const projectLinks = document.querySelectorAll(".made a");
-    const photographyLink = document.querySelector(`a[href="photos.html"]`);
+    const navLinks = document.querySelectorAll("a.nav");
 
     let vmaxRatio = Math.max(window.innerWidth, window.innerHeight) / 14;
     cursorContainer.style.setProperty("--vmaxRatio", vmaxRatio);
@@ -29,10 +29,12 @@ if (matchMedia("(pointer:fine)").matches) {
         link.addEventListener("mouseleave", () => cursor.classList.remove("hide"));
     });
 
-    photographyLink.addEventListener("click", e => {
-        cursor.classList.add("transition");
-        setTimeout(() => window.location = photographyLink.href, 1000);
-        e.preventDefault();
+    navLinks.forEach(link => {
+        link.addEventListener("click", e => {
+            cursor.classList.add("transition");
+            setTimeout(() => window.location = link.href, 1000);
+            e.preventDefault();
+        });
     });
 
     window.addEventListener("resize", () => {
