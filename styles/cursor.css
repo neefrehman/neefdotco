@@ -19,17 +19,17 @@
     transition: transform 420ms cubic-bezier(1, 0.1, 0.1, 1), top 35ms, left 35ms;
 }
 
-.cursor.hide, .cursor.large.hide {
-    z-index: 1;
-    transform: scale(0) translate(-50%, -50%);
-}
-
-.cursor.small {
+.cursor.small, .cursor.large.small {
     transform: scale(0.5) translate(-50%, -50%);
 }
 
 .cursor.large {
     transform: scale(2) translate(-50%, -50%);
+}
+
+.cursor.hide, .cursor.large.hide {
+    z-index: 1;
+    transform: scale(0) translate(-50%, -50%);
 }
 
 .cursor-inner {
