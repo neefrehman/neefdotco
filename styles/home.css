@@ -28,11 +28,11 @@ img.bg {
     z-index: -2;
     clip-path: circle(0% at center);
     -webkit-clip-path: circle(0% at center);
-    transition: clip-path 0.42s cubic-bezier(1, 0.1, 0.1, 1), -webkit-clip-path 0.5s cubic-bezier(1, 0.1, 0.1, 1);
+    transition: clip-path 420ms cubic-bezier(1, 0.1, 0.1, 1), -webkit-clip-path 0.5s cubic-bezier(1, 0.1, 0.1, 1);
     pointer-events: none;
 }
 
-a:hover img {
+.made a:hover img {
     z-index: -1;
     clip-path: circle(38vh at center);
     -webkit-clip-path: circle(38vh at center);
