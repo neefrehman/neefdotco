@@ -36,7 +36,7 @@ if (matchMedia("(pointer:fine)").matches) {
 
     navLinks.forEach(link => {
         link.addEventListener("click", e => {
-            cursor.classList.add("transition");
+            cursorContainer.classList.add("transition");
             setTimeout(() => window.location = link.href, 960);
             e.preventDefault();
         });

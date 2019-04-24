@@ -40,8 +40,8 @@
     transition: transform 750ms cubic-bezier(1, 0.1, 0.1, 1) 250ms;
 }
 
-.cursor.transition,
-.cursor.transition ~ .cursor-inner {
+.cursor-container.transition .cursor,
+.cursor-container.transition .cursor-inner {
     z-index: 5;
     transform: scale(var(--vmaxRatio)) translate(-50%, -50%);
 }
