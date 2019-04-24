@@ -2,8 +2,8 @@
     display: block;
     position: fixed;
     pointer-events: none;
-    top: -5rem;
-    left: -5rem;
+    top: -1rem;
+    left: -1rem;
 
     border-radius: 100%;
     width: 2rem;
