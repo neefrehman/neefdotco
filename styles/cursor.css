@@ -2,8 +2,8 @@
     display: block;
     position: fixed;
     pointer-events: none;
-    top: -10vh;
-    left: -10vw;
+    top: -5rem;
+    left: -5rem;
 
     border-radius: 100%;
     width: 2rem;
@@ -32,28 +32,22 @@
     transform: scale(2) translate(-50%, -50%);
 }
 
-.cursor.transition {
-    z-index: 1;
-
-    transform: scale(var(--vmaxRatio)) translate(-50%, -50%);
-    transition: transform 450ms cubic-bezier(1, 0.1, 0.1, 1);
-}
-
 .cursor-inner {
-    z-index: 1;
     background-color: #ffffff;
 
     transform: scale(0) translate(-50%, -50%);
     transform-origin: top left;
+    transition: transform 700ms cubic-bezier(1, 0.1, 0.1, 1) 250ms;
 }
 
 html.dark .cursor-inner {
     background-color: #212121;
 }
 
+.cursor.transition,
 .cursor.transition ~ .cursor-inner {
+    z-index: 5;
     transform: scale(var(--vmaxRatio)) translate(-50%, -50%);
-    transition: transform 750ms cubic-bezier(1, 0.1, 0.1, 1) 250ms;
 }
 
 
