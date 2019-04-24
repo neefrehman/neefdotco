@@ -1,18 +1,13 @@
 .cursor, .cursor-inner {
     display: block;
     position: fixed;
-    top: -50vh;
-    left: -50vw;
+    pointer-events: none;
+    top: -10vh;
+    left: -10vw;
 
     border-radius: 100%;
-    pointer-events: none;
-
     width: 2rem;
     height: 2rem;
-
-    background-position: center center;
-    background-size: cover;
-    background-repeat: no-repeat;
 }
 
 .cursor {
