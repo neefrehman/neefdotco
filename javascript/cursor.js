@@ -37,7 +37,7 @@ if (matchMedia("(pointer:fine)").matches) {
     navLinks.forEach(link => {
         link.addEventListener("click", e => {
             cursor.classList.add("transition");
-            setTimeout(() => window.location = link.href, 950);
+            setTimeout(() => window.location = link.href, 1000);
             e.preventDefault();
         });
     });

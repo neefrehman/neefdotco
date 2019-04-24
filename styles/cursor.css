@@ -16,7 +16,7 @@
 
     transform: scale(1) translate(-50%, -50%);
     transform-origin: top left;
-    transition: transform 420ms cubic-bezier(1, 0.1, 0.1, 1), top 35ms, left 35ms;
+    transition: transform 400ms cubic-bezier(1, 0.1, 0.1, 1), top 35ms, left 35ms;
 }
 
 .cursor.hide, .cursor.large.hide {
@@ -37,7 +37,7 @@
 
     transform: scale(0) translate(-50%, -50%);
     transform-origin: top left;
-    transition: transform 700ms cubic-bezier(1, 0.1, 0.1, 1) 250ms;
+    transition: transform 750ms cubic-bezier(1, 0.1, 0.1, 1) 250ms;
 }
 
 html.dark .cursor-inner {
