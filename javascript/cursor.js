@@ -8,7 +8,7 @@ if (matchMedia("(pointer:fine)").matches) {
     const projectLinks = document.querySelectorAll(".made a");
     const navLinks = document.querySelectorAll("a.nav");
 
-    let vmaxRatio = Math.max(window.innerWidth, window.innerHeight) / 14;
+    let vmaxRatio = (Math.max(window.innerWidth, window.innerHeight) / 14) + 1;
     cursorContainer.style.setProperty("--vmaxRatio", vmaxRatio);
 
     window.addEventListener("resize", () => {
@@ -17,8 +17,8 @@ if (matchMedia("(pointer:fine)").matches) {
     });
 
     document.addEventListener("mousemove", e => {
-        cursor.style.cssText = `top: ${e.pageY}px; left: ${e.pageX}px;`;
-        cursorInner.style.cssText = `top: ${e.pageY}px; left: ${e.pageX}px;`;
+        cursor.style.cssText = `top: ${e.clientY}px; left: ${e.clientX}px;`;
+        cursorInner.style.cssText = `top: ${e.clientY}px; left: ${e.clientX}px;`;
     });
 
     document.addEventListener("mousedown", () => cursor.classList.add("small"));

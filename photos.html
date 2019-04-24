@@ -18,6 +18,7 @@
 
     <link rel="stylesheet" href="styles/_globals.css">
     <link rel="stylesheet" href="styles/photos.css">
+    <link rel="stylesheet" href="styles/cursor.css">
 
     <script> if (localStorage.getItem("darkMode")) document.documentElement.classList.toggle("dark") </script>
 
@@ -25,14 +26,19 @@
 
 <body>
 
+    <div class="cursor-container">
+        <div class="cursor"> </div>
+        <div class="cursor-inner"> </div>
+    </div>
+
     <header>
-        <p> <a href="index.html">Neef Rehman</a> </p>
+        <p> <a class="nav" href="index.html">Neef Rehman</a> </p>
     </header>
 
     <section class="grid photo-container"> </section>
 
     <footer class="photos">
-        <a href="index.html">← Home</a>
+        <a class="nav" href="index.html">← Home</a>
         <a class="grid-toggle">Full screen</a>
     </footer>
 
@@ -42,6 +48,7 @@
     <script src="javascript/lzy.js"> </script>
     <script src="javascript/main.js"> </script>
     <script src="javascript/photos.js"> </script>
+    <script src="javascript/cursor.js"> </script>
 
 </body>
 
