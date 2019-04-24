@@ -1,0 +1,68 @@
+.cursor, .cursor-inner {
+    display: block;
+    position: fixed;
+    top: -50vh;
+    left: -50vw;
+
+    border-radius: 100%;
+    pointer-events: none;
+
+    width: 2rem;
+    height: 2rem;
+
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.cursor {
+    z-index: -1;
+    background-color: #707070;
+
+    transform: scale(1) translate(-50%, -50%);
+    transform-origin: top left;
+    transition: transform 420ms cubic-bezier(1, 0.1, 0.1, 1), top 50ms, left 50ms;
+}
+
+.cursor.hide, .cursor.large.hide {
+    transform: scale(0) translate(-50%, -50%);
+}
+
+.cursor.small {
+    transform: scale(0.5) translate(-50%, -50%);
+}
+
+.cursor.large {
+    transform: scale(2) translate(-50%, -50%);
+}
+
+.cursor.transition {
+    z-index: 1;
+
+    transform: scale(var(--vmaxRatio)) translate(-50%, -50%);
+    transition: transform 480ms cubic-bezier(1, 0.1, 0.1, 1);
+}
+
+.cursor-inner {
+    z-index: 1;
+    background-color: #ffffff;
+
+    transform: scale(0) translate(-50%, -50%);
+    transform-origin: top left;
+}
+
+html.dark .cursor-inner {
+    background-color: #212121;
+}
+
+.cursor.transition ~ .cursor-inner {
+    transform: scale(var(--vmaxRatio)) translate(-50%, -50%);
+    transition: transform 720ms cubic-bezier(1, 0.1, 0.1, 1) 240ms;
+}
+
+
+@media (ponter: coarse) {
+    .cursor-container, .cursor, .cursor-inner {
+        display: none;
+    }
+}
