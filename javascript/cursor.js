@@ -11,11 +11,6 @@ if (matchMedia("(pointer:fine)").matches) {
     let vmaxRatio = Math.max(window.innerWidth, window.innerHeight) / 14;
     cursorContainer.style.setProperty("--vmaxRatio", vmaxRatio);
 
-    window.addEventListener("resize", () => {
-        vmaxRatio = Math.max(window.innerWidth, window.innerHeight) / 14;
-        cursorContainer.style.setProperty("--vmaxRatio", vmaxRatio);
-    });
-
     document.addEventListener("mousemove", e => {
         cursor.style.cssText = `top: ${e.pageY}px; left: ${e.pageX}px;`;
         cursorInner.style.cssText = `top: ${e.pageY}px; left: ${e.pageX}px;`;
@@ -38,6 +33,11 @@ if (matchMedia("(pointer:fine)").matches) {
         cursor.classList.add("transition");
         setTimeout(() => window.location = photographyLink.href, 1000);
         e.preventDefault();
+    });
+
+    window.addEventListener("resize", () => {
+        vmaxRatio = Math.max(window.innerWidth, window.innerHeight) / 14;
+        cursorContainer.style.setProperty("--vmaxRatio", vmaxRatio);
     });
 
 }
