@@ -16,7 +16,7 @@
 
     transform: scale(1) translate(-50%, -50%);
     transform-origin: top left;
-    transition: transform 420ms cubic-bezier(1, 0.1, 0.1, 1), top 30ms, left 30ms;
+    transition: transform 420ms cubic-bezier(1, 0.1, 0.1, 1), top 35ms, left 35ms;
 }
 
 .cursor.hide, .cursor.large.hide {
