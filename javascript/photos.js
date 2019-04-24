@@ -3,7 +3,6 @@ const n = 70;
 const size = (window.innerWidth > 500) ? "large" : "small";
 const r = () => 10 * (Math.floor(Math.random() * 9)) - 40;
 
-// Create photo array
 const photoArray = Array.from({length: n}, (photo, i) => {
     return `
         <div class="grid"
@@ -12,7 +11,6 @@ const photoArray = Array.from({length: n}, (photo, i) => {
     `;
 });
 
-// Shuffle
 const shuffle = a => {
     for (let i = a.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -21,13 +19,16 @@ const shuffle = a => {
     return a;
 };
 
+
 // Add photos to DOM
 const photoContainer = document.querySelector(".photo-container");
 photoContainer.innerHTML = shuffle(photoArray).join("");
 const photos = document.querySelectorAll("[data-src]");
 
+
 // Lazy-load
 lzy(1000);
+
 
 // Zoom on click
 photos.forEach(photo => {
@@ -38,16 +39,16 @@ photos.forEach(photo => {
     });
 });
 
-// Remove zoom on whitespace click
 document.addEventListener("click", e => {
     if (!e.target.matches(".photo-container > .grid")) {
         photos.forEach(photo => photo.classList.remove("zoom"));
     }
 });
 
+
 // Full screen
 const gridToggle = document.querySelector(".grid-toggle");
-gridToggle.addEventListener("click", () => {
+const toggleFullScreen = () => {
 
     // Scroll variables (pre-change)
     const scrollElement = document.scrollingElement;
@@ -72,14 +73,15 @@ gridToggle.addEventListener("click", () => {
         history.replaceState("", document.title, window.location.pathname);
     }
 
-});
+};
 
-// Execute full screen if hash in URL
-if (window.location.hash == "#full") gridToggle.click();
+gridToggle.addEventListener("click", () => toggleFullScreen());
+if (window.location.hash == "#full") toggleFullScreen();
+
 
 // Scroll 100vh on arrow press & grid toggle on g/f
-window.onkeyup = e => {
+window.addEventListener("keyup", e => {
     if (e.key == "ArrowRight") window.scrollBy(0, window.innerHeight);
     if (e.key == "ArrowLeft") window.scrollBy(0, -window.innerHeight);
     if (e.key == "g" || e.key == "f") gridToggle.click();
-};
+});
