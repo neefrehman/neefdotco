@@ -40,7 +40,7 @@
     z-index: 1;
 
     transform: scale(var(--vmaxRatio)) translate(-50%, -50%);
-    transition: transform 480ms cubic-bezier(1, 0.1, 0.1, 1);
+    transition: transform 500ms cubic-bezier(1, 0.1, 0.1, 1);
 }
 
 .cursor-inner {
@@ -57,7 +57,7 @@ html.dark .cursor-inner {
 
 .cursor.transition ~ .cursor-inner {
     transform: scale(var(--vmaxRatio)) translate(-50%, -50%);
-    transition: transform 720ms cubic-bezier(1, 0.1, 0.1, 1) 240ms;
+    transition: transform 750ms cubic-bezier(1, 0.1, 0.1, 1) 250ms;
 }
 
 
