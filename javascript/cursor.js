@@ -19,6 +19,7 @@ if (matchMedia("(pointer:fine)").matches) {
     document.addEventListener("mousemove", e => {
         cursor.style.cssText = `top: ${e.clientY}px; left: ${e.clientX}px;`;
         cursorInner.style.cssText = `top: ${e.clientY}px; left: ${e.clientX}px;`;
+        // cursorContainer.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
     });
 
     document.addEventListener("mousedown", () => cursor.classList.add("small"));

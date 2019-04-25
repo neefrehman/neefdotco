@@ -2,12 +2,13 @@
     display: block;
     position: fixed;
     pointer-events: none;
-    top: -1rem;
-    left: -1rem;
-
     border-radius: 100%;
+
     width: 2rem;
     height: 2rem;
+    top: -1rem;
+    left: -1rem;
+    transform-origin: top left;
 }
 
 .cursor {
@@ -15,8 +16,14 @@
     background-color: #757575;
 
     transform: scale(1) translate(-50%, -50%);
-    transform-origin: top left;
     transition: transform 420ms cubic-bezier(1, 0.1, 0.1, 1), top 35ms, left 35ms;
+}
+
+.cursor-inner {
+    background-color: var(--backgroundColor);
+
+    transform: scale(0) translate(-50%, -50%);
+    transition: transform 750ms cubic-bezier(1, 0.1, 0.1, 1) 250ms;
 }
 
 .cursor.small, .cursor.large.small {
@@ -28,16 +35,8 @@
 }
 
 .cursor.hide, .cursor.large.hide {
-    z-index: 1;
+    z-index: 5;
     transform: scale(0) translate(-50%, -50%);
-}
-
-.cursor-inner {
-    background-color: var(--backgroundColor);
-
-    transform: scale(0) translate(-50%, -50%);
-    transform-origin: top left;
-    transition: transform 750ms cubic-bezier(1, 0.1, 0.1, 1) 250ms;
 }
 
 .cursor-container.transition .cursor,
