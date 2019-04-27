@@ -40,6 +40,7 @@
 }
 
 .cursor-container.transition,
+.cursor-container.transition-small,
 .cursor-container.hide {
     z-index: 5;
 }
@@ -47,6 +48,11 @@
 .cursor-container.transition .cursor,
 .cursor-container.transition .cursor-inner {
     transform: scale(var(--vmaxRatio)) translate(1%, 1%);
+}
+
+.cursor-container.transition-small .cursor,
+.cursor-container.transition-small .cursor-inner {
+    transform: scale(1.3);
 }
 
 

@@ -25,7 +25,9 @@ if (matchMedia("(pointer:fine)").matches) {
 
     navLinks.forEach(link => {
         link.addEventListener("click", e => {
-            cursor.classList.add("transition");
+            const pathSplit = window.location.pathname.split("/");
+            const isHomePage = window.location.pathname == "/" || pathSplit[pathSplit.length - 1] == "index.html";
+            cursor.classList.add(isHomePage ? "transition" : "transition-small");
             setTimeout(() => window.location = link.href, 950);
             e.preventDefault();
         });
