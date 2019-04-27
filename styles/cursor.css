@@ -50,9 +50,12 @@
     transform: scale(var(--vmaxRatio)) translate(1%, 1%);
 }
 
-.cursor-container.transition-small .cursor,
-.cursor-container.transition-small .cursor-inner {
+.cursor-container.transition-small .cursor {
     transform: scale(1.3);
+}
+
+.cursor-container.transition-small .cursor-inner {
+    transform: scale(1.33);
 }
 
 

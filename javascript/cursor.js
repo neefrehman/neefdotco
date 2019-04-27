@@ -25,8 +25,8 @@ if (matchMedia("(pointer:fine)").matches) {
 
     navLinks.forEach(link => {
         link.addEventListener("click", e => {
-            const pathSplit = window.location.pathname.split("/");
-            const isHomePage = window.location.pathname == "/" || pathSplit[pathSplit.length - 1] == "index.html";
+            const pathname = window.location.pathname;
+            const isHomePage = pathname == "/" || pathname.includes("/index.html");
             cursor.classList.add(isHomePage ? "transition" : "transition-small");
             setTimeout(() => window.location = link.href, 950);
             e.preventDefault();
