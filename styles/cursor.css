@@ -18,13 +18,13 @@
 .cursor {
     background-color: #757575;
     transform: scale(1);
-    transition: transform 420ms cubic-bezier(1, 0.1, 0.1, 1);
+    transition: transform 430ms cubic-bezier(1, 0.1, 0.1, 1);
 }
 
 .cursor-inner {
     background-color: var(--backgroundColor);
     transform: scale(0);
-    transition: transform 750ms cubic-bezier(1, 0.1, 0.1, 1) 250ms;
+    transition: transform 760ms cubic-bezier(1, 0.1, 0.1, 1) 250ms;
 }
 
 .cursor-container.large .cursor {
