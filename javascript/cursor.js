@@ -1,25 +1,13 @@
 if (matchMedia("(pointer:fine)").matches) {
 
-    const cursorContainer = document.querySelector(".cursor-container");
-    const cursor = document.querySelector(".cursor");
-    const cursorInner = document.querySelector(".cursor-inner");
+    const cursor = document.querySelector(".cursor-container");
 
     const allLinks = document.querySelectorAll("a");
     const projectLinks = document.querySelectorAll(".made a");
     const navLinks = document.querySelectorAll("a.nav");
 
-    let vmaxRatio = (Math.max(window.innerWidth, window.innerHeight) / 14) + 1;
-    cursorContainer.style.setProperty("--vmaxRatio", vmaxRatio);
-
-    window.addEventListener("resize", () => {
-        vmaxRatio = Math.max(window.innerWidth, window.innerHeight) / 14;
-        cursorContainer.style.setProperty("--vmaxRatio", vmaxRatio);
-    });
-
     document.addEventListener("mousemove", e => {
-        cursor.style.cssText = `top: ${e.clientY}px; left: ${e.clientX}px;`;
-        cursorInner.style.cssText = `top: ${e.clientY}px; left: ${e.clientX}px;`;
-        // cursorContainer.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+        cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
     });
 
     document.addEventListener("mousedown", () => cursor.classList.add("small"));
@@ -37,10 +25,18 @@ if (matchMedia("(pointer:fine)").matches) {
 
     navLinks.forEach(link => {
         link.addEventListener("click", e => {
-            cursorContainer.classList.add("transition");
+            cursor.classList.add("transition");
             setTimeout(() => window.location = link.href, 950);
             e.preventDefault();
         });
+    });
+
+    let vmaxRatio = (Math.max(window.innerWidth, window.innerHeight) / 14) + 1;
+    cursor.style.setProperty("--vmaxRatio", vmaxRatio);
+
+    window.addEventListener("resize", () => {
+        vmaxRatio = (Math.max(window.innerWidth, window.innerHeight) / 14) + 1;
+        cursor.style.setProperty("--vmaxRatio", vmaxRatio);
     });
 
 }
