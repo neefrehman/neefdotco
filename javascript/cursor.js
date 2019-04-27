@@ -1,6 +1,10 @@
 if (matchMedia("(pointer:fine)").matches) {
 
-    const cursor = document.querySelector(".cursor-container");
+    const cursor = document.createElement("div");
+    cursor.className = "cursor-container";
+    cursor.innerHTML = `<div class="cursor"> </div>
+                        <div class="cursor-inner"> </div>`;
+    document.body.prepend(cursor);
 
     const allLinks = document.querySelectorAll("a");
     const projectLinks = document.querySelectorAll(".made a");
