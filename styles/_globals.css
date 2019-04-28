@@ -50,6 +50,7 @@ a:hover {
 
 @media (max-width: 769px) {
     body {
+        margin: 30px;
         font-size: 13px;
     }
     :root.dark body {
