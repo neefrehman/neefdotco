@@ -18,7 +18,7 @@
 .cursor {
     background-color: #757575;
     transform: scale(1);
-    transition: transform 420ms cubic-bezier(1, 0.1, 0.1, 1);
+    transition: transform 430ms cubic-bezier(1, 0.1, 0.1, 1);
 }
 
 .cursor-inner {
