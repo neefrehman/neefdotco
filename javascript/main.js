@@ -14,8 +14,11 @@ if (darkModeButton) {
         darkMode();
 
         darkModeButton.classList.add("hide-bg");
-        setTimeout(() => darkModeButton.classList.remove("hide-bg"), 3000);
-        darkModeButton.addEventListener("mouseenter", () => darkModeButton.classList.remove("hide-bg"));
+        const bgReset = setTimeout(() => darkModeButton.classList.remove("hide-bg"), 3000);
+        darkModeButton.addEventListener("mouseenter", () => {
+            clearTimeout(bgReset);
+            darkModeButton.classList.remove("hide-bg");
+        });
     });
 }
 
