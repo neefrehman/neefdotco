@@ -15,7 +15,8 @@ if (darkModeButton) {
 
         darkModeButton.classList.add("hide-bg");
         const bgReset = setTimeout(() => darkModeButton.classList.remove("hide-bg"), 3000);
-        darkModeButton.addEventListener("mouseenter", () => {
+        darkModeButton.addEventListener("click", () => clearTimeout(bgReset));
+        darkModeButton.addEventListener("mouseleave", () => {
             clearTimeout(bgReset);
             darkModeButton.classList.remove("hide-bg");
         });
