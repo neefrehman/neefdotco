@@ -40,15 +40,20 @@ img.bg {
     -webkit-clip-path: circle(36vh at center);
 }
 
-.made .dark-mode-button {
+.dark-mode-button {
     cursor: pointer;
 }
 
-.made .dark-mode-button span {
+.dark-mode-button::before {
+    content: "dark";
     margin-right: 5px;
 }
 
-.made .dark-mode-button img.bg {
+:root.dark .dark-mode-button::before {
+    content: "light";
+}
+
+.dark-mode-button img.bg {
     background-color: var(--darkModeBackground);
     opacity: 1;
 }
