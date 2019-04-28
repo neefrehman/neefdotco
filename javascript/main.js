@@ -1,7 +1,7 @@
 // Dark mode (localStorage trigger in html <head>)
 const darkModeButton = document.querySelector(".dark-mode-button");
 let isDark = document.documentElement.classList.contains("dark");
-// const darkUserPref = window.matchMedia("(prefers-color-scheme: dark)").matches;
+// const hasDarkUserPref = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
 const darkMode = () => {
     document.documentElement.classList.toggle("dark");

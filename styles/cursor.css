@@ -24,7 +24,7 @@
 .cursor-inner {
     background-color: var(--backgroundColor);
     transform: scale(0);
-    transition: transform 780ms cubic-bezier(1, 0.1, 0.1, 1) 250ms;
+    transition: transform 780ms cubic-bezier(1, 0.1, 0.1, 1) 230ms;
 }
 
 .cursor-container.large .cursor {
