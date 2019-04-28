@@ -56,3 +56,11 @@ a:hover {
         min-height: calc(100vh - 59px); /* safari fix */
     }
 }
+
+@media (pointer:coarse) {
+    a:not([href]) {
+        color: var(--textColor);
+        background-color: var(--linkBackgroundColor);
+        background-color: var(--linkBackgroundColor2);
+    }
+}
