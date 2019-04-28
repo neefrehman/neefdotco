@@ -25,16 +25,16 @@
     transition: transform 780ms cubic-bezier(1, 0.1, 0.1, 1) 230ms;
 }
 
+.cursor-container.show .cursor {
+    transform: scale(1);
+}
+
 .cursor-container.large .cursor {
     transform: scale(2);
 }
 
 .cursor-container.small .cursor {
     transform: scale(0.5);
-}
-
-.cursor-container.show .cursor {
-    transform: scale(1);
 }
 
 .cursor-container.hide .cursor {
