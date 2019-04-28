@@ -58,7 +58,7 @@ a:hover {
 }
 
 @media (pointer:coarse) {
-    a:not([href]) {
+    a:not([href]):hover {
         color: var(--textColor);
         background-color: var(--linkBackgroundColor);
         background-color: var(--linkBackgroundColor2);
