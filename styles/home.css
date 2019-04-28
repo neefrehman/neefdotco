@@ -54,12 +54,7 @@ img.bg {
 }
 
 .dark-mode-button img.bg {
-    background-color: var(--darkModeBackground);
-    opacity: 1;
-}
-
-:root.dark .dark-mode-button img.bg {
-    background-color: var(--textColor);
+    background-color: var(--oppositeModeBackground);
     opacity: 1;
 }
 
