@@ -35,8 +35,7 @@ img.bg {
 
 .made a:hover img {
     z-index: -1;
-    clip-path: circle(36vh at center);
-    -webkit-clip-path: circle(36vh at center);
+    clip-path: circle(36vh at center); -webkit-clip-path: circle(36vh at center);
 }
 
 .dark-mode-button {
