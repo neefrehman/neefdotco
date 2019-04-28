@@ -3,6 +3,7 @@
     --backgroundColor: #ffffff;
     --linkBackgroundColor: #eeeeee;
     --linkBackgroundColor2: rgb(225, 225, 225, 0.8);
+    --darkModeBackground: #212121;
 }
 
 :root.dark {

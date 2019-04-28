@@ -18,20 +18,50 @@ img.bg {
     top: 50%;
     transform: translate(-50%, -50%);
     object-fit: cover;
-    width: 81vh;
-    height: 81vh;
+    width: 80vh;
+    height: 80vh;
     opacity: 0.9;
     z-index: -2;
     clip-path: circle(0% at center);
     -webkit-clip-path: circle(0% at center);
-    transition: clip-path 420ms cubic-bezier(1, 0.1, 0.1, 1), -webkit-clip-path 0.5s cubic-bezier(1, 0.1, 0.1, 1);
+    transition: clip-path 420ms cubic-bezier(1, 0.1, 0.1, 1), -webkit-clip-path 420ms cubic-bezier(1, 0.1, 0.1, 1);
     pointer-events: none;
+}
+
+.made a {
+    display: flex;
+    width: max-content;
+    margin-top: 1em;
 }
 
 .made a:hover img {
     z-index: -1;
-    clip-path: circle(38vh at center);
-    -webkit-clip-path: circle(38vh at center);
+    clip-path: circle(36vh at center);
+    -webkit-clip-path: circle(36vh at center);
+}
+
+.made .dark-mode-button {
+    cursor: pointer;
+}
+
+.made .dark-mode-button span {
+    margin-right: 5px;
+}
+
+.made .dark-mode-button img.bg {
+    background-color: var(--darkModeBackground);
+    opacity: 1;
+}
+
+:root.dark .dark-mode-button img.bg {
+    background-color: var(--textColor);
+    opacity: 1;
+}
+
+.dark-mode-button.hide-bg img.bg {
+    clip-path: circle(0% at center);
+    -webkit-clip-path: circle(0% at center);
+    transition: clip-path 600ms cubic-bezier(1, 0.1, 0.1, 1), -webkit-clip-path 600ms cubic-bezier(1, 0.1, 0.1, 1);
 }
 
 
@@ -48,7 +78,7 @@ img.bg {
     }
 }
 
-@media (pointer: coarse), (max-width: 450px), (max-height: 400px) {
+@media (pointer: coarse), (max-width: 500px), (max-height: 400px) {
     span.stretch {
         transition-duration:  0.1s;
     }

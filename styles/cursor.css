@@ -51,11 +51,11 @@
 }
 
 .cursor-container.transition-small .cursor {
-    transform: scale(1.3);
+    transform: scale(1.25);
 }
 
 .cursor-container.transition-small .cursor-inner {
-    transform: scale(1.33);
+    transform: scale(1.28);
 }
 
 

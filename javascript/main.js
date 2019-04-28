@@ -1,13 +1,31 @@
 // Dark mode (localStorage trigger in html <head>)
-const darkModeButton = document.documentElement;
-const darkModeToggle = () => document.documentElement.classList.toggle("dark");
+const darkModeButton = document.querySelector(".dark-mode-button");
 // const darkUserPref = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
-darkModeButton.addEventListener("dblclick", e => {
-    if (!e.target.matches(".photo-container > .grid")) darkModeToggle();
-    const isDark = document.documentElement.classList.contains("dark");
-    isDark ? localStorage.setItem("darkMode", true) : localStorage.removeItem("darkMode");
-});
+if (darkModeButton) {
+    let isDark = document.documentElement.classList.contains("dark");
+    const buttonFirstWord = darkModeButton.querySelector("span");
+
+    const updateButton = isDark => {
+        buttonFirstWord.textContent = (isDark == true) ? "light" : "dark";
+        darkModeButton.classList.add("hide-bg");
+        const bgReset = setTimeout(() => darkModeButton.classList.remove("hide-bg"), 3000);
+        darkModeButton.addEventListener("mouseenter", () => {
+            darkModeButton.classList.remove("hide-bg");
+            clearTimeout(bgReset);
+        });
+    };
+
+    const darkMode = () => {
+        document.documentElement.classList.toggle("dark");
+        isDark = document.documentElement.classList.contains("dark");
+        isDark ? localStorage.setItem("darkMode", true) : localStorage.removeItem("darkMode");
+        updateButton(isDark);
+    };
+
+    updateButton(isDark);
+    darkModeButton.addEventListener("click", () => darkMode());
+}
 
 
 // Header stretch
