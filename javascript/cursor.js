@@ -11,6 +11,7 @@ if (matchMedia("(pointer:fine)").matches) {
     const navLinks = document.querySelectorAll("a.nav");
 
     document.addEventListener("mousemove", e => {
+        cursor.classList.add("moved");
         cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
     });
 

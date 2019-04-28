@@ -17,7 +17,7 @@
 
 .cursor {
     background-color: #757575;
-    transform: scale(1);
+    transform: scale(0);
     transition: transform 430ms cubic-bezier(1, 0.1, 0.1, 1);
 }
 
@@ -25,6 +25,10 @@
     background-color: var(--backgroundColor);
     transform: scale(0);
     transition: transform 780ms cubic-bezier(1, 0.1, 0.1, 1) 230ms;
+}
+
+.cursor-container.moved .cursor {
+    transform: scale(1);
 }
 
 .cursor-container.large .cursor {
