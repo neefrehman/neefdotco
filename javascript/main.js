@@ -1,15 +1,12 @@
 // Dark mode (localStorage trigger in html <head>)
-const darkModeToggle = document.documentElement;
-const darkMode = () => document.documentElement.classList.toggle("dark");
+const darkModeButton = document.documentElement;
+const darkModeToggle = () => document.documentElement.classList.toggle("dark");
+// const darkUserPref = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
-darkModeToggle.addEventListener("dblclick", e => {
-    if (!e.target.matches(".photo-container > .grid")) darkMode();
-
-    if (document.documentElement.classList.contains("dark")) {
-        localStorage.setItem("darkMode", true);
-    } else {
-        localStorage.removeItem("darkMode");
-    }
+darkModeButton.addEventListener("dblclick", e => {
+    if (!e.target.matches(".photo-container > .grid")) darkModeToggle();
+    const isDark = document.documentElement.classList.contains("dark");
+    isDark ? localStorage.setItem("darkMode", true) : localStorage.removeItem("darkMode");
 });
 
 
