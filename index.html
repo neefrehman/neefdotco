@@ -22,7 +22,7 @@
 
     <script>
         if (localStorage.getItem("darkMode") == 1) document.documentElement.classList = "dark";
-        else if (!localStorage.getItem("darkMode") && window.matchMedia("(prefers-color-scheme: dark)").matches) document.documentElement.classList = "dark";
+        else if (window.matchMedia("(prefers-color-scheme: dark)").matches && !localStorage.getItem("darkMode")) document.documentElement.classList = "dark";
     </script>
 
 </head>
