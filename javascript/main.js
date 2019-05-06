@@ -1,6 +1,6 @@
 // Dark mode (localStorage trigger in html <head>)
 const darkModeButton = document.querySelector(".dark-mode-button");
-const darkModeSetting = localStorage.getItem("darkMode");
+const darkModeLocal = localStorage.getItem("darkMode");
 const hasDarkUserPref = window.matchMedia("(prefers-color-scheme: dark)").matches;
 let isDark = document.documentElement.classList.contains("dark");
 
@@ -24,7 +24,7 @@ if (darkModeButton) {
     });
 }
 
-if (hasDarkUserPref && !darkModeSetting && !isDark) darkMode();
+if (hasDarkUserPref && !darkModeLocal && !isDark) darkMode();
 
 
 // Header stretch
