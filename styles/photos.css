@@ -47,13 +47,13 @@ footer a:last-child {
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    filter: contrast(87%);
+    filter: contrast(88%);
     background-color: rgba(130, 130, 130, 0.1);
 }
 
 div.grid {
     background-attachment: initial;
-    margin: 85px 40px;
+    margin: 90px 40px;
     width: calc(325px + var(--y));
     height: calc(260px + var(--x));
     transform: translate(var(--x), var(--y));
@@ -61,7 +61,7 @@ div.grid {
 
 div.grid:hover {
     z-index: 2;
-    filter: contrast(87%) brightness(105%);
+    filter: contrast(88%) brightness(105%);
     cursor: crosshair;
 }
 
@@ -78,7 +78,7 @@ div.grid.zoom {
 
 @media (min-width: 1520px) {
     div.grid {
-        margin: 90px 50px;
+        margin: 100px 50px;
         width: calc(335px + var(--y));
         height: calc(270px + var(--x));
     }
