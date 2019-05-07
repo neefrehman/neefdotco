@@ -21,8 +21,7 @@
     <link rel="stylesheet" href="styles/cursor.css">
 
     <script>
-        if (localStorage.getItem("darkMode") == 1) document.documentElement.classList = "dark";
-        else if (window.matchMedia("(prefers-color-scheme: dark)").matches && !localStorage.getItem("darkMode")) document.documentElement.classList = "dark";
+        if ( localStorage.getItem("darkMode") == 1 || (window.matchMedia("(prefers-color-scheme: dark)").matches && !localStorage.getItem("darkMode")) ) document.documentElement.classList = "dark";
     </script>
 
 </head>
