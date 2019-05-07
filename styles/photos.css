@@ -131,7 +131,6 @@ div.grid.zoom {
 
 @media (max-width: 400px) {
     div.grid {
-        margin: 52px 30px;
         transform: translate(calc(var(--x) * 0.6), calc(var(--y) * 0.3));
     }
 }
