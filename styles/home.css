@@ -62,9 +62,9 @@ img.bg {
 }
 
 
-@media (max-width: 485px) {
+@media (max-width: 400px) {
     header p {
-        max-width: 275px;
+        max-width: 240px;
     }
 }
 
