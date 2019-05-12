@@ -30,21 +30,10 @@ if (matchMedia("(pointer:fine)").matches) {
 
     navLinks.forEach(link => {
         link.addEventListener("click", e => {
-            const isHomePage = window.location.pathname == "/" || window.location.pathname.includes("/index.html");
-            cursor.classList.add(isHomePage ? "transition" : "transition-small");
+            cursor.classList.add("transition");
             setTimeout(() => window.location = link.href, 950);
             e.preventDefault();
         });
     });
-
-    const updateVmaxRatio = () => {
-        const vmaxValue = Math.max(window.innerWidth, window.innerHeight);
-        const emValue = parseFloat(getComputedStyle(document.body).fontSize);
-        const vmaxRatio = vmaxValue / emValue;
-        cursor.style.setProperty("--vmaxRatio", vmaxRatio);
-    };
-
-    updateVmaxRatio();
-    window.addEventListener("resize", () => updateVmaxRatio());
 
 }

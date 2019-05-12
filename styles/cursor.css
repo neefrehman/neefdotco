@@ -22,7 +22,7 @@
 
 .cursor-inner {
     background-color: var(--backgroundColor);
-    transition: transform 780ms cubic-bezier(1, 0.1, 0.1, 1) 230ms;
+    transition: transform 780ms cubic-bezier(1, 0.1, 0.1, 1) 220ms;
 }
 
 .cursor-container.show .cursor {
@@ -42,26 +42,16 @@
 }
 
 .cursor-container.transition,
-.cursor-container.transition-small,
 .cursor-container.hide {
     z-index: 5;
 }
 
 .cursor-container.transition .cursor {
-    transition-duration: 720ms;
-}
-
-.cursor-container.transition .cursor,
-.cursor-container.transition .cursor-inner {
-    transform: scale(var(--vmaxRatio)) translate(1%, 1%);
-}
-
-.cursor-container.transition-small .cursor {
     transform: scale(1.25);
 }
 
-.cursor-container.transition-small .cursor-inner {
-    transform: scale(1.28);
+.cursor-container.transition .cursor-inner {
+    transform: scale(1.27);
 }
 
 
