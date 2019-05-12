@@ -2,8 +2,8 @@ h1, h2, h3, p {
     -webkit-margin-after: 0;
 }
 
-header p {
-    line-height: 1.6;
+header {
+    /* margin-bottom: 3em; */
 }
 
 span.stretch {
@@ -12,7 +12,19 @@ span.stretch {
     transform-origin: left;
 }
 
-img.bg {
+nav {
+    margin-top: 1em;
+}
+
+nav a {
+    padding: 0.1em 0.3em;
+}
+
+nav a:not(:last-child) {
+    margin-right: 0.5em;
+}
+
+img.bg-child {
     position: fixed;
     left: 50%;
     top: 50%;
@@ -28,12 +40,12 @@ img.bg {
 }
 
 .made a {
-    display: flex;
+    display: block;
     width: max-content;
     margin-top: 1em;
 }
 
-.made a:hover img {
+a.bg-parent:hover img {
     z-index: -1;
     clip-path: circle(36vh at center); -webkit-clip-path: circle(36vh at center);
 }
@@ -44,19 +56,18 @@ img.bg {
 
 .dark-mode-button::before {
     content: "dark";
-    margin-right: 5px;
 }
 
 :root.dark .dark-mode-button::before {
     content: "light";
 }
 
-.dark-mode-button img.bg {
+.dark-mode-button img.bg-child {
     background-color: var(--oppositeModeBackground);
     opacity: 1;
 }
 
-.dark-mode-button.hide-bg img.bg {
+.dark-mode-button.hide-bg img.bg-child {
     clip-path: circle(0% at center); -webkit-clip-path: circle(0% at center);
     transition: clip-path 600ms cubic-bezier(1, 0.1, 0.1, 1), -webkit-clip-path 600ms cubic-bezier(1, 0.1, 0.1, 1);
 }

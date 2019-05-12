@@ -7,7 +7,7 @@ if (matchMedia("(pointer:fine)").matches) {
     document.body.prepend(cursor);
 
     const allLinks = document.querySelectorAll("a");
-    const projectLinks = document.querySelectorAll(".made a");
+    const projectLinks = document.querySelectorAll("a.bg-parent");
     const navLinks = document.querySelectorAll("a.nav");
 
     document.addEventListener("mousemove", e => {
