@@ -2,10 +2,6 @@ h1, h2, h3, p {
     -webkit-margin-after: 0;
 }
 
-header {
-    /* margin-bottom: 3em; */
-}
-
 span.stretch {
     display: inline-block;
     transform: scale(1.1, 1);
@@ -22,6 +18,10 @@ nav a {
 
 nav a:not(:last-child) {
     margin-right: 0.5em;
+}
+
+header p {
+    line-height: 1.6;
 }
 
 img.bg-child {
