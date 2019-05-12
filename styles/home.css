@@ -68,7 +68,7 @@ img.bg-child {
     opacity: 1;
 }
 
-.dark-mode-button.hide-bg img.bg-child {
+a.bg-parent.dark-mode-button.hide-bg img.bg-child {
     clip-path: circle(0% at center); -webkit-clip-path: circle(0% at center);
     transition: clip-path 600ms cubic-bezier(1, 0.1, 0.1, 1), -webkit-clip-path 600ms cubic-bezier(1, 0.1, 0.1, 1);
 }
