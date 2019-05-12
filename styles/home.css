@@ -1,27 +1,33 @@
-h1, h2, h3, p {
-    -webkit-margin-after: 0;
-}
-
 span.stretch {
     display: inline-block;
     transform: scale(1.1, 1);
     transform-origin: left;
 }
 
-nav {
-    margin-top: 1em;
-}
-
-nav a {
-    padding: 0.1em 0.3em;
-}
-
-nav a:not(:last-child) {
-    margin-right: 0.5em;
-}
-
 header p {
     line-height: 1.6;
+}
+
+details {
+    margin-top: 1.6em;
+}
+
+summary {
+    cursor: pointer;
+    width: max-content;
+}
+
+summary h3 {
+    display: inline;
+}
+
+details >:not(summary) {
+    margin-left: 1.3em;
+}
+
+a.bg-parent:hover img {
+    z-index: -1;
+    clip-path: circle(36vh at center); -webkit-clip-path: circle(36vh at center);
 }
 
 img.bg-child {
@@ -43,11 +49,6 @@ img.bg-child {
     display: block;
     width: max-content;
     margin-top: 1em;
-}
-
-a.bg-parent:hover img {
-    z-index: -1;
-    clip-path: circle(36vh at center); -webkit-clip-path: circle(36vh at center);
 }
 
 .dark-mode-button {

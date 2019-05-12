@@ -33,6 +33,10 @@ h1::selection, span.stretch::selection, h2::selection, h3::selection, p::selecti
     background: #f4cb3d;
 }
 
+*:focus {
+    outline: none;
+}
+
 a, a:visited {
     text-decoration: none;
     color: var(--textColor);
