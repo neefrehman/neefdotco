@@ -25,7 +25,7 @@ details >:not(summary) {
     margin-left: 1.3em;
 }
 
-a.bg-parent:hover img {
+a.bg-parent:hover img.bg-child {
     z-index: -1;
     clip-path: circle(36vh at center); -webkit-clip-path: circle(36vh at center);
 }
@@ -84,7 +84,7 @@ img.bg-child {
     span.stretch {
         transition: transform 80ms;
     }
-    img.bg {
+    img.bg-child {
         display: none;
     }
 }
