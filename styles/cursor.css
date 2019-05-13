@@ -30,7 +30,7 @@
 }
 
 .cursor-container.large .cursor {
-    transform: scale(2);
+    transform: scale(2.2);
 }
 
 .cursor-container.small .cursor {
@@ -47,11 +47,11 @@
 }
 
 .cursor-container.transition .cursor {
-    transform: scale(1.25);
+    transform: scale(1.3);
 }
 
 .cursor-container.transition .cursor-inner {
-    transform: scale(1.27);
+    transform: scale(1.32);
 }
 
 
