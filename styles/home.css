@@ -1,3 +1,7 @@
+h1, h2, h3, p {
+    margin-bottom: 0;
+}
+
 span.stretch {
     display: inline-block;
     transform: scale(1.1, 1);
