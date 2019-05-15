@@ -1,10 +1,15 @@
 // Dark mode (localStorage & media query trigger in html <head>)
 const darkModeButton = document.querySelector(".dark-mode-button");
+const favicon = document.querySelector(`link[rel="icon"]`);
+
+let isDark = document.documentElement.classList.contains("dark");
+favicon.href = isDark ? "icons/favicon-dark.png" : "icons/favicon-light.png";
 
 const darkMode = () => {
     document.documentElement.classList.toggle("dark");
-    const isDark = document.documentElement.classList.contains("dark");
+    isDark = document.documentElement.classList.contains("dark");
     isDark ? localStorage.setItem("darkMode", 1) : localStorage.setItem("darkMode", 0);
+    favicon.href = isDark ? "icons/favicon-dark.png" : "icons/favicon-light.png";
 };
 
 if (darkModeButton) {
@@ -27,7 +32,8 @@ const title = document.querySelector("span.stretch");
 if (title && window.DeviceMotionEvent) {
     window.addEventListener("devicemotion", e => {
         const deviceTilt = (window.innerHeight > window.innerWidth)
-            ? e.accelerationIncludingGravity.x : e.accelerationIncludingGravity.y;
+            ? e.accelerationIncludingGravity.x
+            : e.accelerationIncludingGravity.y;
         const stretchValue = 1.1 + (Math.abs(deviceTilt) / 15);
         title.style.transform = `scale(${stretchValue}, 1)`;
     });
