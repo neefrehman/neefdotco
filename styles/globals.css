@@ -1,3 +1,11 @@
+@font-face {
+    font-family: "Untitled Sans";
+    font-weight: 400;
+    font-display: block;
+    font-style: normal;
+    src: url("fonts/UntitledSansWeb-Regular.woff2")
+}
+
 :root {
     --textColor: #333333;
     --backgroundColor: #ffffff;
@@ -17,7 +25,7 @@
 :root.dark body { min-height: calc(100vh - 89px); } /* safari fix */
 
 body {
-    font-family: helvetica neue, helvetica, arial, sans-serif;
+    font-family: "Untitled Sans", helvetica neue, helvetica, arial, sans-serif;
     font-size: 14px;
     line-height: 1.2;
     color: var(--textColor);
@@ -27,18 +35,21 @@ body {
     margin: 45px;
 }
 
+h3, p {
+    margin-top: 1em;
+}
+
+h1, h2, h3 {
+    font-weight: 700;
+    letter-spacing: +0.01em;
+}
+
 h1 {
     font-size: 2em;
-    font-weight: 700;
 }
 
 h3 {
     font-size: 1.17em;
-    font-weight: 700;
-}
-
-h3, p {
-    margin-top: 1em;
 }
 
 *::selection {

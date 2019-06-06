@@ -34,7 +34,7 @@ if (title && window.DeviceMotionEvent) {
         const deviceTilt = (window.innerHeight > window.innerWidth)
             ? e.accelerationIncludingGravity.x
             : e.accelerationIncludingGravity.y;
-        const stretchValue = 1.1 + (Math.abs(deviceTilt) / 15);
+        const stretchValue = 1.12 + (Math.abs(deviceTilt) / 15);
         title.style.transform = `scale(${stretchValue}, 1)`;
     });
 }
