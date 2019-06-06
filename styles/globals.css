@@ -1,9 +1,15 @@
 @font-face {
     font-family: "Untitled Sans";
-    font-weight: 400;
+    font-weight: normal;
     font-display: block;
-    font-style: normal;
     src: url("fonts/UntitledSansWeb-Regular.woff2")
+}
+
+@font-face {
+    font-family: "Untitled Sans";
+    font-weight: bold;
+    font-display: block;
+    src: url("fonts/UntitledSansWeb-Medium.woff2")
 }
 
 :root {
@@ -35,13 +41,12 @@ body {
     margin: 45px;
 }
 
-h3, p {
-    margin-top: 1em;
+h1, h2, h3 {
+    font-weight: bold;
 }
 
-h1, h2, h3 {
-    font-weight: 700;
-    letter-spacing: +0.01em;
+h3, p {
+    margin-top: 1em;
 }
 
 h1 {
