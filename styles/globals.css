@@ -38,7 +38,7 @@ body {
     background-color: var(--backgroundColor);
     -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; -moz-text-size-adjust: 100%;
     -webkit-font-smoothing: antialiased;
-    margin: 45px;
+    margin: 35px;
 }
 
 h1, h2, h3 {
@@ -50,11 +50,24 @@ h3, p {
 }
 
 h1 {
-    font-size: 2em;
+    font-size: 3em;
+    margin-right: 1em;
 }
 
 h3 {
-    font-size: 1.17em;
+    font-size: 1.22em;
+}
+
+header {
+    margin-bottom: 50px;
+}
+
+nav {
+    margin-top: 15px;
+}
+
+nav a:not(:last-child) {
+    margin-right: 0.66em;
 }
 
 *::selection {
@@ -86,6 +99,15 @@ a:hover {
     body {
         margin: 30px;
         font-size: 13px;
+    }
+    h1 {
+        font-size: 2.6em;
+    }
+    header {
+        margin-bottom: 45px;
+    }
+    nav {
+        margin-top: 12px;
     }
 }
 

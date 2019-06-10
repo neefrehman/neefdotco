@@ -1,11 +1,7 @@
 span.stretch {
     display: inline-block;
-    transform: scale(1.1, 1);
+    transform: scale(1.05, 1);
     transform-origin: left;
-}
-
-header p {
-    line-height: 1.6;
 }
 
 details {
@@ -33,7 +29,7 @@ a.bg-parent:hover img.bg-child {
 img.bg-child {
     position: fixed;
     left: 50%;
-    top: 50%;
+    top: 54%;
     transform: translate(-50%, -50%);
     object-fit: cover;
     width: 80vh;
