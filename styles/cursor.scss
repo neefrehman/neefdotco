@@ -1,0 +1,64 @@
+.cursor-container {
+    position: fixed;
+    z-index: -1;
+    top: -1rem;
+    left: -1rem;
+    pointer-events: none;
+    transition: transform 35ms;
+
+    .cursor, .cursor-inner {
+        position: fixed;
+        border-radius: 100%;
+        width: 2rem;
+        height: 2rem;
+        transform: scale(0);
+    }
+
+    .cursor {
+        background-color: #757575;
+        transition: transform 430ms cubic-bezier(1, 0.1, 0.1, 1);
+    }
+
+    .cursor-inner {
+        background-color: var(--backgroundColor);
+        transition: transform 780ms cubic-bezier(1, 0.1, 0.1, 1) 220ms;
+    }
+
+    &.show .cursor {
+        transform: scale(1);
+    }
+
+    &.small .cursor {
+        transform: scale(0.5);
+    }
+
+    &.large .cursor {
+        transform: scale(2.2);
+    }
+
+    &.hide .cursor {
+        transform: scale(0);
+    }
+
+    &.dark-mode-toggle .cursor {
+        background-color: var(--oppositeModeBackground);
+    }
+
+    &.transition {
+        .cursor {
+            transform: scale(1.33);
+        }
+
+        .cursor-inner {
+            transform: scale(1.35);
+        }
+    }
+
+    &.hide, &.transition {
+        z-index: 5;
+    }
+
+    @media (ponter: coarse) {
+        display: none;
+    }
+}

@@ -27,15 +27,18 @@ if (darkModeButton) {
 }
 
 
-// Header stretch
-const title = document.querySelector("span.stretch");
-if (title && window.DeviceMotionEvent) {
+// em-dash movement
+const emDashes = document.querySelectorAll("span.em-dash");
+if (emDashes && window.innerWidth < 497 && window.DeviceMotionEvent) {
     window.addEventListener("devicemotion", e => {
         const deviceTilt = (window.innerHeight > window.innerWidth)
             ? e.accelerationIncludingGravity.x
             : e.accelerationIncludingGravity.y;
-        const stretchValue = 1.05 + (Math.abs(deviceTilt) / 20);
-        title.style.transform = `scale(${stretchValue}, 1)`;
+        const stretchValue = Math.abs(deviceTilt) * 2;
+        
+        emDashes.forEach(dash => {
+            dash.style.transform = `translate(${stretchValue}px)`;
+        });
     });
 }
 

@@ -1,0 +1,77 @@
+.cursor-container {
+  position: fixed;
+  z-index: -1;
+  top: -1rem;
+  left: -1rem;
+  pointer-events: none;
+  transition: -webkit-transform 35ms;
+  transition: transform 35ms;
+  transition: transform 35ms, -webkit-transform 35ms;
+}
+
+.cursor-container .cursor, .cursor-container .cursor-inner {
+  position: fixed;
+  border-radius: 100%;
+  width: 2rem;
+  height: 2rem;
+  -webkit-transform: scale(0);
+          transform: scale(0);
+}
+
+.cursor-container .cursor {
+  background-color: #757575;
+  transition: -webkit-transform 430ms cubic-bezier(1, 0.1, 0.1, 1);
+  transition: transform 430ms cubic-bezier(1, 0.1, 0.1, 1);
+  transition: transform 430ms cubic-bezier(1, 0.1, 0.1, 1), -webkit-transform 430ms cubic-bezier(1, 0.1, 0.1, 1);
+}
+
+.cursor-container .cursor-inner {
+  background-color: var(--backgroundColor);
+  transition: -webkit-transform 780ms cubic-bezier(1, 0.1, 0.1, 1) 220ms;
+  transition: transform 780ms cubic-bezier(1, 0.1, 0.1, 1) 220ms;
+  transition: transform 780ms cubic-bezier(1, 0.1, 0.1, 1) 220ms, -webkit-transform 780ms cubic-bezier(1, 0.1, 0.1, 1) 220ms;
+}
+
+.cursor-container.show .cursor {
+  -webkit-transform: scale(1);
+          transform: scale(1);
+}
+
+.cursor-container.small .cursor {
+  -webkit-transform: scale(0.5);
+          transform: scale(0.5);
+}
+
+.cursor-container.large .cursor {
+  -webkit-transform: scale(2.2);
+          transform: scale(2.2);
+}
+
+.cursor-container.hide .cursor {
+  -webkit-transform: scale(0);
+          transform: scale(0);
+}
+
+.cursor-container.dark-mode-toggle .cursor {
+  background-color: var(--oppositeModeBackground);
+}
+
+.cursor-container.transition .cursor {
+  -webkit-transform: scale(1.33);
+          transform: scale(1.33);
+}
+
+.cursor-container.transition .cursor-inner {
+  -webkit-transform: scale(1.35);
+          transform: scale(1.35);
+}
+
+.cursor-container.hide, .cursor-container.transition {
+  z-index: 5;
+}
+
+@media (ponter: coarse) {
+  .cursor-container {
+    display: none;
+  }
+}

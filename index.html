@@ -17,9 +17,9 @@
     <link rel="mask-icon" href="icons/safari-pinned-tab.svg" color="#333333">
 
     <link rel="stylesheet" href="styles/_reset.css">
-    <link rel="stylesheet" href="styles/globals.css">
-    <link rel="stylesheet" href="styles/home.css">
-    <link rel="stylesheet" href="styles/cursor.css">
+    <link rel="stylesheet" href="styles/compiled/globals.css">
+    <link rel="stylesheet" href="styles/compiled/home.css">
+    <link rel="stylesheet" href="styles/compiled/cursor.css">
 
     <script> if ( localStorage.getItem("darkMode") == 1 || (window.matchMedia("(prefers-color-scheme: dark)").matches && !localStorage.getItem("darkMode")) ) document.documentElement.classList = "dark" </script>
 
@@ -29,10 +29,10 @@
 
     <header>
         
-        <h1> <span class="stretch"> Neef Rehman—Designer & web developer </span> </h1>
+        <h1> Neef Rehman<span class="em-dash">—</span>Designer & web developer </h1>
 
         <nav>
-            <a class="bg-parent dark-mode-button"> mode <img class="bg-child"> </a>
+            <a class="dark-mode-button"> mode </a>
             <a class="nav" href="photos.html">photography →</a>
         </nav>
 
@@ -40,56 +40,77 @@
 
     <main>
 
-        <details open class="currently">
-            <summary>
-                <h3> Currently </h3>
-            </summary>
-            <p> Working on the <a href="https://adventure.ustwo.com" target="_blank" rel="noopener">Adventure</a> arm of <a href="https://ustwo.com" target="_blank" rel="noopener">ustwo</a> </p>
-        </details>
+        <section class="info">
 
-        <details class="made">
-            <summary>
-                <h3> I've made </h3>
-            </summary>
-            <a class="bg-parent" href="https://studiowave.fm" target="_blank" rel="noopener">
-                studiowave.fm
-                <img src="bg/studiowave.png" class="bg-child">
-            </a>
-            <!-- <a class="bg-parent" href="https://allergies.travel" target="_blank" rel="noopener">
-                allergies.travel
-                <img src="bg/allergiestravel.png" class="bg-child">
-            </a> -->
-            <a class="bg-parent" href="https://adventure.ustwo.com" target="_blank" rel="noopener">
-                adventure.ustwo.com
-                <img src="bg/adventure.png" class="bg-child">
-            </a>
-            <a class="bg-parent" href="https://generative.neef.co" target="_blank" rel="noopener">
-                generative.neef.co
-                <img src="bg/generative.png" class="bg-child">
-            </a>
-        </details>
+            <h1>
+                Currently working on the <a href="https://adventure.ustwo.com" target="_blank" rel="noopener">Adventure</a>
+                arm of <a href="https://ustwo.com" target="_blank" rel="noopener">ustwo</a>
+            </h1>
 
-        <details class="previously">
-            <summary>
-                <h3> Previously </h3>
-            </summary>
+            <details class="previously">
+                <summary>
+                    <h3> Previously </h3>
+                </summary>
+                <p> Operations & Technology at <a href="http://centralworking.com/" target="_blank" rel="noopener">Central Working</a> </p>
+                <p> Bioinformatics at <a href="https://www.illumina.com/" target="_blank" rel="noopener">Illumina</a> </p>
+                <p> I did a <a href="https://wikipedia.org/wiki/Physics" target="_blank" rel="noopener">Physics</a> Degree </p>
+            </details>
 
-            <p> Operations & Technology at <a href="http://centralworking.com/" target="_blank" rel="noopener">Central Working</a> </p>
-            <p> Bioinformatics at <a href="https://www.illumina.com/" target="_blank" rel="noopener">Illumina</a> </p>
-            <p> I did a <a href="https://wikipedia.org/wiki/Physics" target="_blank" rel="noopener">Physics</a> Degree </p>
-        </details>
+        </section>
 
-        <details open class="find">
-            <summary>
-                <h3> Find me </h3>
-            </summary>
+
+        <section class="work">
+
+            <h1> <a href="/work/index.html">Work<span class="em-dash">—</span> </a> </h1>
+
+            <div class="projects-preview-container">
+
+                <div class="studiowave">
+                    <img src="bg/studiowave.png" alt="">
+                </div>
+
+                <div class="ustwo-adventure">
+                    <img src="bg/adventure.png" alt="">
+                </div>
+
+                <div class="generative">
+                    <img src="bg/generative.png" alt="">
+                </div>
+
+            </div>
+
+        </section>
+
+        <section class="photos">
+        
+            <h1> <a href="/photos.html">Photos<span class="em-dash">—</span> </a> </h1>
+        
+            <div class="photo-preview-container">
+        
+                <img src="photos/small/photo_13.jpg" alt="">
+
+                <img src="photos/small/photo_4.jpg" alt="">
+
+                <img src="photos/small/photo_57.jpg" alt="">
+
+                <img src="photos/small/photo_73.jpg" alt="">
+        
+            </div>
+        
+        </section>
+
+        <section class="contact">
+        
+            <h1> <a href="/photos.html">Find me<span class="em-dash">—</span> </a> </h1>
+        
             <p>
                 <a href="https://twitter.com/neefrehman_" target="_blank" rel="noopener">Twitter</a>,
                 <a href="https://www.instagram.com/neefrehman" target="_blank" rel="noopener">Instagram</a>,
                 <a href="https://github.com/neefrehman" target="_blank" rel="noopener">GitHub</a>
             </p>
             <p> <a href="mailto:neef.rehman@gmail.com?subject=👋" target="_blank" rel="noopener">neef.rehman@gmail.com</a> </p>
-        </details>
+        
+        </section>
 
     </main>
 

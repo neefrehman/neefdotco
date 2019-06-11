@@ -1,0 +1,51 @@
+details {
+  margin-top: 1.6em;
+}
+
+details summary {
+  cursor: pointer;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+
+details summary h3 {
+  text-decoration: underline;
+  display: inline;
+}
+
+details summary h3::after {
+  font-size: 0.7em;
+}
+
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+details:not([open]) summary h3::after {
+  content: "?";
+}
+
+details[open] summary h3::after {
+  content: "[close]";
+}
+
+main section h1 {
+  margin-bottom: 40px;
+}
+
+main section div {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
+  flex-wrap: wrap;
+  -webkit-box-align: start;
+          align-items: flex-start;
+  justify-content: space-around;
+}
+
+main section div img {
+  width: 300px;
+}
