@@ -140,6 +140,10 @@ span.em-dash {
         transform: translate(0.2em);
         color: var(--oppositeModeBackground);
     }
+
+    @media (pointer:coarse) {
+        transition: transform 50ms;
+    }
 }
 
 

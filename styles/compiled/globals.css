@@ -154,6 +154,14 @@ a:hover span.em-dash {
 }
 
 @media (pointer: coarse) {
+  span.em-dash {
+    transition: -webkit-transform 50ms;
+    transition: transform 50ms;
+    transition: transform 50ms, -webkit-transform 50ms;
+  }
+}
+
+@media (pointer: coarse) {
   a:not([href]):hover {
     color: var(--textColor);
     background-color: var(--linkBackgroundColor);
