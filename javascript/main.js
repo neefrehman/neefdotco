@@ -27,17 +27,17 @@ if (darkModeButton) {
 }
 
 
-// em-dash movement
-const emDashes = document.querySelectorAll("span.em-dash");
-if (emDashes && window.innerWidth < 497 && window.DeviceMotionEvent) {
+// colon movement
+const colons = document.querySelectorAll("span.translate");
+if (colons && window.innerWidth < 497 && window.DeviceMotionEvent) {
     window.addEventListener("devicemotion", e => {
         const deviceTilt = (window.innerHeight > window.innerWidth)
             ? e.accelerationIncludingGravity.x
             : e.accelerationIncludingGravity.y;
         const stretchValue = Math.abs(deviceTilt) * 2;
         
-        emDashes.forEach(dash => {
-            dash.style.transform = `translate(${stretchValue}px)`;
+        colons.forEach(colon => {
+            colon.style.transform = `translate(${stretchValue}px)`;
         });
     });
 }

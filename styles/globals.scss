@@ -16,14 +16,14 @@
     --textColor: #333333;
     --backgroundColor: #ffffff;
     --linkBackgroundColor: #eeeeee;
-    --linkBackgroundColor2: rgb(225, 225, 225, 0.8);
+    --linkBackgroundColor2: rgba(225, 225, 225, 0.8);
     --oppositeModeBackground: #212121;
 
     &.dark {
         --textColor: #ffffff;
         --backgroundColor: #212121;
         --linkBackgroundColor: #4a4a4a;
-        --linkBackgroundColor2: rgb(225, 225, 225, 0.2);
+        --linkBackgroundColor2: rgba(225, 225, 225, 0.2);
         --oppositeModeBackground: #ffffff;
     }
 }
@@ -131,7 +131,7 @@ body {
     }
 }
 
-span.em-dash {
+span.translate {
     display: inline-block;
     transform-origin: left;
     transition: transform 200ms;

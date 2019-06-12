@@ -19,10 +19,6 @@ details {
         }
     }
 
-    &:not([open]) summary h3::after {
-        content: "?";
-    }
-
     &[open] summary h3::after {
         content: "[close]";
     }
@@ -30,38 +26,72 @@ details {
 
 main {
     section {
-    h1 {
-        margin-bottom: 40px;
-    }
+        h1 {
+            margin: 70px 0 50px 0;
+        }
 
-    div {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        align-items: flex-start;
-        justify-content: space-around;
+        div.preview-container {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            justify-content: start;
 
-        img {
-            width: 300px;
+            a {
+                padding: 0;
+                background: none;
+                transition: transform 70ms;
+
+                &:not(:last-child) {
+                    margin-right: 60px;
+                }
+
+                img {
+                    width: 300px;
+                    height: 170px;
+                    object-fit: cover;
+                }
+
+                div.project-text-container {
+                    margin-top: -3px;
+                    padding: 10px 8px;
+
+                    background-color: var(--linkBackgroundColor);
+                    background-color: var(--linkBackgroundColor2);
+
+                    h4 {
+                        font-size: 1.27em;
+                    }
+
+                    p {
+                        margin-top: 0.7em;
+                    }
+                }
+
+                &:hover {
+                    background: none;
+
+                    transform: translate(0, -6px);
+                }
+            }
         }
     }
-}
 
-section.work {
-    div.projects-preview-container {
+    section.work {
+        div.projects-preview-container {
 
-        img {
+            img {
 
+            }
         }
     }
-}
 
-section.photos {
-    div.photos-preview-container {
+    section.photos {
+        div.photos-preview-container {
 
-        img {
+            img {
 
+            }
         }
     }
-}
 }

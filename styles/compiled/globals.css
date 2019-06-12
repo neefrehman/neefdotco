@@ -16,7 +16,7 @@
   --textColor: #333333;
   --backgroundColor: #ffffff;
   --linkBackgroundColor: #eeeeee;
-  --linkBackgroundColor2: rgb(225, 225, 225, 0.8);
+  --linkBackgroundColor2: rgba(225, 225, 225, 0.8);
   --oppositeModeBackground: #212121;
 }
 
@@ -24,7 +24,7 @@
   --textColor: #ffffff;
   --backgroundColor: #212121;
   --linkBackgroundColor: #4a4a4a;
-  --linkBackgroundColor2: rgb(225, 225, 225, 0.2);
+  --linkBackgroundColor2: rgba(225, 225, 225, 0.2);
   --oppositeModeBackground: #ffffff;
 }
 
@@ -138,7 +138,7 @@ body *:focus {
   content: "light";
 }
 
-span.em-dash {
+span.translate {
   display: inline-block;
   -webkit-transform-origin: left;
           transform-origin: left;
@@ -154,7 +154,7 @@ a:hover span.em-dash {
 }
 
 @media (pointer: coarse) {
-  span.em-dash {
+  span.translate {
     transition: -webkit-transform 50ms;
     transition: transform 50ms;
     transition: transform 50ms, -webkit-transform 50ms;

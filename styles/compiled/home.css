@@ -22,19 +22,15 @@ details summary::-webkit-details-marker {
   display: none;
 }
 
-details:not([open]) summary h3::after {
-  content: "?";
-}
-
 details[open] summary h3::after {
   content: "[close]";
 }
 
 main section h1 {
-  margin-bottom: 40px;
+  margin: 70px 0 50px 0;
 }
 
-main section div {
+main section div.preview-container {
   display: -webkit-box;
   display: flex;
   -webkit-box-orient: horizontal;
@@ -43,9 +39,46 @@ main section div {
   flex-wrap: wrap;
   -webkit-box-align: start;
           align-items: flex-start;
-  justify-content: space-around;
+  -webkit-box-pack: start;
+          justify-content: start;
 }
 
-main section div img {
+main section div.preview-container a {
+  padding: 0;
+  background: none;
+  transition: -webkit-transform 70ms;
+  transition: transform 70ms;
+  transition: transform 70ms, -webkit-transform 70ms;
+}
+
+main section div.preview-container a:not(:last-child) {
+  margin-right: 60px;
+}
+
+main section div.preview-container a img {
   width: 300px;
+  height: 170px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+main section div.preview-container a div.project-text-container {
+  margin-top: -3px;
+  padding: 10px 8px;
+  background-color: var(--linkBackgroundColor);
+  background-color: var(--linkBackgroundColor2);
+}
+
+main section div.preview-container a div.project-text-container h4 {
+  font-size: 1.27em;
+}
+
+main section div.preview-container a div.project-text-container p {
+  margin-top: 0.7em;
+}
+
+main section div.preview-container a:hover {
+  background: none;
+  -webkit-transform: translate(0, -6px);
+          transform: translate(0, -6px);
 }
