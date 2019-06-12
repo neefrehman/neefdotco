@@ -36,7 +36,7 @@ body {
     background-color: var(--backgroundColor);
     text-size-adjust: 100%;
     -webkit-font-smoothing: antialiased;
-    margin: 35px;
+    margin: 30px 40px;
 
     h1, h2, h3 {
         font-weight: bold;
@@ -71,11 +71,17 @@ body {
         margin-bottom: 50px;
     }
 
-    nav {
-        margin-top: 15px;
+    header {
+        h1:not(:first-child) {
+            margin-top: 15px;
+        }
 
-        a:not(:last-child) {
-            margin-right: 0.66em;
+        nav {
+            margin-top: 15px;
+
+            a:not(:last-child) {
+                margin-right: 0.66em;
+            }
         }
     }
 
@@ -103,7 +109,7 @@ body {
     }
 
     @media (max-width: 769px) {
-        margin: 30px;
+        margin: 25px 30px;
         font-size: 13px;
 
         h1 {
@@ -136,8 +142,8 @@ span.translate {
     transform-origin: left;
     transition: transform 200ms;
 
-    @at-root a:hover span.em-dash {
-        transform: translate(0.2em);
+    @at-root a:hover span.translate {
+        transform: translate(0.15em);
         color: var(--oppositeModeBackground);
     }
 

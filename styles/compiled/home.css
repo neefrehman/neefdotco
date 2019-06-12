@@ -64,7 +64,7 @@ main section div.preview-container a img {
 
 main section div.preview-container a div.project-text-container {
   margin-top: -3px;
-  padding: 10px 8px;
+  padding: 10px;
   background-color: var(--linkBackgroundColor);
   background-color: var(--linkBackgroundColor2);
 }
@@ -74,7 +74,7 @@ main section div.preview-container a div.project-text-container h4 {
 }
 
 main section div.preview-container a div.project-text-container p {
-  margin-top: 0.7em;
+  margin-top: 0.4em;
 }
 
 main section div.preview-container a:hover {

@@ -37,7 +37,7 @@ body {
   -webkit-text-size-adjust: 100%;
           text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
-  margin: 35px;
+  margin: 30px 40px;
 }
 
 body h1, body h2, body h3 {
@@ -75,11 +75,15 @@ body header, body section {
   margin-bottom: 50px;
 }
 
-body nav {
+body header h1:not(:first-child) {
   margin-top: 15px;
 }
 
-body nav a:not(:last-child) {
+body header nav {
+  margin-top: 15px;
+}
+
+body header nav a:not(:last-child) {
   margin-right: 0.66em;
 }
 
@@ -112,7 +116,7 @@ body *:focus {
 
 @media (max-width: 769px) {
   body {
-    margin: 30px;
+    margin: 25px 30px;
     font-size: 13px;
   }
   body h1 {
@@ -147,9 +151,9 @@ span.translate {
   transition: transform 200ms, -webkit-transform 200ms;
 }
 
-a:hover span.em-dash {
-  -webkit-transform: translate(0.2em);
-          transform: translate(0.2em);
+a:hover span.translate {
+  -webkit-transform: translate(0.15em);
+          transform: translate(0.15em);
   color: var(--oppositeModeBackground);
 }
 
