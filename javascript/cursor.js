@@ -36,7 +36,7 @@ if (matchMedia("(pointer:fine)").matches) {
         
         darkModeButton.addEventListener("click", () => {
             cursor.classList.remove("large");
-            const cursorReset = setTimeout(() => cursor.classList.add("large"), 2000);
+            const cursorReset = setTimeout(() => cursor.classList.add("large"), 1500);
             darkModeButton.addEventListener("click", () => clearTimeout(cursorReset));
             darkModeButton.addEventListener("mouseleave", () => {
                 clearTimeout(cursorReset);

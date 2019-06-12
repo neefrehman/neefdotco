@@ -19,6 +19,10 @@ details {
         }
     }
 
+    p {
+        margin-top: 0.7em;
+    }
+
     &[open] summary h3::after {
         content: "[close]";
     }
@@ -27,7 +31,7 @@ details {
 main {
     section {
         h1 {
-            margin: 70px 0 50px 0;
+            margin: 70px 0 30px 0;
         }
 
         div.preview-container {
@@ -37,34 +41,38 @@ main {
             align-items: flex-start;
             justify-content: start;
 
-            a {
+            a.work-item {
+                margin-top: 20px;
                 padding: 0;
                 background: none;
-                transition: transform 70ms;
+                transition: transform 80ms;
+
+                --imageWidth: 280px;
+                max-width: var(--imageWidth);
 
                 &:not(:last-child) {
-                    margin-right: 60px;
+                    margin-right: 55px;
                 }
 
                 img {
-                    width: 300px;
-                    height: 170px;
+                    width: var(--imageWidth);
+                    height: calc(var(--imageWidth) * 0.9);
                     object-fit: cover;
                 }
 
                 div.project-text-container {
-                    margin-top: -3px;
+                    margin-top: -5px;
                     padding: 10px;
 
                     background-color: var(--linkBackgroundColor);
                     background-color: var(--linkBackgroundColor2);
 
                     h4 {
-                        font-size: 1.27em;
+                        font-size: 1.34em;
                     }
 
                     p {
-                        margin-top: 0.4em;
+                        margin-top: 0.3em;
                     }
                 }
 
@@ -73,24 +81,6 @@ main {
 
                     transform: translate(0, -6px);
                 }
-            }
-        }
-    }
-
-    section.work {
-        div.projects-preview-container {
-
-            img {
-
-            }
-        }
-    }
-
-    section.photos {
-        div.photos-preview-container {
-
-            img {
-
             }
         }
     }

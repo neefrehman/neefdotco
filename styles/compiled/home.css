@@ -22,12 +22,16 @@ details summary::-webkit-details-marker {
   display: none;
 }
 
+details p {
+  margin-top: 0.7em;
+}
+
 details[open] summary h3::after {
   content: "[close]";
 }
 
 main section h1 {
-  margin: 70px 0 50px 0;
+  margin: 70px 0 30px 0;
 }
 
 main section div.preview-container {
@@ -43,41 +47,44 @@ main section div.preview-container {
           justify-content: start;
 }
 
-main section div.preview-container a {
+main section div.preview-container a.work-item {
+  margin-top: 20px;
   padding: 0;
   background: none;
-  transition: -webkit-transform 70ms;
-  transition: transform 70ms;
-  transition: transform 70ms, -webkit-transform 70ms;
+  transition: -webkit-transform 80ms;
+  transition: transform 80ms;
+  transition: transform 80ms, -webkit-transform 80ms;
+  --imageWidth: 280px;
+  max-width: var(--imageWidth);
 }
 
-main section div.preview-container a:not(:last-child) {
-  margin-right: 60px;
+main section div.preview-container a.work-item:not(:last-child) {
+  margin-right: 55px;
 }
 
-main section div.preview-container a img {
-  width: 300px;
-  height: 170px;
+main section div.preview-container a.work-item img {
+  width: var(--imageWidth);
+  height: calc(var(--imageWidth) * 0.9);
   -o-object-fit: cover;
      object-fit: cover;
 }
 
-main section div.preview-container a div.project-text-container {
-  margin-top: -3px;
+main section div.preview-container a.work-item div.project-text-container {
+  margin-top: -5px;
   padding: 10px;
   background-color: var(--linkBackgroundColor);
   background-color: var(--linkBackgroundColor2);
 }
 
-main section div.preview-container a div.project-text-container h4 {
-  font-size: 1.27em;
+main section div.preview-container a.work-item div.project-text-container h4 {
+  font-size: 1.34em;
 }
 
-main section div.preview-container a div.project-text-container p {
-  margin-top: 0.4em;
+main section div.preview-container a.work-item div.project-text-container p {
+  margin-top: 0.3em;
 }
 
-main section div.preview-container a:hover {
+main section div.preview-container a.work-item:hover {
   background: none;
   -webkit-transform: translate(0, -6px);
           transform: translate(0, -6px);

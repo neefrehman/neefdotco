@@ -18,19 +18,19 @@ if (darkModeButton) {
 
 
 // colon movement
-const colons = document.querySelectorAll("span.translate");
-if (colons && window.innerWidth < 497 && window.DeviceMotionEvent) {
-    window.addEventListener("devicemotion", e => {
-        const deviceTilt = (window.innerHeight > window.innerWidth)
-            ? e.accelerationIncludingGravity.x
-            : e.accelerationIncludingGravity.y;
-        const stretchValue = Math.abs(deviceTilt) * 2;
+// const colons = document.querySelectorAll("span.translate");
+// if (colons && window.innerWidth < 497 && window.DeviceMotionEvent) {
+//     window.addEventListener("devicemotion", e => {
+//         const deviceTilt = (window.innerHeight > window.innerWidth)
+//             ? e.accelerationIncludingGravity.x
+//             : e.accelerationIncludingGravity.y;
+//         const stretchValue = Math.abs(deviceTilt) * 2;
         
-        colons.forEach(colon => {
-            colon.style.transform = `translate(${stretchValue}px)`;
-        });
-    });
-}
+//         colons.forEach(colon => {
+//             colon.style.transform = `translate(${stretchValue}px)`;
+//         });
+//     });
+// }
 
 
 // Console log

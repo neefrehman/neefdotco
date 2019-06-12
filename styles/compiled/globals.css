@@ -26,12 +26,17 @@
   --linkBackgroundColor: #4a4a4a;
   --linkBackgroundColor2: rgba(225, 225, 225, 0.2);
   --oppositeModeBackground: #ffffff;
+  /* safari fix */
+}
+
+:root.dark body {
+  min-height: 100vh;
 }
 
 body {
   font-family: "Untitled Sans", helvetica neue, helvetica, arial, sans-serif;
   font-size: 14px;
-  line-height: 1.2;
+  line-height: 1.3;
   color: var(--textColor);
   background-color: var(--backgroundColor);
   -webkit-text-size-adjust: 100%;
@@ -42,10 +47,6 @@ body {
 
 body h1, body h2, body h3 {
   font-weight: bold;
-  -webkit-transform: scale(1.02, 1);
-          transform: scale(1.02, 1);
-  -webkit-transform-origin: left;
-          transform-origin: left;
 }
 
 body h1 a, body h2 a, body h3 a {
@@ -58,33 +59,27 @@ body h1 a:hover, body h2 a:hover, body h3 a:hover {
   background: none;
 }
 
-body h3, body p {
-  margin-top: 1em;
-}
-
 body h1 {
   font-size: 3em;
+  line-height: 1.2;
   margin-right: 1em;
+  margin-bottom: 10px;
+  -webkit-transform: scale(1.02, 1);
+          transform: scale(1.02, 1);
+  -webkit-transform-origin: left;
+          transform-origin: left;
 }
 
 body h3 {
   font-size: 1.22em;
 }
 
-body header, body section {
-  margin-bottom: 50px;
+body p {
+  line-height: 1.6;
 }
 
-body header h1:not(:first-child) {
-  margin-top: 15px;
-}
-
-body header nav {
-  margin-top: 15px;
-}
-
-body header nav a:not(:last-child) {
-  margin-right: 0.66em;
+body p a {
+  line-height: 1.3;
 }
 
 body a, body a:visited {
@@ -94,12 +89,23 @@ body a, body a:visited {
   background-color: var(--linkBackgroundColor);
   background-color: var(--linkBackgroundColor2);
   padding: 0 0.2em;
-  line-height: normal;
 }
 
 body a:hover, body a:visited:hover {
   color: var(--backgroundColor);
   background-color: var(--textColor);
+}
+
+body header, body section {
+  margin-bottom: 50px;
+}
+
+body header nav {
+  margin-top: 15px;
+}
+
+body header nav a:not(:last-child) {
+  margin-right: 0.66em;
 }
 
 body *::-moz-selection {

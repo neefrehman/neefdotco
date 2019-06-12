@@ -4,7 +4,7 @@
     top: -1rem;
     left: -1rem;
     pointer-events: none;
-    transition: transform 35ms;
+    transition: transform 38ms;
 
     .cursor, .cursor-inner {
         position: fixed;
@@ -41,7 +41,7 @@
     }
 
     &.dark-mode-toggle .cursor {
-        background-color: var(--oppositeModeBackground);
+        background-color: var(--textColor);
     }
 
     &.transition {

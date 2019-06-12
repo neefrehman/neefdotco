@@ -4,9 +4,9 @@
   top: -1rem;
   left: -1rem;
   pointer-events: none;
-  transition: -webkit-transform 35ms;
-  transition: transform 35ms;
-  transition: transform 35ms, -webkit-transform 35ms;
+  transition: -webkit-transform 38ms;
+  transition: transform 38ms;
+  transition: transform 38ms, -webkit-transform 38ms;
 }
 
 .cursor-container .cursor, .cursor-container .cursor-inner {
@@ -53,7 +53,7 @@
 }
 
 .cursor-container.dark-mode-toggle .cursor {
-  background-color: var(--oppositeModeBackground);
+  background-color: var(--textColor);
 }
 
 .cursor-container.transition .cursor {
