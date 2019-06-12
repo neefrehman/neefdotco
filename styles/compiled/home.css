@@ -89,3 +89,9 @@ main section div.preview-container a.work-item:hover {
   -webkit-transform: translate(0, -6px);
           transform: translate(0, -6px);
 }
+
+@media (max-width: 400px) {
+  main section div.preview-container a.work-item {
+    --imageWidth: 100%;
+  }
+}

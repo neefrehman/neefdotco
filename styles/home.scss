@@ -81,6 +81,10 @@ main {
 
                     transform: translate(0, -6px);
                 }
+
+                @media (max-width: 400px) {
+                    --imageWidth: 100%;
+                }
             }
         }
     }
