@@ -13,17 +13,7 @@ const darkMode = () => {
 };
 
 if (darkModeButton) {
-    darkModeButton.addEventListener("click", () => {
-        darkMode();
-
-        darkModeButton.classList.add("hide-bg");
-        const bgReset = setTimeout(() => darkModeButton.classList.remove("hide-bg"), 2600);
-        darkModeButton.addEventListener("click", () => clearTimeout(bgReset));
-        darkModeButton.addEventListener("mouseleave", () => {
-            clearTimeout(bgReset);
-            darkModeButton.classList.remove("hide-bg");
-        });
-    });
+    darkModeButton.addEventListener("click", () => darkMode());
 }
 
 

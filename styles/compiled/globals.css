@@ -42,8 +42,8 @@ body {
 
 body h1, body h2, body h3 {
   font-weight: bold;
-  -webkit-transform: scale(1.03, 1);
-          transform: scale(1.03, 1);
+  -webkit-transform: scale(1.02, 1);
+          transform: scale(1.02, 1);
   -webkit-transform-origin: left;
           transform-origin: left;
 }
@@ -140,29 +140,6 @@ body *:focus {
 
 :root.dark .dark-mode-button::before {
   content: "light";
-}
-
-span.translate {
-  display: inline-block;
-  -webkit-transform-origin: left;
-          transform-origin: left;
-  transition: -webkit-transform 200ms;
-  transition: transform 200ms;
-  transition: transform 200ms, -webkit-transform 200ms;
-}
-
-a:hover span.translate {
-  -webkit-transform: translate(0.15em);
-          transform: translate(0.15em);
-  color: var(--oppositeModeBackground);
-}
-
-@media (pointer: coarse) {
-  span.translate {
-    transition: -webkit-transform 50ms;
-    transition: transform 50ms;
-    transition: transform 50ms, -webkit-transform 50ms;
-  }
 }
 
 @media (pointer: coarse) {

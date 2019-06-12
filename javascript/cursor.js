@@ -30,9 +30,20 @@ if (matchMedia("(pointer:fine)").matches) {
         summary.addEventListener("click", () => cursor.classList.toggle("large"));
     });
 
-    darkModeButton.addEventListener("mouseenter", () => cursor.classList.add("large", "dark-mode-toggle"));
-    darkModeButton.addEventListener("mouseleave", () => cursor.classList.remove("large", "dark-mode-toggle"));
-    darkModeButton.addEventListener("click", () => cursor.classList.toggle("large"));
+    if (darkModeButton) {
+        darkModeButton.addEventListener("mouseenter", () => cursor.classList.add("large", "dark-mode-toggle"));
+        darkModeButton.addEventListener("mouseleave", () => cursor.classList.remove("large", "dark-mode-toggle"));
+        
+        darkModeButton.addEventListener("click", () => {
+            cursor.classList.remove("large");
+            const cursorReset = setTimeout(() => cursor.classList.add("large"), 2000);
+            darkModeButton.addEventListener("click", () => clearTimeout(cursorReset));
+            darkModeButton.addEventListener("mouseleave", () => {
+                clearTimeout(cursorReset);
+                cursor.classList.remove("large");
+            });
+        });
+    }
 
     navLinks.forEach(link => {
         link.addEventListener("click", e => {
