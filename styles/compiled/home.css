@@ -29,9 +29,13 @@ main section.info div:not(:last-child) {
   margin-bottom: 40px;
 }
 
+main section.info div h2 {
+  margin-bottom: 1.4em;
+}
+
 main section.info div p:not(:last-child) {
   margin-right: 80px;
-  margin-bottom: 6px;
+  margin-bottom: 0.5em;
 }
 
 main section h1 {
@@ -53,8 +57,6 @@ main section div.preview-container {
 
 main section div.preview-container a.work-item {
   margin-top: 20px;
-  padding: 0;
-  background: none;
   transition: -webkit-transform 80ms;
   transition: transform 80ms;
   transition: transform 80ms, -webkit-transform 80ms;
@@ -86,7 +88,6 @@ main section div.preview-container a.work-item div.project-text-container h2, ma
 }
 
 main section div.preview-container a.work-item:hover {
-  background: none;
   -webkit-transform: translate(0, -6px);
           transform: translate(0, -6px);
 }

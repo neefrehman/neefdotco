@@ -28,10 +28,14 @@ main {
             &:not(:last-child) {
                 margin-bottom: 40px;
             }
-            
+
+            h2 {
+                margin-bottom: 1.4em;
+            }
+
             p:not(:last-child) {
                 margin-right: 80px;
-                margin-bottom: 6px;
+                margin-bottom: 0.5em;
             }
         }
     }
@@ -50,8 +54,6 @@ main {
 
             a.work-item {
                 margin-top: 20px;
-                padding: 0;
-                background: none;
                 transition: transform 80ms;
                 text-decoration: none;
 
@@ -81,8 +83,6 @@ main {
                 }
 
                 &:hover {
-                    background: none;
-
                     transform: translate(0, -6px);
 
                     h2, h3 {
