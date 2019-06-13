@@ -40,7 +40,7 @@ body {
     -webkit-font-smoothing: antialiased;
     margin: 30px 40px;
 
-    h1, h2, h3 {
+    h1, h2 {
         font-weight: bold;
 
         a {
@@ -93,7 +93,7 @@ body {
         }
 
         &:not(.button):hover {
-            transform: skew(-10deg);
+            transform: skew(-11deg);
         }
     }
 

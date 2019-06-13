@@ -31,16 +31,16 @@ if (matchMedia("(pointer:fine)").matches) {
     });
 
     if (darkModeButton) {
-        darkModeButton.addEventListener("mouseenter", () => cursor.classList.add("large", "dark-mode-toggle"));
-        darkModeButton.addEventListener("mouseleave", () => cursor.classList.remove("large", "dark-mode-toggle"));
+        darkModeButton.addEventListener("mouseenter", () => cursor.classList.add("x-large", "dark-mode-toggle"));
+        darkModeButton.addEventListener("mouseleave", () => cursor.classList.remove("x-large", "dark-mode-toggle"));
         
         darkModeButton.addEventListener("click", () => {
-            cursor.classList.remove("large");
-            const cursorReset = setTimeout(() => cursor.classList.add("large"), 1200);
+            cursor.classList.remove("x-large", "large");
+            const cursorReset = setTimeout(() => cursor.classList.add("x-large"), 1200);
             darkModeButton.addEventListener("click", () => clearTimeout(cursorReset));
             darkModeButton.addEventListener("mouseleave", () => {
                 clearTimeout(cursorReset);
-                cursor.classList.remove("large");
+                cursor.classList.remove("x-large", "large");
             });
         });
     }

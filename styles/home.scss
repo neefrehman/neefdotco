@@ -3,11 +3,7 @@ details {
         cursor: pointer;
         width: max-content;
         line-height: 1.6;
-
-        h2 {
-            text-decoration: underline;
-            display: inline;
-        }
+        text-decoration: underline;
 
         &::-webkit-details-marker {
             display:none;
@@ -90,7 +86,7 @@ main {
                     transform: translate(0, -6px);
 
                     h2, h3 {
-                        transform: skew(-10deg);
+                        transform: skew(-11deg);
                     }
                 }
 

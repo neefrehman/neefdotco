@@ -36,6 +36,10 @@
         transform: scale(2.2);
     }
 
+    &.x-large .cursor {
+        transform: scale(3.5);
+    }
+
     &.hide .cursor {
         transform: scale(0);
     }

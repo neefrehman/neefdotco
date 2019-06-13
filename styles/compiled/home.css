@@ -4,11 +4,7 @@ details summary {
   width: -moz-max-content;
   width: max-content;
   line-height: 1.6;
-}
-
-details summary h2 {
   text-decoration: underline;
-  display: inline;
 }
 
 details summary::-webkit-details-marker {
@@ -96,8 +92,8 @@ main section div.preview-container a.work-item:hover {
 }
 
 main section div.preview-container a.work-item:hover h2, main section div.preview-container a.work-item:hover h3 {
-  -webkit-transform: skew(-10deg);
-          transform: skew(-10deg);
+  -webkit-transform: skew(-11deg);
+          transform: skew(-11deg);
 }
 
 @media (max-width: 400px) {

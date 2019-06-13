@@ -47,6 +47,11 @@
           transform: scale(2.2);
 }
 
+.cursor-container.x-large .cursor {
+  -webkit-transform: scale(3.5);
+          transform: scale(3.5);
+}
+
 .cursor-container.hide .cursor {
   -webkit-transform: scale(0);
           transform: scale(0);
