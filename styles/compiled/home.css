@@ -25,13 +25,13 @@ main section.info {
   margin-bottom: 120px;
 }
 
-main section.info div p:not(:last-child) {
-  margin-right: 80px;
-  margin-bottom: 5px;
-}
-
 main section.info div:not(:last-child) {
   margin-bottom: 40px;
+}
+
+main section.info div p:not(:last-child) {
+  margin-right: 80px;
+  margin-bottom: 6px;
 }
 
 main section h1 {
@@ -77,8 +77,8 @@ main section div.preview-container a.work-item img {
 main section div.preview-container a.work-item div.project-text-container {
   margin-top: -5px;
   padding: 10px;
+  background-color: var(--linkBackgroundColor-fallback);
   background-color: var(--linkBackgroundColor);
-  background-color: var(--linkBackgroundColor2);
 }
 
 main section div.preview-container a.work-item div.project-text-container h2, main section div.preview-container a.work-item div.project-text-container h3 {

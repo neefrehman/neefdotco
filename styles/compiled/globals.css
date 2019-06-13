@@ -23,8 +23,8 @@
 :root.dark {
   --textColor: #ffffff;
   --backgroundColor: #212121;
-  --linkBackgroundColor: #4a4a4a;
-  --linkBackgroundColor2: rgba(225, 225, 225, 0.2);
+  --linkBackgroundColor-fallback: #4a4a4a;
+  --linkBackgroundColor: rgba(225, 225, 225, 0.2);
   --oppositeModeBackground: #ffffff;
   /* safari fix */
 }
@@ -79,7 +79,12 @@ body p {
   line-height: 1.6;
 }
 
+body b {
+  font-weight: bold;
+}
+
 body a, body a:visited {
+  text-decoration: underline;
   display: inline-block;
   color: var(--textColor);
 }
@@ -92,8 +97,8 @@ body a.button, body a:visited.button {
   text-decoration: none;
   padding: 0 0.2em;
   line-height: 1.3;
+  background-color: var(--linkBackgroundColor-fallback);
   background-color: var(--linkBackgroundColor);
-  background-color: var(--linkBackgroundColor2);
 }
 
 body a.button:hover, body a:visited.button:hover {
@@ -158,9 +163,9 @@ body *:focus {
 }
 
 @media (pointer: coarse) {
-  a:not([href]):hover {
+  a.button:not([href]):hover {
     color: var(--textColor);
+    background-color: var(--linkBackgroundColor-fallback);
     background-color: var(--linkBackgroundColor);
-    background-color: var(--linkBackgroundColor2);
   }
 }

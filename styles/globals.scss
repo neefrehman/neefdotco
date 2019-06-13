@@ -22,13 +22,14 @@
     &.dark {
         --textColor: #ffffff;
         --backgroundColor: #212121;
-        --linkBackgroundColor: #4a4a4a;
-        --linkBackgroundColor2: rgba(225, 225, 225, 0.2);
+        --linkBackgroundColor-fallback: #4a4a4a;
+        --linkBackgroundColor: rgba(225, 225, 225, 0.2);
         --oppositeModeBackground: #ffffff;
 
         body { min-height: 100vh; } /* safari fix */
     }
 }
+
 
 body {
     font-family: "Untitled Sans", helvetica neue, helvetica, arial, sans-serif;
@@ -72,7 +73,12 @@ body {
         line-height: 1.6;
     }
 
+    b {
+        font-weight: bold;
+    }
+
     a, a:visited {
+        text-decoration: underline;
         display: inline-block;
         color: var(--textColor);
 
@@ -84,8 +90,8 @@ body {
             text-decoration: none;
             padding: 0 0.2em;
             line-height: 1.3;
+            background-color: var(--linkBackgroundColor-fallback);
             background-color: var(--linkBackgroundColor);
-            background-color: var(--linkBackgroundColor2);
 
             &:hover {
                 background-color: var(--textColor);
@@ -150,9 +156,9 @@ body {
 
 
 @media (pointer:coarse) {
-    a:not([href]):hover {
+    a.button:not([href]):hover {
         color: var(--textColor);
+        background-color: var(--linkBackgroundColor-fallback);
         background-color: var(--linkBackgroundColor);
-        background-color: var(--linkBackgroundColor2);
     }
 }

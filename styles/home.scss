@@ -25,13 +25,13 @@ main {
         margin-bottom: 120px;
 
         div {
-            p:not(:last-child) {
-                margin-right: 80px;
-                margin-bottom: 5px;
-            }
-
             &:not(:last-child) {
                 margin-bottom: 40px;
+            }
+            
+            p:not(:last-child) {
+                margin-right: 80px;
+                margin-bottom: 6px;
             }
         }
     }
@@ -72,8 +72,8 @@ main {
                     margin-top: -5px;
                     padding: 10px;
 
+                    background-color: var(--linkBackgroundColor-fallback);
                     background-color: var(--linkBackgroundColor);
-                    background-color: var(--linkBackgroundColor2);
 
                     h2, h3 {
                         margin-bottom: 0.2em;
