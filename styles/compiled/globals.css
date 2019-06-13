@@ -35,7 +35,7 @@
 
 body {
   font-family: "Untitled Sans", helvetica neue, helvetica, arial, sans-serif;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.3;
   color: var(--textColor);
   background-color: var(--backgroundColor);
@@ -70,34 +70,43 @@ body h1 {
           transform-origin: left;
 }
 
-body h3 {
-  font-size: 1.22em;
+body h2, body h3 {
+  font-size: 1.34em;
+  margin-bottom: 15px;
 }
 
 body p {
   line-height: 1.6;
 }
 
-body p a {
-  line-height: 1.3;
-}
-
 body a, body a:visited {
-  text-decoration: none;
-  color: var(--textColor);
   display: inline-block;
-  background-color: var(--linkBackgroundColor);
-  background-color: var(--linkBackgroundColor2);
-  padding: 0 0.2em;
+  color: var(--textColor);
 }
 
 body a:hover, body a:visited:hover {
   color: var(--backgroundColor);
+}
+
+body a.button, body a:visited.button {
+  text-decoration: none;
+  padding: 0 0.2em;
+  line-height: 1.3;
+  background-color: var(--linkBackgroundColor);
+  background-color: var(--linkBackgroundColor2);
+}
+
+body a.button:hover, body a:visited.button:hover {
   background-color: var(--textColor);
 }
 
+body a:not(.button):hover, body a:visited:not(.button):hover {
+  -webkit-transform: skew(-10deg);
+          transform: skew(-10deg);
+}
+
 body header, body section {
-  margin-bottom: 50px;
+  margin-bottom: 80px;
 }
 
 body header nav {
@@ -109,11 +118,11 @@ body header nav a:not(:last-child) {
 }
 
 body *::-moz-selection {
-  background: #f4cb3d;
+  color: #f4cb3d;
 }
 
 body *::selection {
-  background: #f4cb3d;
+  color: #f4cb3d;
 }
 
 body *:focus {
@@ -123,10 +132,10 @@ body *:focus {
 @media (max-width: 769px) {
   body {
     margin: 25px 30px;
-    font-size: 13px;
+    font-size: 14px;
   }
   body h1 {
-    font-size: 2.6em;
+    font-size: 2.44em;
   }
   body header {
     margin-bottom: 45px;
