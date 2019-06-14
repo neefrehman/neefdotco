@@ -15,15 +15,15 @@
 :root {
   --textColor: #333333;
   --backgroundColor: #ffffff;
-  --linkBackgroundColor: #eeeeee;
-  --linkBackgroundColor2: rgba(225, 225, 225, 0.8);
+  --linkBackgroundColor-fallback: #4a4a4a;
+  --linkBackgroundColor: rgba(225, 225, 225, 0.8);
   --oppositeModeBackground: #212121;
 }
 
 :root.dark {
   --textColor: #ffffff;
   --backgroundColor: #212121;
-  --linkBackgroundColor-fallback: #4a4a4a;
+  --linkBackgroundColor-fallback: #eeeeee;
   --linkBackgroundColor: rgba(225, 225, 225, 0.2);
   --oppositeModeBackground: #ffffff;
   /* safari fix */
