@@ -16,7 +16,17 @@ details {
 }
 
 
+header {
+    margin-bottom: 100px;
+}
+
+
 main {
+
+    section {
+        margin-bottom: 80px;
+    }
+
     section.info {
         display: flex;
         flex-direction: row;
@@ -30,7 +40,7 @@ main {
             }
 
             h2 {
-                margin-bottom: 1.4em;
+                margin-bottom: 1.3em;
             }
 
             p:not(:last-child) {
@@ -54,14 +64,14 @@ main {
 
             a.work-item {
                 margin-top: 20px;
-                transition: transform 80ms;
+                transition: transform 25s linear;
                 text-decoration: none;
 
                 --imageWidth: 280px;
                 max-width: var(--imageWidth);
 
                 &:not(:last-child) {
-                    margin-right: 55px;
+                    margin-right: 60px;
                 }
 
                 img {
@@ -83,7 +93,8 @@ main {
                 }
 
                 &:hover {
-                    transform: translate(0, -6px);
+                    transform: translate(0, -100vh);
+                    transition: transform 60s linear 300ms;
 
                     h2, h3 {
                         transform: skew(-11deg);

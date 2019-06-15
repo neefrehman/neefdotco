@@ -48,8 +48,8 @@
 }
 
 .cursor-container.x-large .cursor {
-  -webkit-transform: scale(3.5);
-          transform: scale(3.5);
+  -webkit-transform: scale(3.3);
+          transform: scale(3.3);
 }
 
 .cursor-container.hide .cursor {

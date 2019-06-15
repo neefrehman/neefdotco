@@ -15,6 +15,14 @@ details[open] summary {
   display: none;
 }
 
+header {
+  margin-bottom: 100px;
+}
+
+main section {
+  margin-bottom: 80px;
+}
+
 main section.info {
   display: -webkit-box;
   display: flex;
@@ -30,7 +38,7 @@ main section.info div:not(:last-child) {
 }
 
 main section.info div h2 {
-  margin-bottom: 1.4em;
+  margin-bottom: 1.3em;
 }
 
 main section.info div p:not(:last-child) {
@@ -57,16 +65,16 @@ main section div.preview-container {
 
 main section div.preview-container a.work-item {
   margin-top: 20px;
-  transition: -webkit-transform 80ms;
-  transition: transform 80ms;
-  transition: transform 80ms, -webkit-transform 80ms;
+  transition: -webkit-transform 25s linear;
+  transition: transform 25s linear;
+  transition: transform 25s linear, -webkit-transform 25s linear;
   text-decoration: none;
   --imageWidth: 280px;
   max-width: var(--imageWidth);
 }
 
 main section div.preview-container a.work-item:not(:last-child) {
-  margin-right: 55px;
+  margin-right: 60px;
 }
 
 main section div.preview-container a.work-item img {
@@ -88,8 +96,11 @@ main section div.preview-container a.work-item div.project-text-container h2, ma
 }
 
 main section div.preview-container a.work-item:hover {
-  -webkit-transform: translate(0, -6px);
-          transform: translate(0, -6px);
+  -webkit-transform: translate(0, -100vh);
+          transform: translate(0, -100vh);
+  transition: -webkit-transform 60s linear 300ms;
+  transition: transform 60s linear 300ms;
+  transition: transform 60s linear 300ms, -webkit-transform 60s linear 300ms;
 }
 
 main section div.preview-container a.work-item:hover h2, main section div.preview-container a.work-item:hover h3 {
