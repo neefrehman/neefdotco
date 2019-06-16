@@ -67,7 +67,7 @@ div.work-grid {
         grid-gap: 3.2em;
     }
 
-    @media (max-width: 850px) {
+    @media (max-width: 870px) {
         grid-template-columns: repeat(2, 1fr);
         grid-gap: 3.6em;
     }

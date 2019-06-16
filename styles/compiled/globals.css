@@ -34,7 +34,7 @@
 }
 
 body {
-  margin: 25px 40px;
+  margin: 20px 50px;
   font-family: "Untitled Sans", helvetica neue, helvetica, arial, sans-serif;
   font-size: 15px;
   line-height: 1.3;
@@ -155,7 +155,7 @@ body img[data-src]::after {
 
 @media (max-width: 769px) {
   body {
-    margin: 20px 35px;
+    margin: 20px 40px;
     font-size: 14px;
   }
   body h1 {

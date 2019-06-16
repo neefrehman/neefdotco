@@ -91,7 +91,7 @@ div.work-grid a.work-item:hover::after {
   }
 }
 
-@media (max-width: 850px) {
+@media (max-width: 870px) {
   div.work-grid {
     -ms-grid-columns: (1fr)[2];
         grid-template-columns: repeat(2, 1fr);
