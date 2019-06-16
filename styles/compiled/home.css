@@ -22,7 +22,7 @@ main section.info div h2 {
 
 main section.info div p {
   margin-right: 80px;
-  margin-bottom: 0.5em;
+  margin-bottom: 0.55em;
 }
 
 main section.info details summary {
@@ -43,7 +43,7 @@ main section.work h1 {
 
 main section.work .see-more {
   height: 100%;
-  min-height: 11em;
+  min-height: 12em;
   background-color: var(--linkBackgroundColor-fallback);
   background-color: var(--linkBackgroundColor);
   position: relative;
@@ -61,11 +61,6 @@ main section.work .see-more .plus {
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
-  -webkit-transform-origin: center;
-          transform-origin: center;
-  transition: -webkit-transform 430ms cubic-bezier(1, 0.18, 0.18, 1);
-  transition: transform 430ms cubic-bezier(1, 0.18, 0.18, 1);
-  transition: transform 430ms cubic-bezier(1, 0.18, 0.18, 1), -webkit-transform 430ms cubic-bezier(1, 0.18, 0.18, 1);
 }
 
 main section.work .see-more:hover {
@@ -78,13 +73,8 @@ main section.work .see-more:hover h2 {
           transform: skewX(-11deg);
 }
 
-main section.work .see-more:hover .plus {
-  -webkit-transform: translate(-50%, -50%) scale(1.11);
-          transform: translate(-50%, -50%) scale(1.11);
-}
-
 @media (max-width: 769px) {
   main section.info div h2 {
-    margin-bottom: 1.2em;
+    margin-bottom: 1.1em;
   }
 }

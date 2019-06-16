@@ -159,7 +159,7 @@ body img[data-src]::after {
 
 @media (max-width: 769px) {
   body {
-    margin: 20px 40px;
+    margin: 20px 30px;
     font-size: 14px;
   }
   body h1 {

@@ -1,12 +1,12 @@
 div.work-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, 18em);
-    grid-gap: 4em;
+    grid-gap: 3.6em;
 
     a {
         display: flex;
         flex-direction: column;
-        transition: transform 430ms cubic-bezier(1, 0.2, 0.2, 1);
+        transition: transform 200ms;
         transform-origin: center;
         text-decoration: none;
 
@@ -45,11 +45,12 @@ div.work-grid {
 
         &:hover {
             color: var(--backgroundColor);
-            transform: scale(0.98);
+            transform: translate(0, -6px);
+
 
             img {
                 transform: translate(0, -100%);
-                transition: transform 25s linear 3s;
+                transition: transform 30s 3s;
             }
 
             .project-text-container {
@@ -64,9 +65,6 @@ div.work-grid {
 
     @media (max-width: 1060px) {
         grid-template-columns: repeat(3, 1fr);
-    }
-
-    @media (max-width: 1000px) {
         grid-gap: 3.2em;
     }
 
@@ -75,7 +73,7 @@ div.work-grid {
         grid-gap: 3.6em;
     }
 
-    @media (max-width: 670px) {
+    @media (max-width: 700px) {
         grid-gap: 3em;
 
         a.work-item img {
@@ -93,7 +91,7 @@ div.work-grid {
 
     @media (max-width: 450px) {
         grid-template-columns: repeat(1, 1fr);
-        grid-gap: 3em;
+        grid-gap: 2.6em;
 
         a.work-item img {
             height: 14.5em;

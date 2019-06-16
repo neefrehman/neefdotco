@@ -3,7 +3,7 @@ div.work-grid {
   display: grid;
   -ms-grid-columns: (18em)[auto-fill];
       grid-template-columns: repeat(auto-fill, 18em);
-  grid-gap: 4em;
+  grid-gap: 3.6em;
 }
 
 div.work-grid a {
@@ -12,9 +12,9 @@ div.work-grid a {
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
           flex-direction: column;
-  transition: -webkit-transform 430ms cubic-bezier(1, 0.2, 0.2, 1);
-  transition: transform 430ms cubic-bezier(1, 0.2, 0.2, 1);
-  transition: transform 430ms cubic-bezier(1, 0.2, 0.2, 1), -webkit-transform 430ms cubic-bezier(1, 0.2, 0.2, 1);
+  transition: -webkit-transform 200ms;
+  transition: transform 200ms;
+  transition: transform 200ms, -webkit-transform 200ms;
   -webkit-transform-origin: center;
           transform-origin: center;
   text-decoration: none;
@@ -60,16 +60,16 @@ div.work-grid a.work-item::after {
 
 div.work-grid a:hover {
   color: var(--backgroundColor);
-  -webkit-transform: scale(0.98);
-          transform: scale(0.98);
+  -webkit-transform: translate(0, -6px);
+          transform: translate(0, -6px);
 }
 
 div.work-grid a:hover img {
   -webkit-transform: translate(0, -100%);
           transform: translate(0, -100%);
-  transition: -webkit-transform 25s linear 3s;
-  transition: transform 25s linear 3s;
-  transition: transform 25s linear 3s, -webkit-transform 25s linear 3s;
+  transition: -webkit-transform 30s 3s;
+  transition: transform 30s 3s;
+  transition: transform 30s 3s, -webkit-transform 30s 3s;
 }
 
 div.work-grid a:hover .project-text-container {
@@ -85,11 +85,6 @@ div.work-grid a:hover .project-text-container h2 {
   div.work-grid {
     -ms-grid-columns: (1fr)[3];
         grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (max-width: 1000px) {
-  div.work-grid {
     grid-gap: 3.2em;
   }
 }
@@ -102,7 +97,7 @@ div.work-grid a:hover .project-text-container h2 {
   }
 }
 
-@media (max-width: 670px) {
+@media (max-width: 700px) {
   div.work-grid {
     grid-gap: 3em;
   }
@@ -124,7 +119,7 @@ div.work-grid a:hover .project-text-container h2 {
   div.work-grid {
     -ms-grid-columns: (1fr)[1];
         grid-template-columns: repeat(1, 1fr);
-    grid-gap: 3em;
+    grid-gap: 2.6em;
   }
   div.work-grid a.work-item img {
     height: 14.5em;

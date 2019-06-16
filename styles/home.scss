@@ -22,7 +22,7 @@ main {
 
             p {
                 margin-right: 80px;
-                margin-bottom: 0.5em;
+                margin-bottom: 0.55em;
             }
         }
 
@@ -48,7 +48,7 @@ main {
 
         .see-more {
             height: 100%;
-            min-height: 11em;
+            min-height: 12em;
             background-color: var(--linkBackgroundColor-fallback);
             background-color: var(--linkBackgroundColor);
             position: relative;
@@ -64,8 +64,6 @@ main {
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
-                transform-origin: center;
-                transition: transform 430ms cubic-bezier(1, 0.18, 0.18, 1);
             }
 
             &:hover {
@@ -74,10 +72,6 @@ main {
 
                 h2 {
                     transform: skewX(-11deg);
-                }
-
-                .plus {
-                    transform: translate(-50%, -50%) scale(1.11);
                 }
             }
         }
@@ -90,7 +84,7 @@ main {
         section.info {
             div {
                 h2 {
-                    margin-bottom: 1.2em;
+                    margin-bottom: 1.1em;
                 }
             }
         }
