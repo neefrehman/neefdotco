@@ -3,13 +3,13 @@ const darkModeButton = document.querySelector(".dark-mode-button");
 const favicon = document.querySelector(`link[rel="icon"]`);
 
 let isDark = document.documentElement.classList.contains("dark");
-favicon.href = isDark ? "icons/favicon-dark.png" : "icons/favicon-light.png";
+favicon.href = isDark ? "/icons/favicon-dark.png" : "/icons/favicon-light.png";
 
 const darkMode = () => {
     document.documentElement.classList.toggle("dark");
     isDark = document.documentElement.classList.contains("dark");
     isDark ? localStorage.setItem("darkMode", 1) : localStorage.setItem("darkMode", 0);
-    favicon.href = isDark ? "icons/favicon-dark.png" : "icons/favicon-light.png";
+    favicon.href = isDark ? "/icons/favicon-dark.png" : "/icons/favicon-light.png";
 };
 
 if (darkModeButton) {
@@ -17,7 +17,7 @@ if (darkModeButton) {
 }
 
 
-// colon movement
+// Devicemotion
 // const colons = document.querySelectorAll("span.translate");
 // if (colons && window.innerWidth < 497 && window.DeviceMotionEvent) {
 //     window.addEventListener("devicemotion", e => {

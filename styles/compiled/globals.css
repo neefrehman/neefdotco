@@ -158,10 +158,7 @@ body a.button img[data-src]::after, body a:visited.button img[data-src]::after {
     font-size: 2.36em;
   }
   body header {
-    margin-bottom: 45px;
-  }
-  body nav {
-    margin-top: 12px;
+    margin-bottom: 50px;
   }
 }
 
