@@ -132,14 +132,15 @@ body a.button.dark-mode-button::before, body a:visited.button.dark-mode-button::
   content: "light";
 }
 
-body a.button img[data-src]::after, body a:visited.button img[data-src]::after {
+body img[data-src]::after {
   content: " ";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #eeeeee;
+  background-color: var(--linkBackgroundColor-fallback);
+  background-color: var(--linkBackgroundColor);
 }
 
 @media (min-width: 1600px) {

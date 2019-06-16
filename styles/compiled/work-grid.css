@@ -54,12 +54,15 @@ div.work-grid a.work-item::after {
 }
 
 div.work-grid a.work-item:hover {
-  background-color: var(--textColor);
   -webkit-transform: translate(0, -100vh);
           transform: translate(0, -100vh);
   transition: -webkit-transform 80s linear 540ms;
   transition: transform 80s linear 540ms;
   transition: transform 80s linear 540ms, -webkit-transform 80s linear 540ms;
+}
+
+div.work-grid a.work-item:hover .project-text-container {
+  background-color: var(--textColor);
 }
 
 div.work-grid a.work-item:hover .project-text-container h2 {

@@ -17,6 +17,10 @@ if (darkModeButton) {
 }
 
 
+// Lazy-load
+lzy();
+
+
 // Devicemotion
 // const colons = document.querySelectorAll("span.translate");
 // if (colons && window.innerWidth < 497 && window.DeviceMotionEvent) {

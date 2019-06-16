@@ -26,10 +26,6 @@ photoContainer.innerHTML = shuffle(photoArray).join("");
 const photos = document.querySelectorAll("[data-src]");
 
 
-// Lazy-load
-lzy(1000);
-
-
 // Zoom on click
 photos.forEach(photo => {
     photo.addEventListener("click", () => {

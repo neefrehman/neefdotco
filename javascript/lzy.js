@@ -4,10 +4,16 @@ const lzy = (offset = 200) => {
 
     if (!window.IntersectionObserver) {
         images.forEach(image => {
-            image.style.backgroundImage = `url(${image.getAttribute("data-src")})`;
+            const imageSource = image.getAttribute("data-src");
+            if (image.tagName === "IMG") {
+                image.setAttribute("src", imageSource);
+            } else {
+                image.style.backgroundImage = `url(${imageSource})`;
+            }
             image.removeAttribute("data-src");
         });
     } else {
+
         const onIntersection = entries => {
             entries.forEach(entry => {
                 if (entry.intersectionRatio > 0) {
@@ -23,7 +29,12 @@ const lzy = (offset = 200) => {
         });
 
         const loadImage = imageEl => {
-            imageEl.style.backgroundImage = `url(${imageEl.getAttribute("data-src")})`;
+            const imageSource = imageEl.getAttribute("data-src");
+            if (imageEl.tagName === "IMG") {
+                imageEl.setAttribute("src", imageSource);
+            } else {
+                imageEl.style.backgroundImage = `url(${imageSource})`;
+            }
             imageEl.removeAttribute("data-src");
         };
 
