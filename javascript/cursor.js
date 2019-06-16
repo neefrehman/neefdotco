@@ -10,6 +10,7 @@ if (matchMedia("(pointer:fine)").matches) {
     const darkModeButton = document.querySelector("a.dark-mode-button");
     const navLinks = document.querySelectorAll("a.nav");
     const summaries = document.querySelectorAll("summary");
+    const workItems = document.querySelectorAll(".work-item, .see-more");
 
     document.addEventListener("mousemove", e => {
         cursor.classList.add("show");
@@ -29,6 +30,13 @@ if (matchMedia("(pointer:fine)").matches) {
         summary.addEventListener("mouseleave", () => cursor.classList.remove("large"));
         summary.addEventListener("click", () => cursor.classList.toggle("large"));
     });
+
+    if (workItems) {
+        workItems.forEach(item => {
+            item.addEventListener("mouseenter", () => cursor.classList.add("over"));
+            item.addEventListener("mouseleave", () => cursor.classList.remove("over"));
+        });
+    }
 
     if (darkModeButton) {
         darkModeButton.addEventListener("mouseenter", () => cursor.classList.add("x-large", "dark-mode-toggle"));

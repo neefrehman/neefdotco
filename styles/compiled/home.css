@@ -49,3 +49,52 @@ main section.info div p:not(:last-child) {
 main section h1 {
   margin: 70px 0 50px 0;
 }
+
+main section .see-more {
+  text-decoration: none;
+  height: 100%;
+  background-color: var(--linkBackgroundColor-fallback);
+  background-color: var(--linkBackgroundColor);
+  position: relative;
+  -webkit-transform-origin: center;
+          transform-origin: center;
+  transition: -webkit-transform 430ms cubic-bezier(1, 0.1, 0.1, 1);
+  transition: transform 430ms cubic-bezier(1, 0.1, 0.1, 1);
+  transition: transform 430ms cubic-bezier(1, 0.1, 0.1, 1), -webkit-transform 430ms cubic-bezier(1, 0.1, 0.1, 1);
+}
+
+main section .see-more h2 {
+  padding: 10px;
+  text-decoration: none;
+}
+
+main section .see-more .plus {
+  font-size: 10em;
+  font-weight: bold;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  -webkit-transform-origin: center;
+          transform-origin: center;
+  transition: -webkit-transform 430ms cubic-bezier(1, 0.1, 0.1, 1);
+  transition: transform 430ms cubic-bezier(1, 0.1, 0.1, 1);
+  transition: transform 430ms cubic-bezier(1, 0.1, 0.1, 1), -webkit-transform 430ms cubic-bezier(1, 0.1, 0.1, 1);
+}
+
+main section .see-more:hover {
+  background-color: var(--textColor);
+  -webkit-transform: scale(0.98);
+          transform: scale(0.98);
+}
+
+main section .see-more:hover h2 {
+  -webkit-transform: skewX(-11deg);
+          transform: skewX(-11deg);
+}
+
+main section .see-more:hover .plus {
+  -webkit-transform: translate(-50%, -50%) scale(1.1);
+          transform: translate(-50%, -50%) scale(1.1);
+}

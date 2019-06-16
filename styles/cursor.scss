@@ -44,11 +44,14 @@
         transform: scale(0);
     }
 
-    &.dark-mode-toggle .cursor {
-        background-color: var(--textColor);
+    &.hide, &.transition, &.over {
+        opacity: 0.62;
+        z-index: 5;
     }
 
     &.transition {
+        opacity: 1;
+
         .cursor {
             transform: scale(1.33);
         }
@@ -58,8 +61,8 @@
         }
     }
 
-    &.hide, &.transition {
-        z-index: 5;
+    &.dark-mode-toggle .cursor {
+        background-color: var(--textColor);
     }
 
     @media (ponter: coarse) {

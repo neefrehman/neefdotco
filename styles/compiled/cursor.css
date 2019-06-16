@@ -57,8 +57,13 @@
           transform: scale(0);
 }
 
-.cursor-container.dark-mode-toggle .cursor {
-  background-color: var(--textColor);
+.cursor-container.hide, .cursor-container.transition, .cursor-container.over {
+  opacity: 0.62;
+  z-index: 5;
+}
+
+.cursor-container.transition {
+  opacity: 1;
 }
 
 .cursor-container.transition .cursor {
@@ -71,8 +76,8 @@
           transform: scale(1.35);
 }
 
-.cursor-container.hide, .cursor-container.transition {
-  z-index: 5;
+.cursor-container.dark-mode-toggle .cursor {
+  background-color: var(--textColor);
 }
 
 @media (ponter: coarse) {

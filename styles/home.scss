@@ -54,5 +54,45 @@ main {
         h1 {
             margin: 70px 0 50px 0;
         }
+
+        .see-more {
+            text-decoration: none;
+            height: 100%;
+            background-color: var(--linkBackgroundColor-fallback);
+            background-color: var(--linkBackgroundColor);
+            position: relative;
+
+            transform-origin: center;
+            transition: transform 430ms cubic-bezier(1, 0.1, 0.1, 1);
+
+            h2 {
+                padding: 10px;
+                text-decoration: none;
+            }
+
+            .plus {
+                font-size: 10em;
+                font-weight: bold;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                transform-origin: center;
+                transition: transform 430ms cubic-bezier(1, 0.1, 0.1, 1);
+            }
+
+            &:hover {
+                background-color: var(--textColor);
+                transform: scale(0.98);
+
+                h2 {
+                    transform: skewX(-11deg);
+                }
+
+                .plus {
+                    transform: translate(-50%, -50%) scale(1.1);
+                }
+            }
+        }
     }
 }
