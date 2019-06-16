@@ -105,14 +105,6 @@ body {
                 background-color: var(--textColor);
             }
 
-            @media (pointer:coarse) {
-                &:not([href]):hover {
-                    color: var(--textColor);
-                    background-color: var(--linkBackgroundColor-fallback);
-                    background-color: var(--linkBackgroundColor);
-                }
-            }
-
             &.dark-mode-button {
                 &::before {
                     content: "dark";
@@ -120,6 +112,18 @@ body {
                 @at-root :root.dark .dark-mode-button::before {
                     content: "light";
                 }
+            }
+        }
+
+        @media (pointer:coarse) {
+            &:hover {
+                color: var(--textColor);
+            }
+            
+            &.button:not([href]):hover {
+                color: var(--textColor);
+                background-color: var(--linkBackgroundColor-fallback);
+                background-color: var(--linkBackgroundColor);
             }
         }
     }

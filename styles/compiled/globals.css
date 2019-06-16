@@ -116,20 +116,23 @@ body a.button:hover, body a:visited.button:hover {
   background-color: var(--textColor);
 }
 
-@media (pointer: coarse) {
-  body a.button:not([href]):hover, body a:visited.button:not([href]):hover {
-    color: var(--textColor);
-    background-color: var(--linkBackgroundColor-fallback);
-    background-color: var(--linkBackgroundColor);
-  }
-}
-
 body a.button.dark-mode-button::before, body a:visited.button.dark-mode-button::before {
   content: "dark";
 }
 
 :root.dark .dark-mode-button::before {
   content: "light";
+}
+
+@media (pointer: coarse) {
+  body a:hover, body a:visited:hover {
+    color: var(--textColor);
+  }
+  body a.button:not([href]):hover, body a:visited.button:not([href]):hover {
+    color: var(--textColor);
+    background-color: var(--linkBackgroundColor-fallback);
+    background-color: var(--linkBackgroundColor);
+  }
 }
 
 body img[data-src]::after {
