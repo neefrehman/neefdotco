@@ -6,7 +6,7 @@ const randomOffset = () => 10 * (Math.floor(Math.random() * 9)) - 40;
 const photoArray = Array.from({length: numberOfPhotos}, (photo, i) => {
     return `
         <div class="grid"
-            data-src="photos/${screenSize}/photo_${++i}.jpg"
+            data-src="${screenSize}/photo_${++i}.jpg"
             style="--x: ${randomOffset()}px; --y: ${randomOffset()}px"> </div>
     `;
 });
