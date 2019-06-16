@@ -55,24 +55,25 @@ main {
             margin: 70px 0 50px 0;
         }
 
-        div.preview-container {
+        div.work-preview-container {
             display: grid;
-            --gridItemWidth: 280px;
-            grid-template-columns: repeat(auto-fill, var(--gridItemWidth));
+            grid-template-columns: repeat(auto-fill, 18em);
             grid-gap: 4em;
 
             a.work-item {
+                display: flex;
+                flex-direction: column;
                 transition: transform 20s linear;
                 text-decoration: none;
 
                 img {
                     width: 100%;
-                    height: calc(var(--gridItemWidth) * 0.9);
+                    height: calc(16em);
                     object-fit: cover;
                 }
 
                 .project-text-container {
-                    margin-top: -5px;
+                    height: 100%;
                     padding: 10px;
                     background-color: var(--linkBackgroundColor-fallback);
                     background-color: var(--linkBackgroundColor);
@@ -112,24 +113,24 @@ main {
             }
 
             @media (max-width: 1060px) {
-                --gridItemWidth: 260px;
+                grid-template-columns: repeat(3, 1fr);
             }
 
             @media (max-width: 1000px) {
-                --gridItemWidth: 235px;
-                grid-gap: 3.4em;
+                grid-gap: 3.2em;
             }
 
-            @media (max-width: 890px) {
+            @media (max-width: 880px) {
                 grid-template-columns: repeat(2, 1fr);
+                grid-gap: 3.6em;
             }
 
-            @media (max-width: 769px) {
-                grid-gap: 2.8em;
+            @media (max-width: 610px) {
+                grid-gap: 3em;
             }
 
             @media (max-width: 560px) {
-                grid-gap: 2em;
+                grid-gap: 2.6em;
             }
 
             @media (max-width: 450px) {

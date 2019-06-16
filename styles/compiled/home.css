@@ -50,16 +50,20 @@ main section h1 {
   margin: 70px 0 50px 0;
 }
 
-main section div.preview-container {
+main section div.work-preview-container {
   display: -ms-grid;
   display: grid;
-  --gridItemWidth: 280px;
-  -ms-grid-columns: (var(--gridItemWidth))[auto-fill];
-      grid-template-columns: repeat(auto-fill, var(--gridItemWidth));
+  -ms-grid-columns: (18em)[auto-fill];
+      grid-template-columns: repeat(auto-fill, 18em);
   grid-gap: 4em;
 }
 
-main section div.preview-container a.work-item {
+main section div.work-preview-container a.work-item {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
   transition: -webkit-transform 20s linear;
   transition: transform 20s linear;
   transition: transform 20s linear, -webkit-transform 20s linear;
@@ -67,25 +71,25 @@ main section div.preview-container a.work-item {
   position: relative;
 }
 
-main section div.preview-container a.work-item img {
+main section div.work-preview-container a.work-item img {
   width: 100%;
-  height: calc(var(--gridItemWidth) * 0.9);
+  height: calc(16em);
   -o-object-fit: cover;
      object-fit: cover;
 }
 
-main section div.preview-container a.work-item .project-text-container {
-  margin-top: -5px;
+main section div.work-preview-container a.work-item .project-text-container {
+  height: 100%;
   padding: 10px;
   background-color: var(--linkBackgroundColor-fallback);
   background-color: var(--linkBackgroundColor);
 }
 
-main section div.preview-container a.work-item .project-text-container h2, main section div.preview-container a.work-item .project-text-container h3 {
+main section div.work-preview-container a.work-item .project-text-container h2, main section div.work-preview-container a.work-item .project-text-container h3 {
   margin-bottom: 0.2em;
 }
 
-main section div.preview-container a.work-item::after {
+main section div.work-preview-container a.work-item::after {
   content: ":-)";
   color: var(--textColor);
   font-size: 6em;
@@ -101,7 +105,7 @@ main section div.preview-container a.work-item::after {
           transform: translate(-50%, -50%);
 }
 
-main section div.preview-container a.work-item:hover {
+main section div.work-preview-container a.work-item:hover {
   -webkit-transform: translate(0, -100vh);
           transform: translate(0, -100vh);
   transition: -webkit-transform 100s linear 500ms;
@@ -109,12 +113,12 @@ main section div.preview-container a.work-item:hover {
   transition: transform 100s linear 500ms, -webkit-transform 100s linear 500ms;
 }
 
-main section div.preview-container a.work-item:hover .project-text-container h2, main section div.preview-container a.work-item:hover h3 {
+main section div.work-preview-container a.work-item:hover .project-text-container h2, main section div.work-preview-container a.work-item:hover h3 {
   -webkit-transform: skew(-11deg);
           transform: skew(-11deg);
 }
 
-main section div.preview-container a.work-item:hover::after {
+main section div.work-preview-container a.work-item:hover::after {
   -webkit-transform: translate(0, 100vh);
           transform: translate(0, 100vh);
   transition: -webkit-transform 100s linear 500ms;
@@ -123,39 +127,40 @@ main section div.preview-container a.work-item:hover::after {
 }
 
 @media (max-width: 1060px) {
-  main section div.preview-container {
-    --gridItemWidth: 260px;
+  main section div.work-preview-container {
+    -ms-grid-columns: (1fr)[3];
+        grid-template-columns: repeat(3, 1fr);
   }
 }
 
 @media (max-width: 1000px) {
-  main section div.preview-container {
-    --gridItemWidth: 235px;
-    grid-gap: 3.4em;
+  main section div.work-preview-container {
+    grid-gap: 3.2em;
   }
 }
 
-@media (max-width: 890px) {
-  main section div.preview-container {
+@media (max-width: 880px) {
+  main section div.work-preview-container {
     -ms-grid-columns: (1fr)[2];
         grid-template-columns: repeat(2, 1fr);
+    grid-gap: 3.6em;
   }
 }
 
-@media (max-width: 769px) {
-  main section div.preview-container {
-    grid-gap: 2.8em;
+@media (max-width: 610px) {
+  main section div.work-preview-container {
+    grid-gap: 3em;
   }
 }
 
 @media (max-width: 560px) {
-  main section div.preview-container {
-    grid-gap: 2em;
+  main section div.work-preview-container {
+    grid-gap: 2.6em;
   }
 }
 
 @media (max-width: 450px) {
-  main section div.preview-container {
+  main section div.work-preview-container {
     -ms-grid-columns: (1fr)[1];
         grid-template-columns: repeat(1, 1fr);
   }
