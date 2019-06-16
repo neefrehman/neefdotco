@@ -134,7 +134,7 @@ body a.button.dark-mode-button::before, body a:visited.button.dark-mode-button::
 
 @media (max-width: 769px) {
   body {
-    margin: 15px 30px;
+    margin: 18px 30px;
     font-size: 14px;
   }
   body h1 {
