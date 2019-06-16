@@ -73,7 +73,7 @@ main section div.work-preview-container a.work-item {
 
 main section div.work-preview-container a.work-item img {
   width: 100%;
-  height: calc(16em);
+  height: 16em;
   -o-object-fit: cover;
      object-fit: cover;
 }
@@ -85,7 +85,7 @@ main section div.work-preview-container a.work-item .project-text-container {
   background-color: var(--linkBackgroundColor);
 }
 
-main section div.work-preview-container a.work-item .project-text-container h2, main section div.work-preview-container a.work-item .project-text-container h3 {
+main section div.work-preview-container a.work-item .project-text-container h2 {
   margin-bottom: 0.2em;
 }
 
@@ -108,22 +108,22 @@ main section div.work-preview-container a.work-item::after {
 main section div.work-preview-container a.work-item:hover {
   -webkit-transform: translate(0, -100vh);
           transform: translate(0, -100vh);
-  transition: -webkit-transform 100s linear 500ms;
-  transition: transform 100s linear 500ms;
-  transition: transform 100s linear 500ms, -webkit-transform 100s linear 500ms;
+  transition: -webkit-transform 80s linear 500ms;
+  transition: transform 80s linear 500ms;
+  transition: transform 80s linear 500ms, -webkit-transform 80s linear 500ms;
 }
 
-main section div.work-preview-container a.work-item:hover .project-text-container h2, main section div.work-preview-container a.work-item:hover h3 {
+main section div.work-preview-container a.work-item:hover .project-text-container h2 {
   -webkit-transform: skew(-11deg);
           transform: skew(-11deg);
 }
 
 main section div.work-preview-container a.work-item:hover::after {
-  -webkit-transform: translate(0, 100vh);
-          transform: translate(0, 100vh);
-  transition: -webkit-transform 100s linear 500ms;
-  transition: transform 100s linear 500ms;
-  transition: transform 100s linear 500ms, -webkit-transform 100s linear 500ms;
+  -webkit-transform: translate(-50%, calc(100vh - 50%));
+          transform: translate(-50%, calc(100vh - 50%));
+  transition: -webkit-transform 80s linear 500ms;
+  transition: transform 80s linear 500ms;
+  transition: transform 80s linear 500ms, -webkit-transform 80s linear 500ms;
 }
 
 @media (max-width: 1060px) {
@@ -139,7 +139,7 @@ main section div.work-preview-container a.work-item:hover::after {
   }
 }
 
-@media (max-width: 880px) {
+@media (max-width: 850px) {
   main section div.work-preview-container {
     -ms-grid-columns: (1fr)[2];
         grid-template-columns: repeat(2, 1fr);
@@ -147,15 +147,21 @@ main section div.work-preview-container a.work-item:hover::after {
   }
 }
 
-@media (max-width: 610px) {
+@media (max-width: 670px) {
   main section div.work-preview-container {
     grid-gap: 3em;
+  }
+  main section div.work-preview-container a.work-item img {
+    height: 14.5em;
   }
 }
 
 @media (max-width: 560px) {
   main section div.work-preview-container {
-    grid-gap: 2.6em;
+    grid-gap: 2.2em;
+  }
+  main section div.work-preview-container a.work-item img {
+    height: 13em;
   }
 }
 
@@ -163,5 +169,15 @@ main section div.work-preview-container a.work-item:hover::after {
   main section div.work-preview-container {
     -ms-grid-columns: (1fr)[1];
         grid-template-columns: repeat(1, 1fr);
+    grid-gap: 3em;
+  }
+  main section div.work-preview-container a.work-item img {
+    height: 14.5em;
+  }
+}
+
+@media (max-width: 380px) {
+  main section div.work-preview-container a.work-item img {
+    height: 13.5em;
   }
 }

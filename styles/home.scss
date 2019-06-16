@@ -68,7 +68,7 @@ main {
 
                 img {
                     width: 100%;
-                    height: calc(16em);
+                    height: 16em;
                     object-fit: cover;
                 }
 
@@ -78,7 +78,7 @@ main {
                     background-color: var(--linkBackgroundColor-fallback);
                     background-color: var(--linkBackgroundColor);
 
-                    h2, h3 {
+                    h2 {
                         margin-bottom: 0.2em;
                     }
                 }
@@ -99,15 +99,15 @@ main {
 
                 &:hover {
                     transform: translate(0, -100vh);
-                    transition: transform 100s linear 500ms;
+                    transition: transform 80s linear 500ms;
 
-                    .project-text-container h2, h3 {
+                    .project-text-container h2 {
                         transform: skew(-11deg);
                     }
 
                     &::after {
-                        transform: translate(0, 100vh);
-                        transition: transform 100s linear 500ms;
+                        transform: translate(-50%, calc(100vh - 50%));
+                        transition: transform 80s linear 500ms;
                     }
                 }
             }
@@ -120,21 +120,40 @@ main {
                 grid-gap: 3.2em;
             }
 
-            @media (max-width: 880px) {
+            @media (max-width: 850px) {
                 grid-template-columns: repeat(2, 1fr);
                 grid-gap: 3.6em;
             }
 
-            @media (max-width: 610px) {
+            @media (max-width: 670px) {
                 grid-gap: 3em;
+
+                a.work-item img {
+                    height: 14.5em;
+                }
             }
 
             @media (max-width: 560px) {
-                grid-gap: 2.6em;
+                grid-gap: 2.2em;
+
+                a.work-item img {
+                    height: 13em;
+                }
             }
 
             @media (max-width: 450px) {
                 grid-template-columns: repeat(1, 1fr);
+                grid-gap: 3em;
+
+                a.work-item img {
+                    height: 14.5em;
+                }
+            }
+
+            @media (max-width: 380px) {
+                a.work-item img {
+                    height: 13.5em;
+                }
             }
         }
     }
