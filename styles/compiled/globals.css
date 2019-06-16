@@ -125,7 +125,7 @@ body a.button.dark-mode-button::before, body a:visited.button.dark-mode-button::
 }
 
 @media (pointer: coarse) {
-  body a:hover, body a:visited:hover {
+  body a:not(.button):hover, body a:visited:not(.button):hover {
     color: var(--textColor);
   }
   body a.button:not([href]):hover, body a:visited.button:not([href]):hover {

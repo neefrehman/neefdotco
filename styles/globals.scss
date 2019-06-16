@@ -116,7 +116,7 @@ body {
         }
 
         @media (pointer:coarse) {
-            &:hover {
+            &:not(.button):hover {
                 color: var(--textColor);
             }
             
