@@ -69,6 +69,7 @@ main {
             }
 
             &:hover {
+                color: var(--backgroundColor);
                 background-color: var(--textColor);
 
                 h2 {
@@ -88,8 +89,8 @@ main {
     @media (max-width: 769px) {
         section.info {
             div {
-                p {
-                    margin-bottom: 0.4em;
+                h2 {
+                    margin-bottom: 1.2em;
                 }
             }
         }

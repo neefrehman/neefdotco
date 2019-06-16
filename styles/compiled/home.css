@@ -69,6 +69,7 @@ main section.work .see-more .plus {
 }
 
 main section.work .see-more:hover {
+  color: var(--backgroundColor);
   background-color: var(--textColor);
 }
 
@@ -83,7 +84,7 @@ main section.work .see-more:hover .plus {
 }
 
 @media (max-width: 769px) {
-  main section.info div p {
-    margin-bottom: 0.4em;
+  main section.info div h2 {
+    margin-bottom: 1.2em;
   }
 }
