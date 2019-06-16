@@ -1,8 +1,8 @@
 div.work-grid {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: (18em)[auto-fill];
-      grid-template-columns: repeat(auto-fill, 18em);
+  -ms-grid-columns: (17em)[auto-fill];
+      grid-template-columns: repeat(auto-fill, 17em);
   grid-gap: 3.6em;
 }
 
@@ -12,9 +12,9 @@ div.work-grid a {
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
           flex-direction: column;
-  transition: -webkit-transform 200ms;
-  transition: transform 200ms;
-  transition: transform 200ms, -webkit-transform 200ms;
+  transition: -webkit-transform 180ms;
+  transition: transform 180ms;
+  transition: transform 180ms, -webkit-transform 180ms;
   -webkit-transform-origin: center;
           transform-origin: center;
   text-decoration: none;
@@ -25,6 +25,8 @@ div.work-grid a img {
   height: 16em;
   -o-object-fit: cover;
      object-fit: cover;
+  -webkit-filter: contrast(95%);
+          filter: contrast(95%);
   transition: -webkit-transform 2s cubic-bezier(0.45, 0.05, 0.55, 0.95);
   transition: transform 2s cubic-bezier(0.45, 0.05, 0.55, 0.95);
   transition: transform 2s cubic-bezier(0.45, 0.05, 0.55, 0.95), -webkit-transform 2s cubic-bezier(0.45, 0.05, 0.55, 0.95);
@@ -81,15 +83,18 @@ div.work-grid a:hover .project-text-container h2 {
           transform: skew(-11deg);
 }
 
-@media (max-width: 1060px) {
+@media (max-width: 980px) {
   div.work-grid {
     -ms-grid-columns: (1fr)[3];
         grid-template-columns: repeat(3, 1fr);
-    grid-gap: 3.2em;
+    grid-gap: 3em;
+  }
+  div.work-grid a.work-item img {
+    height: 15em;
   }
 }
 
-@media (max-width: 870px) {
+@media (max-width: 860px) {
   div.work-grid {
     -ms-grid-columns: (1fr)[2];
         grid-template-columns: repeat(2, 1fr);
@@ -99,19 +104,16 @@ div.work-grid a:hover .project-text-container h2 {
 
 @media (max-width: 700px) {
   div.work-grid {
-    grid-gap: 3em;
-  }
-  div.work-grid a.work-item img {
-    height: 14.5em;
+    grid-gap: 2.8em;
   }
 }
 
 @media (max-width: 560px) {
   div.work-grid {
-    grid-gap: 2.2em;
+    grid-gap: 2.4em;
   }
   div.work-grid a.work-item img {
-    height: 13em;
+    height: 13.5em;
   }
 }
 

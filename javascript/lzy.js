@@ -42,3 +42,6 @@ const lzy = (offset = 200) => {
     }
 
 };
+
+
+lzy();
