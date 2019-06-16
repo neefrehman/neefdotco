@@ -142,6 +142,13 @@ body a.button img[data-src]::after, body a:visited.button img[data-src]::after {
   background-color: #eeeeee;
 }
 
+@media (min-width: 1600px) {
+  body {
+    margin: 50px auto;
+    max-width: 1440px;
+  }
+}
+
 @media (max-width: 769px) {
   body {
     margin: 20px 35px;

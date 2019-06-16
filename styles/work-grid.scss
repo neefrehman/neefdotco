@@ -43,7 +43,7 @@ div.work-grid {
         &:hover {
             background-color: var(--textColor);
             transform: translate(0, -100vh);
-            transition: transform 80s linear 500ms;
+            transition: transform 80s linear 540ms;
 
             .project-text-container h2 {
                 transform: skew(-11deg);
@@ -51,7 +51,7 @@ div.work-grid {
 
             &::after {
                 transform: translate(-50%, calc(100vh - 50%));
-                transition: transform 80s linear 500ms;
+                transition: transform 80s linear 540ms;
             }
         }
     }

@@ -57,9 +57,9 @@ div.work-grid a.work-item:hover {
   background-color: var(--textColor);
   -webkit-transform: translate(0, -100vh);
           transform: translate(0, -100vh);
-  transition: -webkit-transform 80s linear 500ms;
-  transition: transform 80s linear 500ms;
-  transition: transform 80s linear 500ms, -webkit-transform 80s linear 500ms;
+  transition: -webkit-transform 80s linear 540ms;
+  transition: transform 80s linear 540ms;
+  transition: transform 80s linear 540ms, -webkit-transform 80s linear 540ms;
 }
 
 div.work-grid a.work-item:hover .project-text-container h2 {
@@ -70,9 +70,9 @@ div.work-grid a.work-item:hover .project-text-container h2 {
 div.work-grid a.work-item:hover::after {
   -webkit-transform: translate(-50%, calc(100vh - 50%));
           transform: translate(-50%, calc(100vh - 50%));
-  transition: -webkit-transform 80s linear 500ms;
-  transition: transform 80s linear 500ms;
-  transition: transform 80s linear 500ms, -webkit-transform 80s linear 500ms;
+  transition: -webkit-transform 80s linear 540ms;
+  transition: transform 80s linear 540ms;
+  transition: transform 80s linear 540ms, -webkit-transform 80s linear 540ms;
 }
 
 @media (max-width: 1060px) {

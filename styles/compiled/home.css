@@ -95,6 +95,6 @@ main section .see-more:hover h2 {
 }
 
 main section .see-more:hover .plus {
-  -webkit-transform: translate(-50%, -50%) scale(1.1);
-          transform: translate(-50%, -50%) scale(1.1);
+  -webkit-transform: translate(-50%, -50%) scale(1.07);
+          transform: translate(-50%, -50%) scale(1.07);
 }

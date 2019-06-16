@@ -138,6 +138,11 @@ body {
 
 
 
+    @media (min-width: 1600px) {
+        margin: 50px auto;
+        max-width: 1440px;
+    }
+    
     @media (max-width: 769px) {
         margin: 20px 35px;
         font-size: 14px;

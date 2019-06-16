@@ -58,7 +58,7 @@
 }
 
 .cursor-container.hide, .cursor-container.transition, .cursor-container.over {
-  opacity: 0.62;
+  opacity: 0.6;
   z-index: 5;
 }
 
