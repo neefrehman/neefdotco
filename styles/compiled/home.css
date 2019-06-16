@@ -1,24 +1,3 @@
-details summary {
-  cursor: pointer;
-  width: -webkit-max-content;
-  width: -moz-max-content;
-  width: max-content;
-  line-height: 1.6;
-  text-decoration: underline;
-}
-
-details summary::-webkit-details-marker {
-  display: none;
-}
-
-details[open] summary {
-  display: none;
-}
-
-header {
-  margin-bottom: 100px;
-}
-
 main section {
   margin-bottom: 80px;
 }
@@ -41,35 +20,40 @@ main section.info div h2 {
   margin-bottom: 1.3em;
 }
 
-main section.info div p:not(:last-child) {
+main section.info div p {
   margin-right: 80px;
   margin-bottom: 0.5em;
 }
 
-main section h1 {
+main section.info details summary {
+  line-height: 1.6;
+}
+
+main section.info details summary::-webkit-details-marker {
+  display: none;
+}
+
+main section.info details[open] summary {
+  display: none;
+}
+
+main section.work h1 {
   margin: 70px 0 50px 0;
 }
 
-main section .see-more {
-  text-decoration: none;
+main section.work .see-more {
   height: 100%;
   min-height: 11em;
   background-color: var(--linkBackgroundColor-fallback);
   background-color: var(--linkBackgroundColor);
   position: relative;
-  -webkit-transform-origin: center;
-          transform-origin: center;
-  transition: -webkit-transform 430ms cubic-bezier(1, 0.1, 0.1, 1);
-  transition: transform 430ms cubic-bezier(1, 0.1, 0.1, 1);
-  transition: transform 430ms cubic-bezier(1, 0.1, 0.1, 1), -webkit-transform 430ms cubic-bezier(1, 0.1, 0.1, 1);
 }
 
-main section .see-more h2 {
+main section.work .see-more h2 {
   padding: 10px;
-  text-decoration: none;
 }
 
-main section .see-more .plus {
+main section.work .see-more .plus {
   font-size: 9em;
   font-weight: bold;
   position: absolute;
@@ -79,23 +63,27 @@ main section .see-more .plus {
           transform: translate(-50%, -50%);
   -webkit-transform-origin: center;
           transform-origin: center;
-  transition: -webkit-transform 430ms cubic-bezier(1, 0.1, 0.1, 1);
-  transition: transform 430ms cubic-bezier(1, 0.1, 0.1, 1);
-  transition: transform 430ms cubic-bezier(1, 0.1, 0.1, 1), -webkit-transform 430ms cubic-bezier(1, 0.1, 0.1, 1);
+  transition: -webkit-transform 430ms cubic-bezier(1, 0.18, 0.18, 1);
+  transition: transform 430ms cubic-bezier(1, 0.18, 0.18, 1);
+  transition: transform 430ms cubic-bezier(1, 0.18, 0.18, 1), -webkit-transform 430ms cubic-bezier(1, 0.18, 0.18, 1);
 }
 
-main section .see-more:hover {
+main section.work .see-more:hover {
   background-color: var(--textColor);
-  -webkit-transform: scale(0.98);
-          transform: scale(0.98);
 }
 
-main section .see-more:hover h2 {
+main section.work .see-more:hover h2 {
   -webkit-transform: skewX(-11deg);
           transform: skewX(-11deg);
 }
 
-main section .see-more:hover .plus {
-  -webkit-transform: translate(-50%, -50%) scale(1.07);
-          transform: translate(-50%, -50%) scale(1.07);
+main section.work .see-more:hover .plus {
+  -webkit-transform: translate(-50%, -50%) scale(1.11);
+          transform: translate(-50%, -50%) scale(1.11);
+}
+
+@media (max-width: 769px) {
+  main section.info div p {
+    margin-bottom: 0.4em;
+  }
 }

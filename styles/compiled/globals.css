@@ -57,6 +57,10 @@ body *:focus {
   outline: none;
 }
 
+body header {
+  margin-bottom: 100px;
+}
+
 body header nav {
   margin-top: 15px;
 }

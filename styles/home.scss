@@ -1,26 +1,3 @@
-details {
-    summary {
-        cursor: pointer;
-        width: max-content;
-        line-height: 1.6;
-        text-decoration: underline;
-
-        &::-webkit-details-marker {
-            display:none;
-        }
-    }
-
-    &[open] summary {
-        display: none;
-    }
-}
-
-
-header {
-    margin-bottom: 100px;
-}
-
-
 main {
 
     section {
@@ -43,32 +20,41 @@ main {
                 margin-bottom: 1.3em;
             }
 
-            p:not(:last-child) {
+            p {
                 margin-right: 80px;
                 margin-bottom: 0.5em;
             }
         }
+
+        details {
+            summary {
+                line-height: 1.6;
+
+                &::-webkit-details-marker {
+                    display:none;
+                }
+            }
+
+            &[open] summary {
+                display: none;
+            }
+        }
     }
 
-    section {
+    section.work {
         h1 {
             margin: 70px 0 50px 0;
         }
 
         .see-more {
-            text-decoration: none;
             height: 100%;
             min-height: 11em;
             background-color: var(--linkBackgroundColor-fallback);
             background-color: var(--linkBackgroundColor);
             position: relative;
 
-            transform-origin: center;
-            transition: transform 430ms cubic-bezier(1, 0.1, 0.1, 1);
-
             h2 {
                 padding: 10px;
-                text-decoration: none;
             }
 
             .plus {
@@ -79,19 +65,31 @@ main {
                 left: 50%;
                 transform: translate(-50%, -50%);
                 transform-origin: center;
-                transition: transform 430ms cubic-bezier(1, 0.1, 0.1, 1);
+                transition: transform 430ms cubic-bezier(1, 0.18, 0.18, 1);
             }
 
             &:hover {
                 background-color: var(--textColor);
-                transform: scale(0.98);
 
                 h2 {
                     transform: skewX(-11deg);
                 }
 
                 .plus {
-                    transform: translate(-50%, -50%) scale(1.07);
+                    transform: translate(-50%, -50%) scale(1.11);
+                }
+            }
+        }
+    }
+
+
+
+
+    @media (max-width: 769px) {
+        section.info {
+            div {
+                p {
+                    margin-bottom: 0.4em;
                 }
             }
         }

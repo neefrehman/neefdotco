@@ -9,8 +9,7 @@ if (matchMedia("(pointer:fine)").matches) {
     const allLinks = document.querySelectorAll("a");
     const darkModeButton = document.querySelector("a.dark-mode-button");
     const navLinks = document.querySelectorAll("a.nav");
-    const summaries = document.querySelectorAll("summary");
-    const workItems = document.querySelectorAll(".work-item, .see-more");
+    const gridItems = document.querySelectorAll(".work-item, .see-more");
 
     document.addEventListener("mousemove", e => {
         cursor.classList.add("show");
@@ -25,14 +24,8 @@ if (matchMedia("(pointer:fine)").matches) {
         link.addEventListener("mouseleave", () => cursor.classList.remove("large"));
     });
 
-    summaries.forEach(summary => {
-        summary.addEventListener("mouseenter", () => cursor.classList.add("large"));
-        summary.addEventListener("mouseleave", () => cursor.classList.remove("large"));
-        summary.addEventListener("click", () => cursor.classList.toggle("large"));
-    });
-
-    if (workItems) {
-        workItems.forEach(item => {
+    if (gridItems) {
+        gridItems.forEach(item => {
             item.addEventListener("mouseenter", () => cursor.classList.add("over"));
             item.addEventListener("mouseleave", () => cursor.classList.remove("over"));
         });
