@@ -19,7 +19,7 @@ if (darkModeButton) {
 
 // See less
 const seeLessButton = document.querySelector(".see-less-button");
-const queryWithExcludes = "header *, main :not(.hidden):not(.no-hide)";
+const queryWithExcludes = "header :not(.hidden):not(.no-hide), main :not(.hidden):not(.no-hide)";
 
 if (seeLessButton) {
     seeLessButton.addEventListener("click", () => {
