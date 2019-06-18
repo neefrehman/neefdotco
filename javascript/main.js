@@ -29,6 +29,7 @@ if (seeLessButton) {
         const randomElement = filteredElementArray[randomElementNumber];
 
         randomElement.classList.add("hidden");
+        if (filteredElementArray.length == 2) seeLessButton.remove();
     });
 }
 
