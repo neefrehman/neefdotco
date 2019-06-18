@@ -20,7 +20,7 @@ main section.info div h2 {
   margin-bottom: 1.3em;
 }
 
-main section.info div p {
+main section.info div p:not(:last-child) {
   margin-right: 80px;
   margin-bottom: 0.55em;
 }

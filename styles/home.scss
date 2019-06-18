@@ -20,7 +20,7 @@ main {
                 margin-bottom: 1.3em;
             }
 
-            p {
+            p:not(:last-child) {
                 margin-right: 80px;
                 margin-bottom: 0.55em;
             }
