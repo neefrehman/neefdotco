@@ -151,6 +151,10 @@ body img[data-src]::after {
   background-color: var(--linkBackgroundColor);
 }
 
+body .hidden {
+  opacity: 0;
+}
+
 @media (min-width: 1600px) {
   body {
     margin: 50px auto;

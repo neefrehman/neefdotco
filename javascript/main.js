@@ -17,6 +17,22 @@ if (darkModeButton) {
 }
 
 
+// See less
+const seeLessButton = document.querySelector(".see-less-button");
+const queryWithExcludes = "header *, main :not(.hidden):not(.no-hide)";
+
+if (seeLessButton) {
+    seeLessButton.addEventListener("click", () => {
+        const elementArray = [...document.body.querySelectorAll(queryWithExcludes)];
+        const filteredElementArray = elementArray.filter(element => element.childElementCount <= 3);
+        const randomElementNumber = Math.floor(Math.random() * filteredElementArray.length) + 1;
+        const randomElement = filteredElementArray[randomElementNumber];
+
+        randomElement.classList.add("hidden");
+    });
+}
+
+
 // Devicemotion
 // const colons = document.querySelectorAll("span.translate");
 // if (colons && window.innerWidth < 497 && window.DeviceMotionEvent) {
