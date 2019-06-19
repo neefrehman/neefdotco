@@ -19,17 +19,23 @@ if (darkModeButton) {
 
 // See less
 const seeLessButton = document.querySelector(".see-less-button");
-const queryWithExcludes = "header :not(.hidden):not(.no-hide), main :not(.hidden):not(.no-hide)";
 
 if (seeLessButton) {
+    const elementArray = [...document.body.querySelectorAll("header :not(.no-hide), main :not(.no-hide)")];
+    const filteredElementArray = elementArray.filter(element => element.childElementCount <= 3);
+    
     seeLessButton.addEventListener("click", () => {
-        const elementArray = [...document.body.querySelectorAll(queryWithExcludes)];
-        const filteredElementArray = elementArray.filter(element => element.childElementCount <= 3);
-        const randomElementNumber = Math.floor(Math.random() * filteredElementArray.length) + 1;
-        const randomElement = filteredElementArray[randomElementNumber];
-
-        randomElement.classList.add("hidden");
-        if (filteredElementArray.length == 2) seeLessButton.remove();
+        if (filteredElementArray.length > 0) {
+            const randomElementIndex = Math.floor(Math.random() * filteredElementArray.length);
+            const randomElement = filteredElementArray[randomElementIndex];
+            const childElements = randomElement.querySelectorAll("*:not(.no-hide):not(.hidden)");
+            const totalChildElements = childElements ? childElements.length : 0;
+            
+            randomElement.classList.add("hidden");
+            filteredElementArray.splice(randomElementIndex, 1 + totalChildElements);
+        } else {
+            seeLessButton.remove();
+        }
     });
 }
 
