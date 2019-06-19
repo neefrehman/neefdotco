@@ -27,9 +27,9 @@
 
 .cursor-container .cursor-inner {
   background-color: var(--backgroundColor);
-  transition: -webkit-transform 780ms cubic-bezier(1, 0.1, 0.1, 1) 220ms;
-  transition: transform 780ms cubic-bezier(1, 0.1, 0.1, 1) 220ms;
-  transition: transform 780ms cubic-bezier(1, 0.1, 0.1, 1) 220ms, -webkit-transform 780ms cubic-bezier(1, 0.1, 0.1, 1) 220ms;
+  transition: -webkit-transform 800ms cubic-bezier(1, 0.1, 0.1, 1) 220ms;
+  transition: transform 800ms cubic-bezier(1, 0.1, 0.1, 1) 220ms;
+  transition: transform 800ms cubic-bezier(1, 0.1, 0.1, 1) 220ms, -webkit-transform 800ms cubic-bezier(1, 0.1, 0.1, 1) 220ms;
 }
 
 .cursor-container.show .cursor {
@@ -59,7 +59,7 @@
 
 .cursor-container.hide, .cursor-container.transition, .cursor-container.over {
   opacity: 0.6;
-  z-index: 5;
+  z-index: 10;
 }
 
 .cursor-container.transition {
@@ -84,4 +84,26 @@
   .cursor-container {
     display: none;
   }
+}
+
+.transition-blocker {
+  height: 100vh;
+  width: 100vw;
+  background-color: var(--backgroundColor);
+  position: fixed;
+  z-index: 9;
+  top: 0;
+  right: 0;
+  -webkit-transform: scale(1, 0);
+          transform: scale(1, 0);
+  transition: -webkit-transform 800ms cubic-bezier(1, 0.1, 0.1, 1) 220ms;
+  transition: transform 800ms cubic-bezier(1, 0.1, 0.1, 1) 220ms;
+  transition: transform 800ms cubic-bezier(1, 0.1, 0.1, 1) 220ms, -webkit-transform 800ms cubic-bezier(1, 0.1, 0.1, 1) 220ms;
+  -webkit-transform-origin: top;
+          transform-origin: top;
+}
+
+.transition-blocker.active {
+  -webkit-transform: scale(1, 1);
+          transform: scale(1, 1);
 }

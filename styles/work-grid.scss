@@ -50,13 +50,13 @@ div.work-grid {
             transform: translate(0, -6px);
 
             img {
-                transform: translate(0, -100%);
-                transition: transform 30s 3s;
+                transform: translate(0, -100vh);
+                transition: transform 60s 3s;
             }
 
             .project-text-container {
                 background-color: var(--textColor);
-                transform: translate(0, -2px);
+                transform: translate(0, -1.5px);
 
                 h2 {
                     transform: skew(-11deg);

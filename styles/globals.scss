@@ -42,14 +42,6 @@ body {
     text-size-adjust: 100%;
     -webkit-font-smoothing: antialiased;
 
-    // transition: transform 780ms cubic-bezier(1, 0.1, 0.1, 1) 220ms;
-    // &.page-transition {
-    //     transform: translateX(-100vw);
-    // }
-    // &.page-transition.back {
-    //     transform: translateX(100vw);
-    // }
-
     *::selection {
         color: #f4cb3d;
     }

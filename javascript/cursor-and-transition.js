@@ -4,7 +4,11 @@ if (matchMedia("(pointer:fine)").matches) {
     cursor.className = "cursor-container";
     cursor.innerHTML = `<div class="cursor"> </div>
                         <div class="cursor-inner"> </div>`;
-    document.documentElement.prepend(cursor);
+    document.body.prepend(cursor);
+
+    const transitionBlocker = document.createElement("div");
+    transitionBlocker.className = "transition-blocker";
+    document.body.prepend(transitionBlocker);
 
     const allLinks = document.querySelectorAll("a");
     const darkModeButton = document.querySelector("a.dark-mode-button");
@@ -46,10 +50,11 @@ if (matchMedia("(pointer:fine)").matches) {
         });
     }
 
+
     navLinks.forEach(link => {
         link.addEventListener("click", e => {
             cursor.classList.add("transition");
-            // document.body.classList.add("page-transition");
+            transitionBlocker.classList.add("active");
             setTimeout(() => window.location = link.href, 950);
             e.preventDefault();
         });

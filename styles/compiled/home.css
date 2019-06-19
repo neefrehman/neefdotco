@@ -77,8 +77,8 @@ main section.work .see-more:hover h2 {
 }
 
 main section.work .see-more:hover .plus {
-  -webkit-transform: translate(-50%, calc(-50% - 4px));
-          transform: translate(-50%, calc(-50% - 4px));
+  -webkit-transform: translate(-50%, calc(-50% - 3px));
+          transform: translate(-50%, calc(-50% - 3px));
 }
 
 @media (max-width: 769px) {

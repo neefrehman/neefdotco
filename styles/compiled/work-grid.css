@@ -70,17 +70,17 @@ div.work-grid a:hover {
 }
 
 div.work-grid a:hover img {
-  -webkit-transform: translate(0, -100%);
-          transform: translate(0, -100%);
-  transition: -webkit-transform 30s 3s;
-  transition: transform 30s 3s;
-  transition: transform 30s 3s, -webkit-transform 30s 3s;
+  -webkit-transform: translate(0, -100vh);
+          transform: translate(0, -100vh);
+  transition: -webkit-transform 60s 3s;
+  transition: transform 60s 3s;
+  transition: transform 60s 3s, -webkit-transform 60s 3s;
 }
 
 div.work-grid a:hover .project-text-container {
   background-color: var(--textColor);
-  -webkit-transform: translate(0, -2px);
-          transform: translate(0, -2px);
+  -webkit-transform: translate(0, -1.5px);
+          transform: translate(0, -1.5px);
 }
 
 div.work-grid a:hover .project-text-container h2 {

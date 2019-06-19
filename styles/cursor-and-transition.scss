@@ -21,7 +21,7 @@
 
     .cursor-inner {
         background-color: var(--backgroundColor);
-        transition: transform 780ms cubic-bezier(1, 0.1, 0.1, 1) 220ms;
+        transition: transform 800ms cubic-bezier(1, 0.1, 0.1, 1) 220ms;
     }
 
     &.show .cursor {
@@ -46,7 +46,7 @@
 
     &.hide, &.transition, &.over {
         opacity: 0.6;
-        z-index: 5;
+        z-index: 10;
     }
 
     &.transition {
@@ -67,5 +67,23 @@
 
     @media (ponter: coarse) {
         display: none;
+    }
+}
+
+
+.transition-blocker {
+    height: 100vh;
+    width: 100vw;
+    background-color: var(--backgroundColor);
+    position: fixed;
+    z-index: 9;
+    top: 0;
+    right: 0;
+    transform: scale(1, 0);
+    transition: transform 800ms cubic-bezier(1, 0.1, 0.1, 1) 220ms;
+    transform-origin: top;
+
+    &.active {
+        transform: scale(1, 1);
     }
 }
