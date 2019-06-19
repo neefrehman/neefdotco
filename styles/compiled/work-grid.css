@@ -37,6 +37,9 @@ div.work-grid a .project-text-container {
   padding: 10px;
   background-color: var(--linkBackgroundColor-fallback);
   background-color: var(--linkBackgroundColor);
+  transition: -webkit-transform 260ms;
+  transition: transform 260ms;
+  transition: transform 260ms, -webkit-transform 260ms;
 }
 
 div.work-grid a .project-text-container h2 {
@@ -76,6 +79,8 @@ div.work-grid a:hover img {
 
 div.work-grid a:hover .project-text-container {
   background-color: var(--textColor);
+  -webkit-transform: translate(0, -2px);
+          transform: translate(0, -2px);
 }
 
 div.work-grid a:hover .project-text-container h2 {

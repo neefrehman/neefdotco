@@ -23,6 +23,7 @@ div.work-grid {
             padding: 10px;
             background-color: var(--linkBackgroundColor-fallback);
             background-color: var(--linkBackgroundColor);
+            transition: transform 260ms;
 
             h2 {
                 margin-bottom: 0.2em;
@@ -55,6 +56,7 @@ div.work-grid {
 
             .project-text-container {
                 background-color: var(--textColor);
+                transform: translate(0, -2px);
 
                 h2 {
                     transform: skew(-11deg);

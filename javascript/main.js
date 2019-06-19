@@ -12,9 +12,7 @@ const darkMode = () => {
     favicon.href = isDark ? "/icons/favicon-dark.png" : "/icons/favicon-light.png";
 };
 
-if (darkModeButton) {
-    darkModeButton.addEventListener("click", () => darkMode());
-}
+if (darkModeButton) darkModeButton.addEventListener("click", () => darkMode());
 
 
 // See less

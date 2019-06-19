@@ -61,6 +61,9 @@ main section.work .see-more .plus {
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
+  transition: -webkit-transform 260ms;
+  transition: transform 260ms;
+  transition: transform 260ms, -webkit-transform 260ms;
 }
 
 main section.work .see-more:hover {
@@ -71,6 +74,11 @@ main section.work .see-more:hover {
 main section.work .see-more:hover h2 {
   -webkit-transform: skewX(-11deg);
           transform: skewX(-11deg);
+}
+
+main section.work .see-more:hover .plus {
+  -webkit-transform: translate(-50%, calc(-50% - 4px));
+          transform: translate(-50%, calc(-50% - 4px));
 }
 
 @media (max-width: 769px) {

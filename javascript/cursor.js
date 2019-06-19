@@ -4,7 +4,7 @@ if (matchMedia("(pointer:fine)").matches) {
     cursor.className = "cursor-container";
     cursor.innerHTML = `<div class="cursor"> </div>
                         <div class="cursor-inner"> </div>`;
-    document.body.prepend(cursor);
+    document.documentElement.prepend(cursor);
 
     const allLinks = document.querySelectorAll("a");
     const darkModeButton = document.querySelector("a.dark-mode-button");
@@ -49,6 +49,7 @@ if (matchMedia("(pointer:fine)").matches) {
     navLinks.forEach(link => {
         link.addEventListener("click", e => {
             cursor.classList.add("transition");
+            // document.body.classList.add("page-transition");
             setTimeout(() => window.location = link.href, 950);
             e.preventDefault();
         });

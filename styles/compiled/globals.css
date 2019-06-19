@@ -34,7 +34,7 @@
 }
 
 body {
-  margin: 20px 50px;
+  margin: 25px 50px;
   max-width: 1440px;
   font-family: "Untitled Sans", helvetica neue, helvetica, arial, sans-serif;
   font-size: 15px;
@@ -140,8 +140,8 @@ body a.button.dark-mode-button::before, body a:visited.button.dark-mode-button::
   }
 }
 
-body img[data-src]::after {
-  content: " ";
+body img[data-src]::after, body video[data-src]::after {
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -176,6 +176,7 @@ body .hidden {
 
 @media (max-width: 425px) {
   body {
-    margin: 18px 30px;
+    margin: 18px 22px;
+    margin-bottom: 40px;
   }
 }
