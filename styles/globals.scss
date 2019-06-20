@@ -26,7 +26,7 @@
         --linkBackgroundColor: rgba(225, 225, 225, 0.2);
         --oppositeModeBackground: #ffffff;
 
-        body { min-height: 100vh; } /* safari fix */
+        body { height: 100%; } /* safari fix */
     }
 }
 
