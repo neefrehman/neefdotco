@@ -1,9 +1,3 @@
-const transitionBlocker = document.createElement("div");
-transitionBlocker.className = "transition-blocker";
-document.body.prepend(transitionBlocker);
-
-const navLinks = document.querySelectorAll("a.nav");
-
 let cursor;
 if (matchMedia("(pointer:fine)").matches) {
 
@@ -54,6 +48,12 @@ if (matchMedia("(pointer:fine)").matches) {
 }
 
 
+const transitionBlocker = document.createElement("div");
+transitionBlocker.className = "transition-blocker";
+document.body.prepend(transitionBlocker);
+
+
+const navLinks = document.querySelectorAll("a.nav");
 navLinks.forEach(link => {
     link.addEventListener("click", e => {
         if (cursor) cursor.classList.add("transition");
