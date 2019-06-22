@@ -153,6 +153,7 @@ body img[data-src]::after, body video[data-src]::after {
 
 body .hidden {
   opacity: 0;
+  pointer-events: none;
 }
 
 @media (min-width: 1600px) {
