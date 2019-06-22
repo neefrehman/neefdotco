@@ -1,4 +1,7 @@
-const transitionBlocker = document.querySelector(".transition-blocker");
+const transitionBlocker = document.createElement("div");
+transitionBlocker.className = "transition-blocker";
+document.body.prepend(transitionBlocker);
+
 const navLinks = document.querySelectorAll("a.nav");
 
 let cursor;
@@ -51,15 +54,10 @@ if (matchMedia("(pointer:fine)").matches) {
 }
 
 
-document.addEventListener("DOMContentLoaded", () => {
-    transitionBlocker.classList.add("loading");
-});
-
-
 navLinks.forEach(link => {
     link.addEventListener("click", e => {
         if (cursor) cursor.classList.add("transition");
-        transitionBlocker.classList.remove("loading");
+        transitionBlocker.classList.add("loading");
         setTimeout(() => window.location = link.href, 950);
         e.preventDefault();
     });
