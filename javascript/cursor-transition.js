@@ -1,18 +1,17 @@
+const transitionBlocker = document.querySelector(".transition-blocker");
+const navLinks = document.querySelectorAll("a.nav");
+
+let cursor;
 if (matchMedia("(pointer:fine)").matches) {
 
-    const cursor = document.createElement("div");
+    cursor = document.createElement("div");
     cursor.className = "cursor-container";
     cursor.innerHTML = `<div class="cursor"> </div>
                         <div class="cursor-inner"> </div>`;
     document.body.prepend(cursor);
 
-    const transitionBlocker = document.createElement("div");
-    transitionBlocker.className = "transition-blocker";
-    document.body.prepend(transitionBlocker);
-
     const allLinks = document.querySelectorAll("a");
     const darkModeButton = document.querySelector("a.dark-mode-button");
-    const navLinks = document.querySelectorAll("a.nav");
     const gridItems = document.querySelectorAll(".work-item, .see-more");
 
     document.addEventListener("mousemove", e => {
@@ -49,15 +48,19 @@ if (matchMedia("(pointer:fine)").matches) {
             });
         });
     }
-
-
-    navLinks.forEach(link => {
-        link.addEventListener("click", e => {
-            cursor.classList.add("transition");
-            transitionBlocker.classList.add("active");
-            setTimeout(() => window.location = link.href, 950);
-            e.preventDefault();
-        });
-    });
-
 }
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    transitionBlocker.classList.add("loading");
+});
+
+
+navLinks.forEach(link => {
+    link.addEventListener("click", e => {
+        if (cursor) cursor.classList.add("transition");
+        transitionBlocker.classList.remove("loading");
+        setTimeout(() => window.location = link.href, 950);
+        e.preventDefault();
+    });
+});

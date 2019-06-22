@@ -79,11 +79,12 @@
     z-index: 9;
     top: 0;
     right: 0;
-    transform: scale(1, 0);
+    transform: scale(1, 1);
     transition: transform 800ms cubic-bezier(1, 0.1, 0.1, 1) 220ms;
     transform-origin: top;
 
-    &.active {
-        transform: scale(1, 1);
+    &.loading {
+        transform: scale(1, 0);
+        transform-origin: bottom;
     }
 }

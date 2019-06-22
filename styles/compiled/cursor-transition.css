@@ -94,8 +94,8 @@
   z-index: 9;
   top: 0;
   right: 0;
-  -webkit-transform: scale(1, 0);
-          transform: scale(1, 0);
+  -webkit-transform: scale(1, 1);
+          transform: scale(1, 1);
   transition: -webkit-transform 800ms cubic-bezier(1, 0.1, 0.1, 1) 220ms;
   transition: transform 800ms cubic-bezier(1, 0.1, 0.1, 1) 220ms;
   transition: transform 800ms cubic-bezier(1, 0.1, 0.1, 1) 220ms, -webkit-transform 800ms cubic-bezier(1, 0.1, 0.1, 1) 220ms;
@@ -103,7 +103,9 @@
           transform-origin: top;
 }
 
-.transition-blocker.active {
-  -webkit-transform: scale(1, 1);
-          transform: scale(1, 1);
+.transition-blocker.loading {
+  -webkit-transform: scale(1, 0);
+          transform: scale(1, 0);
+  -webkit-transform-origin: bottom;
+          transform-origin: bottom;
 }
