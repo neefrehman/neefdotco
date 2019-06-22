@@ -80,7 +80,7 @@
     top: 0;
     right: 0;
     transform: scale(1, 0);
-    transition: transform 780ms cubic-bezier(1, 0.1, 0.1, 1) 220ms;
+    transition: transform 780ms cubic-bezier(1, 0.15, 0.15, 1) 220ms;
     transform-origin: top;
 
     &.loading {

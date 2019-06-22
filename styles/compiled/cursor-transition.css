@@ -96,9 +96,9 @@
   right: 0;
   -webkit-transform: scale(1, 0);
           transform: scale(1, 0);
-  transition: -webkit-transform 780ms cubic-bezier(1, 0.1, 0.1, 1) 220ms;
-  transition: transform 780ms cubic-bezier(1, 0.1, 0.1, 1) 220ms;
-  transition: transform 780ms cubic-bezier(1, 0.1, 0.1, 1) 220ms, -webkit-transform 780ms cubic-bezier(1, 0.1, 0.1, 1) 220ms;
+  transition: -webkit-transform 780ms cubic-bezier(1, 0.15, 0.15, 1) 220ms;
+  transition: transform 780ms cubic-bezier(1, 0.15, 0.15, 1) 220ms;
+  transition: transform 780ms cubic-bezier(1, 0.15, 0.15, 1) 220ms, -webkit-transform 780ms cubic-bezier(1, 0.15, 0.15, 1) 220ms;
   -webkit-transform-origin: top;
           transform-origin: top;
 }
