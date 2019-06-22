@@ -56,7 +56,7 @@ if (matchMedia("(pointer:fine)").matches) {
         link.addEventListener("click", e => {
             if (cursor) cursor.classList.add("transition");
             transitionBlocker.classList.add("loading");
-            setTimeout(() => window.location = link.href, 950);
+            setTimeout(() => window.location = link.href, 915);
             e.preventDefault();
         });
     });
