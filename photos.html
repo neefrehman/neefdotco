@@ -12,16 +12,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Styles -->
-    <link rel="icon" href="icons/favicon-light.png" type="image/x-icon">
-    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
-    <link rel="mask-icon" href="icons/safari-pinned-tab.svg" color="#333333">
+    <link rel="icon" href="/icons/favicon-light.png" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#333333">
 
     <link rel="stylesheet" href="/styles/_reset.css">
     <link rel="stylesheet" href="/styles/compiled/globals.css">
     <link rel="stylesheet" href="/styles/compiled/photos.css">
     <link rel="stylesheet" href="/styles/compiled/cursor-transition.css">
 
-    <script> if ( localStorage.getItem("darkMode") == 1 || (window.matchMedia("(prefers-color-scheme: dark)").matches && !localStorage.getItem("darkMode")) ) document.documentElement.classList = "dark" </script>
+    <script> if (localStorage.getItem("darkMode") == 1 || (!localStorage.getItem("darkMode") && window.matchMedia("(prefers-color-scheme: dark)").matches)) document.documentElement.classList = "dark" </script>
 
 
 </head>
@@ -32,9 +32,7 @@
         <a class="button nav" href="/index.html">Neef Rehman</a>
     </header>
 
-    <main>
-        <section class="grid photo-container"> </section>
-    </main>
+    <main class="grid photo-container"> </main>
 
     <footer class="photos">
         <a class="button nav" href="/index.html">← Home</a>

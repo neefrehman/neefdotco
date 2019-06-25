@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="/styles/compiled/work-grid.css">
     <link rel="stylesheet" href="/styles/compiled/cursor-transition.css">
 
-    <script> if ( localStorage.getItem("darkMode") == 1 || (window.matchMedia("(prefers-color-scheme: dark)").matches && !localStorage.getItem("darkMode")) ) document.documentElement.classList = "dark" </script>
+    <script> if (localStorage.getItem("darkMode") == 1 || (!localStorage.getItem("darkMode") && window.matchMedia("(prefers-color-scheme: dark)").matches)) document.documentElement.classList = "dark" </script>
 
 </head>
 
