@@ -17,7 +17,7 @@ const workItemArray = [
 ];
 
 
-const workItemElements = workItemArray.map(obj => {
+let workItemElements = workItemArray.map(obj => {
     return `
         <a class="work-item nav" href="/work/${obj.name}.html">
             <video playsinline loop muted
@@ -38,3 +38,23 @@ const workItemElements = workItemArray.map(obj => {
 const workItemGrid = workItemElements.join("");
 const workItemGridContainer = document.querySelector(".work-grid");
 workItemGridContainer.insertAdjacentHTML("afterbegin", workItemGrid);
+
+
+workItemElements = document.querySelectorAll(".work-item");
+
+workItemElements.forEach(item => {
+    // Mouse hover
+    if (matchMedia("(pointer:fine)").matches) {
+        const ThumbnailVideo = item.querySelector("video");
+
+        item.addEventListener("mouseenter", () => {
+            ThumbnailVideo.play();
+        });
+
+        item.addEventListener("mouseleave", () => {
+            ThumbnailVideo.pause();
+        });
+    }
+
+    // Intersection Observer - Mobile
+});
