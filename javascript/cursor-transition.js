@@ -46,16 +46,16 @@ if (matchMedia("(pointer:fine)").matches) {
     }
 
 
-    const transitionBlocker = document.createElement("div");
-    transitionBlocker.className = "transition-blocker";
-    document.body.prepend(transitionBlocker);
+    // const transitionBlocker = document.createElement("div");
+    // transitionBlocker.className = "transition-blocker";
+    // document.body.prepend(transitionBlocker);
 
 
     const navLinks = document.querySelectorAll("a.nav");
     navLinks.forEach(link => {
         link.addEventListener("click", e => {
             if (cursor) cursor.classList.add("transition");
-            transitionBlocker.classList.add("loading");
+            // transitionBlocker.classList.add("loading");
             setTimeout(() => window.location = link.href, 920);
             e.preventDefault();
         });
