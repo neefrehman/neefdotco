@@ -42,19 +42,41 @@ workItemGridContainer.insertAdjacentHTML("afterbegin", workItemGrid);
 
 workItemElements = document.querySelectorAll(".work-item");
 
-workItemElements.forEach(item => {
-    // Mouse hover
-    if (matchMedia("(pointer:fine)").matches) {
-        const ThumbnailVideo = item.querySelector("video");
+// Mouse hover - Computer
+if (matchMedia("(pointer:fine)").matches && window.innerWidth > 450) {
+
+    workItemElements.forEach(item => {
+        const thumbnailVideo = item.querySelector("video");
 
         item.addEventListener("mouseenter", () => {
-            ThumbnailVideo.play();
+            thumbnailVideo.play();
         });
 
         item.addEventListener("mouseleave", () => {
-            ThumbnailVideo.pause();
+            thumbnailVideo.pause();
         });
-    }
+    });
 
-    // Intersection Observer - Mobile
-});
+// Intersection Observer - Mobile
+} else {
+
+    const allThumbnailVideos = document.querySelectorAll(".work-item video");
+
+    const onIntersection = entries => {
+        entries.forEach(entry => {
+            if (entry.intersectionRatio > 0) {
+                const thumbnailVideo = entry.target.querySelector("video");
+                allThumbnailVideos.forEach(video => video.pause());
+                thumbnailVideo.play();
+            }
+        });
+    };
+
+    const observer = new IntersectionObserver(onIntersection, {
+        rootMargin: "-25%",
+        threshold: 0.5
+    });
+
+    workItemElements.forEach(item => observer.observe(item));
+
+}
