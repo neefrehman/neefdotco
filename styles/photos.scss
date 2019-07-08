@@ -63,7 +63,7 @@ main.photo-container {
             background-attachment: initial;
             margin: 90px 40px;
             width: calc(325px + var(--y));
-            height: calc(260px + var(--x));
+            height: calc(262px + var(--x));
             transform: translate(var(--x), calc(var(--y) * 1.1));
 
             &:first-child {
@@ -79,7 +79,7 @@ main.photo-container {
             &.zoom {
                 margin: 20px 10px;
                 width: calc((330px + var(--y)) * 2.3);
-                height: calc((270px + var(--x)) * 2.3);
+                height: calc((262px + var(--x)) * 2.3);
             }
 
             @media (min-width: 1520px) {
@@ -90,19 +90,19 @@ main.photo-container {
 
             @media (max-width: 1025px) {
                 width: calc(315px + var(--y));
-                height: calc(255px + var(--x));
+                height: calc(257px + var(--x));
                 transform: translate(calc(var(--x) * 0.7), calc(var(--y) * 0.5));
 
                 &.zoom {
                     width: calc((315px + var(--y)) * 2);
-                    height: calc((255px + var(--x)) * 2);
+                    height: calc((257px + var(--x)) * 2);
                 }
             }
 
             @media (max-width: 769px) {
                 margin: 60px 30px;
                 width: calc(280px + var(--y));
-                height: calc(225px + var(--x));
+                height: calc(227px + var(--x));
                 transform: translate(calc(var(--x) * 0.6), calc(var(--y) * 0.4));
                 
                 &:first-child {
@@ -111,7 +111,7 @@ main.photo-container {
 
                 &.zoom {
                     width: calc((275px + var(--y)) * 1.8);
-                    height: calc((220px + var(--x)) * 1.8);
+                    height: calc((227px + var(--x)) * 1.8);
                 }
             }
 
