@@ -72,9 +72,9 @@ div.work-grid a:hover, div.work-grid a.intersected {
 div.work-grid a:hover img, div.work-grid a:hover video, div.work-grid a.intersected img, div.work-grid a.intersected video {
   -webkit-transform: translate(0, -100vh);
           transform: translate(0, -100vh);
-  transition: -webkit-transform 60s 6s;
-  transition: transform 60s 6s;
-  transition: transform 60s 6s, -webkit-transform 60s 6s;
+  transition: -webkit-transform 60s 8s;
+  transition: transform 60s 8s;
+  transition: transform 60s 8s, -webkit-transform 60s 8s;
 }
 
 div.work-grid a:hover .project-text-container, div.work-grid a.intersected .project-text-container {
