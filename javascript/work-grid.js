@@ -62,8 +62,8 @@ if (matchMedia("(pointer:fine)").matches) {
             const intersectedItem = entry.target;
             const allThumbnailVideos = document.querySelectorAll(".work-item video");
 
-            isScrollingUp = window.scrollY <= yOffset;
-            isScrollingDown = window.scrollY >= yOffset;
+            isScrollingUp = window.scrollY < yOffset;
+            isScrollingDown = window.scrollY > yOffset;
             yOffset = window.scrollY;
 
             const entryIsFirstOrLast = intersectedItem == workItemElements[0] || intersectedItem == workItemElements[workItemElements.length - 1];

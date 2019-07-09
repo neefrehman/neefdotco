@@ -88,18 +88,6 @@ div.work-grid a:hover .project-text-container h2, div.work-grid a.intersected .p
           transform: skew(-11deg);
 }
 
-div.work-grid a.intersected {
-  transition: -webkit-transform 220ms;
-  transition: transform 220ms;
-  transition: transform 220ms, -webkit-transform 220ms;
-}
-
-div.work-grid a.intersected .project-text-container {
-  transition: -webkit-transform 280ms;
-  transition: transform 280ms;
-  transition: transform 280ms, -webkit-transform 280ms;
-}
-
 @media (max-width: 980px) {
   div.work-grid {
     -ms-grid-columns: (1fr)[3];
