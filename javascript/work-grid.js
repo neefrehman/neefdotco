@@ -87,7 +87,7 @@ if (matchMedia("(pointer:fine)").matches) {
     };
 
     const observer = new IntersectionObserver(onIntersection, {
-        rootMargin: "-25%",
+        rootMargin: "-22.5%",
         threshold: 0.5
     });
 
