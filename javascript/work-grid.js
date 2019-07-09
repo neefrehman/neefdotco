@@ -55,7 +55,9 @@ if (matchMedia("(pointer:fine)").matches) {
 // Intersection Observer - Mobile
 } else if (window.innerWidth <= 450) {
 
-    let yOffset, isScrollingUp, isScrollingDown;
+    let yOffset,
+        isScrollingUp = false,
+        isScrollingDown = true;
 
     const onIntersection = entries => {
         entries.forEach(entry => {
