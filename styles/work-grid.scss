@@ -50,11 +50,6 @@ div.work-grid {
             color: var(--backgroundColor);
             transform: translate(0, -6px);
 
-            img, video {
-                transform: translate(0, -100vh);
-                transition: transform 60s 8s;
-            }
-
             .project-text-container {
                 background-color: var(--textColor);
                 transform: translate(0, -1.5px);
@@ -62,6 +57,13 @@ div.work-grid {
                 h2 {
                     transform: skew(-11deg);
                 }
+            }
+        }
+
+        &:hover {
+            img, video {
+                transform: translate(0, -100vh);
+                transition: transform 70s 8s;
             }
         }
     }
