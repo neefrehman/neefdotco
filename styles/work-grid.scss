@@ -64,6 +64,14 @@ div.work-grid {
                 }
             }
         }
+
+        &.intersected {
+            transition: transform 220ms;
+
+            .project-text-container {
+                transition: transform 280ms;
+            }
+        }
     }
 
     @media (max-width: 980px) {
