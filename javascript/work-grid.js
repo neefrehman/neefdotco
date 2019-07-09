@@ -43,31 +43,45 @@ workItemGridContainer.insertAdjacentHTML("afterbegin", workItemGrid);
 workItemElements = document.querySelectorAll(".work-item");
 
 // Mouse hover - Computer
-if (matchMedia("(pointer:fine)").matches && window.innerWidth > 450) {
+if (matchMedia("(pointer:fine)").matches) {
 
     workItemElements.forEach(item => {
         const thumbnailVideo = item.querySelector("video");
-
-        item.addEventListener("mouseenter", () => {
-            thumbnailVideo.play();
-        });
-
-        item.addEventListener("mouseleave", () => {
-            thumbnailVideo.pause();
-        });
+        
+        item.addEventListener("mouseenter", () => thumbnailVideo.play());
+        item.addEventListener("mouseleave", () => thumbnailVideo.pause());
     });
 
 // Intersection Observer - Mobile
-} else {
+} else if (window.innerWidth <= 450) {
 
-    const allThumbnailVideos = document.querySelectorAll(".work-item video");
+    let yOffset, isScrollingUp, isScrollingDown, relativeScroll;
 
     const onIntersection = entries => {
         entries.forEach(entry => {
-            if (entry.intersectionRatio > 0) {
-                const thumbnailVideo = entry.target.querySelector("video");
+            const intersectedItem = entry.target;
+            const allThumbnailVideos = document.querySelectorAll(".work-item video");
+
+            isScrollingUp = window.scrollY <= yOffset;
+            isScrollingDown = window.scrollY >= yOffset;
+            yOffset = window.scrollY;
+
+            const entryIsFirstOrLast = intersectedItem == workItemElements[0] || intersectedItem == workItemElements[workItemElements.length - 1];
+            if (entryIsFirstOrLast) relativeScroll = intersectedItem == workItemElements[0]
+                ? isScrollingUp
+                : isScrollingDown;
+            const ratioTarget = (entryIsFirstOrLast && relativeScroll) ? 0.5 : 0;
+
+            if (entry.intersectionRatio > ratioTarget) {
+                workItemElements.forEach(item => item.classList.remove("intersected"));
+                intersectedItem.classList.add("intersected");
+
+                const thumbnailVideo = intersectedItem.querySelector("video");
                 allThumbnailVideos.forEach(video => video.pause());
                 thumbnailVideo.play();
+            } else if (entryIsFirstOrLast) {
+                workItemElements.forEach(item => item.classList.remove("intersected"));
+                allThumbnailVideos.forEach(video => video.pause());
             }
         });
     };
