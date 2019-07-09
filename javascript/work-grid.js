@@ -55,7 +55,7 @@ if (matchMedia("(pointer:fine)").matches) {
 // Intersection Observer - Mobile
 } else if (window.innerWidth <= 450) {
 
-    let yOffset, isScrollingUp, isScrollingDown, relativeScroll;
+    let yOffset, isScrollingUp, isScrollingDown;
 
     const onIntersection = entries => {
         entries.forEach(entry => {
@@ -67,7 +67,7 @@ if (matchMedia("(pointer:fine)").matches) {
             yOffset = window.scrollY;
 
             const entryIsFirstOrLast = intersectedItem == workItemElements[0] || intersectedItem == workItemElements[workItemElements.length - 1];
-            if (entryIsFirstOrLast) relativeScroll = intersectedItem == workItemElements[0]
+            const relativeScroll = (entryIsFirstOrLast && intersectedItem == workItemElements[0])
                 ? isScrollingUp
                 : isScrollingDown;
             const ratioTarget = (entryIsFirstOrLast && relativeScroll) ? 0.5 : 0;
