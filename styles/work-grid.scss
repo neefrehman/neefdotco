@@ -63,7 +63,7 @@ div.work-grid {
         &:hover {
             img, video {
                 transform: translate(0, -100vh);
-                transition: transform 70s 8s;
+                transition: transform 70s 15s;
             }
         }
     }
