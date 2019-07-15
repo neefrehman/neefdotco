@@ -45,7 +45,6 @@ div.work-grid {
             }
         }
 
-        &:hover,
         &.intersected {
             color: var(--backgroundColor);
             transform: translate(0, -6px);
@@ -61,9 +60,13 @@ div.work-grid {
         }
 
         &:hover {
-            img, video {
-                transform: translate(0, -100vh);
-                transition: transform 70s 15s;
+            @extend .intersected;
+            
+            @media (pointer: fine) {
+                img, video {
+                    transform: translate(0, -100vh);
+                    transition: transform 70s 15s;
+                }
             }
         }
     }
