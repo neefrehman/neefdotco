@@ -45,6 +45,7 @@ div.work-grid {
             }
         }
 
+        &:hover,
         &.intersected {
             color: var(--backgroundColor);
             transform: translate(0, -6px);
@@ -57,11 +58,7 @@ div.work-grid {
                     transform: skew(-11deg);
                 }
             }
-        }
 
-        &:hover {
-            @extend .intersected;
-            
             @media (pointer: fine) {
                 img, video {
                     transform: translate(0, -100vh);
