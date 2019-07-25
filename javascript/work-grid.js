@@ -46,7 +46,7 @@ const loadVideo = videoEl => {
     const videoSource = videoEl.getAttribute("data-src");
     videoEl.setAttribute("src", videoSource);
     videoEl.removeAttribute("data-src");
-}
+};
 
 // Mouse hover - Computer
 if (matchMedia("(pointer:fine)").matches) {
