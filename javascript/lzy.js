@@ -1,4 +1,4 @@
-const lzy = (offset = 200) => {
+const lzy = (offset = 500) => {
 
     const images = document.querySelectorAll("[data-src]");
 
@@ -42,6 +42,3 @@ const lzy = (offset = 200) => {
     }
 
 };
-
-
-lzy();
