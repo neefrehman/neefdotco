@@ -21,7 +21,7 @@ let workItemElements = workItemArray.map(obj => {
     return `
         <a class="work-item nav" href="/work/${obj.name}.html">
             <video playsinline loop muted
-                src="/work/assets/${obj.name}/thumbnail_video.mp4"
+                data-src="/work/assets/${obj.name}/thumbnail_video.mp4"
                 poster="/work/assets/${obj.name}/thumbnail.png">
             </video>
             <div class="project-text-container">
@@ -42,11 +42,18 @@ workItemGridContainer.insertAdjacentHTML("afterbegin", workItemGrid);
 
 workItemElements = document.querySelectorAll(".work-item");
 
+const lazyLoadVideo = videoEl => {
+    const videoSource = videoEl.getAttribute("data-src");
+    videoEl.setAttribute("src", videoSource);
+    videoEl.removeAttribute("data-src");
+}
+
 // Mouse hover - Computer
 if (matchMedia("(pointer:fine)").matches) {
 
     workItemElements.forEach(item => {
         const thumbnailVideo = item.querySelector("video");
+        lazyLoadVideo(thumbnailVideo);
         
         item.addEventListener("mouseenter", () => thumbnailVideo.play());
         item.addEventListener("mouseleave", () => thumbnailVideo.pause());
@@ -77,6 +84,8 @@ if (matchMedia("(pointer:fine)").matches) {
                 intersectedItem.classList.add("intersected");
 
                 const thumbnailVideo = intersectedItem.querySelector("video");
+                lazyLoadVideo(thumbnailVideo);
+
                 allThumbnailVideos.forEach(video => video.pause());
                 thumbnailVideo.play();
             } else if (entryIsFirstOrLast) {
