@@ -42,7 +42,7 @@ workItemGridContainer.insertAdjacentHTML("afterbegin", workItemGrid);
 
 workItemElements = document.querySelectorAll(".work-item");
 
-const lazyLoadVideo = videoEl => {
+const loadVideo = videoEl => {
     const videoSource = videoEl.getAttribute("data-src");
     videoEl.setAttribute("src", videoSource);
     videoEl.removeAttribute("data-src");
@@ -53,7 +53,7 @@ if (matchMedia("(pointer:fine)").matches) {
 
     workItemElements.forEach(item => {
         const thumbnailVideo = item.querySelector("video");
-        lazyLoadVideo(thumbnailVideo);
+        loadVideo(thumbnailVideo);
         
         item.addEventListener("mouseenter", () => thumbnailVideo.play());
         item.addEventListener("mouseleave", () => thumbnailVideo.pause());
@@ -84,7 +84,7 @@ if (matchMedia("(pointer:fine)").matches) {
                 intersectedItem.classList.add("intersected");
 
                 const thumbnailVideo = intersectedItem.querySelector("video");
-                lazyLoadVideo(thumbnailVideo);
+                loadVideo(thumbnailVideo);
 
                 allThumbnailVideos.forEach(video => video.pause());
                 thumbnailVideo.play();
