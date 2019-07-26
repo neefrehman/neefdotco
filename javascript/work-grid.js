@@ -44,8 +44,10 @@ workItemElements = document.querySelectorAll(".work-item");
 
 const loadVideo = videoEl => {
     const videoSource = videoEl.getAttribute("data-src");
-    videoEl.setAttribute("src", videoSource);
-    videoEl.removeAttribute("data-src");
+    if (videoSource) {
+        videoEl.setAttribute("src", videoSource);
+        videoEl.removeAttribute("data-src");
+    }
 };
 
 // Mouse hover - Computer
