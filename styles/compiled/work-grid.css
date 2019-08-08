@@ -1,4 +1,5 @@
 div.work-grid {
+  margin-top: 60px;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: (17em)[auto-fill];

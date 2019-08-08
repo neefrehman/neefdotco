@@ -37,10 +37,6 @@ main section.info details[open] summary {
   display: none;
 }
 
-main section.work h1 {
-  margin: 70px 0 50px 0;
-}
-
 @media (max-width: 769px) {
   main section.info div h2 {
     margin-bottom: 1.1em;
