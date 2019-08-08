@@ -124,6 +124,7 @@ div.work-grid {
     }
 
     @media (max-width: 450px) {
+        margin-top: 50px;
         grid-template-columns: repeat(1, 1fr);
         grid-gap: 2.6em;
 
