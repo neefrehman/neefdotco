@@ -80,8 +80,8 @@ div.work-grid {
         &:hover,
         &.intersected {
             color: var(--backgroundColor);
-            transform: translate(0, -6px);
             background-color: var(--textColor);
+            transform: translate(0, -6px);
 
             h2 {
                 transform: skew(-11deg);
@@ -124,7 +124,7 @@ div.work-grid {
     }
 
     @media (max-width: 450px) {
-        margin-top: 50px;
+        margin-top: 45px;
         grid-template-columns: repeat(1, 1fr);
         grid-gap: 2.6em;
 
