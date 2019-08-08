@@ -45,7 +45,7 @@ div.work-grid {
             }
         }
 
-        &.nav-cta {
+        &.grid-nav-cta {
             height: 100%;
             min-height: 12em;
             background-color: var(--linkBackgroundColor-fallback);
@@ -71,7 +71,7 @@ div.work-grid {
                     transform: translate(-50%, calc(-50% - 3px));
 
                     &.back {
-                        transform: translate(calc(-50% - 3px), -50%);
+                        transform: translate(calc(-50% - 4px), -50%);
                     }
                 }
             }

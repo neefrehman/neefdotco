@@ -63,7 +63,7 @@ div.work-grid a.work-item .project-text-container h2 {
   margin-bottom: 0.2em;
 }
 
-div.work-grid a.nav-cta {
+div.work-grid a.grid-nav-cta {
   height: 100%;
   min-height: 12em;
   background-color: var(--linkBackgroundColor-fallback);
@@ -71,11 +71,11 @@ div.work-grid a.nav-cta {
   position: relative;
 }
 
-div.work-grid a.nav-cta h2 {
+div.work-grid a.grid-nav-cta h2 {
   padding: 10px;
 }
 
-div.work-grid a.nav-cta .icon {
+div.work-grid a.grid-nav-cta .icon {
   font-size: 9em;
   font-weight: bold;
   position: absolute;
@@ -88,14 +88,14 @@ div.work-grid a.nav-cta .icon {
   transition: transform 260ms, -webkit-transform 260ms;
 }
 
-div.work-grid a.nav-cta:hover .icon {
+div.work-grid a.grid-nav-cta:hover .icon {
   -webkit-transform: translate(-50%, calc(-50% - 3px));
           transform: translate(-50%, calc(-50% - 3px));
 }
 
-div.work-grid a.nav-cta:hover .icon.back {
-  -webkit-transform: translate(calc(-50% - 3px), -50%);
-          transform: translate(calc(-50% - 3px), -50%);
+div.work-grid a.grid-nav-cta:hover .icon.back {
+  -webkit-transform: translate(calc(-50% - 4px), -50%);
+          transform: translate(calc(-50% - 4px), -50%);
 }
 
 div.work-grid a:hover, div.work-grid a.intersected {
