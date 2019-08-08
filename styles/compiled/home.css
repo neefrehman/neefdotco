@@ -41,46 +41,6 @@ main section.work h1 {
   margin: 70px 0 50px 0;
 }
 
-main section.work .see-more {
-  height: 100%;
-  min-height: 12em;
-  background-color: var(--linkBackgroundColor-fallback);
-  background-color: var(--linkBackgroundColor);
-  position: relative;
-}
-
-main section.work .see-more h2 {
-  padding: 10px;
-}
-
-main section.work .see-more .plus {
-  font-size: 9em;
-  font-weight: bold;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-  transition: -webkit-transform 260ms;
-  transition: transform 260ms;
-  transition: transform 260ms, -webkit-transform 260ms;
-}
-
-main section.work .see-more:hover {
-  color: var(--backgroundColor);
-  background-color: var(--textColor);
-}
-
-main section.work .see-more:hover h2 {
-  -webkit-transform: skewX(-11deg);
-          transform: skewX(-11deg);
-}
-
-main section.work .see-more:hover .plus {
-  -webkit-transform: translate(-50%, calc(-50% - 3px));
-          transform: translate(-50%, calc(-50% - 3px));
-}
-
 @media (max-width: 769px) {
   main section.info div h2 {
     margin-bottom: 1.1em;

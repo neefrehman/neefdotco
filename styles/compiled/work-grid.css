@@ -20,32 +20,6 @@ div.work-grid a {
   text-decoration: none;
 }
 
-div.work-grid a img, div.work-grid a video {
-  width: 100%;
-  height: 16em;
-  -o-object-fit: cover;
-     object-fit: cover;
-  -webkit-filter: contrast(95%);
-          filter: contrast(95%);
-  transition: -webkit-transform 1900ms cubic-bezier(0.45, 0.05, 0.55, 0.95);
-  transition: transform 1900ms cubic-bezier(0.45, 0.05, 0.55, 0.95);
-  transition: transform 1900ms cubic-bezier(0.45, 0.05, 0.55, 0.95), -webkit-transform 1900ms cubic-bezier(0.45, 0.05, 0.55, 0.95);
-}
-
-div.work-grid a .project-text-container {
-  height: 100%;
-  padding: 10px;
-  background-color: var(--linkBackgroundColor-fallback);
-  background-color: var(--linkBackgroundColor);
-  transition: -webkit-transform 260ms;
-  transition: transform 260ms;
-  transition: transform 260ms, -webkit-transform 260ms;
-}
-
-div.work-grid a .project-text-container h2 {
-  margin-bottom: 0.2em;
-}
-
 div.work-grid a.work-item {
   position: relative;
 }
@@ -63,21 +37,82 @@ div.work-grid a.work-item::after {
           transform: translate(-50%, -50%);
 }
 
+div.work-grid a.work-item img, div.work-grid a.work-item video {
+  width: 100%;
+  height: 16em;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -webkit-filter: contrast(95%);
+          filter: contrast(95%);
+  transition: -webkit-transform 1900ms cubic-bezier(0.45, 0.05, 0.55, 0.95);
+  transition: transform 1900ms cubic-bezier(0.45, 0.05, 0.55, 0.95);
+  transition: transform 1900ms cubic-bezier(0.45, 0.05, 0.55, 0.95), -webkit-transform 1900ms cubic-bezier(0.45, 0.05, 0.55, 0.95);
+}
+
+div.work-grid a.work-item .project-text-container {
+  height: 100%;
+  padding: 10px;
+  background-color: var(--linkBackgroundColor-fallback);
+  background-color: var(--linkBackgroundColor);
+  transition: -webkit-transform 260ms;
+  transition: transform 260ms;
+  transition: transform 260ms, -webkit-transform 260ms;
+}
+
+div.work-grid a.work-item .project-text-container h2 {
+  margin-bottom: 0.2em;
+}
+
+div.work-grid a.nav-cta {
+  height: 100%;
+  min-height: 12em;
+  background-color: var(--linkBackgroundColor-fallback);
+  background-color: var(--linkBackgroundColor);
+  position: relative;
+}
+
+div.work-grid a.nav-cta h2 {
+  padding: 10px;
+}
+
+div.work-grid a.nav-cta .icon {
+  font-size: 9em;
+  font-weight: bold;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  transition: -webkit-transform 260ms;
+  transition: transform 260ms;
+  transition: transform 260ms, -webkit-transform 260ms;
+}
+
+div.work-grid a.nav-cta:hover .icon {
+  -webkit-transform: translate(-50%, calc(-50% - 3px));
+          transform: translate(-50%, calc(-50% - 3px));
+}
+
+div.work-grid a.nav-cta:hover .icon.back {
+  -webkit-transform: translate(calc(-50% - 3px), -50%);
+          transform: translate(calc(-50% - 3px), -50%);
+}
+
 div.work-grid a:hover, div.work-grid a.intersected {
   color: var(--backgroundColor);
   -webkit-transform: translate(0, -6px);
           transform: translate(0, -6px);
+  background-color: var(--textColor);
+}
+
+div.work-grid a:hover h2, div.work-grid a.intersected h2 {
+  -webkit-transform: skew(-11deg);
+          transform: skew(-11deg);
 }
 
 div.work-grid a:hover .project-text-container, div.work-grid a.intersected .project-text-container {
-  background-color: var(--textColor);
   -webkit-transform: translate(0, -1.5px);
           transform: translate(0, -1.5px);
-}
-
-div.work-grid a:hover .project-text-container h2, div.work-grid a.intersected .project-text-container h2 {
-  -webkit-transform: skew(-11deg);
-          transform: skew(-11deg);
 }
 
 @media (pointer: fine) {
