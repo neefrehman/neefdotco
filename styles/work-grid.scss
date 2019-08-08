@@ -29,7 +29,6 @@ div.work-grid {
                 height: 16em;
                 object-fit: cover;
                 filter: contrast(95%);
-                transition: transform 1900ms cubic-bezier(0.45, 0.05, 0.55, 0.95);
             }
 
             .project-text-container {
@@ -89,13 +88,6 @@ div.work-grid {
 
             .project-text-container {
                 transform: translate(0, -1.5px);
-            }
-
-            @media (pointer: fine) {
-                img, video {
-                    transform: translate(0, -100vh);
-                    transition: transform 70s 15s;
-                }
             }
         }
     }
