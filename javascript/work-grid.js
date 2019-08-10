@@ -1,13 +1,15 @@
-const workItemArray = [
+const workArray = [
     {
         name: "studiowave",
         title: "studiowave.fm",
-        description: "A simple webapp dishing out chillout tunes and inspiration"
+        description:
+            "A simple webapp dishing out chillout tunes and inspiration"
     },
     {
         name: "adventure",
         title: "ustwo Adventure",
-        description: "New site and art direction for the investment arm of ustwo"
+        description:
+            "New site and art direction for the investment arm of ustwo"
     },
     {
         name: "generative",
@@ -16,8 +18,7 @@ const workItemArray = [
     }
 ];
 
-
-let workItemElements = workItemArray.map(obj => {
+let workElements = workArray.map(obj => {
     return `
         <a class="work-item nav" href="/work/${obj.name}.html">
             <video playsinline loop muted
@@ -34,13 +35,11 @@ let workItemElements = workItemArray.map(obj => {
     `;
 });
 
+const workGrid = workElements.join("");
+const workGridContainer = document.querySelector(".work-grid");
+workGridContainer.insertAdjacentHTML("afterbegin", workGrid);
 
-const workItemGrid = workItemElements.join("");
-const workItemGridContainer = document.querySelector(".work-grid");
-workItemGridContainer.insertAdjacentHTML("afterbegin", workItemGrid);
-
-
-workItemElements = document.querySelectorAll(".work-item");
+workElements = document.querySelectorAll(".work-item");
 
 const loadVideo = videoEl => {
     const videoSource = videoEl.getAttribute("data-src");
@@ -52,37 +51,42 @@ const loadVideo = videoEl => {
 
 // Mouse hover - Computer
 if (matchMedia("(pointer:fine)").matches) {
-
-    workItemElements.forEach(item => {
+    workElements.forEach(item => {
         const thumbnailVideo = item.querySelector("video");
         loadVideo(thumbnailVideo);
-        
+
         item.addEventListener("mouseenter", () => thumbnailVideo.play());
         item.addEventListener("mouseleave", () => thumbnailVideo.pause());
     });
 
-// Intersection Observer - Mobile
+    // Intersection Observer - Mobile
 } else if (window.innerWidth <= 450) {
-
     let yOffset, isScrollingUp, isScrollingDown;
 
     const onIntersection = entries => {
         entries.forEach(entry => {
             const intersectedItem = entry.target;
-            const allThumbnailVideos = document.querySelectorAll(".work-item video");
+            const allThumbnailVideos = document.querySelectorAll(
+                ".work-item video"
+            );
 
             isScrollingUp = window.scrollY < yOffset;
             isScrollingDown = window.scrollY > yOffset;
             yOffset = window.scrollY;
 
-            const entryIsFirstOrLast = intersectedItem == workItemElements[0] || intersectedItem == workItemElements[workItemElements.length - 1];
-            const relativeScroll = (entryIsFirstOrLast && intersectedItem == workItemElements[0])
-                ? isScrollingUp
-                : isScrollingDown;
-            const ratioTarget = (entryIsFirstOrLast && relativeScroll) ? 0.5 : 0;
+            const entryIsFirstOrLast =
+                intersectedItem === workElements[0] ||
+                intersectedItem === workElements[workElements.length - 1];
+            const relativeScroll =
+                entryIsFirstOrLast && intersectedItem === workElements[0]
+                    ? isScrollingUp
+                    : isScrollingDown;
+            const ratioTarget = entryIsFirstOrLast && relativeScroll ? 0.5 : 0;
 
             if (entry.intersectionRatio > ratioTarget) {
-                workItemElements.forEach(item => item.classList.remove("intersected"));
+                workElements.forEach(item =>
+                    item.classList.remove("intersected")
+                );
                 intersectedItem.classList.add("intersected");
 
                 const thumbnailVideo = intersectedItem.querySelector("video");
@@ -91,7 +95,9 @@ if (matchMedia("(pointer:fine)").matches) {
                 allThumbnailVideos.forEach(video => video.pause());
                 thumbnailVideo.play();
             } else if (entryIsFirstOrLast) {
-                workItemElements.forEach(item => item.classList.remove("intersected"));
+                workElements.forEach(item =>
+                    item.classList.remove("intersected")
+                );
                 allThumbnailVideos.forEach(video => video.pause());
             }
         });
@@ -102,6 +108,5 @@ if (matchMedia("(pointer:fine)").matches) {
         threshold: 0.5
     });
 
-    workItemElements.forEach(item => observer.observe(item));
-
+    workElements.forEach(item => observer.observe(item));
 }

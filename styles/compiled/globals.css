@@ -34,7 +34,7 @@
 }
 
 body {
-  margin: 25px 50px;
+  margin: 30px 50px;
   max-width: 1440px;
   font-family: "Untitled Sans", helvetica neue, helvetica, arial, sans-serif;
   font-size: 15px;
@@ -44,6 +44,11 @@ body {
   -webkit-text-size-adjust: 100%;
           text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
+  transition: opacity 60ms;
+}
+
+body.transition {
+  opacity: 0;
 }
 
 body *::-moz-selection {
@@ -177,7 +182,7 @@ body .hidden {
 
 @media (max-width: 425px) {
   body {
-    margin: 18px 25px;
+    margin: 20px 25px;
     margin-bottom: 40px;
   }
 }

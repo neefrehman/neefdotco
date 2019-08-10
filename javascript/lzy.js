@@ -1,5 +1,4 @@
 const lzy = (offset = 500) => {
-
     const images = document.querySelectorAll("[data-src]");
 
     if (!window.IntersectionObserver) {
@@ -13,7 +12,6 @@ const lzy = (offset = 500) => {
             image.removeAttribute("data-src");
         });
     } else {
-
         const onIntersection = entries => {
             entries.forEach(entry => {
                 if (entry.intersectionRatio > 0) {
@@ -40,5 +38,4 @@ const lzy = (offset = 500) => {
 
         images.forEach(image => observer.observe(image));
     }
-
 };

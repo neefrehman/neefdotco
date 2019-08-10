@@ -66,7 +66,8 @@ if (matchMedia("(pointer:fine)").matches) {
     const navLinks = document.querySelectorAll("a.nav");
     navLinks.forEach(link => {
         link.addEventListener("click", e => {
-            if (cursor) cursor.classList.add("transition");
+            cursor.classList.add("transition");
+            setTimeout(() => document.body.classList.add("transition"), 860);
             setTimeout(() => (window.location = link.href), 920);
             e.preventDefault();
         });

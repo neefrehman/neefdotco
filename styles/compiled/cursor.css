@@ -4,6 +4,8 @@
   top: -1rem;
   left: -1rem;
   pointer-events: none;
+  -webkit-transform: translate(-1em, -1em);
+          transform: translate(-1em, -1em);
   transition: -webkit-transform 38ms;
   transition: transform 38ms;
   transition: transform 38ms, -webkit-transform 38ms;
