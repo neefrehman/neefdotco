@@ -1,13 +1,13 @@
 // Photo array variables
-const numberOfPhotos = 76;
-const screenSize = (window.innerWidth > 500) ? "large" : "small";
-const randomOffset = () => 10 * (Math.floor(Math.random() * 9)) - 40;
+const numberOfPhotos = 83;
+const screenSize = window.innerWidth > 500 ? "large" : "small";
+const randOffset = () => 10 * Math.floor(Math.random() * 9) - 40;
 
-const photoArray = Array.from({length: numberOfPhotos}, (photo, i) => {
+const photoArray = Array.from({ length: numberOfPhotos }, (photo, i) => {
     return `
         <div class="grid"
             data-src="photos/${screenSize}/photo_${++i}.jpg"
-            style="--x: ${randomOffset()}px; --y: ${randomOffset()}px"> </div>
+            style="--x: ${randOffset()}px; --y: ${randOffset()}px"> </div>
     `;
 });
 
@@ -19,16 +19,13 @@ const shuffle = a => {
     return a;
 };
 
-
 // Add photos to DOM
 const photoContainer = document.querySelector(".photo-container");
 photoContainer.innerHTML = shuffle(photoArray).join("");
 const photos = document.querySelectorAll("[data-src]");
 
-
 // Lazy-load
-lzy(1000);
-
+lzy(500);
 
 // Zoom on click
 photos.forEach(photo => {
@@ -39,17 +36,16 @@ photos.forEach(photo => {
     });
 });
 
+// Un-zoom on background click
 document.addEventListener("click", e => {
     if (!e.target.matches(".photo-container > .grid")) {
         photos.forEach(photo => photo.classList.remove("zoom"));
     }
 });
 
-
 // Full screen
 const gridToggle = document.querySelector(".grid-toggle");
 const toggleFullScreen = () => {
-
     // Scroll variables (pre-change)
     const scrollElement = document.scrollingElement;
     const pixelsScrolled = scrollElement.scrollTop;
@@ -72,12 +68,10 @@ const toggleFullScreen = () => {
         gridToggle.innerHTML = "Full screen";
         history.replaceState("", document.title, window.location.pathname);
     }
-
 };
 
 gridToggle.addEventListener("click", () => toggleFullScreen());
-if (window.location.hash == "#full") toggleFullScreen();
-
+if (window.location.hash === "#full") toggleFullScreen();
 
 // Scroll 100vh on arrow press & grid toggle on g/f
 window.addEventListener("keyup", e => {

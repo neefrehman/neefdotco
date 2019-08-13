@@ -1,0 +1,167 @@
+div.work-grid {
+  margin-top: 60px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (17em)[auto-fill];
+      grid-template-columns: repeat(auto-fill, 17em);
+  grid-gap: 3.6em;
+}
+
+div.work-grid a {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  transition: -webkit-transform 180ms;
+  transition: transform 180ms;
+  transition: transform 180ms, -webkit-transform 180ms;
+  -webkit-transform-origin: center;
+          transform-origin: center;
+  text-decoration: none;
+}
+
+div.work-grid a.work-item {
+  position: relative;
+}
+
+div.work-grid a.work-item::after {
+  content: ":-)";
+  color: var(--textColor);
+  font-size: 6em;
+  font-weight: bold;
+  position: absolute;
+  top: 37%;
+  left: 50%;
+  z-index: -1;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+div.work-grid a.work-item img, div.work-grid a.work-item video {
+  width: 100%;
+  height: 16em;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -webkit-filter: contrast(95%);
+          filter: contrast(95%);
+}
+
+div.work-grid a.work-item .project-text-container {
+  height: 100%;
+  padding: 10px;
+  background-color: var(--linkBackgroundColor-fallback);
+  background-color: var(--linkBackgroundColor);
+  transition: -webkit-transform 260ms;
+  transition: transform 260ms;
+  transition: transform 260ms, -webkit-transform 260ms;
+}
+
+div.work-grid a.work-item .project-text-container h2 {
+  margin-bottom: 0.2em;
+}
+
+div.work-grid a.grid-nav-cta {
+  height: 100%;
+  min-height: 12em;
+  background-color: var(--linkBackgroundColor-fallback);
+  background-color: var(--linkBackgroundColor);
+  position: relative;
+}
+
+div.work-grid a.grid-nav-cta h2 {
+  padding: 10px;
+}
+
+div.work-grid a.grid-nav-cta .icon {
+  margin-top: 0.21em;
+  font-size: 4em;
+  font-weight: bold;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  transition: -webkit-transform 260ms;
+  transition: transform 260ms;
+  transition: transform 260ms, -webkit-transform 260ms;
+}
+
+div.work-grid a.grid-nav-cta:hover .icon {
+  -webkit-transform: translate(-50%, calc(-50% - 3px));
+          transform: translate(-50%, calc(-50% - 3px));
+}
+
+div.work-grid a.grid-nav-cta:hover .icon.back {
+  -webkit-transform: translate(calc(-50% - 4px), -50%);
+          transform: translate(calc(-50% - 4px), -50%);
+}
+
+div.work-grid a:hover, div.work-grid a.intersected {
+  color: var(--backgroundColor);
+  background-color: var(--textColor);
+  -webkit-transform: translate(0, -6px);
+          transform: translate(0, -6px);
+}
+
+div.work-grid a:hover h2, div.work-grid a.intersected h2 {
+  -webkit-transform: skew(-11deg);
+          transform: skew(-11deg);
+}
+
+div.work-grid a:hover .project-text-container, div.work-grid a.intersected .project-text-container {
+  -webkit-transform: translate(0, -1.5px);
+          transform: translate(0, -1.5px);
+}
+
+@media (max-width: 980px) {
+  div.work-grid {
+    -ms-grid-columns: (1fr)[3];
+        grid-template-columns: repeat(3, 1fr);
+    grid-gap: 3em;
+  }
+  div.work-grid a.work-item img, div.work-grid a.work-item video {
+    height: 15em;
+  }
+}
+
+@media (max-width: 860px) {
+  div.work-grid {
+    -ms-grid-columns: (1fr)[2];
+        grid-template-columns: repeat(2, 1fr);
+    grid-gap: 3.6em;
+  }
+}
+
+@media (max-width: 700px) {
+  div.work-grid {
+    grid-gap: 2.8em;
+  }
+}
+
+@media (max-width: 560px) {
+  div.work-grid {
+    grid-gap: 2.4em;
+  }
+  div.work-grid a.work-item img, div.work-grid a.work-item video {
+    height: 13.5em;
+  }
+}
+
+@media (max-width: 450px) {
+  div.work-grid {
+    margin-top: 45px;
+    -ms-grid-columns: (1fr)[1];
+        grid-template-columns: repeat(1, 1fr);
+    grid-gap: 2.6em;
+  }
+  div.work-grid a.work-item img, div.work-grid a.work-item video {
+    height: 14.5em;
+  }
+}
+
+@media (max-width: 380px) {
+  div.work-grid a.work-item img, div.work-grid a.work-item video {
+    height: 13.5em;
+  }
+}

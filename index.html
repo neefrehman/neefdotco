@@ -12,16 +12,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Styles -->
-    <link rel="icon" href="icons/favicon-light.png" type="image/x-icon">
-    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
-    <link rel="mask-icon" href="icons/safari-pinned-tab.svg" color="#333333">
+    <link rel="icon" href="/icons/favicon-light.png" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#333333">
 
-    <link rel="stylesheet" href="styles/_reset.css">
-    <link rel="stylesheet" href="styles/globals.css">
-    <link rel="stylesheet" href="styles/home.css">
-    <link rel="stylesheet" href="styles/cursor.css">
+    <link rel="stylesheet" href="/styles/_reset.css">
+    <link rel="stylesheet" href="/styles/compiled/globals.css">
+    <link rel="stylesheet" href="/styles/compiled/home.css">
+    <link rel="stylesheet" href="/styles/compiled/work-grid.css">
+    <link rel="stylesheet" href="/styles/compiled/cursor.css">
 
-    <script> if (localStorage.getItem("darkMode") == 1 || (window.matchMedia("(prefers-color-scheme: dark)").matches && !localStorage.getItem("darkMode"))) document.documentElement.classList = "dark" </script>
+    <script> if (localStorage.getItem("darkMode") == 1 || (!localStorage.getItem("darkMode") && window.matchMedia("(prefers-color-scheme: dark)").matches)) document.documentElement.classList = "dark" </script>
 
 </head>
 
@@ -29,78 +30,81 @@
 
     <header>
 
-        <h1> <span class="stretch"> Neef Rehman—Designer & web developer </span> </h1>
+        <h1 class="no-hide"> Neef Rehman—Designer & web developer </h1>
+        <h1>
+            Currently working on the <a href="https://adventure.ustwo.com" target="_blank" rel="noopener">Adventure</a>
+            arm of <a href="https://ustwo.com" target="_blank" rel="noopener">ustwo</a>
+        </h1>
 
         <nav>
-            <a class="bg-parent dark-mode-button"> mode <img class="bg-child"> </a>
-            <a class="nav" href="photos.html">photography →</a>
+            <a class="button dark-mode-button"> mode</a>
+            <a class="button nav" href="/photos.html">photography →</a>
         </nav>
 
     </header>
 
     <main>
 
-        <details open class="currently">
-            <summary>
-                <h3> Currently </h3>
-            </summary>
-            <p> Working on the <a href="https://adventure.ustwo.com" target="_blank" rel="noopener">Adventure</a> arm of
-                <a href="https://ustwo.com" target="_blank" rel="noopener">ustwo</a> </p>
-        </details>
+        <section class="info no-hide">
 
-        <details class="made">
-            <summary>
-                <h3> I've made </h3>
-            </summary>
-            <a class="bg-parent" href="https://studiowave.fm" target="_blank" rel="noopener">
-                studiowave.fm
-                <img src="bg/studiowave.png" class="bg-child">
-            </a>
-            <!-- <a class="bg-parent" href="https://allergies.travel" target="_blank" rel="noopener">
-                allergies.travel
-                <img src="bg/allergiestravel.png" class="bg-child">
-            </a> -->
-            <a class="bg-parent" href="https://adventure.ustwo.com" target="_blank" rel="noopener">
-                adventure.ustwo.com
-                <img src="bg/adventure.png" class="bg-child">
-            </a>
-            <a class="bg-parent" href="https://generative.neef.co" target="_blank" rel="noopener">
-                generative.neef.co
-                <img src="bg/generative.png" class="bg-child">
-            </a>
-        </details>
+            <div class="previously no-hide">
+                <h2>Previously</h2>
 
-        <details class="previously">
-            <summary>
-                <h3> Previously </h3>
-            </summary>
+                <p> Operations & Technology at <a href="http://centralworking.com/" target="_blank" rel="noopener">Central Working</a> </p>
+                <p> Bioinformatics at <a href="https://www.illumina.com/" target="_blank" rel="noopener">Illumina</a> </p>
+                <p> I did a <a href="https://wikipedia.org/wiki/Physics" target="_blank" rel="noopener">Physics</a> Degree </p>
 
-            <p> Operations & Technology at <a href="http://centralworking.com/" target="_blank" rel="noopener">Central
-                    Working</a> </p>
-            <p> Bioinformatics at <a href="https://www.illumina.com/" target="_blank" rel="noopener">Illumina</a> </p>
-            <p> I did a <a href="https://wikipedia.org/wiki/Physics" target="_blank" rel="noopener">Physics</a> Degree
-            </p>
-        </details>
+                <details class="more no-hide">
+                    <summary> <a>More...</a> </summary>
+                    <p> Head barista at <a href="https://genesiscinema.co.uk" target="_blank" rel="noopener">Genesis Cinema</a> </p>
+                    <p class="no-hide"> <a class="see-less-button no-hide">See less...</a> </p>
+                </details>
+            </div>
 
-        <details open class="find">
-            <summary>
-                <h3> Find me </h3>
-            </summary>
-            <p>
-                <a href="https://twitter.com/neefrehman_" target="_blank" rel="noopener">Twitter</a>,
-                <a href="https://www.instagram.com/neefstagram" target="_blank" rel="noopener">Instagram</a>,
-                <a href="https://github.com/neefrehman" target="_blank" rel="noopener">GitHub</a>
-            </p>
-            <p> <a href="mailto:neef.rehman@gmail.com?subject=👋" target="_blank"
-                    rel="noopener">neef.rehman@gmail.com</a> </p>
-        </details>
+            <div class="contact">
+
+                <h2>Find me</h2>
+
+                <p>
+                    <a href="https://twitter.com/neefrehman_" target="_blank" rel="noopener">Twitter</a>,
+                    <a href="https://www.instagram.com/neefstagram" target="_blank" rel="noopener">Instagram</a>,
+                    <a href="https://github.com/neefrehman" target="_blank" rel="noopener">GitHub</a>
+                </p>
+                <p> <a href="mailto:neef.rehman@gmail.com?subject=👋" target="_blank" rel="noopener">neef.rehman@gmail.com</a> </p>
+
+            </div>
+
+        </section>
+
+
+        <section class="work">
+
+            <h1> <a class="nav" href="/work/index.html">Work</a> </h1>
+
+            <div class="work-grid">
+
+                <a class="grid-nav-cta nav" href="/work/index.html" style="pointer-events: none">
+                    <h2>Case studies coming soon-ish</h2>
+                    <p class="icon">:-)</p>
+                </a>
+
+                <!-- <a class="grid-nav-cta nav" href="/work/index.html">
+                    <h2>See more</h2>
+                    <p class="icon">+</p>
+                </a> -->
+
+            </div>
+
+        </section>
 
     </main>
 
 
     <!-- Scripts -->
-    <script src="javascript/main.js"> </script>
-    <script src="javascript/cursor.js"> </script>
+    <script src="/javascript/work-grid.js"> </script>
+    <script src="/javascript/lzy.js"> </script>
+    <script src="/javascript/main.js"> </script>
+    <script src="/javascript/cursor.js"> </script>
 
 </body>
 

@@ -1,5 +1,4 @@
 if (matchMedia("(pointer:fine)").matches) {
-
     const cursor = document.createElement("div");
     cursor.className = "cursor-container";
     cursor.innerHTML = `<div class="cursor"> </div>
@@ -7,9 +6,8 @@ if (matchMedia("(pointer:fine)").matches) {
     document.body.prepend(cursor);
 
     const allLinks = document.querySelectorAll("a");
-    const projectLinks = document.querySelectorAll("a.bg-parent");
-    const navLinks = document.querySelectorAll("a.nav");
-    const summaries = document.querySelectorAll("summary");
+    const darkModeButton = document.querySelector("a.dark-mode-button");
+    const gridItems = document.querySelectorAll(".work-item, .grid-nav-cta");
 
     document.addEventListener("mousemove", e => {
         cursor.classList.add("show");
@@ -17,30 +15,60 @@ if (matchMedia("(pointer:fine)").matches) {
     });
 
     document.addEventListener("mousedown", () => cursor.classList.add("small"));
-    document.addEventListener("mouseup", () => cursor.classList.remove("small"));
+    document.addEventListener("mouseup", () =>
+        cursor.classList.remove("small")
+    );
 
     allLinks.forEach(link => {
-        link.addEventListener("mouseenter", () => cursor.classList.add("large"));
-        link.addEventListener("mouseleave", () => cursor.classList.remove("large"));
+        link.addEventListener("mouseenter", () =>
+            cursor.classList.add("large")
+        );
+        link.addEventListener("mouseleave", () =>
+            cursor.classList.remove("large")
+        );
     });
 
-    projectLinks.forEach(link => {
-        link.addEventListener("mouseenter", () => cursor.classList.add("hide"));
-        link.addEventListener("mouseleave", () => cursor.classList.remove("hide"));
-    });
+    if (gridItems) {
+        gridItems.forEach(item => {
+            item.addEventListener("mouseenter", () =>
+                cursor.classList.add("over")
+            );
+            item.addEventListener("mouseleave", () =>
+                cursor.classList.remove("over")
+            );
+        });
+    }
 
-    summaries.forEach(summary => {
-        summary.addEventListener("mouseenter", () => cursor.classList.add("large"));
-        summary.addEventListener("mouseleave", () => cursor.classList.remove("large"));
-        summary.addEventListener("click", () => cursor.classList.toggle("large"));
-    });
+    if (darkModeButton) {
+        darkModeButton.addEventListener("mouseenter", () =>
+            cursor.classList.add("x-large", "dark-mode-toggle")
+        );
+        darkModeButton.addEventListener("mouseleave", () =>
+            cursor.classList.remove("x-large", "dark-mode-toggle")
+        );
 
+        darkModeButton.addEventListener("click", () => {
+            cursor.classList.remove("x-large", "large");
+            const cursorReset = setTimeout(
+                () => cursor.classList.add("x-large"),
+                1200
+            );
+            darkModeButton.addEventListener("click", () =>
+                clearTimeout(cursorReset)
+            );
+            darkModeButton.addEventListener("mouseleave", () => {
+                clearTimeout(cursorReset);
+                cursor.classList.remove("x-large", "large");
+            });
+        });
+    }
+
+    const navLinks = document.querySelectorAll("a.nav");
     navLinks.forEach(link => {
         link.addEventListener("click", e => {
             cursor.classList.add("transition");
-            setTimeout(() => window.location = link.href, 950);
+            setTimeout(() => (window.location = link.href), 920);
             e.preventDefault();
         });
     });
-
 }

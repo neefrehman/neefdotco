@@ -1,0 +1,58 @@
+main {
+
+    section {
+        margin-bottom: 80px;
+    }
+
+    section.info {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        margin-bottom: 120px;
+
+        div {
+            &:not(:last-child) {
+                margin-bottom: 40px;
+            }
+
+            h2 {
+                margin-bottom: 1.3em;
+            }
+
+            p:not(:last-child) {
+                margin-right: 80px;
+                margin-bottom: 0.55em;
+            }
+        }
+
+        details {
+            summary {
+                line-height: 1.6;
+
+                &::-webkit-details-marker {
+                    display:none;
+                }
+            }
+
+            &[open] summary {
+                display: none;
+            }
+        }
+    }
+
+
+
+
+    @media (max-width: 769px) {
+        section.info {
+            margin-bottom: 110px;
+
+            div {
+                h2 {
+                    margin-bottom: 1.1em;
+                }
+            }
+        }
+    }
+}
