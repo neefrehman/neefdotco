@@ -41,11 +41,6 @@ body {
     background-color: var(--backgroundColor);
     text-size-adjust: 100%;
     -webkit-font-smoothing: antialiased;
-    transition: opacity 60ms;
-
-    &.transition {
-        opacity: 0;
-    }
 
     *::selection {
         color: #f4cb3d;

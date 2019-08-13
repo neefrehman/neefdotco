@@ -44,11 +44,6 @@ body {
   -webkit-text-size-adjust: 100%;
           text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
-  transition: opacity 60ms;
-}
-
-body.transition {
-  opacity: 0;
 }
 
 body *::-moz-selection {

@@ -18,11 +18,6 @@ const darkMode = () => {
 
 if (darkModeButton) darkModeButton.addEventListener("click", () => darkMode());
 
-// Remove transition on load
-document.addEventListener("DOMContentLoaded", () => {
-    document.body.classList.remove("transition");
-});
-
 // See less
 const seeLessButton = document.querySelector(".see-less-button");
 
