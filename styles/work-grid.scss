@@ -57,7 +57,12 @@ div.work-grid {
             }
 
             .icon {
-                font-size: 9em;
+                // To remove once case studies are live
+                margin-top: 0.21em;
+                font-size: 4em;
+                // To re-add once case studies are live
+                // font-size: 9em;
+                
                 font-weight: bold;
                 position: absolute;
                 top: 50%;

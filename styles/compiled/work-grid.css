@@ -74,7 +74,8 @@ div.work-grid a.grid-nav-cta h2 {
 }
 
 div.work-grid a.grid-nav-cta .icon {
-  font-size: 9em;
+  margin-top: 0.21em;
+  font-size: 4em;
   font-weight: bold;
   position: absolute;
   top: 50%;
