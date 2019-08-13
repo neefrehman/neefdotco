@@ -9,7 +9,7 @@ main {
         flex-direction: row;
         flex-wrap: wrap;
 
-        margin-bottom: 120px;
+        margin-bottom: 110px;
 
         div {
             &:not(:last-child) {
@@ -46,8 +46,6 @@ main {
 
     @media (max-width: 769px) {
         section.info {
-            margin-bottom: 110px;
-
             div {
                 h2 {
                     margin-bottom: 1.1em;
