@@ -12,6 +12,9 @@ div.work-grid {
         text-decoration: none;
 
         &.work-item {
+            // To remove once case studies are live
+            cursor: alias;
+
             position: relative;
             &::after {
                 content: ":-)";

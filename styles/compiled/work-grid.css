@@ -22,6 +22,7 @@ div.work-grid a {
 }
 
 div.work-grid a.work-item {
+  cursor: alias;
   position: relative;
 }
 
