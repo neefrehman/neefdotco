@@ -100,7 +100,6 @@ div.work-grid a.grid-nav-cta:hover .icon.back {
 
 div.work-grid a:hover, div.work-grid a.intersected {
   color: var(--backgroundColor);
-  background-color: var(--textColor);
   -webkit-transform: translate(0, -6px);
           transform: translate(0, -6px);
 }
@@ -113,6 +112,7 @@ div.work-grid a:hover h2, div.work-grid a.intersected h2 {
 div.work-grid a:hover .project-text-container, div.work-grid a.intersected .project-text-container {
   -webkit-transform: translate(0, -1.5px);
           transform: translate(0, -1.5px);
+  background-color: var(--textColor);
 }
 
 @media (max-width: 980px) {
