@@ -71,7 +71,7 @@ main.photo-container div {
 
 main.photo-container div.grid {
   background-attachment: initial;
-  margin: 90px 40px;
+  margin: 95px 40px;
   width: calc(325px + var(--y));
   height: calc(262px + var(--x));
   -webkit-transform: translate(var(--x), calc(var(--y) * 1.1));
