@@ -9,7 +9,7 @@ main section.info {
   -webkit-box-direction: normal;
           flex-direction: row;
   flex-wrap: wrap;
-  margin-bottom: 110px;
+  margin-bottom: 105px;
 }
 
 main section.info div:not(:last-child) {

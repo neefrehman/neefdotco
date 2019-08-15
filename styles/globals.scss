@@ -42,7 +42,7 @@ body {
     text-size-adjust: 100%;
     -webkit-font-smoothing: antialiased;
 
-    *::selection {
+    *::selection:not(.see-less-button) {
         color: #f4cb3d;
     }
 

@@ -46,11 +46,11 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-body *::-moz-selection {
+body *::-moz-selection:not(.see-less-button) {
   color: #f4cb3d;
 }
 
-body *::selection {
+body *::selection:not(.see-less-button) {
   color: #f4cb3d;
 }
 
