@@ -37,6 +37,14 @@ main section.info details[open] summary {
   display: none;
 }
 
+main section.info details .see-less-button::-moz-selection {
+  background: none;
+}
+
+main section.info details .see-less-button::selection {
+  background: none;
+}
+
 @media (max-width: 769px) {
   main section.info div h2 {
     margin-bottom: 1.1em;

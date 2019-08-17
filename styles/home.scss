@@ -38,6 +38,10 @@ main {
             &[open] summary {
                 display: none;
             }
+
+            .see-less-button::selection {
+                background: none;
+            }
         }
     }
 
