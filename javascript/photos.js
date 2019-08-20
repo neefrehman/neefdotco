@@ -38,7 +38,7 @@ photos.forEach(photo => {
 
 // Un-zoom on background click
 document.addEventListener("click", e => {
-    if (!e.target.matches(".photo-container > .grid")) {
+    if (!e.target.matches("a, .photo-container > .grid")) {
         photos.forEach(photo => photo.classList.remove("zoom"));
     }
 });
