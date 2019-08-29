@@ -77,5 +77,5 @@ if (window.location.hash === "#full") toggleFullScreen();
 window.addEventListener("keyup", e => {
     if (e.key == "ArrowRight") window.scrollBy(0, window.innerHeight);
     if (e.key == "ArrowLeft") window.scrollBy(0, -window.innerHeight);
-    if (e.key == "g" || e.key == "f") gridToggle.click();
+    if (e.key == "g" || e.key == "f") toggleFullScreen();
 });
