@@ -11,9 +11,7 @@ const darkMode = () => {
     isDark
         ? localStorage.setItem("darkMode", 1)
         : localStorage.setItem("darkMode", 0);
-    favicon.href = isDark
-        ? "/icons/favicon-dark.png"
-        : "/icons/favicon-light.png";
+    favicon.href = isDark ? "/icons/favicon-dark.png" : "/icons/favicon-light.png";
 };
 
 if (darkModeButton) darkModeButton.addEventListener("click", () => darkMode());
@@ -43,10 +41,7 @@ if (seeLessButton) {
             const totalChildElements = childElements ? childElements.length : 0;
 
             randomElement.classList.add("hidden");
-            filteredElementArray.splice(
-                randomElementIndex,
-                1 + totalChildElements
-            );
+            filteredElementArray.splice(randomElementIndex, 1 + totalChildElements);
         } else {
             seeLessButton.remove();
         }

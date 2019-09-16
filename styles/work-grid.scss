@@ -1,7 +1,7 @@
 div.work-grid {
     margin-top: 60px;
     display: grid;
-    grid-template-columns: repeat(auto-fill, 17em);
+    grid-template-columns: repeat(3, 1fr);
     grid-gap: 3.6em;
 
     a {
@@ -12,10 +12,8 @@ div.work-grid {
         text-decoration: none;
 
         &.work-item {
-            // To remove once case studies are live
-            cursor: alias;
-
             position: relative;
+
             &::after {
                 content: ":-)";
                 color: var(--textColor);
@@ -28,11 +26,10 @@ div.work-grid {
                 transform: translate(-50%, -50%);
             }
 
-            img, video {
+            img, video, iframe {
                 width: 100%;
                 height: 16em;
                 object-fit: cover;
-                filter: contrast(95%);
             }
 
             .project-text-container {
@@ -44,43 +41,6 @@ div.work-grid {
 
                 h2 {
                     margin-bottom: 0.2em;
-                }
-            }
-        }
-
-        &.grid-nav-cta {
-            height: 100%;
-            min-height: 12em;
-            background-color: var(--linkBackgroundColor-fallback);
-            background-color: var(--linkBackgroundColor);
-            position: relative;
-
-            h2 {
-                padding: 10px;
-            }
-
-            .icon {
-                // To remove once case studies are live
-                margin-top: 0.21em;
-                font-size: 4em;
-                // To re-add once case studies are live
-                // font-size: 9em;
-                
-                font-weight: bold;
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                transition: transform 260ms;
-            }
-
-            &:hover {
-                .icon {
-                    transform: translate(-50%, calc(-50% - 3px));
-
-                    &.back {
-                        transform: translate(calc(-50% - 4px), -50%);
-                    }
                 }
             }
         }

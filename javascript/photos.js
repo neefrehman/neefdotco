@@ -1,13 +1,13 @@
 // Photo array variables
 const numberOfPhotos = 84;
 const screenSize = window.innerWidth > 600 ? "large" : "small";
-const randOffset = () => 10 * Math.floor(Math.random() * 9) - 40;
+const randomOffset = () => 10 * Math.floor(Math.random() * 9) - 40;
 
 const photoArray = Array.from({ length: numberOfPhotos }, (photo, i) => {
     return `
         <div class="grid"
             data-src="photos/${screenSize}/photo_${++i}.jpg"
-            style="--x: ${randOffset()}px; --y: ${randOffset()}px"> </div>
+            style="--x: ${randomOffset()}px; --y: ${randomOffset()}px"> </div>
     `;
 });
 

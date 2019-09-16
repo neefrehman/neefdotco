@@ -8,6 +8,7 @@ if (matchMedia("(pointer:fine)").matches) {
     const allLinks = document.querySelectorAll("a");
     const darkModeButton = document.querySelector("a.dark-mode-button");
     const gridItems = document.querySelectorAll(".work-item, .grid-nav-cta");
+    const iframes = document.querySelectorAll("iframe");
 
     document.addEventListener("mousemove", e => {
         cursor.classList.add("show");
@@ -15,29 +16,22 @@ if (matchMedia("(pointer:fine)").matches) {
     });
 
     document.addEventListener("mousedown", () => cursor.classList.add("small"));
-    document.addEventListener("mouseup", () =>
-        cursor.classList.remove("small")
-    );
+    document.addEventListener("mouseup", () => cursor.classList.remove("small"));
 
     allLinks.forEach(link => {
-        link.addEventListener("mouseenter", () =>
-            cursor.classList.add("large")
-        );
-        link.addEventListener("mouseleave", () =>
-            cursor.classList.remove("large")
-        );
+        link.addEventListener("mouseenter", () => cursor.classList.add("large"));
+        link.addEventListener("mouseleave", () => cursor.classList.remove("large"));
     });
 
-    if (gridItems) {
-        gridItems.forEach(item => {
-            item.addEventListener("mouseenter", () =>
-                cursor.classList.add("over")
-            );
-            item.addEventListener("mouseleave", () =>
-                cursor.classList.remove("over")
-            );
-        });
-    }
+    gridItems.forEach(item => {
+        item.addEventListener("mouseenter", () => cursor.classList.add("over"));
+        item.addEventListener("mouseleave", () => cursor.classList.remove("over"));
+    });
+
+    iframes.forEach(item => {
+        item.addEventListener("mouseenter", () => cursor.classList.add("hide"));
+        item.addEventListener("mouseleave", () => cursor.classList.remove("hide"));
+    });
 
     if (darkModeButton) {
         darkModeButton.addEventListener("mouseenter", () =>

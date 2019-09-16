@@ -29,6 +29,10 @@
         transform: scale(1);
     }
 
+    &.hide .cursor {
+        transform: scale(0);
+    }
+
     &.small .cursor {
         transform: scale(0.5);
     }

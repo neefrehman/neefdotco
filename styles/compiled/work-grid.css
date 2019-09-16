@@ -2,8 +2,8 @@ div.work-grid {
   margin-top: 60px;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: (17em)[auto-fill];
-      grid-template-columns: repeat(auto-fill, 17em);
+  -ms-grid-columns: (1fr)[3];
+      grid-template-columns: repeat(3, 1fr);
   grid-gap: 3.6em;
 }
 
@@ -22,7 +22,6 @@ div.work-grid a {
 }
 
 div.work-grid a.work-item {
-  cursor: alias;
   position: relative;
 }
 
@@ -39,13 +38,11 @@ div.work-grid a.work-item::after {
           transform: translate(-50%, -50%);
 }
 
-div.work-grid a.work-item img, div.work-grid a.work-item video {
+div.work-grid a.work-item img, div.work-grid a.work-item video, div.work-grid a.work-item iframe {
   width: 100%;
   height: 16em;
   -o-object-fit: cover;
      object-fit: cover;
-  -webkit-filter: contrast(95%);
-          filter: contrast(95%);
 }
 
 div.work-grid a.work-item .project-text-container {
@@ -60,42 +57,6 @@ div.work-grid a.work-item .project-text-container {
 
 div.work-grid a.work-item .project-text-container h2 {
   margin-bottom: 0.2em;
-}
-
-div.work-grid a.grid-nav-cta {
-  height: 100%;
-  min-height: 12em;
-  background-color: var(--linkBackgroundColor-fallback);
-  background-color: var(--linkBackgroundColor);
-  position: relative;
-}
-
-div.work-grid a.grid-nav-cta h2 {
-  padding: 10px;
-}
-
-div.work-grid a.grid-nav-cta .icon {
-  margin-top: 0.21em;
-  font-size: 4em;
-  font-weight: bold;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-  transition: -webkit-transform 260ms;
-  transition: transform 260ms;
-  transition: transform 260ms, -webkit-transform 260ms;
-}
-
-div.work-grid a.grid-nav-cta:hover .icon {
-  -webkit-transform: translate(-50%, calc(-50% - 3px));
-          transform: translate(-50%, calc(-50% - 3px));
-}
-
-div.work-grid a.grid-nav-cta:hover .icon.back {
-  -webkit-transform: translate(calc(-50% - 4px), -50%);
-          transform: translate(calc(-50% - 4px), -50%);
 }
 
 div.work-grid a:hover, div.work-grid a.intersected {
