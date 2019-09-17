@@ -1,0 +1,74 @@
+body {
+	background: linear-gradient(-165deg, #FA846E 0%, #FB905F 30%, #FDAB3D 100%) no-repeat;
+	background-attachment: fixed;
+	background-size: 180% 180%;
+	-webkit-animation: Gradient 5s ease infinite;
+	-moz-animation: Gradient 5s ease infinite;
+	animation: Gradient 5s ease infinite;
+	height: 100vh;
+	overflow: hidden;
+}
+
+@-webkit-keyframes Gradient {
+	0% {
+		background-position: 0% 20%
+	}
+	50% {
+		background-position: 100% 20%
+	}
+	100% {
+		background-position: 0% 20%
+	}
+}
+
+@-moz-keyframes Gradient {
+	0% {
+		background-position: 0% 20%
+	}
+	50% {
+		background-position: 100% 20%
+	}
+	100% {
+		background-position: 0% 20%
+	}
+}
+
+@keyframes Gradient {
+	0% {
+		background-position: 0% 20%
+	}
+	50% {
+		background-position: 100% 20%
+	}
+	100% {
+		background-position: 0% 20%
+	}
+}
+
+main {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+}
+
+#logo {
+	transform-style: preserve-3d;
+	margin-bottom: 2vh;
+}
+
+.logo_image {
+	max-width: 85vw;
+	display: block;
+	overflow: visible;
+}
+
+.yellow {
+	transform: translateZ(60px);
+	position: absolute;
+}
+
+.black {
+	transform: translateZ(30px);
+	position: absolute;
+}

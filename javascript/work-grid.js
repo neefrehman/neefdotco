@@ -1,18 +1,18 @@
 const workArray = [
     {
-        iframesrc: "https://studiowave.fm/logo-only/",
+        iframesrc: "/work/studiowave/iframe/",
         url: "https://studiowave.fm",
         title: "studiowave.fm",
         description: "A simple webapp dishing out chillout tunes and inspiration"
     },
     {
-        iframesrc: "https://adventure.ustwo.com/ring.html",
+        iframesrc: "/work/adventurev2/iframe/",
         url: "https://adventure.ustwo.com",
         title: "ustwo Adventure",
         description: "New site and art direction for the investment arm of ustwo"
     },
     {
-        iframesrc: "https://generative.neef.co/130619#no-ui",
+        iframesrc: "/work/generative/iframe/",
         url: "https://generative.neef.co",
         title: "Generative",
         description: "An ongoing series of digital sketches, generated with p5.js"
@@ -22,7 +22,7 @@ const workArray = [
 let workElements = workArray.map(obj => {
     return `
         <a class="work-item" href=${obj.url} target="_blank" rel="noopener noreferrer">
-            <iframe src=${obj.iframesrc} loading="lazy"> </iframe>
+            <iframe class="media" src=${obj.iframesrc} loading="lazy"> </iframe>
             <div class="project-text-container">
                 <h2>${obj.title}</h2>
                 <p>

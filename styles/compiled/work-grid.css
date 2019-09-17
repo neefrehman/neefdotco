@@ -38,9 +38,9 @@ div.work-grid a.work-item::after {
           transform: translate(-50%, -50%);
 }
 
-div.work-grid a.work-item img, div.work-grid a.work-item video, div.work-grid a.work-item iframe {
+div.work-grid a.work-item .media {
   width: 100%;
-  height: 16em;
+  height: 19em;
   -o-object-fit: cover;
      object-fit: cover;
 }
@@ -76,22 +76,23 @@ div.work-grid a:hover .project-text-container, div.work-grid a.intersected .proj
   background-color: var(--textColor);
 }
 
-@media (max-width: 980px) {
+@media (max-width: 1140px) {
   div.work-grid {
-    -ms-grid-columns: (1fr)[3];
-        grid-template-columns: repeat(3, 1fr);
-    grid-gap: 3em;
+    grid-gap: 3.2em;
   }
-  div.work-grid a.work-item img, div.work-grid a.work-item video {
-    height: 15em;
+  div.work-grid a.work-item .media {
+    height: 16em;
   }
 }
 
-@media (max-width: 860px) {
+@media (max-width: 980px) {
   div.work-grid {
     -ms-grid-columns: (1fr)[2];
         grid-template-columns: repeat(2, 1fr);
-    grid-gap: 3.6em;
+    grid-gap: 3.4em;
+  }
+  div.work-grid a.work-item .media {
+    height: 17em;
   }
 }
 
@@ -101,29 +102,25 @@ div.work-grid a:hover .project-text-container, div.work-grid a.intersected .proj
   }
 }
 
-@media (max-width: 560px) {
-  div.work-grid {
-    grid-gap: 2.4em;
-  }
-  div.work-grid a.work-item img, div.work-grid a.work-item video {
-    height: 13.5em;
+@media (max-width: 580px) {
+  div.work-grid a.work-item .media {
+    height: 13em;
   }
 }
 
-@media (max-width: 450px) {
+@media (max-width: 530px) {
   div.work-grid {
     margin-top: 45px;
     -ms-grid-columns: (1fr)[1];
         grid-template-columns: repeat(1, 1fr);
-    grid-gap: 2.6em;
   }
-  div.work-grid a.work-item img, div.work-grid a.work-item video {
-    height: 14.5em;
+  div.work-grid a.work-item .media {
+    height: 18em;
   }
 }
 
-@media (max-width: 380px) {
-  div.work-grid a.work-item img, div.work-grid a.work-item video {
-    height: 13.5em;
+@media (max-width: 400px) {
+  div.work-grid a.work-item .media {
+    height: 15em;
   }
 }
