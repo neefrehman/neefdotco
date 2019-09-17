@@ -29,11 +29,13 @@ div.work-grid {
             .media {
                 width: 100%;
                 height: 19em;
-                object-fit: cover;
+
+                &:not(iframe) {
+                    object-fit: cover;
+                }
             }
 
             .project-text-container {
-                height: 100%;
                 padding: 10px;
                 background-color: var(--linkBackgroundColor-fallback);
                 background-color: var(--linkBackgroundColor);

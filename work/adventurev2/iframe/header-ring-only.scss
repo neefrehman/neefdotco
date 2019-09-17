@@ -54,7 +54,7 @@ header {
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 35vh;
+        height: 40vh;
         width: 45vw;
 
         transform: rotate(-10deg);
@@ -114,7 +114,7 @@ header {
                 font-size: calc(5.5vw * var(--logoScale));
                 font-weight: bold;
                 color: var(--piglet);
-                -webkit-text-stroke: 0.022em var(--piglet);
+                -webkit-text-stroke: 0.0245em var(--piglet);
 
                 transition: opacity 0.2s;
                 &.transition {
@@ -122,7 +122,7 @@ header {
                 }
 
                 $NUMBER_OF_LETTERS: 9;
-                --translateY: calc(-13.5vw * var(--logoScale));
+                --translateY: calc(-13.3vw * var(--logoScale));
 
                 @for $i from 1 through $NUMBER_OF_LETTERS {
                     &:nth-child(#{$i}) {
@@ -200,7 +200,7 @@ header {
 
     header {
         .logo {
-            --logoScale: 1.6;
+            --logoScale: 1.66;
         }
     }
 }
@@ -208,6 +208,12 @@ header {
 @media (max-width: 325px) {
     div.canvas {
         width: 120%;
+    }
+
+    header {
+        .logo {
+            --logoScale: 1.8;
+        }
     }
 }
 

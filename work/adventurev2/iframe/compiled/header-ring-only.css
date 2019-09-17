@@ -59,7 +59,7 @@ header .logo {
           justify-content: center;
   -webkit-box-align: center;
           align-items: center;
-  height: 35vh;
+  height: 40vh;
   width: 45vw;
   -webkit-transform: rotate(-10deg);
           transform: rotate(-10deg);
@@ -146,9 +146,9 @@ header .logo ul li {
   font-size: calc(5.5vw * var(--logoScale));
   font-weight: bold;
   color: var(--piglet);
-  -webkit-text-stroke: 0.022em var(--piglet);
+  -webkit-text-stroke: 0.0245em var(--piglet);
   transition: opacity 0.2s;
-  --translateY: calc(-13.5vw * var(--logoScale));
+  --translateY: calc(-13.3vw * var(--logoScale));
 }
 
 header .logo ul li.transition {
@@ -411,13 +411,16 @@ header .logo ul li:nth-child(7) {
     width: 110%;
   }
   header .logo {
-    --logoScale: 1.6;
+    --logoScale: 1.66;
   }
 }
 
 @media (max-width: 325px) {
   div.canvas {
     width: 120%;
+  }
+  header .logo {
+    --logoScale: 1.8;
   }
 }
 

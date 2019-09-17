@@ -28,9 +28,9 @@ if (matchMedia("(pointer:fine)").matches) {
         item.addEventListener("mouseleave", () => cursor.classList.remove("over"));
     });
 
-    iframes.forEach(item => {
-        item.addEventListener("mouseenter", () => cursor.classList.add("hide"));
-        item.addEventListener("mouseleave", () => cursor.classList.remove("hide"));
+    iframes.forEach(iframe => {
+        iframe.addEventListener("mouseenter", () => cursor.classList.add("hide"));
+        iframe.addEventListener("mouseleave", () => cursor.classList.remove("hide"));
     });
 
     if (darkModeButton) {
