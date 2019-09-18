@@ -45,6 +45,10 @@ main section.info details .see-less-button::selection {
   background: none;
 }
 
+main section.work {
+  margin-bottom: 100px;
+}
+
 @media (max-width: 769px) {
   main section.info div h2 {
     margin-bottom: 1.1em;
