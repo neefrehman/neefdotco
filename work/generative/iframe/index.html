@@ -11,6 +11,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.min.js"> </script>
     <script>
 
+        let mouseLocation;
+        let target;
+        let distance;
+        let resetMouseLocation;
+
+        let mouseHasMoved = false;
+        let lastMouseMovement = 0;
+
         const balls = [];
         class Ball {
             constructor() {
@@ -23,8 +31,8 @@
                 this.xOff += 0.01;
                 this.yOff += 0.01;
 
-                this.x = map(noise(this.xOff), 0, 1, 0, width);
-                this.y = map(noise(this.yOff), 0, 1, 0, height);
+                this.x = mouseLocation.x + map(noise(this.xOff), 0, 1, -width / 2, width / 2);
+                this.y = mouseLocation.y + map(noise(this.yOff), 0, 1, -height / 2, height / 2);
 
                 ellipse(this.x, this.y, this.r);
             }
@@ -47,13 +55,18 @@
             for (let i = 0; i < 3; i++) {
                 balls.push(new Ball());
             }
+
+            resetMouseLocation = () => mouseLocation = createVector(width / 2, height / 2);
+
+            target = createVector(width / 2, height / 2);
+            resetMouseLocation();
         };
 
         draw = () => {
             background(20);
 
-            if (frameCount % 400 == 0) {
-                if (balls.length < 8) balls.push(new Ball());
+            if (frameCount % 360 == 0) {
+                if (balls.length < width / 40) balls.push(new Ball());
             }
 
             for (const ball of balls) {
@@ -66,6 +79,26 @@
                     }
                 }
             }
+
+            if (mouseHasMoved) {
+                target = lastMouseMovement < frameCount - 100
+                    ? createVector(width / 2, height / 2)
+                    : createVector(mouseX, mouseY);
+            } else {
+                resetMouseLocation();
+            }
+            
+            distance = target.dist(mouseLocation);
+            target.sub(mouseLocation);
+            target.normalize();
+            const mappedDistance = map(distance, 100, 0, 5, 0.5);
+            target.mult(mappedDistance);
+            mouseLocation.add(target);
+        };
+
+        mouseMoved = () => {
+            mouseHasMoved = true;
+            lastMouseMovement = frameCount;
         };
         
         windowResized = () => resizeCanvas(windowWidth, windowHeight);

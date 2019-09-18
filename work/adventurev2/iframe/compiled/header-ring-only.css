@@ -7,7 +7,7 @@ body {
   overflow: hidden;
 }
 
-div.canvas {
+div.browser {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -21,17 +21,17 @@ div.canvas {
   border-radius: 0;
 }
 
-div.canvas .canvas-inner {
+div.browser .browser-inner {
   box-shadow: rgba(0, 0, 0, 0.2) 0 10px 60px 0;
   border-radius: 8px;
 }
 
-div.canvas .canvas-inner svg {
+div.browser .browser-inner svg {
   border-radius: 8px 8px 0 0;
   background-color: #e8e8e8;
 }
 
-div.canvas .canvas-inner img.white-bg {
+div.browser .browser-inner img.white-bg {
   margin: -5px 0;
   border-radius: 0 0 8px 8px;
   width: 100%;
@@ -390,12 +390,12 @@ header .logo ul li:nth-child(7) {
 }
 
 @media (max-width: 769px) {
-  div.canvas {
+  div.browser {
     width: 100%;
     -webkit-transform: translate(-50%, -34%);
             transform: translate(-50%, -34%);
   }
-  div.canvas .canvas-inner img.white-bg {
+  div.browser .browser-inner img.white-bg {
     height: 60vh;
   }
   header {
@@ -407,7 +407,7 @@ header .logo ul li:nth-child(7) {
 }
 
 @media (max-width: 425px) {
-  div.canvas {
+  div.browser {
     width: 110%;
   }
   header .logo {
@@ -416,7 +416,7 @@ header .logo ul li:nth-child(7) {
 }
 
 @media (max-width: 325px) {
-  div.canvas {
+  div.browser {
     width: 120%;
   }
   header .logo {
@@ -425,7 +425,7 @@ header .logo ul li:nth-child(7) {
 }
 
 @media (max-width: 270px) {
-  div.canvas {
+  div.browser {
     width: 130%;
   }
 }

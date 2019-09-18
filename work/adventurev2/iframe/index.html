@@ -12,8 +12,8 @@
     <a href="https://adventure.ustwo.com" target="_blank" rel="noreferrer noopener" style="width: 100%; height: 100%; position: fixed;"> </a>
 
     <a href="https://adventure.ustwo.com" target="_blank" rel="noreferrer noopener">
-        <div class="canvas">
-            <div class="canvas-inner">
+        <div class="browser">
+            <div class="browser-inner">
                 <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 449 32" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <g fill="none" fill-rule="nonzero">
                         <rect width="100%" fill="#e8e8e8"> </rect>
@@ -45,10 +45,10 @@
     </header>
 
     <script>
-        const canvasInner = document.querySelector(".canvas-inner");
+        const browserWhiteBackground = document.querySelector(".white-bg");
         const logo = document.querySelector(".logo");
-        canvasInner.addEventListener("mouseenter", () => logo.classList.add("rotate"));
-        canvasInner.addEventListener("mouseleave", () => logo.classList.remove("rotate"));
+        browserWhiteBackground.addEventListener("mouseenter", () => logo.classList.add("rotate"));
+        browserWhiteBackground.addEventListener("mouseleave", () => logo.classList.remove("rotate"));
     </script>
 </body>
 </html>

@@ -8,7 +8,7 @@ body {
     overflow: hidden;
 }
 
-div.canvas {
+div.browser {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -21,7 +21,7 @@ div.canvas {
     box-sizing: border-box;
     border-radius: 0;
 
-    .canvas-inner {
+    .browser-inner {
         box-shadow: rgba(0, 0, 0, 0.2) 0 10px 60px 0;
         border-radius: 8px;
 
@@ -176,11 +176,11 @@ header {
 }
 
 @media (max-width: 769px) {
-    div.canvas {
+    div.browser {
         width: 100%;
         transform: translate(-50%, -34%);
 
-        .canvas-inner img.white-bg {
+        .browser-inner img.white-bg {
             height: 60vh;
         }
     }
@@ -195,7 +195,7 @@ header {
 }
 
 @media (max-width: 425px) {
-    div.canvas {
+    div.browser {
         width: 110%;
     }
 
@@ -207,7 +207,7 @@ header {
 }
 
 @media (max-width: 325px) {
-    div.canvas {
+    div.browser {
         width: 120%;
     }
 
@@ -219,7 +219,7 @@ header {
 }
 
 @media (max-width: 270px) {
-    div.canvas {
+    div.browser {
         width: 130%;
     }
 }
