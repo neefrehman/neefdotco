@@ -1,4 +1,5 @@
 body {
+	margin: 0;
 	background: linear-gradient(-165deg, #FA846E 0%, #FB905F 30%, #FDAB3D 100%) no-repeat;
 	background-attachment: fixed;
 	background-size: 180% 180%;
@@ -55,10 +56,11 @@ main {
 #logo {
 	transform-style: preserve-3d;
 	margin-bottom: 2vh;
+	padding: 4%;
 }
 
 .logo_image {
-	max-width: 85vw;
+	max-width: 83vw;
 	display: block;
 	overflow: visible;
 }

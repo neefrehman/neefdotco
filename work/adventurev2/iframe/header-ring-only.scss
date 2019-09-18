@@ -51,6 +51,8 @@ header {
     margin-top: 1.5%;
 
     .logo {
+        position: fixed;
+        z-index: 10;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -72,11 +74,11 @@ header {
 
         &:hover {
             transform: rotate(335deg);
-            transition: transform 16s cubic-bezier(0.6, 0, 0.5, 1);
+            transition: transform 15s cubic-bezier(0.6, 0, 0.5, 1);
 
             img {
                 transform: rotate(-335deg);
-                transition: transform 16s cubic-bezier(0.6, 0, 0.5, 1);
+                transition: transform 15s cubic-bezier(0.6, 0, 0.5, 1);
             }
 
             @media (pointer: coarse) {

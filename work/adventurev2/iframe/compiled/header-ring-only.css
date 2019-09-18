@@ -53,6 +53,8 @@ header {
 }
 
 header .logo {
+  position: fixed;
+  z-index: 10;
   display: -webkit-box;
   display: flex;
   -webkit-box-pack: center;
@@ -82,17 +84,17 @@ header .logo img {
 header .logo:hover {
   -webkit-transform: rotate(335deg);
           transform: rotate(335deg);
-  transition: -webkit-transform 16s cubic-bezier(0.6, 0, 0.5, 1);
-  transition: transform 16s cubic-bezier(0.6, 0, 0.5, 1);
-  transition: transform 16s cubic-bezier(0.6, 0, 0.5, 1), -webkit-transform 16s cubic-bezier(0.6, 0, 0.5, 1);
+  transition: -webkit-transform 15s cubic-bezier(0.6, 0, 0.5, 1);
+  transition: transform 15s cubic-bezier(0.6, 0, 0.5, 1);
+  transition: transform 15s cubic-bezier(0.6, 0, 0.5, 1), -webkit-transform 15s cubic-bezier(0.6, 0, 0.5, 1);
 }
 
 header .logo:hover img {
   -webkit-transform: rotate(-335deg);
           transform: rotate(-335deg);
-  transition: -webkit-transform 16s cubic-bezier(0.6, 0, 0.5, 1);
-  transition: transform 16s cubic-bezier(0.6, 0, 0.5, 1);
-  transition: transform 16s cubic-bezier(0.6, 0, 0.5, 1), -webkit-transform 16s cubic-bezier(0.6, 0, 0.5, 1);
+  transition: -webkit-transform 15s cubic-bezier(0.6, 0, 0.5, 1);
+  transition: transform 15s cubic-bezier(0.6, 0, 0.5, 1);
+  transition: transform 15s cubic-bezier(0.6, 0, 0.5, 1), -webkit-transform 15s cubic-bezier(0.6, 0, 0.5, 1);
 }
 
 @media (pointer: coarse) {
