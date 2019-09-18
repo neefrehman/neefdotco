@@ -91,7 +91,7 @@
             distance = target.dist(mouseLocation);
             target.sub(mouseLocation);
             target.normalize();
-            const mappedDistance = map(distance, 100, 0, 5, 0.5);
+            const mappedDistance = map(distance, 100, 0, 6, 0.5);
             target.mult(mappedDistance);
             mouseLocation.add(target);
         };
