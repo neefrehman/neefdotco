@@ -3,35 +3,9 @@ body {
 	background: linear-gradient(-165deg, #FA846E 0%, #FB905F 30%, #FDAB3D 100%) no-repeat;
 	background-attachment: fixed;
 	background-size: 180% 180%;
-	-webkit-animation: Gradient 6s ease infinite;
-	-moz-animation: Gradient 6s ease infinite;
 	animation: Gradient 6s ease infinite;
 	height: 100vh;
 	overflow: hidden;
-}
-
-@-webkit-keyframes Gradient {
-	0% {
-		background-position: 0% 33%
-	}
-	50% {
-		background-position: 100% 33%
-	}
-	100% {
-		background-position: 0% 33%
-	}
-}
-
-@-moz-keyframes Gradient {
-	0% {
-		background-position: 0% 33%
-	}
-	50% {
-		background-position: 100% 33%
-	}
-	100% {
-		background-position: 0% 33%
-	}
 }
 
 @keyframes Gradient {
