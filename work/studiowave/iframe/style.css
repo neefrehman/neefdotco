@@ -40,11 +40,11 @@ main {
 }
 
 .yellow {
-	transform: translateZ(60px);
+	transform: translateZ(50px);
 	position: absolute;
 }
 
 .black {
-	transform: translateZ(30px);
+	transform: translateZ(25px);
 	position: absolute;
 }
