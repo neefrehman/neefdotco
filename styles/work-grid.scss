@@ -59,6 +59,10 @@ div.work-grid {
             .project-text-container {
                 transform: translate(0, -1.5px);
                 background-color: var(--textColor);
+
+                h2, p {
+                    color: var(--backgroundColor);
+                }
             }
         }
     }

@@ -78,6 +78,10 @@ div.work-grid a:hover .project-text-container, div.work-grid a.intersected .proj
   background-color: var(--textColor);
 }
 
+div.work-grid a:hover .project-text-container h2, div.work-grid a:hover .project-text-container p, div.work-grid a.intersected .project-text-container h2, div.work-grid a.intersected .project-text-container p {
+  color: var(--backgroundColor);
+}
+
 @media (max-width: 1140px) {
   div.work-grid {
     grid-gap: 3.2em;
