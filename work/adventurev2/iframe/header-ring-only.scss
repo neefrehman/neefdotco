@@ -74,11 +74,11 @@ header {
 
         &:hover {
             transform: rotate(335deg);
-            transition: transform 15s cubic-bezier(0.6, 0, 0.5, 1);
+            transition: transform 15s cubic-bezier(0.5, 0, 0.5, 1);
 
             img {
                 transform: rotate(-335deg);
-                transition: transform 15s cubic-bezier(0.6, 0, 0.5, 1);
+                transition: transform 15s cubic-bezier(0.5, 0, 0.5, 1);
             }
 
             @media (pointer: coarse) {
