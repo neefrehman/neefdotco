@@ -9,21 +9,23 @@
 </head>
 
 <body>
-    <a href="https://adventure.ustwo.com" target="_blank" rel="noreferrer noopener" style="width: 100%; height: 100%; position: fixed; z-index: 5;"> </a>
+    <a href="https://adventure.ustwo.com" target="_blank" rel="noreferrer noopener" style="width: 100%; height: 100%; position: fixed;"> </a>
 
-    <div class="canvas">
-        <div class="canvas-inner">
-            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 449 32" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <g fill="none" fill-rule="nonzero">
-                    <rect width="100%" fill="#e8e8e8"> </rect>
-                    <circle fill="#FF5F56" cx="20" cy="17" r="6"> </circle>
-                    <circle fill="#FFBD2E" cx="40" cy="17" r="6"> </circle>
-                    <circle fill="#27C93F" cx="60" cy="17" r="6"> </circle>
-                </g>
-            </svg>
-            <img class="white-bg" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+ip1sAAAAASUVORK5CYII=" alt>
+    <a href="https://adventure.ustwo.com" target="_blank" rel="noreferrer noopener">
+        <div class="canvas">
+            <div class="canvas-inner">
+                <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 449 32" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <g fill="none" fill-rule="nonzero">
+                        <rect width="100%" fill="#e8e8e8"> </rect>
+                        <circle fill="#FF5F56" cx="20" cy="17" r="6"> </circle>
+                        <circle fill="#FFBD2E" cx="40" cy="17" r="6"> </circle>
+                        <circle fill="#27C93F" cx="60" cy="17" r="6"> </circle>
+                    </g>
+                </svg>
+                <img class="white-bg" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+ip1sAAAAASUVORK5CYII=" alt>
+            </div>
         </div>
-    </div>
+    </a>
 
     <header>
         <a class="logo" href="https://adventure.ustwo.com" target="_blank" rel="noreferrer noopener">
@@ -41,5 +43,12 @@
             </ul>
         </a>
     </header>
+
+    <script>
+        const canvasInner = document.querySelector(".canvas-inner");
+        const logo = document.querySelector(".logo");
+        canvasInner.addEventListener("mouseenter", () => logo.classList.add("rotate"));
+        canvasInner.addEventListener("mouseleave", () => logo.classList.remove("rotate"));
+    </script>
 </body>
 </html>

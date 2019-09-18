@@ -53,8 +53,6 @@ header {
 }
 
 header .logo {
-  position: fixed;
-  z-index: 10;
   display: -webkit-box;
   display: flex;
   -webkit-box-pack: center;
@@ -81,28 +79,28 @@ header .logo img {
   transition: transform 9s, -webkit-transform 9s;
 }
 
-header .logo:hover {
+header .logo:hover, header .logo.rotate {
   -webkit-transform: rotate(335deg);
           transform: rotate(335deg);
-  transition: -webkit-transform 15s cubic-bezier(0.5, 0, 0.5, 1);
-  transition: transform 15s cubic-bezier(0.5, 0, 0.5, 1);
-  transition: transform 15s cubic-bezier(0.5, 0, 0.5, 1), -webkit-transform 15s cubic-bezier(0.5, 0, 0.5, 1);
+  transition: -webkit-transform 15s cubic-bezier(0.4, 0, 0.5, 1);
+  transition: transform 15s cubic-bezier(0.4, 0, 0.5, 1);
+  transition: transform 15s cubic-bezier(0.4, 0, 0.5, 1), -webkit-transform 15s cubic-bezier(0.4, 0, 0.5, 1);
 }
 
-header .logo:hover img {
+header .logo:hover img, header .logo.rotate img {
   -webkit-transform: rotate(-335deg);
           transform: rotate(-335deg);
-  transition: -webkit-transform 15s cubic-bezier(0.5, 0, 0.5, 1);
-  transition: transform 15s cubic-bezier(0.5, 0, 0.5, 1);
-  transition: transform 15s cubic-bezier(0.5, 0, 0.5, 1), -webkit-transform 15s cubic-bezier(0.5, 0, 0.5, 1);
+  transition: -webkit-transform 15s cubic-bezier(0.4, 0, 0.5, 1);
+  transition: transform 15s cubic-bezier(0.4, 0, 0.5, 1);
+  transition: transform 15s cubic-bezier(0.4, 0, 0.5, 1), -webkit-transform 15s cubic-bezier(0.4, 0, 0.5, 1);
 }
 
 @media (pointer: coarse) {
-  header .logo:hover {
+  header .logo:hover, header .logo.rotate {
     -webkit-transform: rotate(10deg);
             transform: rotate(10deg);
   }
-  header .logo:hover img {
+  header .logo:hover img, header .logo.rotate img {
     -webkit-transform: rotate(-10deg);
             transform: rotate(-10deg);
   }
@@ -150,7 +148,7 @@ header .logo ul li {
   color: var(--piglet);
   -webkit-text-stroke: 0.0245em var(--piglet);
   transition: opacity 0.2s;
-  --translateY: calc(-13.3vw * var(--logoScale));
+  --translateY: calc(-13vw * var(--logoScale));
 }
 
 header .logo ul li.transition {
@@ -413,7 +411,7 @@ header .logo ul li:nth-child(7) {
     width: 110%;
   }
   header .logo {
-    --logoScale: 1.66;
+    --logoScale: 1.75;
   }
 }
 
@@ -422,7 +420,7 @@ header .logo ul li:nth-child(7) {
     width: 120%;
   }
   header .logo {
-    --logoScale: 1.8;
+    --logoScale: 1.9;
   }
 }
 

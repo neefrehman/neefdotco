@@ -68,11 +68,7 @@
             }
         };
         
-        windowResized = () => {
-            if (!canvas.classList.contains("not-full-screen")) {
-                resizeCanvas(windowWidth, windowHeight);
-            }
-        };
+        windowResized = () => resizeCanvas(windowWidth, windowHeight);
 
     </script>
 </body>
