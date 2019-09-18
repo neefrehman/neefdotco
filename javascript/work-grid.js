@@ -22,7 +22,7 @@ const workArray = [
 let workElements = workArray.map(obj => {
     return `
         <a class="work-item" href=${obj.url} target="_blank" rel="noopener noreferrer">
-            <iframe class="media" src=${obj.iframesrc} title=${obj.description} loading="lazy"> </iframe>
+            <iframe class="media" src=${obj.iframesrc} title="embedded iframe" loading="lazy"> </iframe>
             <div class="project-text-container">
                 <h2>${obj.title}</h2>
                 <p>
