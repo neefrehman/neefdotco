@@ -39,6 +39,10 @@ main {
 	overflow: visible;
 }
 
+.purple {
+	max-width: 83.4vw;
+}
+
 .yellow {
 	transform: translateZ(50px);
 	position: absolute;
