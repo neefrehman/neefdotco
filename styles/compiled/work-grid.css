@@ -85,10 +85,11 @@ div.work-grid a:hover .project-text-container h2, div.work-grid a:hover .project
 
 div.work-grid a:hover .project-text-container h2::after, div.work-grid a.intersected .project-text-container h2::after {
   content: "↗";
-  font-size: 0.76em;
+  font-size: 0.74em;
   vertical-align: top;
   display: inline-block;
   margin-left: 0.3em;
+  margin-top: -3px;
 }
 
 @media (max-width: 1140px) {
