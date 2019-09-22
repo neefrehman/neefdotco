@@ -1,3 +1,4 @@
+@charset "UTF-8";
 div.work-grid {
   margin-top: 60px;
   display: -ms-grid;
@@ -80,6 +81,14 @@ div.work-grid a:hover .project-text-container, div.work-grid a.intersected .proj
 
 div.work-grid a:hover .project-text-container h2, div.work-grid a:hover .project-text-container p, div.work-grid a.intersected .project-text-container h2, div.work-grid a.intersected .project-text-container p {
   color: var(--backgroundColor);
+}
+
+div.work-grid a:hover .project-text-container h2::after, div.work-grid a.intersected .project-text-container h2::after {
+  content: "↗";
+  font-size: 0.76em;
+  vertical-align: top;
+  display: inline-block;
+  margin-left: 0.3em;
 }
 
 @media (max-width: 1140px) {
