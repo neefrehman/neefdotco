@@ -63,15 +63,6 @@ div.work-grid {
                 h2, p {
                     color: var(--backgroundColor);
                 }
-
-                h2::after {
-                    content: "↗";
-                    font-size: 0.74em;
-                    vertical-align: top;
-                    display: inline-block;
-                    margin-left: 0.3em;
-                    margin-top: -3px;
-                }
             }
         }
     }
