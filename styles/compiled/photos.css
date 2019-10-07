@@ -73,7 +73,7 @@ main.photo-container div {
 
 main.photo-container div.grid {
   background-attachment: initial;
-  margin: 95px 40px;
+  margin: 100px 42px;
   width: calc(325px + var(--y));
   height: calc(262px + var(--x));
   -webkit-transform: translate(var(--x), calc(var(--y) * 1.15));
@@ -99,7 +99,7 @@ main.photo-container div.grid.zoom {
 
 @media (min-width: 1520px) {
   main.photo-container div.grid {
-    margin: 100px 50px;
+    margin: 110px 50px;
     width: calc(335px + var(--y));
     height: calc(270px + var(--x));
   }
