@@ -70,7 +70,7 @@ body header nav a:not(:last-child) {
   margin-right: 0.66em;
 }
 
-body h1, body h2, body b {
+body h1, body h2, body h3, body b {
   font-weight: bold;
 }
 
