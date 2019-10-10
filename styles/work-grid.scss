@@ -36,13 +36,17 @@ div.work-grid {
             }
 
             .project-text-container {
-                padding: 10px;
+                padding: 10px 12px;
                 background-color: var(--linkBackgroundColor-fallback);
                 background-color: var(--linkBackgroundColor);
                 transition: transform 260ms;
 
                 h2 {
-                    margin-bottom: 0.2em;
+                    margin-bottom: 0.3em;
+                }
+
+                p {
+                    font-family: monospace;
                 }
             }
         }

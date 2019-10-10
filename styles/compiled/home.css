@@ -17,7 +17,7 @@ main section.info div:not(:last-child) {
 }
 
 main section.info div h2 {
-  margin-bottom: 1.3em;
+  margin-bottom: 1.2em;
 }
 
 main section.info div p:not(:last-child) {

@@ -49,7 +49,7 @@ div.work-grid a.work-item .media:not(iframe) {
 }
 
 div.work-grid a.work-item .project-text-container {
-  padding: 10px;
+  padding: 10px 12px;
   background-color: var(--linkBackgroundColor-fallback);
   background-color: var(--linkBackgroundColor);
   transition: -webkit-transform 260ms;
@@ -58,7 +58,11 @@ div.work-grid a.work-item .project-text-container {
 }
 
 div.work-grid a.work-item .project-text-container h2 {
-  margin-bottom: 0.2em;
+  margin-bottom: 0.3em;
+}
+
+div.work-grid a.work-item .project-text-container p {
+  font-family: monospace;
 }
 
 div.work-grid a:hover, div.work-grid a.intersected {
