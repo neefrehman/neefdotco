@@ -15,7 +15,7 @@ const workArray = [
         iframesrc: "/work/generative/iframe/",
         url: "https://generative.neef.co",
         title: "Generative",
-        description: "An ongoing series of digital sketches, generated with p5.js"
+        description: "An ongoing digital sketch series, generated with JavaScript"
     }
 ];
 
