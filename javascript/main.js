@@ -48,22 +48,6 @@ if (seeLessButton) {
     });
 }
 
-// Devicemotion
-// const colons = document.querySelectorAll("span.translate");
-// if (colons && window.innerWidth < 497 && window.DeviceMotionEvent) {
-//     window.addEventListener("devicemotion", e => {
-//         const deviceTilt = (window.innerHeight > window.innerWidth)
-//             ? e.accelerationIncludingGravity.x
-//             : e.accelerationIncludingGravity.y;
-//         const stretchValue = Math.abs(deviceTilt) * 2;
-
-//         colons.forEach(colon => {
-//             colon.style.transform = `translate(${stretchValue}px)`;
-//         });
-//     });
-// }
-
-// Console log
 console.log(
     "Nothing here. Hope you weren't looking for something cool. ¯\\_(ツ)_/¯"
 );
