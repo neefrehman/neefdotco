@@ -63,21 +63,12 @@ main.photo-container div {
   -webkit-filter: contrast(88%);
           filter: contrast(88%);
   background-color: rgba(130, 130, 130, 0.1);
-  -webkit-transition: -webkit-filter 500ms 100ms;
-  transition: -webkit-filter 500ms 100ms;
-  transition: filter 500ms 100ms;
-  transition: filter 500ms 100ms, -webkit-filter 500ms 100ms;
 }
 
 @media (pointer: coarse) {
   main.photo-container div {
     background-attachment: initial;
   }
-}
-
-main.photo-container div[data-src] {
-  -webkit-filter: contrast(10%) brightness(50%);
-          filter: contrast(10%) brightness(50%);
 }
 
 main.photo-container div.grid {

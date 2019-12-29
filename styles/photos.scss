@@ -56,14 +56,9 @@ main.photo-container {
         background-attachment: fixed;
         filter: contrast(88%);
         background-color: rgba(130, 130, 130, 0.1);
-        transition: filter 500ms 100ms;
 
         @media (pointer: coarse) {
             background-attachment: initial;
-        }
-
-        &[data-src] {
-            filter: contrast(10%) brightness(50%);
         }
 
         &.grid {
