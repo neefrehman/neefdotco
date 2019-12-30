@@ -123,7 +123,7 @@ header {
 
                 $NUMBER_OF_LETTERS: 9;
 
-                --translateY: calc(-13vw * var(--logoScale));
+                --translateY: calc(-12.7vw * var(--logoScale));
 
                 @for $i from 1 through $NUMBER_OF_LETTERS {
                     &:nth-child(#{$i}) {
