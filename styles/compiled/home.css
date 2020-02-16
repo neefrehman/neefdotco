@@ -1,3 +1,13 @@
+header h1 {
+  text-align: justify;
+  text-align-last: justify;
+  text-transform: uppercase;
+}
+
+header h1 a {
+  display: contents;
+}
+
 main section {
   margin-bottom: 80px;
 }
@@ -17,12 +27,21 @@ main section.info div:not(:last-child) {
 }
 
 main section.info div h2 {
-  margin-bottom: 1.2em;
+  margin-bottom: 1em;
+}
+
+main section.info div p {
+  margin-right: 80px;
 }
 
 main section.info div p:not(:last-child) {
-  margin-right: 80px;
   margin-bottom: 0.55em;
+}
+
+@media (max-width: 400px) {
+  main section.info div p {
+    margin-right: 0;
+  }
 }
 
 main section.info details summary {
@@ -37,10 +56,6 @@ main section.info details[open] summary {
   display: none;
 }
 
-main section.info details .see-less-button::-moz-selection {
-  background: none;
-}
-
 main section.info details .see-less-button::selection {
   background: none;
 }
@@ -51,6 +66,6 @@ main section.work {
 
 @media (max-width: 769px) {
   main section.info div h2 {
-    margin-bottom: 1.1em;
+    margin-bottom: 0.8em;
   }
 }

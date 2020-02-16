@@ -1,5 +1,16 @@
-main {
+header {
+    h1 {
+        text-align: justify;
+        text-align-last: justify;
+        text-transform: uppercase;
 
+        a {
+            display: contents;
+        }
+    }
+}
+
+main {
     section {
         margin-bottom: 80px;
     }
@@ -17,12 +28,19 @@ main {
             }
 
             h2 {
-                margin-bottom: 1.2em;
+                margin-bottom: 1em;
             }
 
-            p:not(:last-child) {
+            p {
                 margin-right: 80px;
-                margin-bottom: 0.55em;
+
+                &:not(:last-child) {
+                    margin-bottom: 0.55em;
+                }
+
+                @media (max-width: 400px) {
+                    margin-right: 0;
+                }
             }
         }
 
@@ -56,7 +74,7 @@ main {
         section.info {
             div {
                 h2 {
-                    margin-bottom: 1.1em;
+                    margin-bottom: 0.8em;
                 }
             }
         }

@@ -14,7 +14,7 @@
 
 :root {
     --textColor: #333333;
-    --backgroundColor: #ffffff;
+    --backgroundColor: #f8f8f8;
     --linkBackgroundColor-fallback: #4a4a4a;
     --linkBackgroundColor: rgba(225, 225, 225, 0.8);
     --oppositeModeBackground: #212121;
@@ -55,10 +55,6 @@ body {
 
         nav {
             margin-top: 15px;
-
-            a:not(:last-child) {
-                margin-right: 0.66em;
-            }
         }
     }
 
@@ -69,14 +65,15 @@ body {
     h1 {
         font-size: 3em;
         line-height: 1.2;
-        margin-right: 1em;
         margin-bottom: 12px;
-        transform: scale(1.02, 1);
-        transform-origin: left;
+
+        nav {
+            display: inline;
+        }
     }
 
     h2, h3 {
-        font-size: 1.34em;
+        font-size: 1.44em;
     }
 
     p {
@@ -107,14 +104,14 @@ body {
             &:hover {
                 background-color: var(--textColor);
             }
+        }
 
-            &.dark-mode-button {
-                &::before {
-                    content: "dark";
-                }
-                @at-root :root.dark .dark-mode-button::before {
-                    content: "light";
-                }
+        &.dark-mode-button {
+            &::before {
+                content: "dark";
+            }
+            @at-root :root.dark .dark-mode-button::before {
+                content: "light";
             }
         }
 

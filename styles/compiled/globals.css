@@ -14,7 +14,7 @@
 
 :root {
   --textColor: #333333;
-  --backgroundColor: #ffffff;
+  --backgroundColor: #f8f8f8;
   --linkBackgroundColor-fallback: #4a4a4a;
   --linkBackgroundColor: rgba(225, 225, 225, 0.8);
   --oppositeModeBackground: #212121;
@@ -42,12 +42,9 @@ body {
   color: var(--textColor);
   background-color: var(--backgroundColor);
   -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
           text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
-}
-
-body *::-moz-selection:not(.see-less-button) {
-  color: #f4cb3d;
 }
 
 body *::selection:not(.see-less-button) {
@@ -66,10 +63,6 @@ body header nav {
   margin-top: 15px;
 }
 
-body header nav a:not(:last-child) {
-  margin-right: 0.66em;
-}
-
 body h1, body h2, body h3, body b {
   font-weight: bold;
 }
@@ -77,16 +70,15 @@ body h1, body h2, body h3, body b {
 body h1 {
   font-size: 3em;
   line-height: 1.2;
-  margin-right: 1em;
   margin-bottom: 12px;
-  -webkit-transform: scale(1.02, 1);
-          transform: scale(1.02, 1);
-  -webkit-transform-origin: left;
-          transform-origin: left;
+}
+
+body h1 nav {
+  display: inline;
 }
 
 body h2, body h3 {
-  font-size: 1.34em;
+  font-size: 1.44em;
 }
 
 body p {
@@ -121,7 +113,7 @@ body a.button:hover, body a:visited.button:hover {
   background-color: var(--textColor);
 }
 
-body a.button.dark-mode-button::before, body a:visited.button.dark-mode-button::before {
+body a.dark-mode-button::before, body a:visited.dark-mode-button::before {
   content: "dark";
 }
 
