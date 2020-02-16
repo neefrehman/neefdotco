@@ -77,6 +77,10 @@ body h1 nav {
   display: inline;
 }
 
+body h1 a {
+  text-decoration: underline;
+}
+
 body h2, body h3 {
   font-size: 1.44em;
 }
