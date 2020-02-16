@@ -47,7 +47,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-body *::selection:not(.see-less-button) {
+body *::selection {
   color: #f4cb3d;
 }
 
@@ -73,16 +73,8 @@ body h1 {
   margin-bottom: 12px;
 }
 
-body h1 nav {
-  display: inline;
-}
-
-body h1 a {
-  text-decoration: underline;
-}
-
 body h2, body h3 {
-  font-size: 1.44em;
+  font-size: 1.54em;
 }
 
 body p {

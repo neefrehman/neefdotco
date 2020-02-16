@@ -3,44 +3,42 @@ header {
         text-align: justify;
         text-align-last: justify;
         text-transform: uppercase;
-
+ 
         a {
-            display: contents;
+            display: initial;
+        }
+        
+        nav {
+            display: inline;
+        }
+
+        &::after{
+            content: "";
+            display: inline-block;
+            width: 100%;
         }
     }
 }
 
 main {
-    section {
-        margin-bottom: 80px;
-    }
-
     section.info {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 3.6em;
 
         margin-bottom: 105px;
 
         div {
-            &:not(:last-child) {
-                margin-bottom: 40px;
-            }
-
             h2 {
-                margin-bottom: 1em;
+                margin-bottom: 0.9em;
+
+                @media (max-width: 769px) {
+                    margin-bottom: 0.8em;
+                }
             }
 
-            p {
-                margin-right: 80px;
-
-                &:not(:last-child) {
-                    margin-bottom: 0.55em;
-                }
-
-                @media (max-width: 400px) {
-                    margin-right: 0;
-                }
+            p:not(:last-child) {
+                margin-bottom: 0.8em;
             }
         }
 
@@ -59,24 +57,29 @@ main {
 
             .see-less-button::selection {
                 background: none;
+                color: var(--textColor);
             }
+        }
+
+        @media (max-width: 1140px) {
+            grid-gap: 3.2em;
+        }
+
+        @media (max-width: 980px) {
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 3.4em;
+        }
+
+        @media (max-width: 700px) {
+            grid-gap: 2.8em;
+        }
+
+        @media (max-width: 530px) {
+            grid-template-columns: repeat(1, 1fr);
         }
     }
 
     section.work {
         margin-bottom: 100px;
-    }
-
-
-
-
-    @media (max-width: 769px) {
-        section.info {
-            div {
-                h2 {
-                    margin-bottom: 0.8em;
-                }
-            }
-        }
     }
 }

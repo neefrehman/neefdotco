@@ -5,43 +5,38 @@ header h1 {
 }
 
 header h1 a {
-  display: contents;
+  display: initial;
 }
 
-main section {
-  margin-bottom: 80px;
+header h1 nav {
+  display: inline;
+}
+
+header h1::after {
+  content: "";
+  display: inline-block;
+  width: 100%;
 }
 
 main section.info {
-  display: -webkit-box;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-          flex-direction: row;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 3.6em;
   margin-bottom: 105px;
 }
 
-main section.info div:not(:last-child) {
-  margin-bottom: 40px;
-}
-
 main section.info div h2 {
-  margin-bottom: 1em;
+  margin-bottom: 0.9em;
 }
 
-main section.info div p {
-  margin-right: 80px;
+@media (max-width: 769px) {
+  main section.info div h2 {
+    margin-bottom: 0.8em;
+  }
 }
 
 main section.info div p:not(:last-child) {
-  margin-bottom: 0.55em;
-}
-
-@media (max-width: 400px) {
-  main section.info div p {
-    margin-right: 0;
-  }
+  margin-bottom: 0.8em;
 }
 
 main section.info details summary {
@@ -58,14 +53,34 @@ main section.info details[open] summary {
 
 main section.info details .see-less-button::selection {
   background: none;
+  color: var(--textColor);
+}
+
+@media (max-width: 1140px) {
+  main section.info {
+    grid-gap: 3.2em;
+  }
+}
+
+@media (max-width: 980px) {
+  main section.info {
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 3.4em;
+  }
+}
+
+@media (max-width: 700px) {
+  main section.info {
+    grid-gap: 2.8em;
+  }
+}
+
+@media (max-width: 530px) {
+  main section.info {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
 
 main section.work {
   margin-bottom: 100px;
-}
-
-@media (max-width: 769px) {
-  main section.info div h2 {
-    margin-bottom: 0.8em;
-  }
 }

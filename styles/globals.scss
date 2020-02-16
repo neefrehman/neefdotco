@@ -42,7 +42,7 @@ body {
     text-size-adjust: 100%;
     -webkit-font-smoothing: antialiased;
 
-    *::selection:not(.see-less-button) {
+    *::selection {
         color: #f4cb3d;
     }
 
@@ -66,19 +66,10 @@ body {
         font-size: 3em;
         line-height: 1.2;
         margin-bottom: 12px;
-
-        nav {
-            display: inline;
-        }
-
-        a {
-            // TODO: fix for mobile
-            text-decoration: underline;
-        }
     }
 
     h2, h3 {
-        font-size: 1.44em;
+        font-size: 1.54em;
     }
 
     p {
