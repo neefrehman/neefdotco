@@ -22,7 +22,7 @@
 }
 
 .cursor-container .cursor {
-  background-color: #757575;
+  background-color: var(--midGrey);
   -webkit-transition: -webkit-transform 430ms cubic-bezier(1, 0.1, 0.1, 1);
   transition: -webkit-transform 430ms cubic-bezier(1, 0.1, 0.1, 1);
   transition: transform 430ms cubic-bezier(1, 0.1, 0.1, 1);

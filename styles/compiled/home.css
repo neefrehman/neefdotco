@@ -26,7 +26,9 @@ main section.info {
 }
 
 main section.info div h2 {
-  margin-bottom: 0.9em;
+  font-size: 1.34em;
+  margin-bottom: 1.2em;
+  color: var(--midGrey);
 }
 
 @media (max-width: 769px) {
@@ -35,12 +37,22 @@ main section.info div h2 {
   }
 }
 
+main section.info div p {
+  font-size: 1.34em;
+  font-weight: bold;
+  line-height: 1.5;
+}
+
 main section.info div p:not(:last-child) {
   margin-bottom: 0.8em;
 }
 
-main section.info details summary {
-  line-height: 1.6;
+main section.info details summary a {
+  color: var(--midGrey);
+}
+
+main section.info details summary a:hover {
+  color: var(--backgroundColor);
 }
 
 main section.info details summary::-webkit-details-marker {
@@ -51,7 +63,15 @@ main section.info details[open] summary {
   display: none;
 }
 
-main section.info details .see-less-button::selection {
+main section.info details .see-less-button {
+  color: var(--midGrey);
+}
+
+main section.info details .see-less-button:hover {
+  color: var(--backgroundColor);
+}
+
+main section.info details .see-less-button ::selection {
   background: none;
   color: var(--textColor);
 }

@@ -16,7 +16,7 @@
     }
 
     .cursor {
-        background-color: #757575;
+        background-color: var(--midGrey);
         transition: transform 430ms cubic-bezier(1, 0.1, 0.1, 1);
     }
 

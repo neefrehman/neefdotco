@@ -30,21 +30,35 @@ main {
 
         div {
             h2 {
-                margin-bottom: 0.9em;
+                font-size: 1.34em;
+                margin-bottom: 1.2em;
+                color: var(--midGrey);
 
                 @media (max-width: 769px) {
                     margin-bottom: 0.8em;
                 }
             }
 
-            p:not(:last-child) {
-                margin-bottom: 0.8em;
+            p {
+                font-size: 1.34em;
+                font-weight: bold;
+                line-height: 1.5;
+                
+                &:not(:last-child) {
+                    margin-bottom: 0.8em;
+                }
             }
         }
 
         details {
             summary {
-                line-height: 1.6;
+                a {
+                    color: var(--midGrey);
+
+                    &:hover {
+                        color: var(--backgroundColor)
+                    }
+                }
 
                 &::-webkit-details-marker {
                     display:none;
@@ -55,9 +69,17 @@ main {
                 display: none;
             }
 
-            .see-less-button::selection {
-                background: none;
-                color: var(--textColor);
+            .see-less-button {
+                color: var(--midGrey);
+
+                &:hover {
+                    color: var(--backgroundColor)
+                }
+
+                ::selection {
+                    background: none;
+                    color: var(--textColor);
+                }
             }
         }
 
