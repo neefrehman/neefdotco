@@ -92,6 +92,7 @@ main section.info details .see-less-button ::selection {
 @media (max-width: 700px) {
   main section.info {
     grid-gap: 2.8em;
+    margin-bottom: 90px;
   }
 }
 
