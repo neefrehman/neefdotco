@@ -67,7 +67,7 @@ main section.info details .see-less-button {
   color: var(--midGrey);
 }
 
-@media (ponter: fine) {
+@media (pointer: fine) {
   main section.info details .see-less-button:hover, main section.info details .see-less-button:hover::selection {
     color: var(--backgroundColor);
   }
