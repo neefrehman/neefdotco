@@ -72,13 +72,13 @@ main {
             .see-less-button {
                 color: var(--midGrey);
 
-                &:hover {
-                    color: var(--backgroundColor)
+                &:hover, &:hover::selection {
+                    color: var(--backgroundColor);
                 }
 
-                ::selection {
+                &::selection {
                     background: none;
-                    color: var(--textColor);
+                    color: var(--midGrey);
                 }
             }
         }

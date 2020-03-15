@@ -67,13 +67,13 @@ main section.info details .see-less-button {
   color: var(--midGrey);
 }
 
-main section.info details .see-less-button:hover {
+main section.info details .see-less-button:hover, main section.info details .see-less-button:hover::selection {
   color: var(--backgroundColor);
 }
 
-main section.info details .see-less-button ::selection {
+main section.info details .see-less-button::selection {
   background: none;
-  color: var(--textColor);
+  color: var(--midGrey);
 }
 
 @media (max-width: 1140px) {
