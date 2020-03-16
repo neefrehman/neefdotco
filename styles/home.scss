@@ -1,4 +1,39 @@
 header {
+    div {
+        display: inline-flex;
+        overflow: hidden;
+
+        &:nth-child(odd) span {
+            transform: translate3d(0, -100%, 0);
+        }
+
+        &:nth-child(even) span {
+            transform: translate3d(0, 100%, 0);
+        }
+
+        span {
+            transition: transform 3600ms cubic-bezier(0, .9, .1, 1);
+
+            &.loaded {
+                transform: translateY(0);
+            }
+        }
+
+        // TODO: Get the normal transition working while keeping justified style
+        &:last-child {
+            display: initial;
+
+            span {
+                opacity: 0;
+                transition: opacity 3600ms cubic-bezier(0, .9, .1, 1) 1000ms;
+
+                &.loaded {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
     h1 {
         text-align: justify;
         text-align-last: justify;
@@ -21,6 +56,20 @@ header {
 }
 
 main {
+    div {
+        overflow: hidden;
+
+        section {
+            transform: translate3d(0, 147%, 0);
+            @media (max-width: 500px) { transform: translate3d(0, 115%, 0); }
+            transition: transform 3600ms cubic-bezier(0, .9, .1, 1);
+
+            &.loaded {
+                transform: none;
+            }
+        }
+    }
+
     section.info {
         display: grid;
         grid-template-columns: repeat(3, 1fr);

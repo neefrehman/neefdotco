@@ -42,7 +42,7 @@ body {
     background-color: var(--backgroundColor);
     text-size-adjust: 100%;
     -webkit-font-smoothing: antialiased;
-    transition: background-color 160ms;
+    transition: background-color 100ms ease-in-out;
 
     *::selection {
         color: #f4cb3d;
@@ -107,6 +107,7 @@ body {
         &.dark-mode-button {
             &::before {
                 content: "dark";
+                display: inline;
             }
             @at-root :root.dark .dark-mode-button::before {
                 content: "light";

@@ -46,8 +46,8 @@ body {
       -ms-text-size-adjust: 100%;
           text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
-  -webkit-transition: background-color 160ms;
-  transition: background-color 160ms;
+  -webkit-transition: background-color 100ms ease-in-out;
+  transition: background-color 100ms ease-in-out;
 }
 
 body *::selection {
@@ -114,6 +114,7 @@ body a.button:hover, body a:visited.button:hover {
 
 body a.dark-mode-button::before, body a:visited.dark-mode-button::before {
   content: "dark";
+  display: inline;
 }
 
 :root.dark .dark-mode-button::before {
