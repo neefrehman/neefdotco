@@ -33,7 +33,7 @@
 
 
 body {
-    margin: 40px 50px;
+    margin: 40px;
     max-width: 1440px;
     font-family: "Untitled Sans", helvetica neue, helvetica, arial, sans-serif;
     font-size: 16px;
@@ -42,6 +42,7 @@ body {
     background-color: var(--backgroundColor);
     text-size-adjust: 100%;
     -webkit-font-smoothing: antialiased;
+    transition: background-color 160ms;
 
     *::selection {
         color: #f4cb3d;
@@ -151,7 +152,7 @@ body {
     }
     
     @media (max-width: 769px) {
-        margin: 25px 30px;
+        margin: 25px;
         font-size: 15px;
 
         h1 {
@@ -163,7 +164,7 @@ body {
     }
 
     @media (max-width: 425px) {
-        margin: 25px 25px;
+        margin: 20px;
         margin-bottom: 40px;
     }
 }
