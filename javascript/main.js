@@ -21,14 +21,14 @@ const headerSlideInElements = document.querySelectorAll("header .slide-in");
 const mainSlideInElements = document.querySelectorAll("main .slide-in");
 
 document.addEventListener("DOMContentLoaded", () => {
-    headerSlideInElements.forEach((element, i) => {
-        setTimeout(() => element.classList.add("loaded"), 600 + i * 150);
+    headerSlideInElements.forEach((el, i) => {
+        setTimeout(() => el.classList.add("loaded"), 600 + i * 150);
     });
     setTimeout(() => {
-        mainSlideInElements.forEach((element, i) => {
-            setTimeout(() => element.classList.add("loaded"), i * 250);
+        mainSlideInElements.forEach((el, i) => {
+            setTimeout(() => el.classList.add("loaded"), i * 250);
         });
-    }, 1600);
+    }, 1800);
 });
 
 // See less

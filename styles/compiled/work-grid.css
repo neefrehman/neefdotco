@@ -1,9 +1,7 @@
 div.work-grid {
   margin-top: 60px;
-  display: -ms-grid;
   display: grid;
-  -ms-grid-columns: (1fr)[3];
-      grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   grid-gap: 3.6em;
 }
 
@@ -13,6 +11,7 @@ div.work-grid a {
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
           flex-direction: column;
+  -webkit-transition: -webkit-transform 180ms;
   transition: -webkit-transform 180ms;
   transition: transform 180ms;
   transition: transform 180ms, -webkit-transform 180ms;
@@ -52,6 +51,7 @@ div.work-grid a.work-item .project-text-container {
   padding: 10px 12px;
   background-color: var(--linkBackgroundColor-fallback);
   background-color: var(--linkBackgroundColor);
+  -webkit-transition: -webkit-transform 260ms;
   transition: -webkit-transform 260ms;
   transition: transform 260ms;
   transition: transform 260ms, -webkit-transform 260ms;
@@ -77,8 +77,8 @@ div.work-grid a:hover h2, div.work-grid a.intersected h2 {
 }
 
 div.work-grid a:hover .project-text-container, div.work-grid a.intersected .project-text-container {
-  -webkit-transform: translate(0, -1.5px);
-          transform: translate(0, -1.5px);
+  -webkit-transform: translate(0, -2px);
+          transform: translate(0, -2px);
   background-color: var(--textColor);
 }
 
@@ -97,8 +97,7 @@ div.work-grid a:hover .project-text-container h2, div.work-grid a:hover .project
 
 @media (max-width: 980px) {
   div.work-grid {
-    -ms-grid-columns: (1fr)[2];
-        grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     grid-gap: 3.4em;
   }
   div.work-grid a.work-item .media {
@@ -121,8 +120,7 @@ div.work-grid a:hover .project-text-container h2, div.work-grid a:hover .project
 @media (max-width: 530px) {
   div.work-grid {
     margin-top: 45px;
-    -ms-grid-columns: (1fr)[1];
-        grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(1, 1fr);
   }
   div.work-grid a.work-item .media {
     height: 18em;

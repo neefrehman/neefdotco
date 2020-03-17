@@ -57,7 +57,7 @@ header {
 
 main {
     div {
-        overflow: hidden;
+        overflow-y: hidden;
 
         section {
             transform: translate3d(0, 147%, 0);
@@ -75,7 +75,7 @@ main {
         grid-template-columns: repeat(3, 1fr);
         grid-gap: 3.6em;
 
-        margin-bottom: 105px;
+        margin-bottom: 100px;
 
         div {
             h2 {
@@ -143,7 +143,7 @@ main {
             grid-gap: 3.4em;
         }
 
-        @media (max-width: 700px) {
+        @media (max-width: 769px) {
             grid-gap: 2.8em;
             margin-bottom: 90px;
         }
@@ -155,5 +155,9 @@ main {
 
     section.work {
         margin-bottom: 100px;
+
+        div {
+            padding-top: 6px;
+        }
     }
 }

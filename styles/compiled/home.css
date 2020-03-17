@@ -61,7 +61,7 @@ header h1::after {
 }
 
 main div {
-  overflow: hidden;
+  overflow-y: hidden;
 }
 
 main div section {
@@ -89,7 +89,7 @@ main section.info {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 3.6em;
-  margin-bottom: 105px;
+  margin-bottom: 100px;
 }
 
 main section.info div h2 {
@@ -158,7 +158,7 @@ main section.info details .see-less-button::selection {
   }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 769px) {
   main section.info {
     grid-gap: 2.8em;
     margin-bottom: 90px;
@@ -173,4 +173,8 @@ main section.info details .see-less-button::selection {
 
 main section.work {
   margin-bottom: 100px;
+}
+
+main section.work div {
+  padding-top: 6px;
 }
