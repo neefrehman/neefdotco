@@ -114,11 +114,6 @@ main section.info div p:not(:last-child) {
   margin-bottom: 0.8em;
 }
 
-main section.info details summary {
-  display: -webkit-box;
-  display: flex;
-}
-
 main section.info details summary a {
   color: var(--midGrey);
 }
@@ -127,7 +122,7 @@ main section.info details summary a:hover {
   color: var(--backgroundColor);
 }
 
-main section.info details summary::marker, main section.info details summary::-webkit-details-marker {
+main section.info details summary::-webkit-details-marker {
   display: none;
 }
 
