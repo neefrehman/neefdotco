@@ -101,6 +101,8 @@ main {
 
         details {
             summary {
+                display: flex;
+                
                 a {
                     color: var(--midGrey);
 
