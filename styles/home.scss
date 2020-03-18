@@ -109,7 +109,7 @@ main {
                     }
                 }
 
-                &::-webkit-details-marker {
+                &::marker, &::-webkit-details-marker {
                     display:none;
                 }
             }
