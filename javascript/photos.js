@@ -1,5 +1,5 @@
 // Photo array variables
-const numberOfPhotos = 85;
+const numberOfPhotos = 86;
 const screenSize = window.innerWidth > 600 ? "large" : "small";
 const randomOffset = () => 10 * Math.floor(Math.random() * 9) - 40;
 

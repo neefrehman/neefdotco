@@ -17,18 +17,12 @@ const darkMode = () => {
 if (darkModeButton) darkModeButton.addEventListener("click", () => darkMode());
 
 // Loaded animation
-const headerSlideInElements = document.querySelectorAll("header .slide-in");
-const mainSlideInElements = document.querySelectorAll("main .slide-in");
+const slideInElements = document.querySelectorAll(".slide-in");
 
 document.addEventListener("DOMContentLoaded", () => {
-    headerSlideInElements.forEach((el, i) => {
+    slideInElements.forEach((el, i) => {
         setTimeout(() => el.classList.add("loaded"), 600 + i * 150);
     });
-    setTimeout(() => {
-        mainSlideInElements.forEach((el, i) => {
-            setTimeout(() => el.classList.add("loaded"), i * 250);
-        });
-    }, 1800);
 });
 
 // See less
