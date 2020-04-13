@@ -170,11 +170,13 @@ main section.info details .see-less-button::selection {
   main section.info {
     grid-template-columns: repeat(3, 75%);
     overflow-x: scroll;
-    -ms-scroll-snap-type: x mandatory div;
-        scroll-snap-type: x mandatory div;
-    scroll-snap-type-scroll-snap-align: start;
+    -ms-scroll-snap-type: x mandatory;
+        scroll-snap-type: x mandatory;
     scrollbar-width: none;
     -ms-overflow-style: none;
+  }
+  main section.info div {
+    scroll-snap-align: start;
   }
   main section.info ::-webkit-scrollbar {
     display: none;
