@@ -151,7 +151,7 @@ main {
         @media (max-width: 580px) {
             grid-template-columns: repeat(3, 75%);
             overflow-x: scroll;
-            scroll-snap-type: x proximity;
+            scroll-snap-type: x mandatory
 
             div {
                 scroll-snap-align: start;
