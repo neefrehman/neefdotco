@@ -39,10 +39,6 @@ header {
         text-align-last: justify;
         text-transform: uppercase;
  
-        a {
-            display: initial;
-        }
-        
         nav {
             display: inline;
         }
@@ -61,7 +57,7 @@ main {
 
         section {
             transform: translate3d(0, 147%, 0);
-            @media (max-width: 500px) { transform: translate3d(0, 90%, 0); }
+            @media (max-width: 500px) { transform: translate3d(0, 130%, 0); }
             transition: transform 3600ms cubic-bezier(0, .9, .1, 1) 150ms;
 
             &.loaded {
@@ -152,8 +148,22 @@ main {
             margin-bottom: 90px;
         }
 
-        @media (max-width: 530px) {
-            grid-template-columns: repeat(1, 1fr);
+        @media (max-width: 580px) {
+            grid-template-columns: repeat(3, 75%);
+            overflow-x: scroll;
+
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            ::-webkit-scrollbar {
+                display: none;
+                width: 0;
+                height: 0;
+            }
+        }
+
+        @media (max-width: 420px) {
+            grid-template-columns: repeat(3, 85%);
+            grid-gap: 2.6em;
         }
     }
 

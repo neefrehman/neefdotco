@@ -46,10 +46,6 @@ header h1 {
   text-transform: uppercase;
 }
 
-header h1 a {
-  display: initial;
-}
-
 header h1 nav {
   display: inline;
 }
@@ -75,8 +71,8 @@ main div section {
 
 @media (max-width: 500px) {
   main div section {
-    -webkit-transform: translate3d(0, 90%, 0);
-            transform: translate3d(0, 90%, 0);
+    -webkit-transform: translate3d(0, 130%, 0);
+            transform: translate3d(0, 130%, 0);
   }
 }
 
@@ -170,9 +166,24 @@ main section.info details .see-less-button::selection {
   }
 }
 
-@media (max-width: 530px) {
+@media (max-width: 580px) {
   main section.info {
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(3, 75%);
+    overflow-x: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  main section.info ::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+}
+
+@media (max-width: 420px) {
+  main section.info {
+    grid-template-columns: repeat(3, 85%);
+    grid-gap: 2.6em;
   }
 }
 

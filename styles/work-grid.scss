@@ -10,6 +10,7 @@ div.work-grid {
         transition: transform 180ms;
         transform-origin: center;
         text-decoration: none;
+        overflow-x: hidden;
 
         &.work-item {
             position: relative;
@@ -74,10 +75,8 @@ div.work-grid {
     @media (max-width: 1140px) {
         grid-gap: 3.2em;
 
-        a.work-item {
-            .media {
-                height: 16em;
-            }
+        a.work-item .media {
+            height: 16em;
         }
     }
 
@@ -85,10 +84,8 @@ div.work-grid {
         grid-template-columns: repeat(2, 1fr);
         grid-gap: 3.4em;
 
-        a.work-item {
-            .media {
-                height: 17em;
-            }
+        a.work-item .media {
+            height: 17em;
         }
     }
 
@@ -97,29 +94,17 @@ div.work-grid {
     }
 
     @media (max-width: 580px) {
-        a.work-item {
-            .media {
-                height: 13em;
-            }
-        }
-    }
-
-    @media (max-width: 530px) {
         margin-top: 45px;
         grid-template-columns: repeat(1, 1fr);
 
-        a.work-item {
-            .media {
-                height: 18em;
-            }
+        a.work-item .media {
+            height: 18em;
         }
     }
 
     @media (max-width: 400px) {
-        a.work-item {
-            .media {
-                height: 15em;
-            }
+        a.work-item .media {
+            height: 15em;
         }
     }
 }

@@ -18,6 +18,7 @@ div.work-grid a {
   -webkit-transform-origin: center;
           transform-origin: center;
   text-decoration: none;
+  overflow-x: hidden;
 }
 
 div.work-grid a.work-item {
@@ -112,12 +113,6 @@ div.work-grid a:hover .project-text-container h2, div.work-grid a:hover .project
 }
 
 @media (max-width: 580px) {
-  div.work-grid a.work-item .media {
-    height: 13em;
-  }
-}
-
-@media (max-width: 530px) {
   div.work-grid {
     margin-top: 45px;
     grid-template-columns: repeat(1, 1fr);
