@@ -84,6 +84,10 @@ body p {
   line-height: 1.6;
 }
 
+body p i {
+  font-style: italic;
+}
+
 body a, body a:visited {
   cursor: pointer;
   text-decoration: underline;

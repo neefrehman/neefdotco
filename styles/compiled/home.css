@@ -182,8 +182,8 @@ main section.info details .see-less-button::selection {
 
 @media (max-width: 420px) {
   main section.info {
-    grid-template-columns: repeat(3, 85%);
-    grid-gap: 2.4em;
+    grid-template-columns: repeat(3, 83%);
+    grid-gap: 2.3em;
   }
 }
 
