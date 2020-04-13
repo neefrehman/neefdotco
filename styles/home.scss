@@ -145,7 +145,7 @@ main {
 
         @media (max-width: 769px) {
             grid-gap: 2.8em;
-            margin-bottom: 90px;
+            margin-bottom: 70px;
         }
 
         @media (max-width: 580px) {
@@ -163,7 +163,7 @@ main {
 
         @media (max-width: 420px) {
             grid-template-columns: repeat(3, 85%);
-            grid-gap: 2.6em;
+            grid-gap: 2.4em;
         }
     }
 

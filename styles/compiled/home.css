@@ -162,7 +162,7 @@ main section.info details .see-less-button::selection {
 @media (max-width: 769px) {
   main section.info {
     grid-gap: 2.8em;
-    margin-bottom: 90px;
+    margin-bottom: 70px;
   }
 }
 
@@ -183,7 +183,7 @@ main section.info details .see-less-button::selection {
 @media (max-width: 420px) {
   main section.info {
     grid-template-columns: repeat(3, 85%);
-    grid-gap: 2.6em;
+    grid-gap: 2.4em;
   }
 }
 
