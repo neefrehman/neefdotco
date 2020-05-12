@@ -55,7 +55,7 @@
             const numColumns = Math.ceil(width / res);
             const numRows = Math.ceil(height / res);
             grid = makeMatrix([numColumns, numRows, numColumns]);
-            camZStart = -res * 2;
+            camZStart = (-res * numColumns) / 2 - 50;
             camZ = camZStart;
         };
 
