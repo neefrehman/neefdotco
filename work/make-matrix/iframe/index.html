@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body style="margin: 0; overflow: hidden;">
+    <a href="https://generative.neef.co" target="_blank" rel="noreferrer noopener" style="width: 100%; height: 100%; position: fixed;"> </a>
+    <script src="../../generative/iframe/p5.min.js"> </script>
+    <script src="../../generative/iframe/make-matrix.js"> </script>
+    <script>
+
+        function makeMatrix(dimensions, initialValues) {
+            if (initialValues === void 0) {
+                initialValues = null;
+            }
+            var currentDimensionWidth;
+            var remainingDimensions;
+            var needsRecursion;
+            if (typeof dimensions === "number") {
+                currentDimensionWidth = dimensions;
+                remainingDimensions = dimensions - 1;
+                needsRecursion = remainingDimensions > 0;
+            } else {
+                currentDimensionWidth = dimensions[0];
+                remainingDimensions = dimensions.slice(1);
+                needsRecursion = remainingDimensions.length > 0;
+            }
+            var currentMatrix = Array(currentDimensionWidth).fill(initialValues);
+            var finalMatrix = needsRecursion
+                ? currentMatrix.map(function () {
+                    return makeMatrix(remainingDimensions, initialValues);
+                })
+                : currentMatrix;
+            return finalMatrix;
+        }
+
+
+
+        let res;
+        let grid;
+
+        const camZStart = -320;
+        let camZ = camZStart;
+        let camXOff = 0;
+        let camYOff = 0;
+
+        setup = () => {
+            createCanvas(windowWidth, windowHeight, WEBGL);
+            stroke(181, 105, 25);
+            strokeWeight(3);
+
+            res = width * 0.3;
+            const numColumns = Math.ceil(width / res);
+            const numRows = Math.ceil(height / res);
+            grid = makeMatrix([numColumns, numRows, numColumns]);
+        };
+
+        draw = () => {
+            background(12, 32, 11);
+
+            camZ = camZ >= camZStart + res ? camZStart : camZ + 0.5;
+            translate(-width / 2 + res / 4, -height / 2 - res / 4, camZ);
+            rotateX(camXOff);
+            rotateY(camYOff);
+
+            grid.forEach((column, x) => {
+                column.forEach((row, y) => {
+                    row.forEach((depth, z) => {
+                        const curX = x * res;
+                        const curY = y * res;
+                        const curZ = z * res;
+
+                        const fogIntensity =
+                            z < 10 ? map(z, 0, row.length, 20, 255) : 255;
+                        stroke(181, 105, 25, fogIntensity);
+
+                        line(curX, curY, curZ, curX + res, curY, curZ);
+                        line(curX, curY, curZ, curX, curY + res, curZ);
+                        line(curX, curY, curZ, curX, curY, curZ + res);
+                    });
+                });
+            });
+        };
+
+        mouseMoved = () => {
+            const mappedMouseY = map(mouseY, 0, height, -0.02, 0.02);
+            const mappedMouseX = map(mouseX, 0, width, -0.02, 0.02);
+            camXOff = lerp(camXOff, mappedMouseY, 0.5);
+            camYOff = lerp(camYOff, mappedMouseX, 0.5);
+        };
+        
+        windowResized = () => resizeCanvas(windowWidth, windowHeight);
+
+    </script>
+</body>
+</html>

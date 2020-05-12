@@ -1,3 +1,7 @@
+section.work.slide-in.loaded a.work-item[href="https://github.com/neefrehman/make-matrix"]::after {
+  opacity: 0;
+}
+
 div.work-grid {
   margin-top: 60px;
   display: grid;
@@ -36,6 +40,9 @@ div.work-grid a.work-item::after {
   z-index: -1;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
+  opacity: 1;
+  -webkit-transition: opacity 2s ease-in-out;
+  transition: opacity 2s ease-in-out;
 }
 
 div.work-grid a.work-item .media {

@@ -6,20 +6,27 @@ const workArray = [
         description: "New site and art direction for the investment arm of ustwo"
     },
     {
+        iframesrc: "/work/generative/iframe/",
+        url: "https://generative.neef.co",
+        title: "Generative",
+        description: "An ongoing digital sketch series, generated with JavaScript"
+    },
+    {
         iframesrc: "/work/studiowave/iframe/",
         url: "https://studiowave.fm",
         title: "studiowave.fm",
         description: "A simple webapp dishing out chillout tunes and inspiration"
     },
     {
-        iframesrc: "/work/generative/iframe/",
-        url: "https://generative.neef.co",
-        title: "Generative",
-        description: "An ongoing digital sketch series, generated with JavaScript"
+        iframesrc: "/work/make-matrix/iframe/",
+        url: "https://github.com/neefrehman/make-matrix",
+        title: "make-matrix",
+        description:
+            "A simple, type-safe way to create multi-dimensional arrays in JavaScript"
     }
 ];
 
-let workElements = workArray.map(obj => {
+let workElements = workArray.map((obj) => {
     return `
         <a class="work-item" href=${obj.url} target="_blank" rel="noopener noreferrer">
             <iframe class="media" src=${obj.iframesrc} title="embedded iframe" loading="lazy"> </iframe>
@@ -43,8 +50,8 @@ workElements = document.querySelectorAll(".work-item");
 if (window.innerWidth <= 450) {
     let yOffset, isScrollingUp, isScrollingDown;
 
-    const onIntersection = entries => {
-        entries.forEach(entry => {
+    const onIntersection = (entries) => {
+        entries.forEach((entry) => {
             const intersectedItem = entry.target;
 
             isScrollingUp = window.scrollY < yOffset;
@@ -61,10 +68,10 @@ if (window.innerWidth <= 450) {
             const ratioTarget = entryIsFirstOrLast && relativeScroll ? 0.5 : 0;
 
             if (entry.intersectionRatio > ratioTarget) {
-                workElements.forEach(item => item.classList.remove("intersected"));
+                workElements.forEach((item) => item.classList.remove("intersected"));
                 intersectedItem.classList.add("intersected");
             } else if (entryIsFirstOrLast) {
-                workElements.forEach(item => item.classList.remove("intersected"));
+                workElements.forEach((item) => item.classList.remove("intersected"));
             }
         });
     };
@@ -74,5 +81,5 @@ if (window.innerWidth <= 450) {
         threshold: 0.5
     });
 
-    workElements.forEach(item => observer.observe(item));
+    workElements.forEach((item) => observer.observe(item));
 }
