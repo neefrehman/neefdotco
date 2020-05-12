@@ -1,7 +1,3 @@
-section.work.slide-in.loaded a.work-item[href="https://github.com/neefrehman/make-matrix"]::after {
-  opacity: 0;
-}
-
 div.work-grid {
   margin-top: 60px;
   display: grid;
