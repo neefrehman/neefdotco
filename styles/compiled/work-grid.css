@@ -19,7 +19,7 @@ div.work-grid div.transition {
 div.work-grid div.transition::after {
   content: "";
   display: block;
-  background: var(--backgroundColor);
+  background-color: var(--backgroundColor);
   width: 100%;
   height: 100%;
   position: absolute;
@@ -69,7 +69,7 @@ div.work-grid a {
 }
 
 div.work-grid a.work-item {
-  border: 2.5px solid var(--oppositeModeBackground);
+  border: 2.64px solid var(--oppositeModeBackground);
   position: relative;
 }
 
@@ -90,6 +90,7 @@ div.work-grid a.work-item .project-text-container {
   transition: -webkit-transform 260ms;
   transition: transform 260ms;
   transition: transform 260ms, -webkit-transform 260ms;
+  background-color: var(--backgroundColor);
 }
 
 div.work-grid a.work-item .project-text-container h2 {
