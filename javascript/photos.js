@@ -3,7 +3,7 @@ const numberOfPhotos = 86;
 const screenSize = window.innerWidth > 600 ? "large" : "small";
 const randomOffset = () => 10 * Math.floor(Math.random() * 9) - 40;
 
-const photoArray = Array.from({ length: numberOfPhotos }, (photo, i) => {
+const photoArray = Array.from({ length: numberOfPhotos }, (_, i) => {
     return `
         <div class="grid"
             data-src="photos/${screenSize}/photo_${++i}.jpg"
@@ -11,7 +11,7 @@ const photoArray = Array.from({ length: numberOfPhotos }, (photo, i) => {
     `;
 });
 
-const shuffle = a => {
+const shuffle = (a) => {
     for (let i = a.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [a[i], a[j]] = [a[j], a[i]];
@@ -28,18 +28,18 @@ const photos = document.querySelectorAll("[data-src]");
 lzy(500);
 
 // Zoom on click
-photos.forEach(photo => {
+photos.forEach((photo) => {
     photo.addEventListener("click", () => {
         photo.classList.toggle("zoom");
-        const siblings = [...photos].filter(sibling => sibling !== photo);
-        siblings.forEach(sibling => sibling.classList.remove("zoom"));
+        const siblings = [...photos].filter((sibling) => sibling !== photo);
+        siblings.forEach((sibling) => sibling.classList.remove("zoom"));
     });
 });
 
 // Un-zoom on background click
-document.addEventListener("click", e => {
+document.addEventListener("click", (e) => {
     if (!e.target.matches("a, .photo-container > .grid")) {
-        photos.forEach(photo => photo.classList.remove("zoom"));
+        photos.forEach((photo) => photo.classList.remove("zoom"));
     }
 });
 
@@ -54,7 +54,7 @@ const toggleFullScreen = () => {
 
     // Execute full screen
     photoContainer.classList.toggle("grid");
-    photos.forEach(photo => photo.classList.toggle("grid"));
+    photos.forEach((photo) => photo.classList.toggle("grid"));
 
     // Maintain relative scroll height
     const newPageHeight = scrollElement.scrollHeight - window.innerHeight;
@@ -74,7 +74,7 @@ gridToggle.addEventListener("click", () => toggleFullScreen());
 if (window.location.hash === "#full") toggleFullScreen();
 
 // Scroll 100vh on arrow press & grid toggle on g/f
-window.addEventListener("keyup", e => {
+window.addEventListener("keyup", (e) => {
     if (e.key == "ArrowRight") window.scrollBy(0, window.innerHeight);
     if (e.key == "ArrowLeft") window.scrollBy(0, -window.innerHeight);
     if (e.key == "g" || e.key == "f") toggleFullScreen();

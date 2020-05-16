@@ -17,11 +17,11 @@ const darkMode = () => {
 if (darkModeButton) darkModeButton.addEventListener("click", () => darkMode());
 
 // Loaded animation
-const slideInElements = document.querySelectorAll(".slide-in");
+const transitionElements = document.querySelectorAll(".transition");
 
 document.addEventListener("DOMContentLoaded", () => {
-    slideInElements.forEach((el, i) => {
-        setTimeout(() => el.classList.add("loaded"), 600 + i * 150);
+    transitionElements.forEach((el, i) => {
+        setTimeout(() => el.classList.add("loaded"), 600 + i * 200);
     });
 });
 
@@ -35,7 +35,7 @@ if (seeLessButton) {
         )
     ];
     const filteredElementArray = elementArray.filter(
-        element => element.childElementCount <= 3
+        (element) => element.childElementCount <= 3
     );
 
     seeLessButton.addEventListener("click", () => {

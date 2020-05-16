@@ -10,7 +10,7 @@ if (matchMedia("(pointer:fine)").matches) {
     const gridItems = document.querySelectorAll(".work-item, .grid-nav-cta");
     const iframes = document.querySelectorAll("iframe");
 
-    document.addEventListener("mousemove", e => {
+    document.addEventListener("mousemove", (e) => {
         cursor.classList.add("show");
         cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
     });
@@ -18,17 +18,17 @@ if (matchMedia("(pointer:fine)").matches) {
     document.addEventListener("mousedown", () => cursor.classList.add("small"));
     document.addEventListener("mouseup", () => cursor.classList.remove("small"));
 
-    allLinks.forEach(link => {
+    allLinks.forEach((link) => {
         link.addEventListener("mouseenter", () => cursor.classList.add("large"));
         link.addEventListener("mouseleave", () => cursor.classList.remove("large"));
     });
 
-    gridItems.forEach(item => {
+    gridItems.forEach((item) => {
         item.addEventListener("mouseenter", () => cursor.classList.add("over"));
         item.addEventListener("mouseleave", () => cursor.classList.remove("over"));
     });
 
-    iframes.forEach(iframe => {
+    iframes.forEach((iframe) => {
         iframe.addEventListener("mouseenter", () => cursor.classList.add("hide"));
         iframe.addEventListener("mouseleave", () => cursor.classList.remove("hide"));
     });
@@ -58,10 +58,14 @@ if (matchMedia("(pointer:fine)").matches) {
     }
 
     const navLinks = document.querySelectorAll("a.nav");
-    navLinks.forEach(link => {
-        link.addEventListener("click", e => {
-            cursor.classList.add("transition");
-            setTimeout(() => (window.location = link.href), 920);
+
+    navLinks.forEach((link) => {
+        link.addEventListener("click", (e) => {
+            const slideInElements = document.querySelectorAll(".loaded");
+            slideInElements.forEach((el) => el.classList.remove("loaded"));
+
+            setTimeout(() => cursor.classList.add("transition"), 300);
+            setTimeout(() => (window.location = link.href), 1200);
             e.preventDefault();
         });
     });

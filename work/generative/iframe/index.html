@@ -28,8 +28,8 @@
             }
 
             update() {
-                this.xOff += 0.01;
-                this.yOff += 0.01;
+                this.xOff += 0.014;
+                this.yOff += 0.014;
 
                 this.x = mouseLocation.x + map(noise(this.xOff), 0, 1, -width / 2, width / 2);
                 this.y = mouseLocation.y + map(noise(this.yOff), 0, 1, -height / 2, height / 2);
@@ -51,6 +51,7 @@
 
         setup = () => {
             createCanvas(windowWidth, windowHeight);
+            frameRate(30);
             background(20);
 
             for (let i = 0; i < 3; i++) {
@@ -67,14 +68,14 @@
             background(20);
 
             if (frameCount % 360 == 0) {
-                if (balls.length < width / 70) balls.push(new Ball());
+                if (balls.length < width / 90) balls.push(new Ball());
             }
 
             for (const ball of balls) {
                 ball.update();
 
                 for (const sibling of balls) {
-                    if (ball != sibling && ball.collides(sibling)) {
+                    if (ball !== sibling && ball.collides(sibling)) {
                         ball.excited();
                         sibling.excited();
                     }

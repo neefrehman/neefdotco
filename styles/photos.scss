@@ -3,12 +3,15 @@ body {
     max-width: initial;
 
     header, footer a {
-        position: fixed;
         cursor: pointer;
+        position: fixed;
         z-index: 3;
         font-size: 0.95em;
 
         --edgeMargin: 40px;
+
+        opacity: 0;
+        transition: opacity 500ms cubic-bezier(0, .9, .1, 1);
 
         @media (max-width: 769px) {
             --edgeMargin: 33px;
@@ -31,9 +34,20 @@ body {
             right: var(--edgeMargin);
         }
     }
+
+    &.loaded {
+        header, footer a {
+            opacity: 1;
+        }
+
+        main.photo-container {
+            opacity: 1;
+        }
+    }
 }
 
 main.photo-container {
+    opacity: 0;
     margin: 0;
 
     &.grid {

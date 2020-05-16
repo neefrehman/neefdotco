@@ -2,7 +2,7 @@ const lzy = (offset = 500) => {
     const images = document.querySelectorAll("[data-src]");
 
     if (!window.IntersectionObserver) {
-        images.forEach(image => {
+        images.forEach((image) => {
             const imageSource = image.getAttribute("data-src");
             if (image.tagName === "IMG") {
                 image.setAttribute("src", imageSource);
@@ -12,8 +12,8 @@ const lzy = (offset = 500) => {
             image.removeAttribute("data-src");
         });
     } else {
-        const onIntersection = entries => {
-            entries.forEach(entry => {
+        const onIntersection = (entries) => {
+            entries.forEach((entry) => {
                 if (entry.intersectionRatio > 0) {
                     observer.unobserve(entry.target);
                     loadImage(entry.target);
@@ -26,7 +26,7 @@ const lzy = (offset = 500) => {
             threshold: 0.01
         });
 
-        const loadImage = imageEl => {
+        const loadImage = (imageEl) => {
             const imageSource = imageEl.getAttribute("data-src");
             if (imageEl.tagName === "IMG") {
                 imageEl.setAttribute("src", imageSource);
@@ -36,6 +36,6 @@ const lzy = (offset = 500) => {
             imageEl.removeAttribute("data-src");
         };
 
-        images.forEach(image => observer.observe(image));
+        images.forEach((image) => observer.observe(image));
     }
 };

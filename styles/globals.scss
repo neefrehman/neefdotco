@@ -14,7 +14,7 @@
 
 :root {
     --textColor: #333333;
-    --backgroundColor: #f8f8f8;
+    --backgroundColor: #f1f1f1;
     --linkBackgroundColor-fallback: #4a4a4a;
     --linkBackgroundColor: rgba(225, 225, 225, 0.8);
     --oppositeModeBackground: #212121;
@@ -25,9 +25,7 @@
         --backgroundColor: #212121;
         --linkBackgroundColor-fallback: #eeeeee;
         --linkBackgroundColor: rgba(225, 225, 225, 0.2);
-        --oppositeModeBackground: #ffffff;
-
-        body { height: 100%; } /* safari fix */
+        --oppositeModeBackground: #f1f1f1;
     }
 }
 
