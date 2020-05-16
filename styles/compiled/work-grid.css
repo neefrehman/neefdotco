@@ -90,7 +90,6 @@ div.work-grid a.work-item .project-text-container {
   transition: -webkit-transform 260ms;
   transition: transform 260ms;
   transition: transform 260ms, -webkit-transform 260ms;
-  background-color: var(--backgroundColor);
 }
 
 div.work-grid a.work-item .project-text-container h2 {
@@ -116,6 +115,7 @@ div.work-grid a:hover h2, div.work-grid a.intersected h2 {
 div.work-grid a:hover .project-text-container, div.work-grid a.intersected .project-text-container {
   -webkit-transform: translate(0, -3px);
           transform: translate(0, -3px);
+  background-color: var(--oppositeModeBackground);
 }
 
 @media (max-width: 1140px) {

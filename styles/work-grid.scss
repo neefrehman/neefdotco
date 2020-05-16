@@ -62,7 +62,6 @@ div.work-grid {
                 padding: 10px 12px;
                 border-top: 2.5px solid var(--oppositeModeBackground);
                 transition: transform 260ms;
-                background-color: var(--backgroundColor);
 
                 h2 {
                     margin-bottom: 0.3em;
@@ -86,6 +85,7 @@ div.work-grid {
 
             .project-text-container {
                 transform: translate(0, -3px);
+                background-color: var(--oppositeModeBackground);
             }
         }
     }
