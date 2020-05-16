@@ -115,8 +115,8 @@ main section.info.loaded {
           transform: none;
   -webkit-transition-duration: 3600ms;
           transition-duration: 3600ms;
-  -webkit-transition-delay: 300ms;
-          transition-delay: 300ms;
+  -webkit-transition-delay: 250ms;
+          transition-delay: 250ms;
 }
 
 main section.info.loaded::after {
@@ -124,8 +124,8 @@ main section.info.loaded::after {
           transform: scale3d(1, 0, 1);
   -webkit-transition-duration: 600ms;
           transition-duration: 600ms;
-  -webkit-transition-delay: 300ms;
-          transition-delay: 300ms;
+  -webkit-transition-delay: 250ms;
+          transition-delay: 250ms;
 }
 
 main section.info div h2 {

@@ -93,12 +93,12 @@ main {
         &.loaded {
             transform: none;
             transition-duration: 3600ms;
-            transition-delay: 300ms;
+            transition-delay: 250ms;
 
             &::after {
                 transform: scale3d(1,0,1);
                 transition-duration: 600ms;
-                transition-delay: 300ms;
+                transition-delay: 250ms;
             }
         }
 

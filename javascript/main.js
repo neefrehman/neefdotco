@@ -21,7 +21,7 @@ const transitionElements = document.querySelectorAll(".transition");
 
 document.addEventListener("DOMContentLoaded", () => {
     transitionElements.forEach((el, i) => {
-        setTimeout(() => el.classList.add("loaded"), 600 + i * 200);
+        setTimeout(() => el.classList.add("loaded"), 600 + i * 210);
     });
 });
 
