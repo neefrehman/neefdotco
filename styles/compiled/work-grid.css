@@ -38,8 +38,8 @@ div.work-grid div.transition.loaded {
           transform: none;
   -webkit-transition-duration: 3600ms;
           transition-duration: 3600ms;
-  -webkit-transition-delay: 750ms;
-          transition-delay: 750ms;
+  -webkit-transition-delay: 650ms;
+          transition-delay: 650ms;
 }
 
 div.work-grid div.transition.loaded::after {
@@ -47,8 +47,8 @@ div.work-grid div.transition.loaded::after {
           transform: scale3d(1, 0, 1);
   -webkit-transition-duration: 700ms;
           transition-duration: 700ms;
-  -webkit-transition-delay: 750ms;
-          transition-delay: 750ms;
+  -webkit-transition-delay: 650ms;
+          transition-delay: 650ms;
 }
 
 div.work-grid a {
