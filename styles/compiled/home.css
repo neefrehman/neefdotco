@@ -122,8 +122,8 @@ main section.info.loaded {
 main section.info.loaded::after {
   -webkit-transform: scale3d(1, 0, 1);
           transform: scale3d(1, 0, 1);
-  -webkit-transition-duration: 600ms;
-          transition-duration: 600ms;
+  -webkit-transition-duration: 700ms;
+          transition-duration: 700ms;
   -webkit-transition-delay: 250ms;
           transition-delay: 250ms;
 }

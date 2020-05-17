@@ -34,6 +34,7 @@ if (seeLessButton) {
             "header :not(.no-hide), main :not(.no-hide)"
         )
     ];
+
     const filteredElementArray = elementArray.filter(
         (element) => element.childElementCount <= 3
     );
