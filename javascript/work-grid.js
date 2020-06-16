@@ -1,28 +1,35 @@
 const workArray = [
     {
-        iframesrc: "/work/adventurev2/iframe/",
+        iframesrc: "/work/adventurev2/",
         url: "https://adventure.ustwo.com",
         title: "ustwo Adventure",
         description: "New site and art direction for the investment arm of ustwo"
     },
     {
-        iframesrc: "/work/generative/iframe/",
+        iframesrc: "/work/generative/",
         url: "https://generative.neef.co",
         title: "Generative",
         description: "An ongoing digital sketch series, generated with JavaScript"
     },
     {
-        iframesrc: "/work/studiowave/iframe/",
+        iframesrc: "/work/studiowave/",
         url: "https://studiowave.fm",
         title: "studiowave.fm",
         description: "A simple webapp dishing out chillout tunes and inspiration"
     },
     {
-        iframesrc: "/work/make-matrix/iframe/",
+        iframesrc: "/work/make-matrix/",
         url: "https://github.com/neefrehman/make-matrix",
         title: "make-matrix",
         description:
             "A simple, type-safe way to create multi-dimensional arrays in JavaScript"
+    },
+    {
+        iframesrc: "/work/millzbot/",
+        url: "https://github.com/neefrehman/millzbot",
+        title: "millzbot",
+        description:
+            "A GPT-2 bot trained on my bosses tweets, and a guide to making your own"
     }
 ];
 

@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<style>
+    * {
+        margin: 0;
+    }
+
+    body {
+        margin: 0;
+        height: 100vh;
+        background-color: #f9f911;
+        color: #1f1f1f;
+        font-family: "Comic Sans MS", "Comic Sans", monaco, menlo, monospace;
+        font-size: 16px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+    }
+
+    img {
+        width: 38vw;
+        max-width: 145px;
+        margin: 2vh 0 3vh 0;
+    }
+
+    body:hover img {
+        animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+        transform: translate3d(0, 0, 0);
+        backface-visibility: hidden;
+        perspective: 1000px;
+    }
+
+    @keyframes shake {
+        10%, 90% {
+            transform: translate3d(-1px, 0, 0);
+        }
+
+        20%, 80% {
+            transform: translate3d(2px, 0, 0);
+        }
+
+        30%, 50%, 70% {
+            transform: translate3d(-3px, 0, 0);
+        }
+
+        40%, 60% {
+            transform: translate3d(3px, 0, 0);
+        }
+    }
+
+    h1 {
+        font-size: 13vw;
+    }
+</style>
+
+<body>
+    <a href="https://github.com/neefrehman/millzbot" target="_blank" rel="noreferrer noopener" style="width: 100%; height: 100%; position: fixed;"></a>
+    <header>
+        <img src="millzbot.png">
+        <h1>millzbot</h1>
+    </header>
+</body>
+
+</html>
