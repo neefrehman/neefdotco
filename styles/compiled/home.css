@@ -150,11 +150,13 @@ main section.info div p:not(:last-child) {
   margin-bottom: 0.8em;
 }
 
-main section.info details summary a {
+main section.info details summary p {
+  text-decoration: underline;
+  cursor: pointer;
   color: var(--midGrey);
 }
 
-main section.info details summary a:hover {
+main section.info details summary p:hover {
   color: var(--backgroundColor);
 }
 

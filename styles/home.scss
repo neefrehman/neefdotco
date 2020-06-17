@@ -126,7 +126,9 @@ main {
 
         details {
             summary {
-                a {
+                p {
+                    text-decoration: underline;
+                    cursor: pointer;
                     color: var(--midGrey);
 
                     &:hover {

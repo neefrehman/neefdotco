@@ -5,7 +5,7 @@ if (matchMedia("(pointer:fine)").matches) {
                         <div class="cursor-inner"> </div>`;
     document.body.prepend(cursor);
 
-    const allLinks = document.querySelectorAll("a");
+    const allLinks = document.querySelectorAll("a, summary p");
     const darkModeButton = document.querySelector("a.dark-mode-button");
     const gridItems = document.querySelectorAll(".work-item, .grid-nav-cta");
     const iframes = document.querySelectorAll("iframe");
