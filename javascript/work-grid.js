@@ -9,7 +9,15 @@ const workArray = [
         iframesrc: "/work/generative/",
         url: "https://generative.neef.co",
         title: "Generative",
-        description: "An ongoing digital sketch series, generated with JavaScript"
+        description:
+            "An ongoing digital sketch series exploring generative art, WebGL and machine learning"
+    },
+    {
+        iframesrc: "/work/millzbot/",
+        url: "https://github.com/neefrehman/millzbot",
+        title: "millzbot",
+        description:
+            "A GPT-2 bot trained on my bosses tweets, and a guide to making your own"
     },
     {
         iframesrc: "/work/studiowave/",
@@ -23,13 +31,6 @@ const workArray = [
         title: "make-matrix",
         description:
             "A simple, type-safe way to create multi-dimensional arrays in JavaScript"
-    },
-    {
-        iframesrc: "/work/millzbot/",
-        url: "https://github.com/neefrehman/millzbot",
-        title: "millzbot",
-        description:
-            "A GPT-2 bot trained on my bosses tweets, and a guide to making your own"
     }
 ];
 
