@@ -14,7 +14,7 @@ const workArray = [
     },
     {
         iframesrc: "/work/millzbot/",
-        url: "https://github.com/neefrehman/millzbot",
+        url: "https://millzbot.neef.co",
         title: "millzbot",
         description:
             "A GPT-2 bot trained on my bosses tweets, and a guide to making your own"

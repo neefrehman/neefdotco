@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
         transitionElements.forEach((el, i) => {
             setTimeout(() => el.classList.add("loaded"), 600 + i * 210);
         });
-    }, 200);
+    }, 200); // To avoid animation jittering
 });
 
 // See less
