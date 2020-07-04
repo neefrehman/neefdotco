@@ -142,8 +142,6 @@ main section.info div h2 {
 
 main section.info div p {
   font-size: 1.34em;
-  font-weight: bold;
-  line-height: 1.5;
 }
 
 main section.info div p:not(:last-child) {
