@@ -2,7 +2,7 @@
   font-family: "Fleuron";
   font-weight: normal;
   font-display: block;
-  src: url("/static/fonts/fleuronregular.woff2");
+  src: url("./fonts/fleuronregular.woff2");
 }
 
 :root {
