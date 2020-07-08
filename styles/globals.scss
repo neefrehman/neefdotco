@@ -139,8 +139,13 @@ body {
 
 
 
-    @media (min-width: 1600px) {
+    @media (min-width: 1460px) {
         margin: 50px auto;
+        font-size: 18px;
+
+        h1 {
+            font-size: 3.2em;
+        }
     }
     
     @media (max-width: 769px) {

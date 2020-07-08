@@ -407,16 +407,13 @@ header .logo ul li:nth-child(7) {
     margin-top: 2%;
   }
   header .logo {
-    --logoScale: 1.3;
+    --logoScale: 1.7;
   }
 }
 
 @media (max-width: 425px) {
   div.browser {
     width: 110%;
-  }
-  header .logo {
-    --logoScale: 1.75;
   }
 }
 

@@ -136,9 +136,13 @@ body .hidden {
   pointer-events: none;
 }
 
-@media (min-width: 1600px) {
+@media (min-width: 1460px) {
   body {
     margin: 50px auto;
+    font-size: 18px;
+  }
+  body h1 {
+    font-size: 3.2em;
   }
 }
 
