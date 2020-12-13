@@ -10,7 +10,6 @@ div.work-grid div.transition {
   position: relative;
   -webkit-transform: translate3d(0, 50%, 0);
           transform: translate3d(0, 50%, 0);
-  -webkit-transition: -webkit-transform 1500ms cubic-bezier(0, 0.9, 0.1, 1);
   transition: -webkit-transform 1500ms cubic-bezier(0, 0.9, 0.1, 1);
   transition: transform 1500ms cubic-bezier(0, 0.9, 0.1, 1);
   transition: transform 1500ms cubic-bezier(0, 0.9, 0.1, 1), -webkit-transform 1500ms cubic-bezier(0, 0.9, 0.1, 1);
@@ -27,7 +26,6 @@ div.work-grid div.transition::after {
   left: 0;
   -webkit-transform-origin: bottom;
           transform-origin: bottom;
-  -webkit-transition: -webkit-transform 300ms cubic-bezier(0.9, 0, 0.6, 1);
   transition: -webkit-transform 300ms cubic-bezier(0.9, 0, 0.6, 1);
   transition: transform 300ms cubic-bezier(0.9, 0, 0.6, 1);
   transition: transform 300ms cubic-bezier(0.9, 0, 0.6, 1), -webkit-transform 300ms cubic-bezier(0.9, 0, 0.6, 1);
@@ -36,29 +34,21 @@ div.work-grid div.transition::after {
 div.work-grid div.transition.loaded {
   -webkit-transform: none;
           transform: none;
-  -webkit-transition-duration: 3600ms;
-          transition-duration: 3600ms;
-  -webkit-transition-delay: 650ms;
-          transition-delay: 650ms;
+  transition-duration: 3600ms;
+  transition-delay: 600ms;
 }
 
 div.work-grid div.transition.loaded::after {
   -webkit-transform: scale3d(1, 0, 1);
           transform: scale3d(1, 0, 1);
-  -webkit-transition-duration: 700ms;
-          transition-duration: 700ms;
-  -webkit-transition-delay: 650ms;
-          transition-delay: 650ms;
+  transition-duration: 700ms;
+  transition-delay: 600ms;
 }
 
 div.work-grid a {
   margin-top: 6px;
-  display: -webkit-box;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-          flex-direction: column;
-  -webkit-transition: -webkit-transform 180ms;
+  flex-direction: column;
   transition: -webkit-transform 180ms;
   transition: transform 180ms;
   transition: transform 180ms, -webkit-transform 180ms;
@@ -86,7 +76,6 @@ div.work-grid a.work-item .media:not(iframe) {
 div.work-grid a.work-item .project-text-container {
   padding: 10px 12px;
   border-top: 2.5px solid var(--oppositeModeBackground);
-  -webkit-transition: -webkit-transform 260ms;
   transition: -webkit-transform 260ms;
   transition: transform 260ms;
   transition: transform 260ms, -webkit-transform 260ms;

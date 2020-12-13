@@ -22,7 +22,7 @@ const transitionElements = document.querySelectorAll(".transition");
 document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
         transitionElements.forEach((el, i) => {
-            setTimeout(() => el.classList.add("loaded"), 600 + i * 210);
+            setTimeout(() => el.classList.add("loaded"), 600 + i * 205);
         });
     }, 200); // To avoid animation jittering
 });

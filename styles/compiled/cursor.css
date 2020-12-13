@@ -6,7 +6,6 @@
   pointer-events: none;
   -webkit-transform: translate(-1em, -1em);
           transform: translate(-1em, -1em);
-  -webkit-transition: -webkit-transform 38ms;
   transition: -webkit-transform 38ms;
   transition: transform 38ms;
   transition: transform 38ms, -webkit-transform 38ms;
@@ -23,7 +22,6 @@
 
 .cursor-container .cursor {
   background-color: var(--midGrey);
-  -webkit-transition: -webkit-transform 430ms cubic-bezier(1, 0.1, 0.1, 1);
   transition: -webkit-transform 430ms cubic-bezier(1, 0.1, 0.1, 1);
   transition: transform 430ms cubic-bezier(1, 0.1, 0.1, 1);
   transition: transform 430ms cubic-bezier(1, 0.1, 0.1, 1), -webkit-transform 430ms cubic-bezier(1, 0.1, 0.1, 1);
@@ -31,7 +29,6 @@
 
 .cursor-container .cursor-inner {
   background-color: var(--backgroundColor);
-  -webkit-transition: -webkit-transform 780ms cubic-bezier(1, 0.1, 0.1, 1) 220ms;
   transition: -webkit-transform 780ms cubic-bezier(1, 0.1, 0.1, 1) 220ms;
   transition: transform 780ms cubic-bezier(1, 0.1, 0.1, 1) 220ms;
   transition: transform 780ms cubic-bezier(1, 0.1, 0.1, 1) 220ms, -webkit-transform 780ms cubic-bezier(1, 0.1, 0.1, 1) 220ms;

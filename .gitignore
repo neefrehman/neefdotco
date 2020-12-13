@@ -1,1 +1,7 @@
+<<<<<<< HEAD
 /photos/_raw
+.DS_Store
+=======
+.DS_Store
+.netlify/
+>>>>>>> 39863c5161ba08b14940ab8c578411133bfcb438
