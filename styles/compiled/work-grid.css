@@ -59,7 +59,7 @@ div.work-grid a {
 }
 
 div.work-grid a.work-item {
-  border: 2.64px solid var(--oppositeModeBackground);
+  border: 3px solid var(--oppositeModeBackground);
   position: relative;
 }
 
@@ -75,7 +75,7 @@ div.work-grid a.work-item .media:not(iframe) {
 
 div.work-grid a.work-item .project-text-container {
   padding: 10px 12px;
-  border-top: 2.5px solid var(--oppositeModeBackground);
+  border-top: 3px solid var(--oppositeModeBackground);
   transition: -webkit-transform 260ms;
   transition: transform 260ms;
   transition: transform 260ms, -webkit-transform 260ms;

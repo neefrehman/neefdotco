@@ -7,7 +7,7 @@
 
 :root {
   --textColor: #333333;
-  --backgroundColor: #f1f1f1;
+  --backgroundColor: #ecebeb;
   --linkBackgroundColor-fallback: #4a4a4a;
   --linkBackgroundColor: rgba(225, 225, 225, 0.8);
   --oppositeModeBackground: #212121;
@@ -19,7 +19,7 @@
   --backgroundColor: #212121;
   --linkBackgroundColor-fallback: #eeeeee;
   --linkBackgroundColor: rgba(225, 225, 225, 0.2);
-  --oppositeModeBackground: #f1f1f1;
+  --oppositeModeBackground: #ecebeb;
 }
 
 body {

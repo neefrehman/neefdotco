@@ -46,7 +46,7 @@ div.work-grid {
         overflow-x: hidden;
 
         &.work-item {
-            border: 2.64px solid var(--oppositeModeBackground);
+            border: 3px solid var(--oppositeModeBackground);
             position: relative;
 
             .media {
@@ -60,7 +60,7 @@ div.work-grid {
 
             .project-text-container {
                 padding: 10px 12px;
-                border-top: 2.5px solid var(--oppositeModeBackground);
+                border-top: 3px solid var(--oppositeModeBackground);
                 transition: transform 260ms;
 
                 h2 {
