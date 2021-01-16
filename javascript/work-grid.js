@@ -1,11 +1,5 @@
 const workArray = [
     {
-        iframesrc: "/work/adventurev2/",
-        url: "https://adventure.ustwo.com",
-        title: "ustwo Adventure",
-        description: "New site and art direction for the investment arm of ustwo"
-    },
-    {
         iframesrc: "/work/generative/",
         url: "https://generative.neef.co",
         title: "Generative",
@@ -20,18 +14,30 @@ const workArray = [
             "A GPT-2 bot trained on my bosses tweets, and a guide to making your own"
     },
     {
-        iframesrc: "/work/studiowave/",
-        url: "https://studiowave.fm",
-        title: "studiowave.fm",
-        description: "A simple webapp dishing out chillout tunes and inspiration"
+        iframesrc: "/work/adventurev2/",
+        url: "https://adventure.ustwo.com",
+        title: "ustwo Adventure",
+        description: "New site and art direction for the investment arm of ustwo"
     },
     {
         iframesrc: "/work/make-matrix/",
         url: "https://github.com/neefrehman/make-matrix",
         title: "make-matrix",
         description:
-            "A simple, type-safe way to create multi-dimensional arrays in JavaScript"
-    }
+        "A simple, type-safe way to create multi-dimensional arrays in JavaScript"
+    },
+    {
+        iframesrc: "https://manyworlds.neef.co/?no-ui&iframe-link",
+        url: "https://manyworlds.neef.co",
+        title: "many worlds",
+        description: "A visual study of signed distance functions in WegGL"
+    },
+    {
+        iframesrc: "/work/studiowave/",
+        url: "https://studiowave.fm",
+        title: "studiowave.fm",
+        description: "A simple webapp dishing out chillout tunes and inspiration"
+    },
 ];
 
 let workElements = workArray.map((obj) => {
