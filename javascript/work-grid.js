@@ -30,7 +30,7 @@ const workArray = [
         iframesrc: "https://manyworlds.neef.co/?no-ui&iframe-link",
         url: "https://manyworlds.neef.co",
         title: "many worlds",
-        description: "A visual study of signed distance functions in WegGL"
+        description: "A scifi-inspired study of signed distance functions in WegGL"
     },
     {
         iframesrc: "/work/studiowave/",
