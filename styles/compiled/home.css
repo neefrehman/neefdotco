@@ -87,6 +87,10 @@ main section.info {
   transition: transform 1600ms cubic-bezier(0, 0.9, 0.1, 1), -webkit-transform 1600ms cubic-bezier(0, 0.9, 0.1, 1);
 }
 
+main section.info a {
+  display: inline;
+}
+
 main section.info::after {
   content: "";
   display: block;
