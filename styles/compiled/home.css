@@ -141,6 +141,10 @@ main section.info div p:not(:last-child) {
   margin-bottom: 0.8em;
 }
 
+main section.info details summary {
+  display: flex;
+}
+
 main section.info details summary p {
   text-decoration: underline;
   cursor: pointer;
@@ -151,7 +155,7 @@ main section.info details summary p:hover {
   color: var(--backgroundColor);
 }
 
-main section.info details summary::-webkit-details-marker {
+main section.info details summary::-webkit-details-marker, main section.info details summary::marker {
   display: none;
 }
 
