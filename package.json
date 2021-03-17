@@ -1,0 +1,23 @@
+{
+  "name": "neef",
+  "author": "neef",
+  "description": "my site :—)",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neefrehman/neefdotco.git"
+  },
+  "homepage": "https:neef.co",
+  "bugs": {
+    "url": "https://github.com/neefrehman/neefdotco/issues"
+  },
+  "type": "module",
+  "scripts": {
+    "process-photos": "node scripts/process-photos.js"
+  },
+  "dependencies": {
+    "@squoosh/cli": "^0.6.3",
+    "atcq": "^1.0.6",
+    "get-pixels": "^3.3.2"
+  }
+}

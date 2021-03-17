@@ -1,16 +1,7 @@
-// Photo array variables
-const PHOTO_COUNT = 87;
-const screenSize = window.innerWidth > 600 ? "large" : "small";
-const randomOffset = () => 10 * Math.floor(Math.random() * 9) - 40;
+const photoContainer = document.querySelector(".photo-container");
+let photos = photoContainer.querySelectorAll("img");
 
-const photoArray = Array.from({ length: PHOTO_COUNT }, (_, i) => {
-    return `
-        <div class="grid"
-            data-src="photos/${screenSize}/photo_${++i}.jpg"
-            style="--x: ${randomOffset()}px; --y: ${randomOffset()}px"> </div>
-    `;
-});
-
+// Shuffle photos
 const shuffle = (a) => {
     for (let i = a.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -19,16 +10,21 @@ const shuffle = (a) => {
     return a;
 };
 
-// Add photos to DOM
-const photoContainer = document.querySelector(".photo-container");
-photoContainer.innerHTML = shuffle(photoArray).join("");
-const photos = document.querySelectorAll("[data-src]");
+photoContainer.innerHTML = shuffle([...photos].map((photo) => photo.outerHTML)).join(
+    ""
+);
 
 // Lazy-load
 lzy(500);
 
-// Zoom on click
+// Ransomise size and offset
+const randomOffset = () => 10 * Math.floor(Math.random() * 9) - 40;
+
+photos = photoContainer.querySelectorAll("img"); // reset after shuffle
 photos.forEach((photo) => {
+    photo.style.setProperty("--x", `${randomOffset()}px`);
+    photo.style.setProperty("--y", `${randomOffset()}px`);
+    // Zoom on click
     photo.addEventListener("click", () => {
         photo.classList.toggle("zoom");
         const siblings = [...photos].filter((sibling) => sibling !== photo);

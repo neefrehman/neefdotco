@@ -1,14 +1,15 @@
 body {
+  overflow-x: hidden;
   margin: 0 auto;
   max-width: initial;
 }
 
 body header, body footer a {
+  --edgeMargin: 40px;
   cursor: pointer;
   position: fixed;
   z-index: 3;
   font-size: 0.95em;
-  --edgeMargin: 40px;
   opacity: 0;
   transition: opacity 500ms cubic-bezier(0, 0.9, 0.1, 1);
 }
@@ -63,25 +64,18 @@ main.photo-container.grid {
   }
 }
 
-main.photo-container div {
+main.photo-container img {
   height: 100vh;
   width: 100vw;
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+  -o-object-fit: cover;
+     object-fit: cover;
+  margin-top: -6px;
   -webkit-filter: contrast(88%);
           filter: contrast(88%);
-  background-color: rgba(130, 130, 130, 0.1);
+  border: 0;
 }
 
-@media (pointer: coarse) {
-  main.photo-container div {
-    background-attachment: initial;
-  }
-}
-
-main.photo-container div.grid {
-  background-attachment: initial;
+main.photo-container img.grid {
   margin: 100px 42px;
   width: calc(325px + var(--y));
   height: calc(262px + var(--x));
@@ -89,25 +83,25 @@ main.photo-container div.grid {
           transform: translate(var(--x), calc(var(--y) * 1.15));
 }
 
-main.photo-container div.grid:first-child {
+main.photo-container img.grid:first-child {
   margin-left: 90px;
 }
 
-main.photo-container div.grid:hover {
+main.photo-container img.grid:hover {
   z-index: 2;
   -webkit-filter: contrast(88%) brightness(105%);
           filter: contrast(88%) brightness(105%);
   cursor: crosshair;
 }
 
-main.photo-container div.grid.zoom {
+main.photo-container img.grid.zoom {
   margin: 20px 10px;
   width: calc((330px + var(--y)) * 2.3);
   height: calc((262px + var(--x)) * 2.3);
 }
 
 @media (min-width: 1520px) {
-  main.photo-container div.grid {
+  main.photo-container img.grid {
     margin: 110px 50px;
     width: calc(335px + var(--y));
     height: calc(270px + var(--x));
@@ -115,37 +109,37 @@ main.photo-container div.grid.zoom {
 }
 
 @media (max-width: 1025px) {
-  main.photo-container div.grid {
+  main.photo-container img.grid {
     width: calc(315px + var(--y));
     height: calc(257px + var(--x));
     -webkit-transform: translate(calc(var(--x) * 0.7), calc(var(--y) * 0.5));
             transform: translate(calc(var(--x) * 0.7), calc(var(--y) * 0.5));
   }
-  main.photo-container div.grid.zoom {
+  main.photo-container img.grid.zoom {
     width: calc((315px + var(--y)) * 2);
     height: calc((257px + var(--x)) * 2);
   }
 }
 
 @media (max-width: 769px) {
-  main.photo-container div.grid {
+  main.photo-container img.grid {
     margin: 60px 30px;
     width: calc(280px + var(--y));
     height: calc(227px + var(--x));
     -webkit-transform: translate(calc(var(--x) * 0.6), calc(var(--y) * 0.4));
             transform: translate(calc(var(--x) * 0.6), calc(var(--y) * 0.4));
   }
-  main.photo-container div.grid:first-child {
+  main.photo-container img.grid:first-child {
     margin-left: 50px;
   }
-  main.photo-container div.grid.zoom {
+  main.photo-container img.grid.zoom {
     width: calc((275px + var(--y)) * 1.8);
     height: calc((227px + var(--x)) * 1.8);
   }
 }
 
 @media (max-width: 575px) {
-  main.photo-container div.grid {
+  main.photo-container img.grid {
     margin: 55px 30px;
     -webkit-transform: translate(calc(var(--x) * 0.75), calc(var(--y) * 0.3));
             transform: translate(calc(var(--x) * 0.75), calc(var(--y) * 0.3));
@@ -153,7 +147,7 @@ main.photo-container div.grid.zoom {
 }
 
 @media (max-width: 400px) {
-  main.photo-container div.grid {
+  main.photo-container img.grid {
     -webkit-transform: translate(calc(var(--x) * 0.6), calc(var(--y) * 0.3));
             transform: translate(calc(var(--x) * 0.6), calc(var(--y) * 0.3));
   }
