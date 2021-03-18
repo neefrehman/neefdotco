@@ -8,7 +8,11 @@ import chalk from "chalk";
 const exec = promisify(rawExec);
 const getPixels = promisify(rawGetPixels);
 
-const widths = { lg: 1800, md: 1200, sm: 620 };
+const widths = {
+    lg: 1800,
+    md: 1200,
+    sm: 620
+};
 
 const rawPhotosDirectory = "./photos/_raw";
 const rawPhotos = fs
@@ -17,29 +21,26 @@ const rawPhotos = fs
 
 const cacheJsonFile = "./scripts/process-photos_cache.json";
 const processedPhotos = JSON.parse(fs.readFileSync(cacheJsonFile));
+
 const photosToProcess = rawPhotos.filter(
     (photoName) => !Object.keys(processedPhotos).includes(photoName)
 );
+const photosToDelete = Object.keys(processedPhotos).filter(
+    (file) => !rawPhotos.includes(file)
+);
 
+// PHOTO PROCESSING
 const deleteRemovedPhotos = () => {
-    const photosToDelete = Object.keys(processedPhotos).filter(
-        (file) => !rawPhotos.includes(file)
-    );
-
-    if (photosToDelete.length === 0) {
-        return;
-    }
-
-    console.log(`photos that have been removed: ${photosToDelete}`);
+    console.log(`photos that have been removed: ${photosToDelete}`, "\n");
 
     photosToDelete.forEach((photo) => {
-        console.log(`deleting: ${photo}`);
+        delete processedPhotos[photo];
         Object.keys(widths).forEach((sizeName) => {
             if (fs.existsSync(`./photos/${sizeName}/${photo}`)) {
                 fs.unlinkSync(`./photos/${sizeName}/${photo}`);
+                console.log(`deleted ${photo} from photos/${sizeName}`, "\n");
             }
         });
-        delete processedPhotos[photo];
         fs.writeFileSync(cacheJsonFile, JSON.stringify(processedPhotos, null, 4));
     });
 };
@@ -79,10 +80,13 @@ const extractColourFromImage = async (file) => {
     return colourHex;
 };
 
-const processPhotos = async (photos) => {
-    console.log(`starting processing for ${photos.length} new photos`, "\n");
+const processPhotos = async () => {
+    console.log(
+        `starting processing for ${photosToProcess.length} new photos`,
+        "\n"
+    );
 
-    for (const file of photos) {
+    for (const file of photosToProcess) {
         for (const [sizeName, width] of Object.entries(widths)) {
             await resizeAndOptimiseImage({
                 imageSource: `${rawPhotosDirectory}/${file}`,
@@ -98,10 +102,7 @@ const processPhotos = async (photos) => {
     }
 };
 
-const photosPagePath = "./photos.html";
-const previousPhotosPageMarkup = fs.readFileSync(photosPagePath, "utf-8");
-const photosContainerElementRegex = /<main class="grid photo-container">(.*?)<\/main>/gs;
-
+// STATIC SITE BUILD
 const createSrcset = (filename) =>
     Object.entries(widths)
         .map(([sizeName, width]) => `photos/${sizeName}/${filename} ${width}w`)
@@ -113,7 +114,12 @@ const createImageElement = (filename) =>
     )}" style="background-color: ${processedPhotos[filename]}"></img>`;
 
 const buildHtmlPage = () => {
+    const photosPagePath = "./photos.html";
+    const previousPhotosPageMarkup = fs.readFileSync(photosPagePath, "utf-8");
+    const photosContainerElementRegex = /<main class="grid photo-container">(.*?)<\/main>/gs;
+
     console.log("starting to rebuild photos html page", "\n");
+
     fs.writeFileSync(
         photosPagePath,
         previousPhotosPageMarkup.replace(
@@ -127,15 +133,18 @@ const buildHtmlPage = () => {
     console.log("📑 done rebuilding photos html page 📑");
 };
 
+// EXECUTE
 const main = () => {
-    deleteRemovedPhotos();
+    if (photosToDelete.length > 0) {
+        deleteRemovedPhotos();
+    }
 
     if (photosToProcess.length === 0) {
         console.log("no new photos to process :~)");
     } else {
         processPhotos(photosToProcess)
             .then(() => console.log("✨ 🖼  done with photo processing 🖼  ✨", "\n"))
-            .catch((error) => console.log("error", error))
+            .catch((error) => console.log("error:", error))
             .finally(() => buildHtmlPage());
     }
 };
