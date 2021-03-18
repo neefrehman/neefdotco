@@ -15,7 +15,7 @@ photoContainer.innerHTML = shuffle([...photos].map((photo) => photo.outerHTML)).
 );
 
 // Lazy-load
-lzy(500);
+lzy(200);
 
 // Ransomise size and offset
 const randomOffset = () => 10 * Math.floor(Math.random() * 9) - 40;

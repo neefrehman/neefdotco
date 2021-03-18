@@ -108,8 +108,11 @@ const createSrcset = (filename) =>
         .map(([sizeName, width]) => `photos/${sizeName}/${filename} ${width}w`)
         .join(", ");
 
+const transparentPng64 =
+    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
+
 const createImageElement = (filename) =>
-    `<img class="grid" loading="lazy" data-srcset="${createSrcset(
+    `<img class="grid" loading="lazy" src=${transparentPng64} data-srcset="${createSrcset(
         filename
     )}" style="background-color: ${processedPhotos[filename]}"></img>`;
 

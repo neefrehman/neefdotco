@@ -3,24 +3,22 @@ const lzy = (offset = 500) => {
 
     const loadImage = (imageEl) => {
         const imageSource = imageEl.getAttribute("data-srcset");
-        if (imageEl.tagName === "IMG") {
-            imageEl.setAttribute("srcset", imageSource);
-        } else {
-            imageEl.style.backgroundImage = `url(${imageSource})`;
-        }
+        imageEl.setAttribute("srcset", imageSource);
         imageEl.removeAttribute("data-srcset");
     };
 
-    if ("loading" in HTMLImageElement.prototype) {
-        images.forEach((image) => loadImage(image));
-        return;
-    }
+    // if ("loading" in HTMLImageElement.prototype) {
+    //     images.forEach((image) => loadImage(image));
+    //     return;
+    // }
 
     const onIntersection = (entries) => {
         entries.forEach((entry) => {
             if (entry.intersectionRatio > 0) {
                 observer.unobserve(entry.target);
-                loadImage(entry.target);
+                setTimeout(() => {
+                    loadImage(entry.target);
+                }, 200);
             }
         });
     };
