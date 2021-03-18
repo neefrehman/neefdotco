@@ -29,7 +29,7 @@ const deleteRemovedPhotos = () => {
     if (photosToDelete.length === 0) {
         return;
     }
-    
+
     console.log(`photos that have been removed: ${photosToDelete}`);
 
     photosToDelete.forEach((photo) => {
@@ -74,7 +74,7 @@ const extractColourFromImage = async (file) => {
 
     const colourRgb = atcq.getWeightedPalette(1)[0].color;
     const colourHex = rgb2hex(...colourRgb).split(".")[0];
-    
+
     console.log(`${file} colour is: `, chalk.bgHex(colourHex)(colourHex), "\n");
     return colourHex;
 };
@@ -90,15 +90,13 @@ const processPhotos = async (photos) => {
                 desiredWidth: width
             });
         }
-        
+
         const extractedColour = await extractColourFromImage(file);
         processedPhotos[file] = extractedColour;
 
         fs.writeFileSync(cacheJsonFile, JSON.stringify(processedPhotos, null, 4));
     }
-
 };
-
 
 const photosPagePath = "./photos.html";
 const previousPhotosPageMarkup = fs.readFileSync(photosPagePath, "utf-8");
@@ -131,7 +129,7 @@ const buildHtmlPage = () => {
 
 const main = () => {
     deleteRemovedPhotos();
-    
+
     if (photosToProcess.length === 0) {
         console.log("no new photos to process :~)");
     } else {
