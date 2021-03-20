@@ -8,19 +8,13 @@ const loadImage = (imageEl) => {
     imageEl.removeAttribute("data-srcset");
 };
 
-const onIntersection = (entries) => {
+const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
         if (entry.intersectionRatio > 0) {
             observer.unobserve(entry.target);
             loadImage(entry.target);
         }
     });
-};
-
-const OFFSET = 0;
-const observer = new IntersectionObserver(onIntersection, {
-    rootMargin: `${OFFSET}px ${OFFSET}px`,
-    threshold: 0.01
 });
 
 // photos.forEach((photo) => "loading" in HTMLImageElement.prototype ? loadImage(photo) : observer.observe(photo));
