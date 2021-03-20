@@ -1,30 +1,33 @@
 const photoContainer = document.querySelector(".photo-container");
-let photos = photoContainer.querySelectorAll("img");
+const photos = photoContainer.querySelectorAll("img");
 
-// Shuffle photos
-const shuffle = (a) => {
-    for (let i = a.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]];
-    }
-    return a;
+// lazy load images
+const loadImage = (imageEl) => {
+    const imageSource = imageEl.getAttribute("data-srcset");
+    imageEl.setAttribute("srcset", imageSource);
+    imageEl.removeAttribute("data-srcset");
 };
 
-photoContainer.innerHTML = shuffle([...photos].map((photo) => photo.outerHTML)).join(
-    ""
-);
+const onIntersection = (entries) => {
+    entries.forEach((entry) => {
+        if (entry.intersectionRatio > 0) {
+            observer.unobserve(entry.target);
+            loadImage(entry.target);
+        }
+    });
+};
 
-// Lazy-load
-lzy(200);
+const OFFSET = 0;
+const observer = new IntersectionObserver(onIntersection, {
+    rootMargin: `${OFFSET}px ${OFFSET}px`,
+    threshold: 0.01
+});
 
-// Ransomise size and offset
-const randomOffset = () => 10 * Math.floor(Math.random() * 9) - 40;
+// photos.forEach((photo) => "loading" in HTMLImageElement.prototype ? loadImage(photo) : observer.observe(photo));
+photos.forEach((photo) => observer.observe(photo));
 
-photos = photoContainer.querySelectorAll("img"); // reset after shuffle
+// Zoom on click
 photos.forEach((photo) => {
-    photo.style.setProperty("--x", `${randomOffset()}px`);
-    photo.style.setProperty("--y", `${randomOffset()}px`);
-    // Zoom on click
     photo.addEventListener("click", () => {
         photo.classList.toggle("zoom");
         const siblings = [...photos].filter((sibling) => sibling !== photo);

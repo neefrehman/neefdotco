@@ -31,6 +31,20 @@
     <link rel="stylesheet" href="/styles/compiled/cursor.css">
 
     <script> if (localStorage.getItem("darkMode") == 1 || (!localStorage.getItem("darkMode") && window.matchMedia("(prefers-color-scheme: dark)").matches)) document.documentElement.classList = "dark" </script>
+    <script type="module">
+        const photoContainer = document.querySelector(".photo-container");
+        const photos = photoContainer.querySelectorAll("img");
+        const randomOffset = () => 10 * Math.floor(Math.random() * 9) - 40;
+        photos.forEach((photo) => {
+            photo.style.setProperty("--x", `${randomOffset()}px`);
+            photo.style.setProperty("--y", `${randomOffset()}px`);
+        });
+        const shuffle = (a) => {
+            for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+            return a;
+        };
+        photoContainer.innerHTML = shuffle([...photos].map((photo) => photo.outerHTML)).join("");
+    </script>
 </head>
 
 <body class="transition">
@@ -133,8 +147,7 @@
         <a class="button grid-toggle">Full screen</a>
     </footer>
 
-    <script src="/javascript/lzy.js"> </script>
-    <script src="/javascript/photos.js"> </script>
+    <script type="module" src="/javascript/photos.js"> </script>
     <script src="/javascript/cursor.js"> </script>
     <script src="/javascript/main.js"> </script>
 </body>
