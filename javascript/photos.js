@@ -17,7 +17,6 @@ const observer = new IntersectionObserver((entries) => {
     });
 });
 
-// photos.forEach((photo) => "loading" in HTMLImageElement.prototype ? loadImage(photo) : observer.observe(photo));
 photos.forEach((photo) => observer.observe(photo));
 
 // Zoom on click

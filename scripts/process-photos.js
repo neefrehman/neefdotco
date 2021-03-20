@@ -112,7 +112,7 @@ const transparentPng64 =
     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
 
 const createImageElement = (filename) =>
-    `<img class="grid" loading="lazy" src=${transparentPng64} data-srcset="${createSrcset(
+    `<img class="grid" src="${transparentPng64}" data-srcset="${createSrcset(
         filename
     )}" style="background-color: ${processedPhotos[filename]}"></img>`;
 
@@ -141,6 +141,7 @@ const main = () => {
     if (photosToDelete.length > 0) {
         deleteRemovedPhotos();
     }
+    buildHtmlPage();
 
     if (photosToProcess.length === 0) {
         console.log("no new photos to process :~)");
