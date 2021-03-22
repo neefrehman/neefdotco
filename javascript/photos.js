@@ -2,20 +2,20 @@ const photoContainer = document.querySelector(".photo-container");
 const photos = photoContainer.querySelectorAll("img");
 
 // lazy load images
-const loadImage = (imageEl) => {
-    const imageSource = imageEl.getAttribute("data-srcset");
-    imageEl.setAttribute("srcset", imageSource);
-    imageEl.removeAttribute("data-srcset");
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-        if (entry.intersectionRatio > 0) {
-            observer.unobserve(entry.target);
-            loadImage(entry.target);
-        }
-    });
-});
+const observer = new IntersectionObserver(
+    (entries) => {
+        entries.forEach((entry) => {
+            if (entry.intersectionRatio > 0) {
+                const imageEl = entry.target;
+                observer.unobserve(imageEl);
+                const imageSource = imageEl.getAttribute("data-srcset");
+                imageEl.setAttribute("srcset", imageSource);
+                imageEl.removeAttribute("data-srcset");
+            }
+        });
+    },
+    { threshold: 0.5 }
+);
 
 photos.forEach((photo) => observer.observe(photo));
 
