@@ -52,7 +52,7 @@ const resizeAndOptimiseImage = async ({
 }) => {
     console.log(`Resizing ~${imageSource}~ for ~${desiredWidth}px~`);
     await exec(
-        `squoosh-cli --mozjpeg --max-optimizer-rounds 2 --resize '{"enabled":true, "width":${desiredWidth}}' --output-dir ${outputDirectory} ${imageSource}`
+        `squoosh-cli --mozjpeg --max-optimizer-rounds 2 --resize '{"enabled":true, "width":${desiredWidth}}' --rotate '{"enabled":false}' --output-dir ${outputDirectory} ${imageSource}`
     )
         .then(({ stdout, stderr }) => console.log(stdout, stderr))
         .catch((err) => console.log(err));
@@ -87,15 +87,25 @@ const processPhotos = async () => {
     );
 
     for (const file of photosToProcess) {
+        let newFile = file;
+        if (file.includes("jpeg")) {
+            newFile = file.replace("jpeg", "jpg");
+            console.log(`renaming extension for ${file}`);
+            fs.renameSync(
+                `${rawPhotosDirectory}/${file}`,
+                `${rawPhotosDirectory}/${newFile}`
+            );
+        }
+
         for (const [sizeName, width] of Object.entries(widths)) {
             await resizeAndOptimiseImage({
-                imageSource: `${rawPhotosDirectory}/${file}`,
+                imageSource: `${rawPhotosDirectory}/${newFile}`,
                 outputDirectory: `./photos/${sizeName}`,
                 desiredWidth: width
             });
         }
 
-        const extractedColour = await extractColourFromImage(file);
+        const extractedColour = await extractColourFromImage(newFile);
         processedPhotos[file] = extractedColour;
 
         fs.writeFileSync(cacheJsonFile, JSON.stringify(processedPhotos, null, 4));
@@ -141,15 +151,14 @@ const main = () => {
     if (photosToDelete.length > 0) {
         deleteRemovedPhotos();
     }
-    buildHtmlPage();
 
     if (photosToProcess.length === 0) {
         console.log("no new photos to process :~)");
     } else {
         processPhotos(photosToProcess)
             .then(() => console.log("✨ 🖼  done with photo processing 🖼  ✨", "\n"))
-            .catch((error) => console.log("error:", error))
-            .finally(() => buildHtmlPage());
+            .then(() => buildHtmlPage())
+            .catch((error) => console.log("error:", error));
     }
 };
 
