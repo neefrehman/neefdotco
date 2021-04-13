@@ -150,6 +150,7 @@ const buildHtmlPage = () => {
 const main = () => {
     if (photosToDelete.length > 0) {
         deleteRemovedPhotos();
+        buildHtmlPage();
     }
 
     if (photosToProcess.length === 0) {
