@@ -29,19 +29,23 @@ const photosToDelete = Object.keys(processedPhotos).filter(
     (file) => !rawPhotos.includes(file)
 );
 
-// PHOTO PROCESSING
+const updateCache = () =>
+    fs.writeFileSync(cacheJsonFile, JSON.stringify(processedPhotos, null, 4));
+
+
 const deleteRemovedPhotos = () => {
     console.log(`photos that have been removed: ${photosToDelete}`, "\n");
 
     photosToDelete.forEach((photo) => {
-        delete processedPhotos[photo];
         Object.keys(widths).forEach((sizeName) => {
             if (fs.existsSync(`./photos/${sizeName}/${photo}`)) {
                 fs.unlinkSync(`./photos/${sizeName}/${photo}`);
                 console.log(`deleted ${photo} from photos/${sizeName}`, "\n");
             }
         });
-        fs.writeFileSync(cacheJsonFile, JSON.stringify(processedPhotos, null, 4));
+        
+        delete processedPhotos[photo];
+        updateCache();
     });
 };
 
@@ -58,44 +62,47 @@ const resizeAndOptimiseImage = async ({
         .catch((err) => console.log(err));
 };
 
-const rgb2hex = (r, g, b) =>
-    "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
-
 const extractColourFromImage = async (file) => {
     console.log(`starting to extract colours from ${file}`, "\n");
+
+    const rgb2hex = (r, g, b) =>
+        "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+
     const atcq = ATCQ({
         maxColors: 8,
         disconnects: false,
         maxIterations: 5
     });
 
-    const { data } = await getPixels(`./photos/sm/${file}`);
-    atcq.addData(data);
+    const { data: pixelData } = await getPixels(`./photos/sm/${file}`);
+    atcq.addData(pixelData);
     await atcq.quantizeAsync();
 
     const colourRgb = atcq.getWeightedPalette(1)[0].color;
     const colourHex = rgb2hex(...colourRgb).split(".")[0];
-
     console.log(`${file} colour is: `, chalk.bgHex(colourHex)(colourHex), "\n");
+    
     return colourHex;
 };
 
+const updateFileExtension = (file) => {
+    let newFile = file;
+    if (file.includes("jpeg")) {
+        newFile = file.replace("jpeg", "jpg");
+        console.log(`renaming extension for ${file}`);
+        fs.renameSync(
+            `${rawPhotosDirectory}/${file}`,
+            `${rawPhotosDirectory}/${newFile}`
+        );
+    }
+    return newFile;
+}
+
 const processPhotos = async () => {
-    console.log(
-        `starting processing for ${photosToProcess.length} new photos`,
-        "\n"
-    );
+    console.log(`starting processing for ${photosToProcess.length} new photos`);
 
     for (const file of photosToProcess) {
-        let newFile = file;
-        if (file.includes("jpeg")) {
-            newFile = file.replace("jpeg", "jpg");
-            console.log(`renaming extension for ${file}`);
-            fs.renameSync(
-                `${rawPhotosDirectory}/${file}`,
-                `${rawPhotosDirectory}/${newFile}`
-            );
-        }
+        const newFile = updateFileExtension(file);
 
         for (const [sizeName, width] of Object.entries(widths)) {
             await resizeAndOptimiseImage({
@@ -108,11 +115,11 @@ const processPhotos = async () => {
         const extractedColour = await extractColourFromImage(newFile);
         processedPhotos[file] = extractedColour;
 
-        fs.writeFileSync(cacheJsonFile, JSON.stringify(processedPhotos, null, 4));
+        updateCache();
     }
 };
 
-// STATIC SITE BUILD
+
 const createSrcset = (filename) =>
     Object.entries(widths)
         .map(([sizeName, width]) => `photos/${sizeName}/${filename} ${width}w`)
@@ -159,7 +166,8 @@ const main = () => {
         processPhotos(photosToProcess)
             .then(() => console.log("✨ 🖼  done with photo processing 🖼  ✨", "\n"))
             .then(() => buildHtmlPage())
-            .catch((error) => console.log("error:", error));
+            .catch((error) => console.log("error:", error))
+            .finally(() => updateCache());
     }
 };
 
