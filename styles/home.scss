@@ -17,6 +17,12 @@ header {
         nav {
             display: inline;
         }
+
+        &::after{
+            content: "";
+            display: inline-block;
+            width: 100%;
+        }
     }
 }
 

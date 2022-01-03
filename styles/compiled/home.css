@@ -18,6 +18,12 @@ header h1 nav {
   display: inline;
 }
 
+header h1::after {
+  content: "";
+  display: inline-block;
+  width: 100%;
+}
+
 main section.info {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
