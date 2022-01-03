@@ -20,7 +20,7 @@ if (darkModeButton) darkModeButton.addEventListener("click", () => darkMode());
 const transitionElements = document.querySelectorAll(".transition");
 document.addEventListener("DOMContentLoaded", () => {
     transitionElements.forEach((el, i) => {
-        setTimeout(() => el.classList.add("loaded"), i * 260);
+        setTimeout(() => el.classList.add("loaded"), 200 + (i * 260));
     });
 });
 
