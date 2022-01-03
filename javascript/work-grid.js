@@ -24,7 +24,7 @@ const workArray = [
         url: "https://github.com/neefrehman/make-matrix",
         title: "make-matrix",
         description:
-        "A simple, type-safe way to create multi-dimensional arrays in JavaScript"
+            "A simple, type-safe way to create multi-dimensional arrays in JavaScript"
     },
     {
         iframesrc: "https://manyworlds.neef.co/?no-ui&iframe-link",
@@ -37,7 +37,7 @@ const workArray = [
         url: "https://studiowave.fm",
         title: "studiowave.fm",
         description: "A simple webapp dishing out chillout tunes and inspiration"
-    },
+    }
 ];
 
 let workElements = workArray.map((obj) => {
@@ -60,10 +60,9 @@ const workGrid = workElements.join("");
 const workGridContainer = document.querySelector(".work-grid");
 workGridContainer.insertAdjacentHTML("afterbegin", workGrid);
 
-workElements = document.querySelectorAll(".work-item");
-
 // Intersection Observer - Mobile
 if (window.innerWidth <= 450) {
+    workElements = document.querySelectorAll(".work-item");
     let yOffset, isScrollingUp, isScrollingDown;
 
     const onIntersection = (entries) => {
@@ -98,4 +97,12 @@ if (window.innerWidth <= 450) {
     });
 
     workElements.forEach((item) => observer.observe(item));
+} else {
+    // Loaded animation - Desktop
+    const transitionElements = document.querySelectorAll(".transition");
+    document.addEventListener("DOMContentLoaded", () => {
+        transitionElements.forEach((el, i) => {
+            setTimeout(() => el.classList.add("loaded"), 200 + i * 280);
+        });
+    });
 }

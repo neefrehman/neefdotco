@@ -16,14 +16,6 @@ const darkMode = () => {
 
 if (darkModeButton) darkModeButton.addEventListener("click", () => darkMode());
 
-// Loaded animation
-const transitionElements = document.querySelectorAll(".transition");
-document.addEventListener("DOMContentLoaded", () => {
-    transitionElements.forEach((el, i) => {
-        setTimeout(() => el.classList.add("loaded"), 200 + (i * 260));
-    });
-});
-
 // See less
 const seeLessButton = document.querySelector(".see-less-button");
 
