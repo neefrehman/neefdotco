@@ -18,18 +18,10 @@ if (darkModeButton) darkModeButton.addEventListener("click", () => darkMode());
 
 // Loaded animation
 const transitionElements = document.querySelectorAll(".transition");
-
 document.addEventListener("DOMContentLoaded", () => {
-    let isWorkItems = false;
-    setTimeout(() => {
-        transitionElements.forEach((el, i) => {
-            if (el.parentElement.classList.contains("work-grid")) isWorkItems = true;
-            setTimeout(
-                () => el.classList.add("loaded"),
-                600 + (isWorkItems ? i - 0.5 : i) * 205
-            );
-        });
-    }, 200); // To avoid animation jittering
+    transitionElements.forEach((el, i) => {
+        setTimeout(() => el.classList.add("loaded"), i * 260);
+    });
 });
 
 // See less
