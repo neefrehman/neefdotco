@@ -120,6 +120,12 @@ div.work-grid {
         }
     }
 
+    @media (max-width: 450px) {
+        div.transition, div.transition.loaded, div.transition::after, div.transition.loaded::after {
+            transition: transform 0ms;
+        }
+    }
+
     @media (max-width: 400px) {
         a.work-item .media {
             height: 15em;

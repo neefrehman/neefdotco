@@ -40,7 +40,7 @@ const workArray = [
     }
 ];
 
-let workElements = workArray.map((obj) => {
+const workElements = workArray.map((obj) => {
     return `
         <div class="no-hide transition">
             <a class="work-item" href=${obj.url} target="_blank" rel="noopener noreferrer">
@@ -60,9 +60,14 @@ const workGrid = workElements.join("");
 const workGridContainer = document.querySelector(".work-grid");
 workGridContainer.insertAdjacentHTML("afterbegin", workGrid);
 
-// Intersection Observer - Mobile
+const workLinks = document.querySelectorAll(".work-item");
+const transitionElements = document.querySelectorAll(".transition");
+
 if (window.innerWidth <= 450) {
-    workElements = document.querySelectorAll(".work-item");
+    // No transition - Mobile
+    transitionElements.forEach((el) => el.classList.add("loaded"));
+
+    // Intersection Observer - Mobile
     let yOffset, isScrollingUp, isScrollingDown;
 
     const onIntersection = (entries) => {
@@ -74,19 +79,19 @@ if (window.innerWidth <= 450) {
             yOffset = window.scrollY;
 
             const entryIsFirstOrLast =
-                intersectedItem === workElements[0] ||
-                intersectedItem === workElements[workElements.length - 1];
+                intersectedItem === workLinks[0] ||
+                intersectedItem === workLinks[workLinks.length - 1];
             const relativeScroll =
-                entryIsFirstOrLast && intersectedItem === workElements[0]
+                entryIsFirstOrLast && intersectedItem === workLinks[0]
                     ? isScrollingUp
                     : isScrollingDown;
             const ratioTarget = entryIsFirstOrLast && relativeScroll ? 0.5 : 0;
 
             if (entry.intersectionRatio > ratioTarget) {
-                workElements.forEach((item) => item.classList.remove("intersected"));
+                workLinks.forEach((item) => item.classList.remove("intersected"));
                 intersectedItem.classList.add("intersected");
             } else if (entryIsFirstOrLast) {
-                workElements.forEach((item) => item.classList.remove("intersected"));
+                workLinks.forEach((item) => item.classList.remove("intersected"));
             }
         });
     };
@@ -96,7 +101,7 @@ if (window.innerWidth <= 450) {
         threshold: 0.5
     });
 
-    workElements.forEach((item) => observer.observe(item));
+    workLinks.forEach((item) => observer.observe(item));
 } else {
     // Loaded animation - Desktop
     const transitionElements = document.querySelectorAll(".transition");

@@ -142,6 +142,14 @@ div.work-grid a:hover .project-text-container, div.work-grid a.intersected .proj
   }
 }
 
+@media (max-width: 450px) {
+  div.work-grid div.transition, div.work-grid div.transition.loaded, div.work-grid div.transition::after, div.work-grid div.transition.loaded::after {
+    transition: -webkit-transform 0ms;
+    transition: transform 0ms;
+    transition: transform 0ms, -webkit-transform 0ms;
+  }
+}
+
 @media (max-width: 400px) {
   div.work-grid a.work-item .media {
     height: 15em;
