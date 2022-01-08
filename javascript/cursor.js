@@ -58,7 +58,6 @@ if (matchMedia("(pointer:fine)").matches) {
     }
 
     const navLinks = document.querySelectorAll("a.nav");
-
     navLinks.forEach((link) => {
         link.addEventListener("click", (e) => {
             const slideInElements = document.querySelectorAll(".loaded");
