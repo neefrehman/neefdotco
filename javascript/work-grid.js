@@ -61,11 +61,11 @@ const workGridContainer = document.querySelector(".work-grid");
 workGridContainer.insertAdjacentHTML("afterbegin", workGrid);
 
 const workLinks = document.querySelectorAll(".work-item");
-const transitionElements = document.querySelectorAll(".transition");
 
 if (window.innerWidth <= 450) {
     // No transition - Mobile
-    transitionElements.forEach((el) => el.classList.add("loaded"));
+    const immediateTransitionElements = document.querySelectorAll(".transition");
+    immediateTransitionElements.forEach((el) => el.classList.add("loaded"));
 
     // Intersection Observer - Mobile
     let yOffset, isScrollingUp, isScrollingDown;
@@ -102,12 +102,4 @@ if (window.innerWidth <= 450) {
     });
 
     workLinks.forEach((item) => observer.observe(item));
-} else {
-    // Loaded animation - Desktop
-    const transitionElements = document.querySelectorAll(".transition");
-    document.addEventListener("DOMContentLoaded", () => {
-        transitionElements.forEach((el, i) => {
-            setTimeout(() => el.classList.add("loaded"), 200 + i * 280);
-        });
-    });
 }
