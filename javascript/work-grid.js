@@ -42,7 +42,7 @@ const workArray = [
 
 const workElements = workArray.map((obj) => {
     return `
-        <div class="no-hide transition">
+        <div class="no-hide ${window.innerWidth > 450 ? "transition" : "loaded"}">
             <a class="work-item" href=${obj.url} target="_blank" rel="noopener noreferrer">
                 <iframe class="media" src=${obj.iframesrc} title="embedded iframe" loading="lazy"> </iframe>
                 <div class="project-text-container">
@@ -60,14 +60,9 @@ const workGrid = workElements.join("");
 const workGridContainer = document.querySelector(".work-grid");
 workGridContainer.insertAdjacentHTML("afterbegin", workGrid);
 
-const workLinks = document.querySelectorAll(".work-item");
-
+// Intersection Observer - Mobile
 if (window.innerWidth <= 450) {
-    // No transition - Mobile
-    const immediateTransitionElements = document.querySelectorAll(".transition");
-    immediateTransitionElements.forEach((el) => el.classList.add("loaded"));
-
-    // Intersection Observer - Mobile
+    const workLinks = document.querySelectorAll(".work-item");
     let yOffset, isScrollingUp, isScrollingDown;
 
     const onIntersection = (entries) => {

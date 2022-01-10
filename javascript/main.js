@@ -17,14 +17,12 @@ const darkMode = () => {
 if (darkModeButton) darkModeButton.addEventListener("click", () => darkMode());
 
 // Loaded animation - Desktop
-if (window.innerWidth > 450) {
-    const transitionElements = document.querySelectorAll(".transition");
-    document.addEventListener("DOMContentLoaded", () => {
-        transitionElements.forEach((el, i) => {
-            setTimeout(() => el.classList.add("loaded"), 200 + i * 280);
-        });
+const transitionElements = document.querySelectorAll(".transition");
+document.addEventListener("DOMContentLoaded", () => {
+    transitionElements.forEach((el, i) => {
+        setTimeout(() => el.classList.add("loaded"), 200 + i * 280);
     });
-}
+});
 
 // See less
 const seeLessButton = document.querySelector(".see-less-button");
