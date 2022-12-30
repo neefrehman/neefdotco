@@ -49,6 +49,10 @@ main.photo-container {
     opacity: 0;
     margin: 0;
 
+    img:not([src]) {
+        display: none;
+    }
+
     &.grid {
         margin: 20px 10px;
         display: flex;
@@ -89,6 +93,15 @@ main.photo-container {
                 margin: 20px 10px;
                 width: calc((330px + var(--y)) * 2.3);
                 height: calc((262px + var(--x)) * 2.3);
+            }
+
+            &:not([src]) {
+                display: block;
+                visibility: hidden;
+
+                @media (max-width: 575px) {
+                    height: 0px;
+                }
             }
 
             @media (min-width: 1520px) {

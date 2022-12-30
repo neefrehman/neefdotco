@@ -4,7 +4,6 @@
   font-display: block;
   src: url("/styles/fonts/fleuronregular.woff2");
 }
-
 :root {
   --textColor: #333333;
   --backgroundColor: #ecebeb;
@@ -13,7 +12,6 @@
   --oppositeModeBackground: #212121;
   --midGrey: #757575;
 }
-
 :root.dark {
   --textColor: #ffffff;
   --backgroundColor: #212121;
@@ -32,66 +30,51 @@ body {
   background-color: var(--backgroundColor);
   -webkit-text-size-adjust: 100%;
      -moz-text-size-adjust: 100%;
-      -ms-text-size-adjust: 100%;
           text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   transition: background-color 100ms ease-in-out;
 }
-
 body *::-moz-selection {
   color: #f4cb3d;
 }
-
 body *::selection {
   color: #f4cb3d;
 }
-
 body *:focus {
   outline: none;
 }
-
 body header {
   margin-bottom: 90px;
 }
-
 body header nav {
   margin-top: 15px;
 }
-
 body h1 {
   font-size: 3em;
   line-height: 1.12;
   margin-bottom: 12px;
 }
-
 body h2, body h3 {
   font-size: 1.54em;
 }
-
 body p {
   line-height: 1.4;
 }
-
 body p i {
   font-style: italic;
 }
-
 body a, body a:visited {
   cursor: pointer;
   text-decoration: underline;
   display: inline-block;
   color: var(--textColor);
 }
-
 body a:hover, body a:visited:hover {
   color: var(--backgroundColor);
 }
-
 body a:not(.button):hover, body a:visited:not(.button):hover {
-  -webkit-transform: skew(-11deg);
-          transform: skew(-11deg);
+  transform: skew(-11deg);
 }
-
 body a.button, body a:visited.button {
   text-decoration: none;
   padding: 0 0.2em;
@@ -99,16 +82,13 @@ body a.button, body a:visited.button {
   background-color: var(--linkBackgroundColor-fallback);
   background-color: var(--linkBackgroundColor);
 }
-
 body a.button:hover, body a:visited.button:hover {
   background-color: var(--textColor);
 }
-
 body a.dark-mode-button::before, body a:visited.dark-mode-button::before {
   content: "dark";
   display: inline;
 }
-
 :root.dark .dark-mode-button::before {
   content: "light";
 }
@@ -123,7 +103,6 @@ body a.dark-mode-button::before, body a:visited.dark-mode-button::before {
     background-color: var(--linkBackgroundColor);
   }
 }
-
 body img[data-src]::after, body video[data-src]::after {
   content: "";
   position: absolute;
@@ -134,12 +113,10 @@ body img[data-src]::after, body video[data-src]::after {
   background-color: var(--linkBackgroundColor-fallback);
   background-color: var(--linkBackgroundColor);
 }
-
 body .hidden {
   opacity: 0;
   pointer-events: none;
 }
-
 @media (min-width: 1460px) {
   body {
     margin: 50px auto;
@@ -149,7 +126,6 @@ body .hidden {
     font-size: 3.2em;
   }
 }
-
 @media (max-width: 769px) {
   body {
     margin: 25px;
@@ -162,7 +138,6 @@ body .hidden {
     margin-bottom: 80px;
   }
 }
-
 @media (max-width: 425px) {
   body {
     margin: 20px;

@@ -1,4 +1,4 @@
-import fs, { readdirSync } from "fs";
+import * as fs from "fs";
 import { promisify } from "util";
 import { exec as rawExec } from "child_process";
 import ATCQ from "atcq";
@@ -11,7 +11,7 @@ const getPixels = promisify(rawGetPixels);
 const widths = {
     lg: 1800,
     md: 1200,
-    sm: 620
+    sm: 620,
 };
 
 const rawPhotosDirectory = "./photos/_raw";
@@ -32,7 +32,6 @@ const photosToDelete = Object.keys(processedPhotos).filter(
 const updateCache = () =>
     fs.writeFileSync(cacheJsonFile, JSON.stringify(processedPhotos, null, 4));
 
-
 const deleteRemovedPhotos = () => {
     console.log(`photos that have been removed: ${photosToDelete}`, "\n");
 
@@ -43,7 +42,7 @@ const deleteRemovedPhotos = () => {
                 console.log(`deleted ${photo} from photos/${sizeName}`, "\n");
             }
         });
-        
+
         delete processedPhotos[photo];
         updateCache();
     });
@@ -52,7 +51,7 @@ const deleteRemovedPhotos = () => {
 const resizeAndOptimiseImage = async ({
     imageSource,
     outputDirectory,
-    desiredWidth
+    desiredWidth,
 }) => {
     console.log(`Resizing ~${imageSource}~ for ~${desiredWidth}px~`);
     await exec(
@@ -71,7 +70,7 @@ const extractColourFromImage = async (file) => {
     const atcq = ATCQ({
         maxColors: 8,
         disconnects: false,
-        maxIterations: 5
+        maxIterations: 5,
     });
 
     const { data: pixelData } = await getPixels(`./photos/sm/${file}`);
@@ -81,7 +80,7 @@ const extractColourFromImage = async (file) => {
     const colourRgb = atcq.getWeightedPalette(1)[0].color;
     const colourHex = rgb2hex(...colourRgb).split(".")[0];
     console.log(`${file} colour is: `, chalk.bgHex(colourHex)(colourHex), "\n");
-    
+
     return colourHex;
 };
 
@@ -96,7 +95,7 @@ const updateFileExtension = (file) => {
         );
     }
     return newFile;
-}
+};
 
 const processPhotos = async () => {
     console.log(`starting processing for ${photosToProcess.length} new photos`);
@@ -108,7 +107,7 @@ const processPhotos = async () => {
             await resizeAndOptimiseImage({
                 imageSource: `${rawPhotosDirectory}/${newFile}`,
                 outputDirectory: `./photos/${sizeName}`,
-                desiredWidth: width
+                desiredWidth: width,
             });
         }
 
@@ -119,7 +118,6 @@ const processPhotos = async () => {
     }
 };
 
-
 const createSrcset = (filename) =>
     Object.entries(widths)
         .map(([sizeName, width]) => `photos/${sizeName}/${filename} ${width}w`)
@@ -129,25 +127,36 @@ const transparentPng64 =
     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
 
 const createImageElement = (filename) =>
-    `<img class="grid" src="${transparentPng64}" data-srcset="${createSrcset(
+    `<img loading="lazy" class="grid" src="${transparentPng64}" srcset="${createSrcset(
         filename
     )}" style="background-color: ${processedPhotos[filename]}"></img>`;
+
+const emptyImage = `<img class="grid" style="--x: 0px; --y: 0px;"/>`;
 
 const buildHtmlPage = () => {
     const photosPagePath = "./photos.html";
     const previousPhotosPageMarkup = fs.readFileSync(photosPagePath, "utf-8");
-    const photosContainerElementRegex = /<main class="grid photo-container">(.*?)<\/main>/gs;
+    const photosContainerElementRegex =
+        /<main class="grid photo-container">(.*?)<\/main>/gs;
 
     console.log("starting to rebuild photos html page", "\n");
 
+    const photosHtml = rawPhotos
+        .map((filename) => createImageElement(filename))
+        .join("\n        ");
+
+    const emptyPhotosHtml = [...Array(Math.round(rawPhotos.length * 0.3))]
+        .map((i) => emptyImage)
+        .join("\n        ");
+
+    const markup = `<main class="grid photo-container">
+        ${photosHtml}
+        ${emptyPhotosHtml}
+    </main>`;
+
     fs.writeFileSync(
         photosPagePath,
-        previousPhotosPageMarkup.replace(
-            photosContainerElementRegex,
-            `<main class="grid photo-container">
-            ${rawPhotos.map((filename) => createImageElement(filename)).join("\n")}
-        </main>`
-        ),
+        previousPhotosPageMarkup.replace(photosContainerElementRegex, markup),
         "utf-8"
     );
     console.log("📑 done rebuilding photos html page 📑");
@@ -162,9 +171,12 @@ const main = () => {
 
     if (photosToProcess.length === 0) {
         console.log("no new photos to process :~)");
+        buildHtmlPage();
     } else {
         processPhotos(photosToProcess)
-            .then(() => console.log("✨ 🖼  done with photo processing 🖼  ✨", "\n"))
+            .then(() =>
+                console.log("✨ 🖼  done with photo processing 🖼  ✨", "\n")
+            )
             .then(() => buildHtmlPage())
             .catch((error) => console.log("error:", error))
             .finally(() => updateCache());

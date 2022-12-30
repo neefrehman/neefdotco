@@ -1,24 +1,6 @@
 const photoContainer = document.querySelector(".photo-container");
 const photos = photoContainer.querySelectorAll("img");
 
-// lazy load images
-const observer = new IntersectionObserver(
-    (entries) => {
-        entries.forEach((entry) => {
-            if (entry.intersectionRatio > 0) {
-                const imageEl = entry.target;
-                observer.unobserve(imageEl);
-                const imageSource = imageEl.getAttribute("data-srcset");
-                imageEl.setAttribute("srcset", imageSource);
-                imageEl.removeAttribute("data-srcset");
-            }
-        });
-    },
-    { threshold: 0.33 }
-);
-
-photos.forEach((photo) => observer.observe(photo));
-
 // Zoom on click
 photos.forEach((photo) => {
     photo.addEventListener("click", () => {
