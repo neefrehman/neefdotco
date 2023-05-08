@@ -1,0 +1,90 @@
+<style is:global>
+  @font-face {
+    font-family: "Fleuron";
+    font-weight: normal;
+    font-display: block;
+    src: url("/fonts/fleuronregular.woff2");
+  }
+
+  :root {
+    --primary-color-light: hsl(var(--base-color), 90%);
+    --primary-color-mid: hsl(var(--base-color), 46%);
+    --primary-color-mid-transparent: hsla(var(--base-color), 46%, 30%);
+    --primary-color-dark: hsl(var(--base-color), 10%);
+
+    --text-color: var(--primary-color-dark);
+    --background-color: var(--primary-color-light);
+    --opposite-mode-background: var(--primary-color-dark);
+    --link-background-color: var(--primary-color-mid-transparent);
+  }
+
+  :root.dark {
+    color-scheme: dark only;
+    --text-color: var(--primary-color-light);
+    --background-color: var(--primary-color-dark);
+    --opposite-mode-background: var(--primary-color-light);
+  }
+
+  body {
+    margin: clamp(18px, 2.2vw, 40px);
+    font-family: "Fleuron", helvetica neue, helvetica, arial, sans-serif;
+    font-size: clamp(15px, 15px + 0.24vw, 19px);
+    line-height: 1.4;
+    color: var(--text-color);
+    background-color: var(--background-color);
+    text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Added in script below, to avoid initial load including faded background */
+  body.loaded {
+    transition: background-color 200ms ease-in-out;
+  }
+
+  *::selection {
+    background-color: var(--opposite-mode-background);
+  }
+
+  *:focus {
+    outline: none;
+  }
+
+  *:focus-visible {
+    outline: auto;
+  }
+
+  i {
+    font-style: italic;
+  }
+
+  button,
+  a,
+  a:visited {
+    cursor: pointer;
+    text-decoration: underline;
+    color: var(--text-color);
+  }
+
+  @media (pointer: fine) {
+    button:hover,
+    a:hover,
+    a:visited:hover {
+      font-style: italic;
+      color: var(--background-color);
+    }
+  }
+
+  .screen-reader-only {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
+</style>
+
+<script>
+  setTimeout(() => document.body.classList.add("loaded"), 200);
+</script>

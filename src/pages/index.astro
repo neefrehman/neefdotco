@@ -1,0 +1,101 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ExternalLink from "components/ExternalLink.astro";
+import Orbit from "components/Orbit.astro";
+---
+
+<Layout>
+  <div>
+    <section class="info">
+      <div class="currently">
+        <p>
+          Neef Rehman is a Creative Technologist and Full-stack Engineer based in London. He
+          enjoys interaction design and product engineering, and has experience ranging from UI
+          prototyping to large-scale cloud infrastructure. Currently, he is working on
+          measurement and verification systems for carbon removal at
+          <ExternalLink href="https://isometric.com">Isometric</ExternalLink>.
+          <!-- TODO: speaker & educator? -->
+        </p>
+        <p>
+          <ExternalLink href="https://twitter.com/neefrehman_">Twitter</ExternalLink> —
+          <ExternalLink href="https://github.com/neefrehman">GitHub</ExternalLink> — neef.rehman[at]gmail.com
+        </p>
+      </div>
+
+      <!-- <div>
+          <h2>Previously</h2>
+          <ol>
+            <li>
+              Full-stack Engineer at
+              <ExternalLink href="https://ustwo.com">ustwo</ExternalLink>
+            </li>
+            <li>
+              Venture Lead at
+              <ExternalLink href="https://adventure.ustwo.com">ustwo Adventure</ExternalLink>
+            </li>
+            <li>
+              Bioinformatics at
+              <ExternalLink href="https://www.illumina.com/">Illumina</ExternalLink>
+            </li>
+            <li>
+              Degree in
+              <ExternalLink href="https://wikipedia.org/wiki/Physics">Physics</ExternalLink>
+            </li>
+            <li>
+              Head barista at
+              <ExternalLink href="https://genesiscinema.co.uk">Genesis Cinema</ExternalLink>
+            </li>
+          </ol>
+        </div>
+
+        <div>
+          <ul>
+            <h2>Talks and Guest Lectures</h2>
+            <li>Falmouth University</li>
+            <li>Hylier Island</li>
+            <li>West of England Design Forum</li>
+            <li>UAL Creative Comliuting Institute</li>
+            <li>Birmingham Design Festival</li>
+            <li>D&AD New Blood Academy</li>
+            <li>The Conference</li>
+            <li>London Design Festival</li>
+          </ul>
+        </div> -->
+    </section>
+  </div>
+
+  <Orbit />
+</Layout>
+
+<style>
+  section.info {
+    margin-top: max(5em, 80px);
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1.4em;
+  }
+
+  section.info > * {
+    grid-column: 1 / -1;
+    max-width: 700px;
+  }
+
+  section.info div {
+    text-align: justify;
+  }
+
+  section.info div p:not(:last-child) {
+    margin-bottom: 1em;
+  }
+
+  @media (min-width: 768px) {
+    section.info > * {
+      grid-column: span 6;
+    }
+  }
+  @media (min-width: 1440px) {
+    section.info > * {
+      grid-column: span 4;
+    }
+  }
+</style>

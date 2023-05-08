@@ -1,0 +1,10 @@
+---
+import Orbit from "components/Orbit.astro";
+import Layout from "layouts/Layout.astro";
+---
+
+<Layout is404>
+  <meta slot="head" name="robots" content="noindex">
+  <h2 class="screen-reader-only">404 — Page not found</h2>
+  <Orbit is404 />
+</Layout>

@@ -1,0 +1,82 @@
+---
+import Cursor from "components/Cursor.astro";
+import Header from "components/Header.astro";
+import GlobalCSS from "styles/GlobalCSS.astro";
+import ResetCSS from "styles/ResetCSS.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+  is404?: boolean;
+}
+
+const {
+  title = "Neef Rehman — Creative Technologist",
+  description = "Neef Rehman is a London-based Creative Technologist and Full-stack Engineer with a love for interaction design and product engineering.",
+  is404,
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script is:inline>
+      // This script blocks the first paint whileit sets the color scheme and chooses a background colour.
+      // For performance reasons it must be inline, so can't use any TS or imports
+      if (
+        localStorage.getItem("darkMode") == "1" ||
+        (!localStorage.getItem("darkMode") &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches)
+      ) {
+        document.documentElement.classList.add("dark");
+      }
+      const randomInRange = (min, max) => {
+        const upperBound = max ?? min;
+        const lowerBound = max ? min : 0;
+        return Math.random() * (upperBound - lowerBound) + lowerBound;
+      };
+      const hue = randomInRange(0, 360);
+      const saturation = randomInRange(0, 100);
+      document.documentElement.style.setProperty("--base-color", `${hue}deg, ${saturation}%`);
+    </script>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+
+    <title>{title}</title>
+    <meta name="description" content={title} />
+    <meta name="author" content="Neef Rehman" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://neef.co/" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="https://neef.co/images/meta-image.png" />
+
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://neef.co/" />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content="https://neef.co/images/meta-image.png" />
+
+    <!-- dynamic SVG to be filled by dark mode toggle script, based on the current background color -->
+    <link rel="icon" type="image/svg+xml" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
+    <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#333333" />
+
+    <meta name="generator" content={Astro.generator} />
+    <slot name="head" />
+
+    <ResetCSS />
+    <GlobalCSS />
+  </head>
+
+  <body>
+    <Cursor initialContents={is404 ? "404" : ""} />
+    <Header />
+
+    <main>
+      <slot />
+    </main>
+  </body>
+</html>

@@ -1,0 +1,289 @@
+---
+interface Props {
+  initialContents?: string;
+}
+
+const { initialContents = "" } = Astro.props;
+---
+
+<div class:list={["cursor-container", "hide", { "has-contents": !!initialContents }]}>
+  <div class="cursor">
+    <div class="cursor-contents" data-initial-contents={initialContents}>
+      {initialContents}
+    </div>
+  </div>
+  <div class="cursor-inner"></div>
+</div>
+
+<style>
+  .cursor-container {
+    --cursor-radius: 1rem;
+    --cursor-scale: 1;
+    --cursor-inner-scale: 0;
+    --cursor-contents-scale: 0;
+    --cursor-background-color: var(--primary-color-mid);
+    --cursor-inner-background-color: var(--background-color);
+    --cursor-border-radius: 100%;
+    --cursor-up: 0rem;
+    --cursor-down: 0rem;
+    --cursor-left: 0rem;
+    --cursor-right: 0rem;
+
+    position: fixed;
+    pointer-events: none;
+    z-index: -1;
+    top: calc(
+      (var(--cursor-radius) * -1) +
+        ((var(--cursor-down) - var(--cursor-up)) * var(--cursor-scale))
+    );
+    left: calc(
+      (var(--cursor-radius) * -1) +
+        ((var(--cursor-right) - var(--cursor-left)) * var(--cursor-scale))
+    );
+    transform: translate(calc(var(--cursor-size) * var(--cursor-scale) * -1));
+    transition: transform 50ms, top 430ms cubic-bezier(1, 0.1, 0.1, 1),
+      left 430ms cubic-bezier(1, 0.1, 0.1, 1);
+  }
+
+  .cursor,
+  .cursor-inner {
+    position: fixed;
+    border-radius: var(--cursor-border-radius);
+    width: calc(var(--cursor-radius) * 2);
+    height: calc(var(--cursor-radius) * 2);
+  }
+
+  .cursor {
+    overflow: hidden;
+    transform: scale(var(--cursor-scale));
+    background-color: var(--cursor-background-color);
+    transition: transform 430ms cubic-bezier(1, 0.1, 0.1, 1),
+      background-color 200ms ease-in-out, border-radius 430ms cubic-bezier(1, 0.1, 0.1, 1);
+  }
+
+  .cursor-inner {
+    transform: scale(var(--cursor-inner-scale));
+    background-color: var(--cursor-inner-background-color);
+    transition: transform 780ms cubic-bezier(1, 0.1, 0.1, 1) 220ms,
+      background-color 200ms ease-in-out, border-radius 430ms cubic-bezier(1, 0.1, 0.1, 1);
+  }
+
+  .cursor-contents {
+    font-size: 0.8em;
+    font-weight: bold;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(var(--cursor-contents-scale));
+    transition: transform 780ms ease;
+  }
+
+  .cursor-container.small {
+    --cursor-scale: 0.5;
+  }
+
+  .cursor-container.has-contents {
+    --cursor-scale: 4;
+    --cursor-contents-scale: 1;
+  }
+
+  .cursor-container.large {
+    --cursor-scale: 2.5;
+  }
+
+  .cursor-container.x-large {
+    --cursor-scale: 5;
+  }
+
+  .cursor-container.hide {
+    --cursor-scale: 0;
+    --cursor-inner-scale: 0;
+    --cursor-contents-scale: 0;
+  }
+
+  .cursor-container.square {
+    --cursor-border-radius: 10%;
+  }
+
+  .cursor-container.up {
+    --cursor-up: 1.2em;
+  }
+  .cursor-container.down {
+    --cursor-down: 1.2em;
+  }
+  .cursor-container.left {
+    --cursor-left: 1.2em;
+  }
+  .cursor-container.right {
+    --cursor-right: 1.2em;
+  }
+
+  .cursor-container.in-gravity-well {
+    --cursor-scale: 6;
+    /* Slower movement due to gravity */
+    transition: transform 150ms ease-out;
+  }
+
+  .cursor-container.in-gravity-well .cursor {
+    /* Slower growth in size due to show off effect */
+    transition: transform 430ms ease;
+  }
+
+  .cursor-container.in-gravity-well.small {
+    --cursor-scale: 7;
+  }
+
+  .cursor-container.transition {
+    --cursor-scale: 1.33;
+    --cursor-inner-scale: 1.35;
+    --cursor-contents-scale: 0;
+    --cursor-inner-background-color: var(--background-color);
+  }
+
+  @media (ponter: coarse) {
+    .cursor-container {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  import { getDistance } from "utils/math/getDistance";
+  import { lerpVector } from "utils/math/lerp";
+  import { mapToRange } from "utils/math/maptoRange";
+
+  if (matchMedia("(pointer:fine)").matches) {
+    const cursor = document.querySelector<HTMLDivElement>("div.cursor-container");
+    const cursorContents = document.querySelector<HTMLDivElement>(".cursor-contents");
+    const links = document.querySelectorAll<HTMLAnchorElement>("a");
+    const gravityWell = document.querySelector<HTMLDivElement>("[data-gravity-well=true]");
+    const cursorColorElements = document.querySelectorAll<HTMLElement>("[data-cursor-color]");
+    const cursorSizeElements = document.querySelectorAll<HTMLElement>("[data-cursor-size]");
+    const cursorMoveElements = document.querySelectorAll<HTMLElement>("[data-cursor-move]");
+    const darkModeButton = document.querySelector(".dark-mode-button");
+    const navLinks = document.querySelectorAll<HTMLAnchorElement>(
+      "[data-triggers-nav-transition=true]"
+    );
+
+    const handleCursorMove = ([mouseX, mouseY]: [number, number]) => {
+      cursor.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+    };
+
+    const handleCursorMoveWithGravityWell = ([mouseX, mouseY]: [number, number]) => {
+      const largestViewPortSize = Math.max(window.innerWidth, window.innerHeight);
+      const strongPullThreshold = largestViewPortSize / 4;
+      const weakPullThreshold = strongPullThreshold + 50;
+
+      const wellCenterX = gravityWell.offsetLeft + gravityWell.offsetWidth / 2;
+      const wellCenterY = gravityWell.offsetTop + gravityWell.offsetHeight / 2;
+
+      const distanceToWell = getDistance([wellCenterX, wellCenterY], [mouseX, mouseY]);
+
+      if (distanceToWell > weakPullThreshold || !gravityWell.dataset.isActive) {
+        cursor.classList.remove("in-gravity-well");
+        handleCursorMove([mouseX, mouseY]);
+        return;
+      }
+
+      if (distanceToWell > strongPullThreshold) {
+        cursor.classList.remove("in-gravity-well");
+        const [x, y] = lerpVector(
+          [mouseX, mouseY],
+          [wellCenterX, wellCenterY],
+          mapToRange(10 + weakPullThreshold - distanceToWell, 0, largestViewPortSize, 0, 2)
+        );
+        cursor.style.transform = `translate(${x}px, ${y}px)`;
+      } else {
+        cursor.classList.add("in-gravity-well");
+        const [x, y] = lerpVector(
+          [wellCenterX, wellCenterY],
+          [mouseX, mouseY],
+          mapToRange(distanceToWell, 0, largestViewPortSize, 0, 0.33)
+        );
+        cursor.style.transform = `translate(${x}px, ${y}px)`;
+      }
+    };
+
+    document.addEventListener("mousemove", e => {
+      cursor.classList.remove("hide");
+      !!gravityWell
+        ? handleCursorMoveWithGravityWell([e.clientX, e.clientY])
+        : handleCursorMove([e.clientX, e.clientY]);
+    });
+
+    document.addEventListener("mousedown", () => cursor.classList.add("small"));
+    document.addEventListener("mouseup", () => cursor.classList.remove("small"));
+
+    links.forEach(link => {
+      link.addEventListener("mouseenter", () => {
+        cursor.classList.add("large");
+        if (link.href && link.host !== location.host) {
+          cursor.classList.add("has-contents");
+          cursorContents.innerText = "↗";
+        }
+      });
+      link.addEventListener("mouseleave", () => {
+        cursor.classList.remove("large");
+        if (link.href && link.host !== location.host) {
+          cursor.classList.remove("has-contents");
+          cursorContents.innerText = cursorContents.dataset.initialContents;
+        }
+      });
+    });
+
+    cursorMoveElements.forEach(el => {
+      el.addEventListener("mouseenter", () => cursor.classList.add(el.dataset.cursorMove));
+      el.addEventListener("mouseleave", () => cursor.classList.remove(el.dataset.cursorMove));
+    });
+
+    cursorSizeElements.forEach(el => {
+      el.addEventListener("mouseenter", () => cursor.classList.add(el.dataset.cursorSize));
+      el.addEventListener("mouseleave", () => cursor.classList.remove(el.dataset.cursorSize));
+    });
+
+    cursorColorElements.forEach(el => {
+      el.addEventListener("mouseenter", () => {
+        cursor.style.setProperty("--cursor-background-color", el.dataset.cursorColor);
+      });
+      el.addEventListener("mouseleave", () =>
+        cursor.style.setProperty("--cursor-background-color", null)
+      );
+    });
+
+    if (darkModeButton) {
+      darkModeButton.addEventListener("click", () => {
+        if (!cursor.classList.contains("x-large")) return;
+        cursor.classList.remove("x-large", "large");
+        const cursorReset = setTimeout(() => cursor.classList.add("x-large"), 1000);
+        darkModeButton.addEventListener("click", () => clearTimeout(cursorReset), {
+          once: true,
+        });
+        darkModeButton.addEventListener(
+          "mouseleave",
+          () => {
+            clearTimeout(cursorReset);
+            cursor.classList.remove("x-large", "large");
+          },
+          { once: true }
+        );
+      });
+    }
+
+    navLinks.forEach(link => {
+      if (!link.href) return;
+      link.addEventListener("click", e => {
+        const slideInElements = document.querySelectorAll(".loaded");
+        let interval = 150;
+        slideInElements.forEach((el, i) => {
+          setTimeout(() => el.classList.remove("loaded"), interval * i);
+          interval -= 5;
+        });
+
+        setTimeout(() => cursor.classList.add("transition"), 200);
+        setTimeout(() => window.location.assign(link.href), 1500);
+        e.preventDefault();
+      });
+    });
+  }
+</script>

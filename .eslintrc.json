@@ -1,0 +1,40 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module",
+    "allowImportExportEverywhere": true
+  },
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript": {}
+    }
+  },
+  "plugins": ["@typescript-eslint", "import", "prettier"],
+  "extends": ["plugin:astro/recommended", "plugin:@typescript-eslint/recommended", "prettier"],
+  "rules": {
+    "strict": 2,
+    "no-console": "error",
+    "prefer-destructuring": "error",
+    "import/order": "warn",
+    "prettier/prettier": "warn",
+    "@typescript-eslint/no-explicit-any": "off"
+  },
+  "overrides": [
+    {
+      "files": ["*.astro"],
+      "parser": "astro-eslint-parser",
+      "parserOptions": {
+        "parser": "@typescript-eslint/parser",
+        "extraFileExtensions": [".astro"]
+      },
+      "rules": {
+        "prettier/prettier": "off"
+      }
+    }
+  ]
+}
