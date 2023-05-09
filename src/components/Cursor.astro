@@ -301,6 +301,7 @@ const { initialContents = "" } = Astro.props;
       cursor.classList.remove("transition");
     });
 
-    // TODO: handle cursor entry and ring entry after navigation (not bfcache)
+    // TODO: handle cursor entry and ring entry after navigation (not bfcache). Weirdly, these both seem to be 
+    // triggered by moving the mouse a lot as you navigate between pages.
   }
 </script>

@@ -81,7 +81,7 @@ const INNER_CIRCLE_WORD_COUNT = 10;
 
 const words = is404 ? Array<string>(60).fill("404") : SKILLS;
 
-const spliceableWords = words as string[]
+const spliceableWords = words as string[];
 const OUTER_CIRCLE = spliceableWords.splice(0, OUTER_CIRCLE_WORD_COUNT);
 const MIDDLE_CIRCLE = spliceableWords.splice(0, MIDDLE_CIRCLE_WORD_COUNT);
 const INNER_CIRCLE = spliceableWords.splice(0, INNER_CIRCLE_WORD_COUNT);
@@ -98,23 +98,23 @@ const INNER_CIRCLE = spliceableWords.splice(0, INNER_CIRCLE_WORD_COUNT);
 }
 
 <div class="system" data-gravity-well="true" role="presentation">
-  <section style="--ring-index: 3" data-transition-element="true">
+  <div class="ring" style="--ring-index: 3" data-transition-element="true">
     <ul style={`--word-count: ${OUTER_CIRCLE.length}`}>
       {OUTER_CIRCLE.map((skill, i) => <li style={`--index: ${i}`}>{skill}</li>)}
     </ul>
-  </section>
+  </div>
 
-  <section style="--ring-index: 2" data-transition-element="true">
+  <div class="ring" style="--ring-index: 2" data-transition-element="true">
     <ul style={`--word-count: ${MIDDLE_CIRCLE.length}`}>
       {MIDDLE_CIRCLE.map((skill, i) => <li style={`--index: ${i}`}>{skill}</li>)}
     </ul>
-  </section>
+  </div>
 
-  <section style="--ring-index: 1" data-transition-element="true">
+  <div class="ring" style="--ring-index: 1" data-transition-element="true">
     <ul style={`--word-count: ${INNER_CIRCLE.length}`}>
       {INNER_CIRCLE.map((skill, i) => <li style={`--index: ${i}`}>{skill}</li>)}
     </ul>
-  </section>
+  </div>
 </div>
 
 <style>
@@ -135,37 +135,20 @@ const INNER_CIRCLE = spliceableWords.splice(0, INNER_CIRCLE_WORD_COUNT);
     }
   }
 
-  div.system section {
+  div.system .ring {
     opacity: 1;
     top: 0px;
     position: relative;
     transform-style: preserve-3d;
     transition: transform 1000ms ease, opacity 400ms ease,
-      top 1000ms cubic-bezier(0, 0.9, 0.1, 1);
+      top 1000ms cubic-bezier(0, 0.9, 0.1, 1), rotate calc(500ms * var(--ring-index)) ease;
   }
 
-  div.system section:not(.loaded) {
+  div.system .ring:not(.loaded) {
     top: 20vh;
     opacity: 0;
     transition: transform 1000ms ease, opacity 400ms ease,
-      top 500ms cubic-bezier(0.9, 0, 0.6, 1);
-    /* TODO: improve */
-  }
-
-  div.system:has(:hover) {
-    --rotateZ: 5deg;
-  }
-
-  div.system:has(:active) {
-    --rotateZ: 10deg;
-  }
-
-  div.system section:nth-child(odd) {
-    transform: rotateZ(var(--rotateZ, 0deg));
-  }
-
-  div.system section:nth-child(even) {
-    transform: rotateZ(calc(var(--rotateZ, 0deg) * -1));
+      top 500ms cubic-bezier(0.9, 0, 0.4, 1);
   }
 
   div.system ul {
@@ -188,9 +171,27 @@ const INNER_CIRCLE = spliceableWords.splice(0, INNER_CIRCLE_WORD_COUNT);
     transform: translateX(-50%) rotateZ(var(--a)) translateY(var(--r)) rotateX(90deg);
   }
 
-  div.system ul > li:hover {
-    background-color: var(--opposite-mode-background);
-    color: var(--background-color);
+  @media not (pointer: coarse) {
+    div.system:has(:hover) {
+      --rotateZ: 5deg;
+    }
+
+    div.system:has(:active) {
+      --rotateZ: 10deg;
+    }
+
+    div.system .ring:nth-child(odd) {
+      transform: rotateZ(var(--rotateZ, 0deg));
+    }
+
+    div.system .ring:nth-child(even) {
+      transform: rotateZ(calc(var(--rotateZ, 0deg) * -1));
+    }
+
+    div.system ul > li:hover {
+      background-color: var(--opposite-mode-background);
+      color: var(--background-color);
+    }
   }
 
   @keyframes three-dimensions-circle {
@@ -204,7 +205,7 @@ const INNER_CIRCLE = spliceableWords.splice(0, INNER_CIRCLE_WORD_COUNT);
 </style>
 
 <script>
-  const rings = document.querySelectorAll<HTMLElement>(".system section");
+  const rings = document.querySelectorAll<HTMLElement>(".system .ring");
   rings.forEach((ring, i) => {
     setTimeout(() => ring.classList.add("loaded"), 500 + i * 300);
   });
@@ -214,34 +215,34 @@ const INNER_CIRCLE = spliceableWords.splice(0, INNER_CIRCLE_WORD_COUNT);
   setTimeout(() => (system.dataset.isActive = "true"), 600 + rings.length * 300);
 
   /** The setTimeout doesnt seem to work, and setting a delay in CSS clashed with other transform transitions */
-  // if ("ontouchstart" in document.documentElement) {
-  //   const tiltLogo = (tilt: number) => {
-  //     const cappedTilt = Math.max(-20, Math.min(20, tilt * 0.5));
-  //     rings.forEach((ring, i) => {
-  //       setTimeout((ring.style.transform = `rotateZ(${cappedTilt}deg)`), 100);
-  //     });
-  //   };
+  if ("ontouchstart" in document.documentElement && "DeviceOrientationEvent" in window) {
+    interface iOSDeviceOrientationEvent extends DeviceOrientationEvent {
+      requestPermission?: () => Promise<"granted" | "forbidden">;
+    }
+    const DOE = DeviceOrientationEvent as unknown as iOSDeviceOrientationEvent;
 
-  //   if ((DeviceOrientationEvent as any).requestPermission) {
-  //     const ringObjects = document.querySelectorAll<HTMLElement>(".system li");
-  //     ringObjects.forEach(object => {
-  //       object.addEventListener("click", () => {
-  //         (DeviceOrientationEvent as any)
-  //           .requestPermission()
-  //           .then(state => {
-  //             if (state === "granted") {
-  //               window.addEventListener("deviceorientation", e => {
-  //                 tiltLogo(window.innerHeight > window.innerWidth ? e.gamma : e.beta);
-  //               });
-  //             }
-  //           })
-  //           .catch();
-  //       });
-  //     });
+    const addOrientationListener = () => {
+      window.addEventListener("deviceorientation", e => {
+        const tilt = window.innerHeight > window.innerWidth ? e.gamma : e.beta;
+        rings.forEach(ring => (ring.style.rotate = `${tilt}deg`));
+      });
+    };
 
-  //     window.addEventListener("deviceorientation", e => {
-  //       tiltLogo(window.innerHeight > window.innerWidth ? e.gamma : e.beta);
-  //     });
-  //   }
-  // }
+    // For iOS devices that need permission, we request it and only add the event listener when granted
+    if ("requestPermission" in DOE) {
+      const ringObjects = document.querySelectorAll<HTMLElement>(".system li");
+      ringObjects.forEach(object => {
+        object.addEventListener("click", () => {
+          DOE.requestPermission()
+            .then(state => {
+              if (state === "granted") addOrientationListener();
+            })
+            .catch();
+        });
+      });
+    }
+
+    // for other devices, and for already granted iOS devices, we add the listener
+    addOrientationListener();
+  }
 </script>

@@ -101,8 +101,7 @@ const spacerElementList = [...Array(Math.ceil(photos.length * 0.4))];
   }
 
   .photo-container picture.zoom {
-    width: calc(var(--width) * 3);
-    height: calc(var(--height) * 3);
+    scale: 3;
   }
 
   @media (max-width: 575px) {
@@ -111,8 +110,7 @@ const spacerElementList = [...Array(Math.ceil(photos.length * 0.4))];
     }
 
     .photo-container picture.zoom {
-      width: calc(var(--width) * 2);
-      height: calc(var(--height) * 2);
+      scale: 1.5;
     }
   }
 
