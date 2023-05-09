@@ -21,8 +21,9 @@ const {
 <html lang="en">
   <head>
     <script is:inline>
-      // This script blocks the first paint whileit sets the color scheme and chooses a background colour.
-      // For performance reasons it must be inline, so can't use any TS or imports
+      // This script blocks the first paint while it sets the color scheme and chooses a background color.
+      // For performance reasons it must be inline, so can't use any TS or imports. the non-critical-path
+      // for theming is handled in the DarkModeToggle script.
       if (
         localStorage.getItem("darkMode") == "1" ||
         (!localStorage.getItem("darkMode") &&
@@ -59,12 +60,15 @@ const {
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content="https://neef.co/images/meta-image.png" />
 
-    <!-- dynamic SVG to be filled by dark mode toggle script, based on the current background color -->
+    <!-- dynamic SVG and theme tags to be filled by dark mode toggle script, based on the current background color -->
     <link rel="icon" type="image/svg+xml" />
+    <!-- TODO: test on android <meta name="theme-color" /> This causes a more jarring transition in Safari, which already inheirts from bg-color. -->
+
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
     <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#333333" />
 
     <meta name="generator" content={Astro.generator} />
+
     <slot name="head" />
 
     <ResetCSS />

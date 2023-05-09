@@ -166,6 +166,7 @@ const { initialContents = "" } = Astro.props;
       "[data-triggers-nav-transition=true]"
     );
 
+    // TODO: fix on safari
     const handleCursorMove = ([mouseX, mouseY]: [number, number]) => {
       cursor.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
     };
@@ -270,12 +271,13 @@ const { initialContents = "" } = Astro.props;
       });
     }
 
+    // TODO: break out into transition-specific script?
     navLinks.forEach(link => {
       if (!link.href) return;
       link.addEventListener("click", e => {
-        const slideInElements = document.querySelectorAll(".loaded");
+        const transitionElements = document.querySelectorAll("[data-transition-element=true]");
         let interval = 150;
-        slideInElements.forEach((el, i) => {
+        transitionElements.forEach((el, i) => {
           setTimeout(() => el.classList.remove("loaded"), interval * i);
           interval -= 5;
         });
@@ -284,6 +286,14 @@ const { initialContents = "" } = Astro.props;
         setTimeout(() => window.location.assign(link.href), 1500);
         e.preventDefault();
       });
+    });
+
+    // We need to handle cases where the browser saves the post-exit-transition state in the
+    // bfcache, and quickly have those elements appear again if so
+    window.addEventListener("pageshow", e => {
+      if (!e.persisted) return;
+      const transitionElements = document.querySelectorAll("[data-transition-element=true]");
+      transitionElements.forEach(el => el.classList.add("loaded"));
     });
   }
 </script>

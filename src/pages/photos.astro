@@ -33,7 +33,7 @@ const spacerElementList = [...Array(Math.round(photos.length * 0.3))];
   <div class="photo-container">
     {
       photos.map(photo => (
-        <picture>
+        <picture data-transition-element="true">
           {photo.sources.map(source => (
             <source {...source} />
           ))}

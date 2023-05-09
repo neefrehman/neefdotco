@@ -98,19 +98,19 @@ const THIRD_CIRCLE = words.splice(0, THIRD_CIRCLE_WORD_COUNT);
 }
 
 <div class="system" data-gravity-well="true" aria-role="presentation">
-  <section style="--ring-index: 3">
+  <section style="--ring-index: 3" data-transition-element="true">
     <ul style={`--word-count: ${FIRST_CIRCLE.length}`}>
       {FIRST_CIRCLE.map((skill, i) => <li style={`--index: ${i}`}>{skill}</li>)}
     </ul>
   </section>
 
-  <section style="--ring-index: 2">
+  <section style="--ring-index: 2" data-transition-element="true">
     <ul style={`--word-count: ${SECOND_CIRCLE.length}`}>
       {SECOND_CIRCLE.map((skill, i) => <li style={`--index: ${i}`}>{skill}</li>)}
     </ul>
   </section>
 
-  <section style="--ring-index: 1">
+  <section style="--ring-index: 1" data-transition-element="true">
     <ul style={`--word-count: ${THIRD_CIRCLE.length}`}>
       {THIRD_CIRCLE.map((skill, i) => <li style={`--index: ${i}`}>{skill}</li>)}
     </ul>
