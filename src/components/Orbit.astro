@@ -221,28 +221,31 @@ const INNER_CIRCLE = spliceableWords.splice(0, INNER_CIRCLE_WORD_COUNT);
     }
     const DOE = DeviceOrientationEvent as unknown as iOSDeviceOrientationEvent;
 
+    let hasOrientationListener = false;
     const addOrientationListener = () => {
+      if (hasOrientationListener) return;
       window.addEventListener("deviceorientation", e => {
+        hasOrientationListener = true;
         const tilt = window.innerHeight > window.innerWidth ? e.gamma : e.beta;
         rings.forEach(ring => (ring.style.rotate = `${tilt}deg`));
       });
     };
 
-    // For iOS devices that need permission, we request it and only add the event listener when granted
-    if ("requestPermission" in DOE) {
-      const ringObjects = document.querySelectorAll<HTMLElement>(".system li");
-      ringObjects.forEach(object => {
-        object.addEventListener("click", () => {
+    const orbiters = document.querySelectorAll<HTMLElement>(".system li");
+    orbiters.forEach(object => {
+      object.addEventListener("click", () => {
+        // For iOS devices that need permission, we request it and only add the event listener
+        // when granted. This is a noop if we already have permissions.
+        if ("requestPermission" in DOE) {
           DOE.requestPermission()
             .then(state => {
               if (state === "granted") addOrientationListener();
             })
             .catch();
-        });
+        }
+        // for other devices, and for already granted iOS devices, we add the listener
+        addOrientationListener();
       });
-    }
-
-    // for other devices, and for already granted iOS devices, we add the listener
-    addOrientationListener();
+    });
   }
 </script>
