@@ -1,6 +1,4 @@
 ---
-import { shuffle } from "utils/math/shuffle";
-
 interface Props {
   is404?: boolean;
 }
@@ -8,83 +6,85 @@ interface Props {
 const { is404 } = Astro.props;
 
 const SKILLS = [
+  // Outer circle
   "React",
-  "Typescript",
   "Node.js",
-  "Terraform",
+  "Accessibility",
   "AWS",
-  "GCP",
   "CI/CD",
-  "Jest",
   "Next.js",
+  "Animation",
   "Cypress",
   "Documentation",
-  "Accessibility",
-  "Animation",
   "Data visualisation",
-  "WebGL",
-  "Technical writing",
+  "Jest",
   "API Design",
-  "GraphQL",
   "D3.js",
-  "GLSL",
-  "Tailwind",
-  "Technical art",
-  "Python",
-  "Creative coding",
-  "Interaction design",
-  "CSS",
-  "Observability",
-  "Unity",
-  "Docker",
-  "Technical architecture",
-  "Serverless",
-  "Prototyping",
-  "Shaders",
-  "Maths",
+  "WebGL",
   "Product Engineering",
+  "Agile",
+  "Technical writing",
+  "Interaction design",
+  "Python",
+  "Technical architecture",
+  "GLSL",
+  "Creative coding",
+  "Observability",
+  "CSS",
+  "Image processing",
+  "Unity",
+  "Custom tooling",
+  "Vercel",
+  "Prioritisation",
+  "Technical art",
+  // Middle circle
+  "Prototyping",
   "UI Engineering",
-  "SQL",
   "Postgres",
-  "MongoDB",
   "Shell scripting",
+  "GCP",
   "Github actions",
-  "Mentoring",
-  "Education",
   "Three.js",
+  "SQL",
+  "Shaders",
+  "Backlog refinement",
+  "Education",
+  "WCAG",
+  "Serverless",
   "React Three Fiber",
-];
+  "Maths",
+  "Public speaking",
+  "Code review",
+  "Mentoring",
+  "Workshops",
+  "Automated testing",
+  // Inner circle
+  "Terraform",
+  "Typescript",
+  "Docker",
+  "GraphQL",
+  "Figma",
+  "Tailwind",
+  "MongoDB",
+  "Infrastructure",
+  "Build tooling",
+  "Graphics",
+] as const satisfies { length: 60 };
 
 /*
   Circumference = 2 * PI * r, so doubling the radius also doubles the circumference, i.e. each
   concentric ring should increase in word count by the number of words of the smallest ring.
 */
-const SMALLEST_CIRCLE_WORD_COUNT = 10;
-const FIRST_CIRCLE_WORD_COUNT = 3 * SMALLEST_CIRCLE_WORD_COUNT;
-const SECOND_CIRCLE_WORD_COUNT = 2 * SMALLEST_CIRCLE_WORD_COUNT;
-const THIRD_CIRCLE_WORD_COUNT = 1 * SMALLEST_CIRCLE_WORD_COUNT; // TODO: no long string here?
+const OUTER_CIRCLE_WORD_COUNT = 30;
+const MIDDLE_CIRCLE_WORD_COUNT = 20;
+const INNER_CIRCLE_WORD_COUNT = 10;
 
-const totalWordCount =
-  FIRST_CIRCLE_WORD_COUNT + SECOND_CIRCLE_WORD_COUNT + THIRD_CIRCLE_WORD_COUNT;
+const words = is404 ? Array<string>(60).fill("404") : SKILLS;
 
-/** Duplicates skills until circles are full, and ensures that no siblings have the same text */
-const getSkillstoRender = () => {
-  let skills = shuffle([SKILLS, SKILLS].flat().slice(0, totalWordCount));
-  const hasIdenticalSiblings = function (sides: string[]) {
-    for (var i = 0; i < sides.length - 1; i++) {
-      if (sides[i][0] === sides[i + 1][0]) return false;
-    }
-    return true;
-  };
-  while (!hasIdenticalSiblings(skills)) skills = shuffle(skills);
-  return skills;
-};
-
-const words = is404 ? Array<string>(100).fill("404") : getSkillstoRender();
-
-const FIRST_CIRCLE = words.splice(0, FIRST_CIRCLE_WORD_COUNT);
-const SECOND_CIRCLE = words.splice(0, SECOND_CIRCLE_WORD_COUNT);
-const THIRD_CIRCLE = words.splice(0, THIRD_CIRCLE_WORD_COUNT);
+const spliceableWords = words as string[]
+const OUTER_CIRCLE = spliceableWords.splice(0, OUTER_CIRCLE_WORD_COUNT);
+const MIDDLE_CIRCLE = spliceableWords.splice(0, MIDDLE_CIRCLE_WORD_COUNT);
+const INNER_CIRCLE = spliceableWords.splice(0, INNER_CIRCLE_WORD_COUNT);
 ---
 
 {
@@ -97,22 +97,22 @@ const THIRD_CIRCLE = words.splice(0, THIRD_CIRCLE_WORD_COUNT);
   )
 }
 
-<div class="system" data-gravity-well="true" aria-role="presentation">
+<div class="system" data-gravity-well="true" role="presentation">
   <section style="--ring-index: 3" data-transition-element="true">
-    <ul style={`--word-count: ${FIRST_CIRCLE.length}`}>
-      {FIRST_CIRCLE.map((skill, i) => <li style={`--index: ${i}`}>{skill}</li>)}
+    <ul style={`--word-count: ${OUTER_CIRCLE.length}`}>
+      {OUTER_CIRCLE.map((skill, i) => <li style={`--index: ${i}`}>{skill}</li>)}
     </ul>
   </section>
 
   <section style="--ring-index: 2" data-transition-element="true">
-    <ul style={`--word-count: ${SECOND_CIRCLE.length}`}>
-      {SECOND_CIRCLE.map((skill, i) => <li style={`--index: ${i}`}>{skill}</li>)}
+    <ul style={`--word-count: ${MIDDLE_CIRCLE.length}`}>
+      {MIDDLE_CIRCLE.map((skill, i) => <li style={`--index: ${i}`}>{skill}</li>)}
     </ul>
   </section>
 
   <section style="--ring-index: 1" data-transition-element="true">
-    <ul style={`--word-count: ${THIRD_CIRCLE.length}`}>
-      {THIRD_CIRCLE.map((skill, i) => <li style={`--index: ${i}`}>{skill}</li>)}
+    <ul style={`--word-count: ${INNER_CIRCLE.length}`}>
+      {INNER_CIRCLE.map((skill, i) => <li style={`--index: ${i}`}>{skill}</li>)}
     </ul>
   </section>
 </div>
@@ -149,6 +149,7 @@ const THIRD_CIRCLE = words.splice(0, THIRD_CIRCLE_WORD_COUNT);
     opacity: 0;
     transition: transform 1000ms ease, opacity 400ms ease,
       top 500ms cubic-bezier(0.9, 0, 0.6, 1);
+    /* TODO: improve */
   }
 
   div.system:has(:hover) {
@@ -167,20 +168,8 @@ const THIRD_CIRCLE = words.splice(0, THIRD_CIRCLE_WORD_COUNT);
     transform: rotateZ(calc(var(--rotateZ, 0deg) * -1));
   }
 
-  @keyframes three-dimensions-circle {
-    0% {
-      transform: rotateX(-100deg) rotate(0);
-    }
-    100% {
-      transform: rotateX(-100deg) rotate(-360deg);
-    }
-  }
-
   div.system ul {
-    font-size: 1em;
-    font-family: sans-serif;
     position: relative;
-    list-style: none;
     transform-style: preserve-3d;
     animation: three-dimensions-circle 420s linear infinite;
   }
@@ -189,7 +178,8 @@ const THIRD_CIRCLE = words.splice(0, THIRD_CIRCLE_WORD_COUNT);
     position: absolute;
     top: 50%;
     left: 50%;
-    padding: 0 2px;
+    padding: 0 4px;
+    line-height: 1.3;
     width: max-content;
     background-color: var(--link-background-color);
     color: var(--text-color);
@@ -202,17 +192,26 @@ const THIRD_CIRCLE = words.splice(0, THIRD_CIRCLE_WORD_COUNT);
     background-color: var(--opposite-mode-background);
     color: var(--background-color);
   }
+
+  @keyframes three-dimensions-circle {
+    0% {
+      transform: rotateX(-100deg) rotate(0);
+    }
+    100% {
+      transform: rotateX(-100deg) rotate(-360deg);
+    }
+  }
 </style>
 
 <script>
   const rings = document.querySelectorAll<HTMLElement>(".system section");
   rings.forEach((ring, i) => {
-    setTimeout(() => ring.classList.add("loaded"), 600 + i * 300);
+    setTimeout(() => ring.classList.add("loaded"), 500 + i * 300);
   });
 
   // only pull cursor once rings have completed their transitions
   const system = document.querySelector<HTMLElement>(".system");
-  setTimeout(() => (system.dataset.isActive = "true"), 1000 + rings.length * 300);
+  setTimeout(() => (system.dataset.isActive = "true"), 600 + rings.length * 300);
 
   /** The setTimeout doesnt seem to work, and setting a delay in CSS clashed with other transform transitions */
   // if ("ontouchstart" in document.documentElement) {

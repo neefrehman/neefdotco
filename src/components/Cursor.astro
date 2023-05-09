@@ -76,7 +76,7 @@ const { initialContents = "" } = Astro.props;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) scale(var(--cursor-contents-scale));
-    transition: transform 780ms ease;
+    transition: transform 720ms ease;
   }
 
   .cursor-container.small {
@@ -161,6 +161,9 @@ const { initialContents = "" } = Astro.props;
     const cursorColorElements = document.querySelectorAll<HTMLElement>("[data-cursor-color]");
     const cursorSizeElements = document.querySelectorAll<HTMLElement>("[data-cursor-size]");
     const cursorMoveElements = document.querySelectorAll<HTMLElement>("[data-cursor-move]");
+    const cursorContentsElements = document.querySelectorAll<HTMLElement>(
+      "[data-cursor-contents]"
+    );
     const darkModeButton = document.querySelector(".dark-mode-button");
     const navLinks = document.querySelectorAll<HTMLAnchorElement>(
       "[data-triggers-nav-transition=true]"
@@ -217,20 +220,8 @@ const { initialContents = "" } = Astro.props;
     document.addEventListener("mouseup", () => cursor.classList.remove("small"));
 
     links.forEach(link => {
-      link.addEventListener("mouseenter", () => {
-        cursor.classList.add("large");
-        if (link.href && link.host !== location.host) {
-          cursor.classList.add("has-contents");
-          cursorContents.innerText = "↗";
-        }
-      });
-      link.addEventListener("mouseleave", () => {
-        cursor.classList.remove("large");
-        if (link.href && link.host !== location.host) {
-          cursor.classList.remove("has-contents");
-          cursorContents.innerText = cursorContents.dataset.initialContents;
-        }
-      });
+      link.addEventListener("mouseenter", () => cursor.classList.add("large"));
+      link.addEventListener("mouseleave", () => cursor.classList.remove("large"));
     });
 
     cursorMoveElements.forEach(el => {
@@ -241,6 +232,17 @@ const { initialContents = "" } = Astro.props;
     cursorSizeElements.forEach(el => {
       el.addEventListener("mouseenter", () => cursor.classList.add(el.dataset.cursorSize));
       el.addEventListener("mouseleave", () => cursor.classList.remove(el.dataset.cursorSize));
+    });
+
+    cursorContentsElements.forEach(el => {
+      el.addEventListener("mouseenter", () => {
+        cursor.classList.add("has-contents");
+        cursorContents.innerText = el.dataset.cursorContents;
+      });
+      el.addEventListener("mouseleave", () => {
+        cursor.classList.remove("has-contents");
+        cursorContents.innerText = cursorContents.dataset.initialContents;
+      });
     });
 
     cursorColorElements.forEach(el => {
@@ -283,7 +285,9 @@ const { initialContents = "" } = Astro.props;
         });
 
         setTimeout(() => cursor.classList.add("transition"), 200);
-        setTimeout(() => window.location.assign(link.href), 1500);
+
+        const transitionDuration = Math.min(1000 + transitionElements.length * 100, 1700);
+        setTimeout(() => window.location.assign(link.href), transitionDuration);
         e.preventDefault();
       });
     });
@@ -294,6 +298,9 @@ const { initialContents = "" } = Astro.props;
       if (!e.persisted) return;
       const transitionElements = document.querySelectorAll("[data-transition-element=true]");
       transitionElements.forEach(el => el.classList.add("loaded"));
+      cursor.classList.remove("transition");
     });
+
+    // TODO: handle cursor entry and ring entry after navigation (not bfcache)
   }
 </script>

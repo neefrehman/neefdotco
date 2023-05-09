@@ -5,12 +5,14 @@ import GlobalCSS from "styles/GlobalCSS.astro";
 import ResetCSS from "styles/ResetCSS.astro";
 
 interface Props {
+  metaImageUrl?: string;
   title?: string;
   description?: string;
   is404?: boolean;
 }
 
 const {
+  metaImageUrl ="https://neef.co/images/meta-image.png",
   title = "Neef Rehman — Creative Technologist",
   description = "Neef Rehman is a London-based Creative Technologist and Full-stack Engineer with a love for interaction design and product engineering.",
   is404,
@@ -49,18 +51,18 @@ const {
     <meta name="author" content="Neef Rehman" />
 
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://neef.co/" />
+    <meta property="og:url" content={Astro.url.href} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content="https://neef.co/images/meta-image.png" />
+    <meta property="og:image" content={metaImageUrl} />
 
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://neef.co/" />
+    <meta property="twitter:url" content={Astro.url.href} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content="https://neef.co/images/meta-image.png" />
+    <meta property="twitter:image" content={metaImageUrl} />
 
-    <!-- dynamic SVG and theme tags to be filled by dark mode toggle script, based on the current background color -->
+    <!-- dynamic SVG to be filled by dark mode toggle script, based on the current background color -->
     <link rel="icon" type="image/svg+xml" />
     <!-- TODO: test on android <meta name="theme-color" /> This causes a more jarring transition in Safari, which already inheirts from bg-color. -->
 

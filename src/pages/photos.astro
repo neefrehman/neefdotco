@@ -13,7 +13,7 @@ const photos = await Promise.all(
     .filter(name => name !== ".DS_Store")
     .map(name => name.split(".jpg")[0]) // required to make vite import resolver happy
     .map(async name => ({
-      backgroundColor: quantisedColorMap[`${name}.jpg`] ?? "var(--opposite-mode-background)",
+      keyColor: quantisedColorMap[`${name}.jpg`] ?? "var(--opposite-mode-background)",
       ...(await getPicture({
         src: import(`../photos/large/${name}.jpg`),
         alt: "",
@@ -23,25 +23,22 @@ const photos = await Promise.all(
     }))
 );
 
-const spacerElementList = [...Array(Math.round(photos.length * 0.3))];
+const spacerElementList = [...Array(Math.ceil(photos.length * 0.4))];
 ---
 
 <Layout
   title="Photos — Neef Rehman"
   description="Photography by Neef Rehman, a Creative Technologist and full-stack engineer"
+  metaImageUrl="https://neef.co/images/meta-image-photos.png"
 >
   <div class="photo-container">
     {
       photos.map(photo => (
-        <picture data-transition-element="true">
+        <picture data-transition-element="true" style={`--photo-key-color: ${photo.keyColor}`}>
           {photo.sources.map(source => (
             <source {...source} />
           ))}
-          <img
-            {...photo.image}
-            loading="lazy"
-            style={`background-color: ${photo.backgroundColor}`}
-          />
+          <img {...photo.image} loading="lazy" />
         </picture>
       ))
     }
@@ -65,6 +62,8 @@ const spacerElementList = [...Array(Math.round(photos.length * 0.3))];
   .photo-container picture,
   .spacer {
     display: block;
+    overflow-y: hidden;
+    position: relative;
     filter: contrast(88%);
     cursor: crosshair;
     border: 0;
@@ -72,21 +71,19 @@ const spacerElementList = [...Array(Math.round(photos.length * 0.3))];
     --height: clamp(227px + var(--x), 227px + var(--x) + 2.5vw, 300px + var(--x));
     width: var(--width);
     height: var(--height);
-    transform: translate(
-      clamp(var(--x) * 0.5, var(--x) + 7vw, var(--x) * 0.8),
-      clamp(var(--y) * 0.5, var(--y) + 7vw, var(--y) * 1.3)
-    );
+    --translate-x: clamp(var(--x) * 0.5, var(--x) + 7vw, var(--x) * 0.8);
+    --translate-y: clamp(var(--y) * 0.5, var(--y) + 7vw, var(--y) * 1.3);
+    transform: translate3d(var(--translate-x), var(--translate-y), 0);
+    transition: transform 2100ms cubic-bezier(0, 0.9, 0.1, 1);
+  }
+
+  .photo-container picture img {
+    background-color: var(--photo-key-color);
   }
 
   .spacer {
     pointer-events: none;
     display: block;
-  }
-
-  @media (max-width: 575px) {
-    .spacer {
-      height: calc(var(--height) * 0);
-    }
   }
 
   .photo-container picture:not(.initial-loaded) {
@@ -104,21 +101,30 @@ const spacerElementList = [...Array(Math.round(photos.length * 0.3))];
   }
 
   .photo-container picture.zoom {
-    width: calc(var(--width) * 2.5);
-    height: calc(var(--height) * 2.5);
+    width: calc(var(--width) * 3);
+    height: calc(var(--height) * 3);
   }
 
-  .photo-container picture {
-    overflow-y: hidden;
-    position: relative;
-    transform: translate3d(0, 50%, 0);
-    transition: transform 1200ms cubic-bezier(0, 0.9, 0.1, 1);
+  @media (max-width: 575px) {
+    .spacer {
+      height: calc(var(--height) * 0);
+    }
+
+    .photo-container picture.zoom {
+      width: calc(var(--width) * 2);
+      height: calc(var(--height) * 2);
+    }
+  }
+
+  .photo-container picture:not(.loaded) {
+    transform: translate3d(var(--translate-x), calc(var(--translate-y) + 50% + var(--y)), 0);
+    transition: transform 1300ms cubic-bezier(0, 0.9, 0.1, 1);
   }
 
   .photo-container picture::after {
     content: "";
     display: block;
-    background-color: var(--background-color);
+    background-color: var(--photo-key-color);
     width: 100%;
     height: 100%;
     position: absolute;
@@ -126,10 +132,6 @@ const spacerElementList = [...Array(Math.round(photos.length * 0.3))];
     left: 0;
     transform-origin: bottom;
     transition: transform 300ms cubic-bezier(0.9, 0, 0.6, 1);
-  }
-
-  .photo-container picture.loaded {
-    transform: none;
   }
 
   .photo-container picture.loaded::after {
@@ -151,9 +153,16 @@ const spacerElementList = [...Array(Math.round(photos.length * 0.3))];
   photoContainer.innerHTML = shuffle([...photos].map(photo => photo.outerHTML)).join("");
 
   const photosAfterShuffle = photoContainer.querySelectorAll("picture");
-  photosAfterShuffle.forEach(photo => photo.classList.add("loaded", "initial-loaded"));
+  photosAfterShuffle.forEach(photo => photo.classList.add("initial-loaded"));
 
+  let loadedPhotoCount = 0;
   photosAfterShuffle.forEach(photo => {
+    photo.querySelector("img").addEventListener("load", () => {
+      // loadedPhotoCount delays the transition so they don't all load at the same time (for cached images)
+      loadedPhotoCount++;
+      setTimeout(() => photo.classList.add("loaded"), 200 + loadedPhotoCount * 25);
+    });
+
     photo.addEventListener("click", () => {
       photo.classList.toggle("zoom");
       const siblings = [...photosAfterShuffle].filter(sibling => sibling !== photo);

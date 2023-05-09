@@ -9,7 +9,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "lint": "prettier --write  \"**/*.{js,jsx,ts,tsx,md,mdx,astro}\" && eslint --fix \"src/**/*.{js,ts,jsx,tsx,astro}\"",
-    "quantize-photo-color": "node scripts/quantize-photo-colors.js"
+    "process-photos": "node scripts/process-photos.js"
   },
   "dependencies": {
     "@astrojs/image": "^0.16.7",
