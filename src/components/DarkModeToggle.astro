@@ -2,7 +2,8 @@
 <a
   role="button"
   tabindex="0"
-  class="dark-mode-button"
+  data-dark-mode-toggle="true"
+  data-cursor-regrow="true"
   data-cursor-color="var(--opposite-mode-background)"
   data-cursor-size="x-large"
 >
@@ -10,17 +11,17 @@
 >
 
 <style>
-  .dark-mode-button::before {
+  a::before {
     content: "dark";
     display: inline;
   }
-  :root.dark .dark-mode-button::before {
+  :root.dark a::before {
     content: "light";
   }
 </style>
 
 <script>
-  const darkModeButton = document.querySelector<HTMLAnchorElement>(".dark-mode-button");
+  const darkModeToggle = document.querySelector<HTMLAnchorElement>("[data-dark-mode-toggle]");
   const baseColor = document.documentElement.style.getPropertyValue("--base-color");
   const favicon = document.querySelector<HTMLLinkElement>(
     "link[rel=icon][type='image/svg+xml']"
@@ -43,17 +44,17 @@
 
   onDarkModeChange();
 
-  darkModeButton.addEventListener("click", e => {
+  darkModeToggle.addEventListener("click", e => {
     e.preventDefault();
     document.documentElement.classList.toggle("dark");
     onDarkModeChange(true);
   });
 
   // Because the toggle is an achor element (for styling reasons), we must re-implement keyboard events
-  darkModeButton.addEventListener("keydown", e => {
+  darkModeToggle.addEventListener("keydown", e => {
     if (e.key === " " || e.key === "Enter") {
       e.preventDefault();
-      darkModeButton.click();
+      darkModeToggle.click();
     }
   });
 </script>

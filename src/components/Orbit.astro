@@ -5,6 +5,7 @@ interface Props {
 
 const { is404 } = Astro.props;
 
+// TODO: reorder
 const SKILLS = [
   // Outer circle
   "React",
@@ -35,7 +36,7 @@ const SKILLS = [
   "Prioritisation",
   "Technical art",
   "Image processing", // replace
-  "Unity", // replace
+  "Unity", // replace // TODO replace with easter egg?
   "Custom tooling", // replace
   // Middle circle
   "Prototyping",
@@ -87,17 +88,7 @@ const MIDDLE_CIRCLE = spliceableWords.splice(0, MIDDLE_CIRCLE_WORD_COUNT);
 const INNER_CIRCLE = spliceableWords.splice(0, INNER_CIRCLE_WORD_COUNT);
 ---
 
-{
-  !is404 && (
-    <ul class="screen-reader-only" aria-hidden={is404 ? "true" : "false"}>
-      {SKILLS.map(skill => (
-        <li>{skill}</li>
-      ))}
-    </ul>
-  )
-}
-
-<div class="system" data-gravity-well="true" role="presentation">
+<div class="system" data-gravity-well="true" aria-hidden={is404 ? "true" : "false"}>
   <div class="ring" style="--ring-index: 3" data-transition-element="true">
     <ul style={`--word-count: ${OUTER_CIRCLE.length}`}>
       {OUTER_CIRCLE.map((skill, i) => <li style={`--index: ${i}`}>{skill}</li>)}
@@ -127,7 +118,7 @@ const INNER_CIRCLE = spliceableWords.splice(0, INNER_CIRCLE_WORD_COUNT);
   }
 
   /* Lower opacity and move further from the top on shorter devices, to avoid clashes with page content */
-  @media (max-height: 700px) and (max-width: 700px) {
+  @media (max-height: 680px) and (max-width: 680px) {
     div.system {
       bottom: 8vh;
       right: 4vw;

@@ -6,96 +6,220 @@ import Orbit from "components/Orbit.astro";
 
 <Layout>
   <div>
-    <section class="info">
-      <div class="currently">
+    <div id="info" aria-live="polite">
+      <section>
         <p>
           Neef Rehman is a Creative Technologist and Full-stack Engineer based in London. He
           enjoys interaction design and product engineering, and has experience ranging from UI
-          prototyping to large-scale cloud infrastructure. Currently, he is working on
-          measurement and verification systems for carbon removal at
-          <ExternalLink href="https://isometric.com">Isometric</ExternalLink>.
-          <!-- TODO: speaker & educator? -->
+          prototypes to cloud infrastructure. Currently he works at <ExternalLink
+            href="https://isometric.com"
+          >
+            <!-- DO NOT FORMAT! Astro preserves newline characters as spaces -->
+            Isometric</ExternalLink>, building measurement and verification systems for carbon removal.
         </p>
         <p>
+          <button data-more-info-show="previously">Previously</button> —
+          <button data-more-info-show="speaking">Speaking</button> —
+          <button data-more-info-show="education">Education</button>
+        </p>
+        <footer>
           <ExternalLink href="https://twitter.com/neefrehman_">Twitter</ExternalLink> —
           <ExternalLink href="https://github.com/neefrehman">GitHub</ExternalLink> — neef.rehman[at]gmail.com
-        </p>
-      </div>
+        </footer>
+      </section>
 
-      <!-- <div>
-          <h2>Previously</h2>
-          <ol>
-            <li>
-              Full-stack Engineer at
-              <ExternalLink href="https://ustwo.com">ustwo</ExternalLink>
-            </li>
-            <li>
-              Venture Lead at
-              <ExternalLink href="https://adventure.ustwo.com">ustwo Adventure</ExternalLink>
-            </li>
-            <li>
-              Bioinformatics at
-              <ExternalLink href="https://www.illumina.com/">Illumina</ExternalLink>
-            </li>
-            <li>
-              Degree in
-              <ExternalLink href="https://wikipedia.org/wiki/Physics">Physics</ExternalLink>
-            </li>
-            <li>
-              Head barista at
-              <ExternalLink href="https://genesiscinema.co.uk">Genesis Cinema</ExternalLink>
-            </li>
-          </ol>
-        </div>
+      <div id="more-info-live-region" aria-live="polite"></div>
+    </div>
 
-        <div>
+    <!--
+        The user selectable info states will move from here, to the live region above, when the 
+        [data-more-info-show] buttons above are clicked. It's a little unorthodox, but AFAICT
+        the a11y of this interaction is fine due to the aria attributes used. It would be nice
+        to achieve the same layout with details/summary elements, but I can't see how (yet!).
+      -->
+    <div id="more-info-hidden-region" aria-hidden="true" style="display: none;">
+      <section id="previously">
+        <h2>Previously</h2>
+        <ol>
+          <li>
+            <span>Full-stack Engineer</span>
+            <span><ExternalLink href="https://ustwo.com">ustwo</ExternalLink></span>
+          </li>
+          <li>
+            <span>Venture Lead</span>
+            <span
+              ><ExternalLink href="https://adventure.ustwo.com">
+                ustwo Adventure
+              </ExternalLink></span
+            >
+          </li>
+          <li>
+            <span>Bioinformatics</span>
+            <span><ExternalLink href="https://www.illumina.com/">Illumina</ExternalLink></span>
+          </li>
+          <li>
+            <span>Degree</span>
+            <span
+              ><ExternalLink href="https://wikipedia.org/wiki/Physics">
+                Physics
+              </ExternalLink></span
+            >
+          </li>
+          <li>
+            <span>Head barista</span>
+            <span
+              ><ExternalLink href="https://genesiscinema.co.uk">
+                Genesis Cinema
+              </ExternalLink></span
+            >
+          </li>
+        </ol>
+      </section>
+
+      <!-- TODO: links -->
+      <section id="speaking">
+        <h2>Speaking</h2>
+        <ul>
+          <li>
+            <span>Anachronism in Practice</span>
+            <span>The Conference</span>
+          </li>
+          <li>
+            <span>Notes on Determinism</span>
+            <span>London Design Festival</span>
+          </li>
+          <li>
+            <span>Notes on Determinism</span>
+            <span>Birmingham Design Festival</span>
+          </li>
+          <li>
+            <span>Rubber Duck Everything</span>
+            <span>West of England Design Forum</span>
+          </li>
+        </ul>
+      </section>
+
+      <section id="education">
+        <h2>Education</h2>
+        <ul>
           <ul>
-            <h2>Talks and Guest Lectures</h2>
-            <li>Falmouth University</li>
-            <li>Hylier Island</li>
-            <li>West of England Design Forum</li>
-            <li>UAL Creative Comliuting Institute</li>
-            <li>Birmingham Design Festival</li>
-            <li>D&AD New Blood Academy</li>
-            <li>The Conference</li>
-            <li>London Design Festival</li>
+            <li>
+              <span>Guest lecture</span>
+              <span>D&AD New Blood Academy</span>
+            </li>
+            <li>
+              <span>Guest lecture</span>
+              <span>UAL:CCI</span>
+            </li>
+            <li>
+              <span>Guest lecture</span>
+              <span>Hyper Island</span>
+            </li>
+            <li>
+              <span>Course Facilitator</span>
+              <span>Falmouth University</span>
+            </li>
           </ul>
-        </div> -->
-    </section>
-  </div>
+        </ul>
+      </section>
+    </div>
 
-  <Orbit />
+    <Orbit />
+  </div>
 </Layout>
 
 <style>
-  section.info {
-    margin-top: max(5em, 80px);
+  #info {
+    padding: 4em 0;
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    gap: 1.4em;
+    gap: 2em;
   }
 
-  section.info > * {
+  #info > * {
     grid-column: 1 / -1;
     max-width: 700px;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
   }
 
-  section.info div {
+  #more-info-live-region > section {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+  }
+
+  #info section {
     text-align: justify;
   }
 
-  section.info div p:not(:last-child) {
-    margin-bottom: 1em;
+  button[aria-current="true"] {
+    text-decoration: none;
+  }
+
+  :is(ol, ul) li {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 2em;
+  }
+
+  :is(ol, ul) li > span:nth-child(1) {
+    text-align: left;
+  }
+
+  :is(ol, ul) li > span:nth-child(2) {
+    text-align: right;
+    flex: 2;
   }
 
   @media (min-width: 768px) {
-    section.info > * {
+    #info {
+      padding-top: max(5em, 80px);
+    }
+
+    #info > * {
       grid-column: span 6;
     }
   }
+
   @media (min-width: 1440px) {
-    section.info > * {
+    #info > * {
       grid-column: span 4;
     }
   }
 </style>
+
+<script>
+  const moreInfoLiveRegion = document.querySelector("#more-info-live-region");
+  const moreInfoHiddenRegion = document.querySelector("#more-info-hidden-region");
+  const moreInfoButtons =
+    document.querySelectorAll<HTMLButtonElement>("[data-more-info-show]");
+
+  moreInfoButtons.forEach(button => {
+    // We move elements around instead of copying them, so that their event listeners can come along for the ride
+    button.addEventListener("click", () => {
+      const associatedElement = document.querySelector(`#${button.dataset.moreInfoShow}`);
+
+      if (button.ariaCurrent === "true") {
+        moreInfoLiveRegion.removeChild(associatedElement);
+        moreInfoHiddenRegion.appendChild(associatedElement);
+        button.ariaCurrent = "false";
+        return;
+      }
+
+      const existingChild = moreInfoLiveRegion.firstElementChild;
+      if (existingChild) {
+        moreInfoLiveRegion.removeChild(existingChild);
+        moreInfoHiddenRegion.appendChild(existingChild);
+      }
+      moreInfoHiddenRegion.removeChild(associatedElement);
+      moreInfoLiveRegion.appendChild(associatedElement);
+
+      button.ariaCurrent = "true";
+      const siblings = [...moreInfoButtons].filter(sibling => sibling !== button);
+      siblings.forEach(sibling => (sibling.ariaCurrent = "false"));
+    });
+  });
+</script>

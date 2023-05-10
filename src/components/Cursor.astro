@@ -156,7 +156,7 @@ const { initialContents = "" } = Astro.props;
   if (matchMedia("(pointer:fine)").matches) {
     const cursor = document.querySelector<HTMLDivElement>("div.cursor-container");
     const cursorContents = document.querySelector<HTMLDivElement>(".cursor-contents");
-    const links = document.querySelectorAll<HTMLAnchorElement>("a");
+    const interactiveElements = document.querySelectorAll<HTMLAnchorElement>("a, button");
     const gravityWell = document.querySelector<HTMLDivElement>("[data-gravity-well=true]");
     const cursorColorElements = document.querySelectorAll<HTMLElement>("[data-cursor-color]");
     const cursorSizeElements = document.querySelectorAll<HTMLElement>("[data-cursor-size]");
@@ -164,12 +164,14 @@ const { initialContents = "" } = Astro.props;
     const cursorContentsElements = document.querySelectorAll<HTMLElement>(
       "[data-cursor-contents]"
     );
-    const darkModeButton = document.querySelector(".dark-mode-button");
+    const cursorRegrowElements = document.querySelectorAll<HTMLElement>(
+      "[data-cursor-regrow=true]"
+    );
     const navLinks = document.querySelectorAll<HTMLAnchorElement>(
       "[data-triggers-nav-transition=true]"
     );
 
-    // TODO: fix on safari
+    // TODO: fix on safari — maybe try animating top/left?
     const handleCursorMove = ([mouseX, mouseY]: [number, number]) => {
       cursor.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0px)`;
     };
@@ -219,7 +221,7 @@ const { initialContents = "" } = Astro.props;
     document.addEventListener("mousedown", () => cursor.classList.add("small"));
     document.addEventListener("mouseup", () => cursor.classList.remove("small"));
 
-    links.forEach(link => {
+    interactiveElements.forEach(link => {
       link.addEventListener("mouseenter", () => cursor.classList.add("large"));
       link.addEventListener("mouseleave", () => cursor.classList.remove("large"));
     });
@@ -254,15 +256,15 @@ const { initialContents = "" } = Astro.props;
       );
     });
 
-    if (darkModeButton) {
-      darkModeButton.addEventListener("click", () => {
+    cursorRegrowElements.forEach(el => {
+      el.addEventListener("click", () => {
         if (!cursor.classList.contains("x-large")) return;
         cursor.classList.remove("x-large", "large");
         const cursorReset = setTimeout(() => cursor.classList.add("x-large"), 1000);
-        darkModeButton.addEventListener("click", () => clearTimeout(cursorReset), {
+        el.addEventListener("click", () => clearTimeout(cursorReset), {
           once: true,
         });
-        darkModeButton.addEventListener(
+        el.addEventListener(
           "mouseleave",
           () => {
             clearTimeout(cursorReset);
@@ -271,7 +273,7 @@ const { initialContents = "" } = Astro.props;
           { once: true }
         );
       });
-    }
+    });
 
     // TODO: break out into transition-specific script?
     navLinks.forEach(link => {
