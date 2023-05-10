@@ -171,7 +171,7 @@ const { initialContents = "" } = Astro.props;
 
     // TODO: fix on safari
     const handleCursorMove = ([mouseX, mouseY]: [number, number]) => {
-      cursor.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+      cursor.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0px)`;
     };
 
     const handleCursorMoveWithGravityWell = ([mouseX, mouseY]: [number, number]) => {
@@ -301,7 +301,9 @@ const { initialContents = "" } = Astro.props;
       cursor.classList.remove("transition");
     });
 
-    // TODO: handle cursor entry and ring entry after navigation (not bfcache). Weirdly, these both seem to be 
-    // triggered by moving the mouse a lot as you navigate between pages.
+    // TODO: Fix cursor and ring entry after navigation (not back/forward/refresh).
+    // Weirdly, these both seem to be triggered by moving the mouse a lot as you navigate
+    // between pages. Though this doesn't happen in the dev server, where the bfcache is also
+    // disabled. this makes me suspect that they are related.
   }
 </script>

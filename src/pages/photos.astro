@@ -104,16 +104,6 @@ const spacerElementList = [...Array(Math.ceil(photos.length * 0.4))];
     scale: 3;
   }
 
-  @media (max-width: 575px) {
-    .spacer {
-      height: calc(var(--height) * 0);
-    }
-
-    .photo-container picture.zoom {
-      scale: 1.5;
-    }
-  }
-
   .photo-container picture:not(.loaded) {
     transform: translate3d(var(--translate-x), calc(var(--translate-y) + 50% + var(--y)), 0);
     transition: transform 1300ms cubic-bezier(0, 0.9, 0.1, 1);
@@ -134,6 +124,21 @@ const spacerElementList = [...Array(Math.ceil(photos.length * 0.4))];
 
   .photo-container picture.loaded::after {
     transform: scale3d(1, 0, 1);
+  }
+
+  @media (max-width: 575px) {
+    .spacer {
+      height: calc(var(--height) * 0);
+    }
+
+    .photo-container picture.zoom {
+      scale: 1.5;
+    }
+
+    .photo-container picture {
+      /* slightly blunter entry transition easing on mobile */
+      transition-timing-function: cubic-bezier(0, 0.7, 0.1, 1);
+    }
   }
 </style>
 
