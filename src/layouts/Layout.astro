@@ -2,20 +2,17 @@
 import Cursor from "components/Cursor.astro";
 import Header from "components/Header.astro";
 import GlobalCSS from "styles/GlobalCSS.astro";
-import ResetCSS from "styles/ResetCSS.astro";
 
 interface Props {
   metaImageUrl?: string;
   title?: string;
   description?: string;
-  is404?: boolean;
 }
 
 const {
-  metaImageUrl ="https://neef.co/images/meta-image.png",
+  metaImageUrl = "https://neef.co/images/meta-image.png",
   title = "Neef Rehman — Creative Technologist",
   description = "Neef Rehman is a London-based Creative Technologist and Full-stack Engineer with a love for interaction design and product engineering.",
-  is404,
 } = Astro.props;
 ---
 
@@ -74,12 +71,11 @@ const {
 
     <slot name="head" />
 
-    <ResetCSS />
     <GlobalCSS />
   </head>
 
   <body>
-    <Cursor initialContents={is404 ? "404" : ""} />
+    <Cursor />
     <Header />
 
     <main>

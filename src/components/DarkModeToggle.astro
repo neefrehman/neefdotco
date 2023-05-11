@@ -5,27 +5,16 @@
   data-dark-mode-toggle="true"
   data-cursor-regrow="true"
   data-cursor-color="var(--opposite-mode-background)"
-  data-cursor-size="x-large"
+  data-cursor-size="xx-large"
+  class="before:inline before:content-['dark'] dark:before:content-['light']"
 >
   mode</a
 >
 
-<style>
-  a::before {
-    content: "dark";
-    display: inline;
-  }
-  :root.dark a::before {
-    content: "light";
-  }
-</style>
-
 <script>
   const darkModeToggle = document.querySelector<HTMLAnchorElement>("[data-dark-mode-toggle]");
   const baseColor = document.documentElement.style.getPropertyValue("--base-color");
-  const favicon = document.querySelector<HTMLLinkElement>(
-    "link[rel=icon][type='image/svg+xml']"
-  );
+  const favicon = document.querySelector<HTMLLinkElement>("link[rel=icon][type='image/svg+xml']");
   /* See comment in layout as to why this are commented out */
   // const themeMeta = document.querySelector("meta[name=theme-color]");
 

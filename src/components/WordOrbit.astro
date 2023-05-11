@@ -1,76 +1,11 @@
 ---
 interface Props {
-  is404?: boolean;
+  /** An array of 60 words */
+  words: string[];
+  'aria-hidden'?: "true" | "false";
 }
 
-const { is404 } = Astro.props;
-
-// TODO: reorder
-const SKILLS = [
-  // Outer circle
-  "React",
-  "Node.js",
-  "Accessibility",
-  "AWS",
-  "CI/CD",
-  "Next.js",
-  "Animation",
-  "Cypress",
-  "Documentation",
-  "Data visualisation",
-  "Jest",
-  "API Design",
-  "D3.js",
-  "WebGL",
-  "Product Engineering",
-  "Agile",
-  "Technical writing",
-  "Interaction design",
-  "Python",
-  "Technical architecture",
-  "GLSL",
-  "Creative coding",
-  "Observability",
-  "CSS",
-  "Vercel",
-  "Prioritisation",
-  "Technical art",
-  "Image processing", // replace
-  "Unity", // replace // TODO replace with easter egg?
-  "Custom tooling", // replace
-  // Middle circle
-  "Prototyping",
-  "UI Engineering",
-  "Postgres",
-  "Shell scripting",
-  "GCP",
-  "Github actions",
-  "Three.js",
-  "SQL",
-  "Shaders",
-  "Backlog refinement",
-  "Education",
-  "WCAG",
-  "Automated testing",
-  "Serverless",
-  "React Three Fiber",
-  "Public speaking",
-  "Code review",
-  "Maths",
-  "Mentoring",
-  "Workshops",
-  // Inner circle
-  "Terraform",
-  "Typescript",
-  "Docker",
-  "GraphQL",
-  "Figma",
-  "Tailwind",
-  "MongoDB",
-  "Infrastructure",
-  "Build tooling",
-  "Graphics",
-] as const satisfies { length: 60 };
+const { words, 'aria-hidden': ariahidden } = Astro.props;
 
 /*
   Circumference = 2 * PI * r, so doubling the radius also doubles the circumference, i.e. each
@@ -80,28 +15,25 @@ const OUTER_CIRCLE_WORD_COUNT = 30;
 const MIDDLE_CIRCLE_WORD_COUNT = 20;
 const INNER_CIRCLE_WORD_COUNT = 10;
 
-const words = is404 ? Array<string>(60).fill("404") : SKILLS;
-
-const spliceableWords = words as string[];
-const OUTER_CIRCLE = spliceableWords.splice(0, OUTER_CIRCLE_WORD_COUNT);
-const MIDDLE_CIRCLE = spliceableWords.splice(0, MIDDLE_CIRCLE_WORD_COUNT);
-const INNER_CIRCLE = spliceableWords.splice(0, INNER_CIRCLE_WORD_COUNT);
+const OUTER_CIRCLE = words.splice(0, OUTER_CIRCLE_WORD_COUNT);
+const MIDDLE_CIRCLE = words.splice(0, MIDDLE_CIRCLE_WORD_COUNT);
+const INNER_CIRCLE = words.splice(0, INNER_CIRCLE_WORD_COUNT);
 ---
 
-<div class="system" data-gravity-well="true" aria-hidden={is404 ? "true" : "false"}>
-  <div class="ring" style="--ring-index: 3" data-transition-element="true">
+<div class="system" data-gravity-well="true" aria-hidden={ariahidden ?? "false"}>
+  <div class="word-ring" style="--ring-index: 3" data-transition-element="true">
     <ul style={`--word-count: ${OUTER_CIRCLE.length}`}>
       {OUTER_CIRCLE.map((skill, i) => <li style={`--index: ${i}`}>{skill}</li>)}
     </ul>
   </div>
 
-  <div class="ring" style="--ring-index: 2" data-transition-element="true">
+  <div class="word-ring" style="--ring-index: 2" data-transition-element="true">
     <ul style={`--word-count: ${MIDDLE_CIRCLE.length}`}>
       {MIDDLE_CIRCLE.map((skill, i) => <li style={`--index: ${i}`}>{skill}</li>)}
     </ul>
   </div>
 
-  <div class="ring" style="--ring-index: 1" data-transition-element="true">
+  <div class="word-ring" style="--ring-index: 1" data-transition-element="true">
     <ul style={`--word-count: ${INNER_CIRCLE.length}`}>
       {INNER_CIRCLE.map((skill, i) => <li style={`--index: ${i}`}>{skill}</li>)}
     </ul>
@@ -118,29 +50,27 @@ const INNER_CIRCLE = spliceableWords.splice(0, INNER_CIRCLE_WORD_COUNT);
   }
 
   /* Lower opacity and move further from the top on shorter devices, to avoid clashes with page content */
-  @media (max-height: 680px) and (max-width: 680px) {
+  @media (max-height: 700px) and (max-width: 800px) {
     div.system {
       bottom: 8vh;
-      right: 4vw;
-      opacity: 0.5;
+      right: 3vw;
+      opacity: 0.4;
     }
   }
 
-  div.system .ring {
+  div.system .word-ring {
     opacity: 1;
     top: 0px;
     position: relative;
     transform-style: preserve-3d;
-    transition: transform 1000ms ease, opacity 400ms ease,
-      top 1000ms cubic-bezier(0, 0.9, 0.1, 1),
+    transition: transform 1000ms ease, opacity 400ms ease, top 1000ms cubic-bezier(0, 0.9, 0.1, 1),
       rotate calc(700ms * var(--ring-index)) cubic-bezier(0, 0, 0.2, 1);
   }
 
-  div.system .ring:not(.loaded) {
+  div.system .word-ring:not(.loaded) {
     top: 20vh;
     opacity: 0;
-    transition: transform 1000ms ease, opacity 400ms ease,
-      top 400ms cubic-bezier(0.9, 0, 0.6, 1);
+    transition: transform 1000ms ease, opacity 400ms ease, top 400ms cubic-bezier(0.9, 0, 0.6, 1);
   }
 
   div.system ul {
@@ -172,11 +102,11 @@ const INNER_CIRCLE = spliceableWords.splice(0, INNER_CIRCLE_WORD_COUNT);
       --rotateZ: 10deg;
     }
 
-    div.system .ring:nth-child(odd) {
+    div.system .word-ring:nth-child(odd) {
       transform: rotateZ(var(--rotateZ, 0deg));
     }
 
-    div.system .ring:nth-child(even) {
+    div.system .word-ring:nth-child(even) {
       transform: rotateZ(calc(var(--rotateZ, 0deg) * -1));
     }
 
@@ -197,7 +127,7 @@ const INNER_CIRCLE = spliceableWords.splice(0, INNER_CIRCLE_WORD_COUNT);
 </style>
 
 <script>
-  const rings = document.querySelectorAll<HTMLElement>(".system .ring");
+  const rings = document.querySelectorAll<HTMLElement>(".system .word-ring");
   rings.forEach((ring, i) => {
     setTimeout(() => ring.classList.add("loaded"), 500 + i * 300);
   });

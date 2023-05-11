@@ -2,43 +2,28 @@
 import DarkModeToggle from "./DarkModeToggle.astro";
 ---
 
-<header>
-  <nav>
+<header
+  class="text-[2.2em] leading-[1.14] uppercase text-justify [text-align-last:justify] md:text-[3.4em]"
+>
+  <nav class="inline [&_h1]:inline">
     {
       // Mapping causes some problems with spaces inside elements, which has an effect on the link underlines
       Astro.url.pathname === "/" ? (
         <h1 aria-current="true">Neef Rehman Creative Technologist</h1>
       ) : (
-        <a data-triggers-nav-transition="true" href="/">Neef Rehman Creative Technologist</a>
+        <a data-triggers-nav-transition="true" href="/">
+          Neef Rehman Creative Technologist
+        </a>
       )
     }
     {
       Astro.url.pathname.startsWith("/photos") ? (
         <h1 aria-current="true">Photography</h1>
       ) : (
+        // DO NOT FORMAT! Astro preserves newline characters as spaces
         <a data-triggers-nav-transition="true" href="/photos">Photography</a>
       )
     }
   </nav>
   <DarkModeToggle />
 </header>
-
-<style>
-  header {
-    font-size: 2.2em;
-    line-height: 1.14;
-    text-transform: uppercase;
-    text-align: justify;
-    text-align-last: justify;
-  }
-
-  header :is(h1, nav) {
-    display: inline;
-  }
-
-  @media (min-width: 768px) {
-    header {
-      font-size: 3.4em;
-    }
-  }
-</style>

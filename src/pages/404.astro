@@ -1,10 +1,18 @@
 ---
-import Orbit from "components/Orbit.astro";
+import WordOrbit from "components/WordOrbit.astro";
 import Layout from "layouts/Layout.astro";
 ---
 
-<Layout is404>
-  <meta slot="head" name="robots" content="noindex">
+<Layout>
+  <meta slot="head" name="robots" content="noindex" />
+
+  <div
+    data-cursor-size="x-large"
+    data-cursor-contents="404"
+    style="position:fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"
+  >
+  </div>
+
   <h2 class="screen-reader-only">404 — Page not found</h2>
-  <Orbit is404 />
+  <WordOrbit words={Array(60).fill("404")} aria-hidden="true" />
 </Layout>
