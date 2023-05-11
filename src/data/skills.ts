@@ -1,5 +1,3 @@
-// TODO: reorder
-
 export const SKILLS = [
   // Outer circle
   "React",
@@ -20,7 +18,7 @@ export const SKILLS = [
   "Agile",
   "Technical writing",
   "Interaction design",
-  "Python",
+  "Graphics",
   "Technical architecture",
   "GLSL",
   "Creative coding",
@@ -29,9 +27,9 @@ export const SKILLS = [
   "Vercel",
   "Prioritisation",
   "Technical art",
-  "Image processing", // replace
-  "Unity", // replace // TODO replace with easter egg?
-  "Custom tooling", // replace
+  "No",
+  "More",
+  "Skills :—)",
   // Middle circle
   "Prototyping",
   "UI Engineering",
@@ -39,15 +37,15 @@ export const SKILLS = [
   "Shell scripting",
   "GCP",
   "Github actions",
-  "Three.js",
   "SQL",
-  "Shaders",
-  "Backlog refinement",
-  "Education",
+  "Serverless",
   "WCAG",
   "Automated testing",
-  "Serverless",
+  "Shaders",
+  "Three.js",
   "React Three Fiber",
+  "Education",
+  "Backlog refinement",
   "Public speaking",
   "Code review",
   "Maths",
@@ -62,6 +60,6 @@ export const SKILLS = [
   "Tailwind",
   "MongoDB",
   "Infrastructure",
+  "Python",
   "Build tooling",
-  "Graphics",
 ] as const satisfies { length: 60 };

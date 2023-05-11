@@ -120,6 +120,11 @@ const spacerElementList = [...Array(Math.ceil(photos.length * 0.4))];
     transform: scale3d(1, 0, 1);
   }
 
+  img {
+    object-fit: cover;
+    height: 100%;
+  }
+
   @media (max-width: 575px) {
     .spacer {
       height: 0;

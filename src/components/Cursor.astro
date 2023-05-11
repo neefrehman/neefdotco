@@ -299,13 +299,14 @@
       cursor.classList.remove("transition");
     });
 
-    /* TODO
-     * Investigate cursor and orbit ring entry bug. after navigation, they dont have the correct stating position:
+    /* TODO Investigate cursor and orbit ring entry bug. after navigation, they dont have the correct stating position:
      *
-     * 1) Only in Chomrium browsers
+     * 1) Only in Chromium browsers
      * 2) Only when you are navigating naturally between pages (not back/forward/refresh)
-     * 2) Only when you're moving the mouse as you navigate between pages
-     * 3) Only in production 
+     * 3) Only when you're moving the mouse as you navigate between pages
+     * 4) Only in production 
+     * 
+     * 1) Always when dev tools is open
      * 
      * bfcache is disabled in dev. I wonder if it's related, despite it not being used for those navigations?
      */
