@@ -30,7 +30,7 @@
         ((var(--cursor-right) - var(--cursor-left)) * var(--cursor-scale))
     );
     transform: translate(calc(var(--cursor-size) * var(--cursor-scale) * -1));
-    transition: transform 50ms, top 430ms cubic-bezier(1, 0.1, 0.1, 1),
+    transition: transform 60ms, top 430ms cubic-bezier(1, 0.1, 0.1, 1),
       left 430ms cubic-bezier(1, 0.1, 0.1, 1);
   }
 
@@ -164,7 +164,10 @@
       "[data-triggers-nav-transition=true]"
     );
 
-    // TODO: fix on safari — maybe try animating top/left?
+    // TODO: this isn't centered on the mouse in Safari, which seems to think that the top/left
+    // CSS properties should be 0, but only until they are toggled off and on, or devTools is
+    // opened, or the screen is resized. Dynamically setting and unsetting those values (or 
+    // classes that change those properties) doesn't seem to work.
     const handleCursorMove = ([mouseX, mouseY]: [number, number]) => {
       cursor.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0px)`;
     };
@@ -204,11 +207,17 @@
       }
     };
 
+    let shouldMoveCursor = true;
     document.addEventListener("mousemove", e => {
+      if (!shouldMoveCursor) return;
       cursor.classList.remove("hide");
       !!gravityWell
         ? handleCursorMoveWithGravityWell([e.clientX, e.clientY])
         : handleCursorMove([e.clientX, e.clientY]);
+
+      // This function is debounced so that the motion is not super jarring on Safari
+      shouldMoveCursor = false;
+      setTimeout(() => (shouldMoveCursor = true), 16.6667); // 60fps
     });
 
     document.addEventListener("mousedown", () => cursor.classList.add("small"));
@@ -242,7 +251,9 @@
         cursorContents.innerText = "";
       });
       // some of these elements may change their data-cursor-contents attribute on click
-      el.addEventListener("click", () => (cursorContents.innerText = el.dataset.cursorContents));
+      el.addEventListener("click", () => {
+        setTimeout(() => (cursorContents.innerText = el.dataset.cursorContents), 10);
+      });
     });
 
     cursorColorElements.forEach(el => {
@@ -304,10 +315,10 @@
      * 1) Only in Chromium browsers
      * 2) Only when you are navigating naturally between pages (not back/forward/refresh)
      * 3) Only when you're moving the mouse as you navigate between pages
-     * 4) Only in production 
-     * 
+     * 4) Only in production
+     *
      * 1) Always when dev tools is open
-     * 
+     *
      * bfcache is disabled in dev. I wonder if it's related, despite it not being used for those navigations?
      */
   }

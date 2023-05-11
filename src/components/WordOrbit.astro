@@ -43,7 +43,7 @@ const INNER_CIRCLE = words.splice(0, INNER_CIRCLE_WORD_COUNT);
 <style>
   div.system {
     position: fixed;
-    z-index: -1;
+    z-index: 0;
     bottom: 13vh;
     right: 8vw;
     transform: rotate(-10deg);
@@ -93,7 +93,7 @@ const INNER_CIRCLE = words.splice(0, INNER_CIRCLE_WORD_COUNT);
     transform: translateX(-50%) rotateZ(var(--a)) translateY(var(--r)) rotateX(90deg);
   }
 
-  @media not (pointer: coarse) {
+  @media (pointer: fine) {
     div.system:has(:hover) {
       --rotateZ: 5deg;
     }

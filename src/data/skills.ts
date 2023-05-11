@@ -33,8 +33,8 @@ export const SKILLS = [
   // Middle circle
   "Prototyping",
   "UI Engineering",
-  "Postgres",
   "Shell scripting",
+  "Postgres",
   "GCP",
   "Github actions",
   "SQL",
