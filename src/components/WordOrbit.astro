@@ -133,6 +133,8 @@ const INNER_CIRCLE = words.splice(0, INNER_CIRCLE_WORD_COUNT);
 </style>
 
 <script>
+  import { throttle } from "utils/throttle";
+
   const rings = document.querySelectorAll<HTMLElement>(".system .word-ring");
   rings.forEach((ring, i) => {
     setTimeout(() => ring.classList.add("loaded"), 500 + i * 300);
@@ -150,16 +152,17 @@ const INNER_CIRCLE = words.splice(0, INNER_CIRCLE_WORD_COUNT);
     const DOE = DeviceOrientationEvent as unknown as iOSDeviceOrientationEvent;
 
     const orbiters = document.querySelectorAll<HTMLElement>(".system li");
-    const tiltOrbit = (e: DeviceOrientationEvent) => {
+    const tiltOrbit = throttle((e: DeviceOrientationEvent) => {
       const tilt = window.innerHeight > window.innerWidth ? e.gamma : e.beta;
       rings.forEach(ring => (ring.style.rotate = `${tilt}deg`));
-    };
+    }, 41); // ~24fps
 
     let hasOrientationListener = false;
     orbiters.forEach(object => {
       object.addEventListener("click", () => {
         if (hasOrientationListener) {
           window.removeEventListener("deviceorientation", tiltOrbit);
+          rings.forEach(ring => (ring.style.rotate = null));
           hasOrientationListener = false;
           return;
         }

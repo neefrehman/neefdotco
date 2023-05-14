@@ -146,6 +146,7 @@
 </style>
 
 <script>
+  import { throttle } from "utils/throttle";
   import { getDistance } from "utils/math/getDistance";
   import { lerpVector } from "utils/math/lerp";
   import { mapToRange } from "utils/math/maptoRange";
@@ -217,18 +218,15 @@
       }
     };
 
-    let shouldMoveCursor = true;
-    document.addEventListener("mousemove", e => {
-      if (!shouldMoveCursor) return;
-      cursor.classList.remove("hide");
-      !!gravityWell
-        ? handleCursorMoveWithGravityWell([e.clientX, e.clientY])
-        : handleCursorMove([e.clientX, e.clientY]);
-
-      // This function is debounced so that the motion is not super jarring on Safari
-      shouldMoveCursor = false;
-      setTimeout(() => (shouldMoveCursor = true), 16.6667); // 60fps
-    });
+    document.addEventListener(
+      "mousemove",
+      throttle((e: MouseEvent) => {
+        cursor.classList.remove("hide");
+        !!gravityWell
+          ? handleCursorMoveWithGravityWell([e.clientX, e.clientY])
+          : handleCursorMove([e.clientX, e.clientY]);
+      }, 17) // ~60fps
+    );
 
     document.addEventListener("mousedown", () => cursor.classList.add("small"));
     document.addEventListener("mouseup", () => cursor.classList.remove("small"));
