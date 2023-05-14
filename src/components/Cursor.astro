@@ -80,6 +80,9 @@
   .cursor-container.xx-large {
     --cursor-scale: 5;
   }
+  .cursor-container.xxx-large {
+    --cursor-scale: 6;
+  }
 
   .cursor-container.hide {
     --cursor-scale: 0;
@@ -115,13 +118,12 @@
   }
 
   .cursor-container.in-gravity-well {
-    --cursor-scale: 6;
     /* Slower movement due to gravity */
     transition: transform 150ms ease-out;
   }
 
   .cursor-container.in-gravity-well .cursor {
-    /* Slower growth in size due to show off effect */
+    /* Slower growth in size to show off effect */
     transition: transform 430ms ease;
   }
 
@@ -166,7 +168,7 @@
 
     // TODO: this isn't centered on the mouse in Safari, which seems to think that the top/left
     // CSS properties should be 0, but only until they are toggled off and on, or devTools is
-    // opened, or the screen is resized. Dynamically setting and unsetting those values (or 
+    // opened, or the screen is resized. Dynamically setting and unsetting those values (or
     // classes that change those properties) doesn't seem to work.
     const handleCursorMove = ([mouseX, mouseY]: [number, number]) => {
       cursor.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0px)`;
@@ -183,13 +185,17 @@
       const distanceToWell = getDistance([wellCenterX, wellCenterY], [mouseX, mouseY]);
 
       if (distanceToWell > weakPullThreshold || !gravityWell.dataset.isActive) {
-        cursor.classList.remove("in-gravity-well");
+        cursor.classList.remove("in-gravity-well", "xxx-large", "has-contents");
         handleCursorMove([mouseX, mouseY]);
+        if (gravityWell.dataset.cursorContentsInWell) {
+          cursor.classList.add("has-contents");
+          cursorContents.innerText = "";
+        }
         return;
       }
 
-      if (distanceToWell > strongPullThreshold) {
-        cursor.classList.remove("in-gravity-well");
+      if (distanceToWell > strongPullThreshold && !cursor.classList.contains("in-gravity-well")) {
+        cursor.classList.remove("in-gravity-well", "xxx-large");
         const [x, y] = lerpVector(
           [mouseX, mouseY],
           [wellCenterX, wellCenterY],
@@ -197,13 +203,17 @@
         );
         cursor.style.transform = `translate(${x}px, ${y}px)`;
       } else {
-        cursor.classList.add("in-gravity-well");
+        cursor.classList.add("in-gravity-well", "xxx-large");
         const [x, y] = lerpVector(
           [wellCenterX, wellCenterY],
           [mouseX, mouseY],
           mapToRange(distanceToWell, 0, largestViewPortSize, 0, 0.33)
         );
         cursor.style.transform = `translate(${x}px, ${y}px)`;
+        if (gravityWell.dataset.cursorContentsInWell) {
+          cursor.classList.add("has-contents");
+          cursorContents.innerText = gravityWell.dataset.cursorContentsInWell;
+        }
       }
     };
 

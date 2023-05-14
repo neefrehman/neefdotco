@@ -1,4 +1,5 @@
 <style is:global>
+  /* Would duplicate as Astro's currently tailwind plugin doesn't respect disabling auto-apply of base styles */
   /* @tailwind base;
   @layer base { */
   html,
@@ -55,7 +56,7 @@
     margin: clamp(18px, 2.2vw, 40px);
     font-family: "Fleuron", helvetica neue, helvetica, arial, sans-serif;
     font-size: clamp(15px, 15px + 0.24vw, 19px);
-    line-height: 1.4;
+    line-height: 1.38;
     color: var(--text-color);
     background-color: var(--background-color);
     text-size-adjust: 100%;

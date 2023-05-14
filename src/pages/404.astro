@@ -6,13 +6,6 @@ import Layout from "layouts/Layout.astro";
 <Layout>
   <meta slot="head" name="robots" content="noindex" />
 
-  <div
-    data-cursor-size="x-large"
-    data-cursor-contents="404"
-    class="fixed top-0 left-0 w-full h-full -z-10"
-  >
-  </div>
-
   <h2 class="sr-only">404 — Page not found</h2>
-  <WordOrbit words={Array(60).fill("404")} aria-hidden="true" />
+  <WordOrbit words={Array(60).fill("404")} cursorContentsInWell="404" aria-hidden="true" />
 </Layout>

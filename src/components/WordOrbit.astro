@@ -2,10 +2,11 @@
 interface Props {
   /** An array of 60 words */
   words: string[];
-  'aria-hidden'?: "true" | "false";
+  cursorContentsInWell?: string;
+  "aria-hidden"?: "true" | "false";
 }
 
-const { words, 'aria-hidden': ariahidden } = Astro.props;
+const { words, "aria-hidden": ariahidden, cursorContentsInWell } = Astro.props;
 
 /*
   Circumference = 2 * PI * r, so doubling the radius also doubles the circumference, i.e. each
@@ -20,7 +21,12 @@ const MIDDLE_CIRCLE = words.splice(0, MIDDLE_CIRCLE_WORD_COUNT);
 const INNER_CIRCLE = words.splice(0, INNER_CIRCLE_WORD_COUNT);
 ---
 
-<div class="system" data-gravity-well="true" aria-hidden={ariahidden ?? "false"}>
+<div
+  class="system"
+  data-gravity-well="true"
+  data-cursor-contents-in-well={cursorContentsInWell}
+  aria-hidden={ariahidden ?? "false"}
+>
   <div class="word-ring" style="--ring-index: 3" data-transition-element="true">
     <ul style={`--word-count: ${OUTER_CIRCLE.length}`}>
       {OUTER_CIRCLE.map((skill, i) => <li style={`--index: ${i}`}>{skill}</li>)}
@@ -143,30 +149,36 @@ const INNER_CIRCLE = words.splice(0, INNER_CIRCLE_WORD_COUNT);
     }
     const DOE = DeviceOrientationEvent as unknown as iOSDeviceOrientationEvent;
 
-    let hasOrientationListener = false;
-    const addOrientationListener = () => {
-      if (hasOrientationListener) return;
-      window.addEventListener("deviceorientation", e => {
-        hasOrientationListener = true;
-        const tilt = window.innerHeight > window.innerWidth ? e.gamma : e.beta;
-        rings.forEach(ring => (ring.style.rotate = `${tilt}deg`));
-      });
+    const orbiters = document.querySelectorAll<HTMLElement>(".system li");
+    const tiltOrbit = (e: DeviceOrientationEvent) => {
+      const tilt = window.innerHeight > window.innerWidth ? e.gamma : e.beta;
+      rings.forEach(ring => (ring.style.rotate = `${tilt}deg`));
     };
 
-    const orbiters = document.querySelectorAll<HTMLElement>(".system li");
+    let hasOrientationListener = false;
     orbiters.forEach(object => {
       object.addEventListener("click", () => {
+        if (hasOrientationListener) {
+          window.removeEventListener("deviceorientation", tiltOrbit);
+          hasOrientationListener = false;
+          return;
+        }
+
         // For iOS devices that need permission, we request it and only add the event listener
         // when granted. This is a noop if we already have permissions.
         if ("requestPermission" in DOE) {
           DOE.requestPermission()
             .then(state => {
-              if (state === "granted") addOrientationListener();
+              if (state === "granted") {
+                window.addEventListener("deviceorientation", tiltOrbit);
+                hasOrientationListener = true;
+              }
             })
             .catch();
         }
         // for other devices, and for already granted iOS devices, we add the listener
-        addOrientationListener();
+        window.addEventListener("deviceorientation", tiltOrbit);
+        hasOrientationListener = true;
       });
     });
   }
