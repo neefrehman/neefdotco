@@ -142,9 +142,8 @@ const INNER_CIRCLE = words.splice(0, INNER_CIRCLE_WORD_COUNT);
 
   // only pull cursor once rings have completed their transitions
   const system = document.querySelector<HTMLElement>(".system");
-  setTimeout(() => (system.dataset.isActive = "true"), 600 + rings.length * 300);
+  setTimeout(() => (system.dataset.isActive = "true"), 400 + rings.length * 300);
 
-  /** The setTimeout doesnt seem to work, and setting a delay in CSS clashed with other transform transitions */
   if ("ontouchstart" in document.documentElement && "DeviceOrientationEvent" in window) {
     interface iOSDeviceOrientationEvent extends DeviceOrientationEvent {
       requestPermission?: () => Promise<"granted" | "forbidden">;

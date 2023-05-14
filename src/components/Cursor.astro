@@ -186,17 +186,16 @@
       const distanceToWell = getDistance([wellCenterX, wellCenterY], [mouseX, mouseY]);
 
       if (distanceToWell > weakPullThreshold || !gravityWell.dataset.isActive) {
-        cursor.classList.remove("in-gravity-well", "xxx-large", "has-contents");
+        cursor.classList.remove("in-gravity-well", "xxx-large");
         handleCursorMove([mouseX, mouseY]);
         if (gravityWell.dataset.cursorContentsInWell) {
-          cursor.classList.add("has-contents");
+          cursor.classList.remove("has-contents");
           cursorContents.innerText = "";
         }
         return;
       }
 
       if (distanceToWell > strongPullThreshold && !cursor.classList.contains("in-gravity-well")) {
-        cursor.classList.remove("in-gravity-well", "xxx-large");
         const [x, y] = lerpVector(
           [mouseX, mouseY],
           [wellCenterX, wellCenterY],
@@ -248,6 +247,7 @@
 
     cursorContentsElements.forEach(el => {
       el.addEventListener("mouseenter", () => {
+        console.log(el);
         cursor.classList.add("has-contents");
         /* annoyingly some characters, like +/-, aren't quite the right size in fleuron */
         if (["+", "-", "–", "—"].includes(el.dataset.cursorContents))
