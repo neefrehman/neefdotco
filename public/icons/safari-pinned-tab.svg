@@ -1,12 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
-    <title>Artboard</title>
-    <desc>Created with Sketch.</desc>
-    <g id="Artboard" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <rect fill="#000000" x="0" y="0" width="32" height="32"></rect>
-        <text id="N" font-family="HelveticaNeue-Bold, Helvetica Neue" font-size="24" font-weight="bold" letter-spacing="4.105264" fill="#FFFFFF">
-            <tspan x="4.055368" y="27">N</tspan>
-        </text>
-    </g>
-</svg>
+<svg fill="none" height="180" viewBox="0 0 180 180" width="180" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><clipPath id="a"><path d="m0 0h180v180h-180z"/></clipPath><g clip-path="url(#a)" fill="#9b2dd2"><path d="m80.592 9.52799c1.024 0 1.792.76801 1.792 1.79201v85.888c0 1.024-.768 1.792-1.792 1.792h-13.952c-1.28 0-2.56-.64-3.2-1.792l-38.784-69.248c-.512-.768-1.664-.512-1.664.384v68.864c0 1.024-.768 1.792-1.792 1.792h-9.216c-1.024 0-1.792-.768-1.792-1.792v-85.888c0-1.024.768-1.79201 1.792-1.79201h14.08c1.28 0 2.432.64001 3.072 1.79201l38.784 69.376c.512.768 1.664.512 1.664-.384v-68.992c0-1.024.896-1.79201 1.792-1.79201z"/><path d="m164.096 128.504c2.944 0 5.248 2.432 5.248 5.376v35.328c0 1.024-.768 1.792-1.792 1.792h-9.216c-.896 0-1.792-.768-1.792-1.792v-32.256c0-.896-.768-1.664-1.664-1.664h-6.016c-.384-.128-.768-.128-1.28-.128h-28.8c-1.024 0-1.792.896-1.792 1.792v32.256c0 1.024-.768 1.792-1.792 1.792h-9.216c-1.024 0-1.792-.768-1.792-1.792v-82.304c0-2.944 2.432-5.376 5.376-5.376h33.024c16.384 0 28.032 10.368 28.032 24.32 0 11.264-6.272 20.096-14.72 22.656h2.688zm-23.424-4.736c10.752 0 17.152-6.912 17.152-16 0-9.6-6.4-14.72-17.152-14.72h-21.888c-1.024 0-1.792.768-1.792 1.792v27.136c0 .896.768 1.792 1.792 1.792z"/></g></svg>
