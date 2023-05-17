@@ -154,19 +154,8 @@
   if (matchMedia("(pointer:fine)").matches) {
     const cursor = document.querySelector<HTMLDivElement>("div.cursor-container");
     const cursorContents = document.querySelector<HTMLDivElement>(".cursor-contents");
-    const interactiveElements = document.querySelectorAll<HTMLAnchorElement>("a, button");
+
     const gravityWell = document.querySelector<HTMLDivElement>("[data-gravity-well=true]");
-    const cursorColorElements = document.querySelectorAll<HTMLElement>("[data-cursor-color]");
-    const cursorSizeElements = document.querySelectorAll<HTMLElement>("[data-cursor-size]");
-    const cursorMoveElements = document.querySelectorAll<HTMLElement>("[data-cursor-move]");
-    const cursorShapeElements = document.querySelectorAll<HTMLElement>("[data-cursor-shape]");
-    const cursorContentsElements = document.querySelectorAll<HTMLElement>("[data-cursor-contents]");
-    const cursorRegrowElements = document.querySelectorAll<HTMLElement>(
-      "[data-cursor-regrow=true]"
-    );
-    const navLinks = document.querySelectorAll<HTMLAnchorElement>(
-      "[data-triggers-nav-transition=true]"
-    );
 
     const handleCursorMove = ([mouseX, mouseY]: [number, number]) => {
       cursor.style.translate = `${mouseX}px ${mouseY}px`;
@@ -226,6 +215,16 @@
 
     document.addEventListener("mousedown", () => cursor.classList.add("small"));
     document.addEventListener("mouseup", () => cursor.classList.remove("small"));
+
+    const interactiveElements = document.querySelectorAll<HTMLAnchorElement>("a, button");
+    const cursorColorElements = document.querySelectorAll<HTMLElement>("[data-cursor-color]");
+    const cursorSizeElements = document.querySelectorAll<HTMLElement>("[data-cursor-size]");
+    const cursorMoveElements = document.querySelectorAll<HTMLElement>("[data-cursor-move]");
+    const cursorShapeElements = document.querySelectorAll<HTMLElement>("[data-cursor-shape]");
+    const cursorContentsElements = document.querySelectorAll<HTMLElement>("[data-cursor-contents]");
+    const cursorRegrowElements = document.querySelectorAll<HTMLElement>(
+      "[data-cursor-regrow=true]"
+    );
 
     interactiveElements.forEach(link => {
       link.addEventListener("mouseenter", () => cursor.classList.add("large"));
@@ -292,6 +291,10 @@
     });
 
     // TODO: break out into transition-specific script?
+    const navLinks = document.querySelectorAll<HTMLAnchorElement>(
+      "[data-triggers-nav-transition=true]"
+    );
+
     navLinks.forEach(link => {
       if (!link.href) return;
       link.addEventListener("click", e => {
