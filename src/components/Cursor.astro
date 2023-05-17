@@ -29,7 +29,7 @@
       (var(--cursor-radius) * -1) +
         ((var(--cursor-right) - var(--cursor-left)) * var(--cursor-scale))
     );
-    transition: translate 50ms, top 430ms cubic-bezier(1, 0.1, 0.1, 1),
+    transition: translate 70ms, top 430ms cubic-bezier(1, 0.1, 0.1, 1),
       left 430ms cubic-bezier(1, 0.1, 0.1, 1);
   }
 
@@ -119,12 +119,12 @@
 
   .cursor-container.in-gravity-well {
     /* Slower movement due to gravity */
-    transition: translate 150ms ease-out;
+    transition: translate 180ms ease-out;
   }
 
   .cursor-container.in-gravity-well .cursor {
     /* Slower growth in size to show off effect */
-    transition: scale 430ms ease, translate 430ms ease-out;
+    transition: scale 430ms ease;
   }
 
   .cursor-container.in-gravity-well.small {
@@ -210,7 +210,7 @@
         !!gravityWell
           ? handleCursorMoveWithGravityWell([e.clientX, e.clientY])
           : handleCursorMove([e.clientX, e.clientY]);
-      }, 17) // ~60fps
+      }, 30) // ~33fps
     );
 
     document.addEventListener("mousedown", () => cursor.classList.add("small"));
