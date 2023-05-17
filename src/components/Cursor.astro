@@ -29,8 +29,7 @@
       (var(--cursor-radius) * -1) +
         ((var(--cursor-right) - var(--cursor-left)) * var(--cursor-scale))
     );
-    transform: translate(calc(var(--cursor-size) * var(--cursor-scale) * -1));
-    transition: transform 50ms, top 430ms cubic-bezier(1, 0.1, 0.1, 1),
+    transition: translate 50ms, top 430ms cubic-bezier(1, 0.1, 0.1, 1),
       left 430ms cubic-bezier(1, 0.1, 0.1, 1);
   }
 
@@ -44,17 +43,17 @@
 
   .cursor {
     overflow: hidden;
-    transform: scale(var(--cursor-scale));
     background-color: var(--cursor-background-color);
-    transition: transform 430ms cubic-bezier(1, 0.1, 0.1, 1), background-color 200ms ease-in-out,
-      border-radius 430ms cubic-bezier(1, 0.1, 0.1, 1);
+    scale: var(--cursor-scale);
+    transition: scale 430ms cubic-bezier(1, 0.1, 0.1, 1), background-color 200ms ease-in-out,
+      border-radius 720ms ease;
   }
 
   .cursor-inner {
-    transform: scale(var(--cursor-inner-scale));
     background-color: var(--cursor-inner-background-color);
-    transition: transform 780ms cubic-bezier(1, 0.1, 0.1, 1) 220ms,
-      background-color 200ms ease-in-out, border-radius 430ms cubic-bezier(1, 0.1, 0.1, 1);
+    scale: var(--cursor-inner-scale);
+    transition: scale 780ms cubic-bezier(1, 0.1, 0.1, 1) 220ms, background-color 200ms ease-in-out,
+      border-radius 430ms cubic-bezier(1, 0.1, 0.1, 1);
   }
 
   .cursor-contents {
@@ -64,8 +63,9 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) scale(var(--cursor-contents-scale));
-    transition: transform 720ms ease;
+    translate: -50% -50%;
+    scale: var(--cursor-contents-scale);
+    transition: translate 720ms ease, scale 720ms ease;
   }
 
   .cursor-container.small {
@@ -119,12 +119,12 @@
 
   .cursor-container.in-gravity-well {
     /* Slower movement due to gravity */
-    transition: transform 150ms ease-out;
+    transition: translate 150ms ease-out;
   }
 
   .cursor-container.in-gravity-well .cursor {
     /* Slower growth in size to show off effect */
-    transition: transform 430ms ease;
+    transition: scale 430ms ease, translate 430ms ease-out;
   }
 
   .cursor-container.in-gravity-well.small {
@@ -159,6 +159,7 @@
     const cursorColorElements = document.querySelectorAll<HTMLElement>("[data-cursor-color]");
     const cursorSizeElements = document.querySelectorAll<HTMLElement>("[data-cursor-size]");
     const cursorMoveElements = document.querySelectorAll<HTMLElement>("[data-cursor-move]");
+    const cursorShapeElements = document.querySelectorAll<HTMLElement>("[data-cursor-shape]");
     const cursorContentsElements = document.querySelectorAll<HTMLElement>("[data-cursor-contents]");
     const cursorRegrowElements = document.querySelectorAll<HTMLElement>(
       "[data-cursor-regrow=true]"
@@ -167,12 +168,8 @@
       "[data-triggers-nav-transition=true]"
     );
 
-    // TODO: this isn't centered on the mouse in Safari, which seems to think that the top/left
-    // CSS properties should be 0, but only until they are toggled off and on, or devTools is
-    // opened, or the screen is resized. Dynamically setting and unsetting those values (or
-    // classes that change those properties) doesn't seem to work.
     const handleCursorMove = ([mouseX, mouseY]: [number, number]) => {
-      cursor.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0px)`;
+      cursor.style.translate = `${mouseX}px ${mouseY}px`;
     };
 
     const handleCursorMoveWithGravityWell = ([mouseX, mouseY]: [number, number]) => {
@@ -201,7 +198,7 @@
           [wellCenterX, wellCenterY],
           mapToRange(10 + weakPullThreshold - distanceToWell, 0, largestViewPortSize, 0, 2)
         );
-        cursor.style.transform = `translate(${x}px, ${y}px)`;
+        cursor.style.translate = `${x}px ${y}px`;
       } else {
         cursor.classList.add("in-gravity-well", "xxx-large");
         const [x, y] = lerpVector(
@@ -209,7 +206,7 @@
           [mouseX, mouseY],
           mapToRange(distanceToWell, 0, largestViewPortSize, 0, 0.33)
         );
-        cursor.style.transform = `translate(${x}px, ${y}px)`;
+        cursor.style.translate = `${x}px ${y}px`;
         if (gravityWell.dataset.cursorContentsInWell) {
           cursor.classList.add("has-contents");
           cursorContents.innerText = gravityWell.dataset.cursorContentsInWell;
@@ -240,6 +237,11 @@
       el.addEventListener("mouseleave", () => cursor.classList.remove(el.dataset.cursorMove));
     });
 
+    cursorShapeElements.forEach(el => {
+      el.addEventListener("mouseenter", () => cursor.classList.add(el.dataset.cursorShape));
+      el.addEventListener("mouseleave", () => cursor.classList.remove(el.dataset.cursorShape));
+    });
+
     cursorSizeElements.forEach(el => {
       el.addEventListener("mouseenter", () => cursor.classList.add(el.dataset.cursorSize));
       el.addEventListener("mouseleave", () => cursor.classList.remove(el.dataset.cursorSize));
@@ -247,7 +249,6 @@
 
     cursorContentsElements.forEach(el => {
       el.addEventListener("mouseenter", () => {
-        console.log(el);
         cursor.classList.add("has-contents");
         /* annoyingly some characters, like +/-, aren't quite the right size in fleuron */
         if (["+", "-", "–", "—"].includes(el.dataset.cursorContents))
