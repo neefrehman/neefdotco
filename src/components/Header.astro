@@ -1,7 +1,7 @@
 ---
 import DarkModeToggle from "./DarkModeToggle.astro";
 
-const currentPageIs = (path: string) => Astro.url.pathname === path
+const currentPageIs = (path: string) => [path, `${path}/`].includes(Astro.url.pathname)
 ---
 
 <header
