@@ -9,8 +9,8 @@ export default defineConfig({
       serviceEntryPoint: "@astrojs/image/sharp",
     }),
     tailwind({
-      applyBaseStyles: false
+      applyBaseStyles: false,
     }),
   ],
-  scopedStyleStrategy: "class",
+  compressHTML: true,
 });
