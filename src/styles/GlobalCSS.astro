@@ -1,31 +1,32 @@
 <style is:global>
-  /* Would duplicate as Astro's currently tailwind plugin doesn't respect disabling auto-apply of base styles */
-  /* @tailwind base;
-  @layer base { */
-  html,
-  body {
-    /* Give scrollbar to all pages to avoid jump */
-    height: 100%;
-    isolation: isolate;
-  }
+  @tailwind base;
+  @tailwind utilities;
 
-  *:focus {
-    outline: none;
-  }
+  @layer base {
+    html,
+    body {
+      /* Give scrollbar to all pages to avoid jump */
+      height: 100%;
+      isolation: isolate;
+    }
 
-  *:focus-visible {
-    outline: auto;
-  }
+    *:focus {
+      outline: none;
+    }
 
-  i {
-    font-style: italic;
-  }
+    *:focus-visible {
+      outline: auto;
+    }
 
-  img {
-    object-fit: cover;
-    height: 100%;
+    i {
+      font-style: italic;
+    }
+
+    img {
+      object-fit: cover;
+      height: 100%;
+    }
   }
-  /* } */
 
   @font-face {
     font-family: "Fleuron";
@@ -64,7 +65,7 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /* Added in script below, to avoid initial load including faded background */
+  /* Added in script below, to avoid initial load including a faded background */
   body.loaded {
     transition: background-color 200ms ease-in-out;
   }
@@ -92,5 +93,6 @@
 </style>
 
 <script>
+  // Added to avoid initial load including a faded background
   setTimeout(() => document.body.classList.add("loaded"), 200);
 </script>
