@@ -29,7 +29,9 @@
       (var(--cursor-radius) * -1) +
         ((var(--cursor-right) - var(--cursor-left)) * var(--cursor-scale))
     );
-    transition: translate 70ms, top 430ms cubic-bezier(1, 0.1, 0.1, 1),
+    transition:
+      translate 70ms,
+      top 430ms cubic-bezier(1, 0.1, 0.1, 1),
       left 430ms cubic-bezier(1, 0.1, 0.1, 1);
   }
 
@@ -45,14 +47,18 @@
     overflow: hidden;
     background-color: var(--cursor-background-color);
     scale: var(--cursor-scale);
-    transition: scale 430ms cubic-bezier(1, 0.1, 0.1, 1), background-color 200ms ease-in-out,
+    transition:
+      scale 430ms cubic-bezier(1, 0.1, 0.1, 1),
+      background-color 200ms ease-in-out,
       border-radius 720ms ease;
   }
 
   .cursor-inner {
     background-color: var(--cursor-inner-background-color);
     scale: var(--cursor-inner-scale);
-    transition: scale 780ms cubic-bezier(1, 0.1, 0.1, 1) 220ms, background-color 200ms ease-in-out,
+    transition:
+      scale 780ms cubic-bezier(1, 0.1, 0.1, 1) 220ms,
+      background-color 200ms ease-in-out,
       border-radius 430ms cubic-bezier(1, 0.1, 0.1, 1);
   }
 
@@ -65,7 +71,9 @@
     left: 50%;
     translate: -50% -50%;
     scale: var(--cursor-contents-scale);
-    transition: translate 720ms ease, scale 720ms ease;
+    transition:
+      translate 720ms ease,
+      scale 720ms ease;
   }
 
   .cursor-container.small {

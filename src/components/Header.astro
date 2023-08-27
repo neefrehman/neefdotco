@@ -1,7 +1,7 @@
 ---
 import DarkModeToggle from "./DarkModeToggle.astro";
 
-const currentPageIs = (path: string) => [path, `${path}/`].includes(Astro.url.pathname)
+const currentPageIs = (path: string) => [path, `${path}/`].includes(Astro.url.pathname);
 ---
 
 <header
@@ -13,9 +13,8 @@ const currentPageIs = (path: string) => [path, `${path}/`].includes(Astro.url.pa
       currentPageIs("/") ? (
         <h1 aria-current="page">Neef Rehman Creative Technologist</h1>
       ) : (
-        <a data-triggers-nav-transition="true" href="/">
-          Neef Rehman Creative Technologist
-        </a>
+        // DO NOT FORMAT! Astro preserves newline characters as spaces
+        <a data-triggers-nav-transition="true" href="/">Neef Rehman Creative Technologist</a>
       )
     }{" "}
     {
