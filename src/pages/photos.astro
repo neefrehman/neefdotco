@@ -31,7 +31,7 @@ const spacerElementList = [...Array(Math.ceil(photos.length * 0.4))];
       photos.map(photo => (
         <Picture
           src={photo.src}
-          style={`--photo-key-color: ${photo.keyColor}`}
+          pictureAttributes={{ style: `--photo-key-color: ${photo.keyColor}` }}
           data-transition-element="true"
           alt=""
           widths={[640, 768, 1024, 1600, 1920]}
@@ -43,7 +43,8 @@ const spacerElementList = [...Array(Math.ceil(photos.length * 0.4))];
   </div>
 </Layout>
 
-<style>
+<!-- This needs to be global, as otherwise Astro's scoping logic would not work, as the required data attributes are not added to `Picture` elements -->
+<style is:global>
   .photo-container {
     margin: 10px;
     margin-top: -100px;
@@ -56,7 +57,7 @@ const spacerElementList = [...Array(Math.ceil(photos.length * 0.4))];
     column-gap: clamp(50px, 12vw, 120px);
   }
 
-  .photo-container img,
+  .photo-container picture,
   .spacer {
     overflow-y: hidden;
     position: relative;
@@ -74,35 +75,34 @@ const spacerElementList = [...Array(Math.ceil(photos.length * 0.4))];
     transition: transform 2100ms cubic-bezier(0, 0.9, 0.1, 1);
   }
 
-  .photo-container img {
+  .photo-container picture {
     background-color: var(--photo-key-color);
   }
 
-  .photo-container img:not(.initial-loaded) {
+  .photo-container picture:not(.initial-loaded) {
     /* This is needed to prevent the browser from loading images that are at the top of the page before we shuffle the photos */
     display: none;
   }
 
-  .photo-container img:first-child {
+  .photo-container picture:first-child {
     margin-left: clamp(40px, 7vw, 100px);
   }
 
-  .photo-container img:hover {
+  .photo-container picture:hover {
     z-index: 2;
     filter: contrast(88%) brightness(105%);
   }
 
-  .photo-container img.zoom {
+  .photo-container picture.zoom {
     --scale: 2.5;
   }
 
-  .photo-container img:not(.loaded) {
+  .photo-container picture:not(.loaded) {
     transform: translate3d(var(--translate-x), calc(var(--translate-y) + 33% + var(--y)), 0);
     transition: transform 1300ms cubic-bezier(0, 0.9, 0.1, 1);
   }
 
-  .photo-container img::after {
-    /* FIXME */
+  .photo-container picture::after {
     content: "";
     display: block;
     background-color: var(--photo-key-color);
@@ -116,7 +116,7 @@ const spacerElementList = [...Array(Math.ceil(photos.length * 0.4))];
     transition: transform 300ms cubic-bezier(0.9, 0, 0.6, 1);
   }
 
-  .photo-container img:not(.loaded)::after {
+  .photo-container picture:not(.loaded)::after {
     transform: scale3d(1, 1, 1);
   }
 
@@ -125,11 +125,11 @@ const spacerElementList = [...Array(Math.ceil(photos.length * 0.4))];
       height: 0;
     }
 
-    .photo-container img.zoom {
+    .photo-container picture.zoom {
       --scale: 1.5;
     }
 
-    .photo-container img:not(.loaded) {
+    .photo-container picture:not(.loaded) {
       transform: translate3d(
         var(--translate-x),
         calc((var(--translate-y) + 33% + var(--y)) * 0.5),
@@ -152,14 +152,15 @@ const spacerElementList = [...Array(Math.ceil(photos.length * 0.4))];
   });
   photoContainer.innerHTML = shuffle([...photos].map(photo => photo.outerHTML)).join("");
 
-  const photosAfterShuffle = photoContainer.querySelectorAll("img");
+  const photosAfterShuffle = photoContainer.querySelectorAll("picture");
   photosAfterShuffle.forEach(photo => photo.classList.add("initial-loaded"));
 
   let loadedPhotoCount = 0;
   photosAfterShuffle.forEach((photo, i) => {
+    const imageElement = photo.querySelector<HTMLImageElement>("img");
     // @ts-expect-error -- it's a real property i promise!
-    if (i < 3) photo.fetchPriority = "high";
-    photo.addEventListener("load", () => {
+    if (i < 3) imageElement.fetchPriority = "high";
+    imageElement.addEventListener("load", () => {
       // loadedPhotoCount delays the transition so they don't all load at the same time (for cached images)
       loadedPhotoCount++;
       setTimeout(() => photo.classList.add("loaded"), 200 + loadedPhotoCount * 30);
