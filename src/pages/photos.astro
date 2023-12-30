@@ -1,6 +1,6 @@
 ---
 import fs from "fs";
-import { getPicture } from "@astrojs/image";
+import { Picture } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
 
 const quantisedColorMap = JSON.parse(
@@ -14,12 +14,7 @@ const photos = await Promise.all(
     .map(name => name.split(".jpg")[0]) // required to make vite import resolver happy
     .map(async name => ({
       keyColor: quantisedColorMap[`${name}.jpg`] ?? "var(--opposite-mode-background)",
-      ...(await getPicture({
-        src: import(`../photos/large/${name}.jpg`),
-        alt: "",
-        widths: [640, 768, 1024, 1600, 1920],
-        formats: ["avif", "webp"],
-      })),
+      src: import(`../photos/large/${name}.jpg`),
     }))
 );
 
@@ -34,12 +29,14 @@ const spacerElementList = [...Array(Math.ceil(photos.length * 0.4))];
   <div class="photo-container">
     {
       photos.map(photo => (
-        <picture data-transition-element="true" style={`--photo-key-color: ${photo.keyColor}`}>
-          {photo.sources.map(source => (
-            <source {...source} />
-          ))}
-          <img {...photo.image} loading="lazy" />
-        </picture>
+        <Picture
+          src={photo.src}
+          style={`--photo-key-color: ${photo.keyColor}`}
+          data-transition-element="true"
+          alt=""
+          widths={[640, 768, 1024, 1600, 1920]}
+          formats={["avif", "webp"]}
+        />
       ))
     }
     {spacerElementList.map(() => <div class="spacer pointer-events-none" />)}
@@ -59,7 +56,7 @@ const spacerElementList = [...Array(Math.ceil(photos.length * 0.4))];
     column-gap: clamp(50px, 12vw, 120px);
   }
 
-  .photo-container picture,
+  .photo-container img,
   .spacer {
     overflow-y: hidden;
     position: relative;
@@ -77,34 +74,34 @@ const spacerElementList = [...Array(Math.ceil(photos.length * 0.4))];
     transition: transform 2100ms cubic-bezier(0, 0.9, 0.1, 1);
   }
 
-  .photo-container picture img {
+  .photo-container img {
     background-color: var(--photo-key-color);
   }
 
-  .photo-container picture:not(.initial-loaded) {
+  .photo-container img:not(.initial-loaded) {
     /* This is needed to prevent the browser from loading images that are at the top of the page before we shuffle the photos */
     display: none;
   }
 
-  .photo-container picture:first-child {
+  .photo-container img:first-child {
     margin-left: clamp(40px, 7vw, 100px);
   }
 
-  .photo-container picture:hover {
+  .photo-container img:hover {
     z-index: 2;
     filter: contrast(88%) brightness(105%);
   }
 
-  .photo-container picture.zoom {
+  .photo-container img.zoom {
     --scale: 2.5;
   }
 
-  .photo-container picture:not(.loaded) {
+  .photo-container img:not(.loaded) {
     transform: translate3d(var(--translate-x), calc(var(--translate-y) + 33% + var(--y)), 0);
     transition: transform 1300ms cubic-bezier(0, 0.9, 0.1, 1);
   }
 
-  .photo-container picture::after {
+  .photo-container img::after {
     content: "";
     display: block;
     background-color: var(--photo-key-color);
@@ -118,7 +115,7 @@ const spacerElementList = [...Array(Math.ceil(photos.length * 0.4))];
     transition: transform 300ms cubic-bezier(0.9, 0, 0.6, 1);
   }
 
-  .photo-container picture:not(.loaded)::after {
+  .photo-container img:not(.loaded)::after {
     transform: scale3d(1, 1, 1);
   }
 
@@ -127,12 +124,16 @@ const spacerElementList = [...Array(Math.ceil(photos.length * 0.4))];
       height: 0;
     }
 
-    .photo-container picture.zoom {
+    .photo-container img.zoom {
       --scale: 1.5;
     }
 
-    .photo-container picture:not(.loaded) {
-      transform: translate3d(var(--translate-x), calc((var(--translate-y) + 33% + var(--y)) * 0.5), 0);
+    .photo-container img:not(.loaded) {
+      transform: translate3d(
+        var(--translate-x),
+        calc((var(--translate-y) + 33% + var(--y)) * 0.5),
+        0
+      );
     }
   }
 </style>
@@ -150,15 +151,14 @@ const spacerElementList = [...Array(Math.ceil(photos.length * 0.4))];
   });
   photoContainer.innerHTML = shuffle([...photos].map(photo => photo.outerHTML)).join("");
 
-  const photosAfterShuffle = photoContainer.querySelectorAll("picture");
+  const photosAfterShuffle = photoContainer.querySelectorAll("img");
   photosAfterShuffle.forEach(photo => photo.classList.add("initial-loaded"));
 
   let loadedPhotoCount = 0;
   photosAfterShuffle.forEach((photo, i) => {
-    const imageElement = photo.querySelector<HTMLImageElement>("img");
     // @ts-expect-error -- it's a real property i promise!
-    if (i < 3) imageElement.fetchPriority = "high";
-    imageElement.addEventListener("load", () => {
+    if (i < 3) photo.fetchPriority = "high";
+    photo.addEventListener("load", () => {
       // loadedPhotoCount delays the transition so they don't all load at the same time (for cached images)
       loadedPhotoCount++;
       setTimeout(() => photo.classList.add("loaded"), 200 + loadedPhotoCount * 30);
