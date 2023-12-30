@@ -8,5 +8,4 @@ export default defineConfig({
       applyBaseStyles: false,
     }),
   ],
-  compressHTML: true,
 });

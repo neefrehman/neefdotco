@@ -13,8 +13,8 @@ const photos = await Promise.all(
     .filter(name => name !== ".DS_Store")
     .map(name => name.split(".jpg")[0]) // required to make vite import resolver happy
     .map(async name => ({
-      keyColor: quantisedColorMap[`${name}.jpg`] ?? "var(--opposite-mode-background)",
       src: import(`../photos/large/${name}.jpg`),
+      keyColor: quantisedColorMap[`${name}.jpg`] ?? "var(--opposite-mode-background)",
     }))
 );
 
@@ -102,6 +102,7 @@ const spacerElementList = [...Array(Math.ceil(photos.length * 0.4))];
   }
 
   .photo-container img::after {
+    /* FIXME */
     content: "";
     display: block;
     background-color: var(--photo-key-color);
