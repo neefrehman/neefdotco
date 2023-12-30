@@ -1,6 +1,6 @@
 ---
 import fs from "fs";
-import { getPicture } from "@astrojs/image";
+import { Picture } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
 
 const quantisedColorMap = JSON.parse(
@@ -13,13 +13,8 @@ const photos = await Promise.all(
     .filter(name => name !== ".DS_Store")
     .map(name => name.split(".jpg")[0]) // required to make vite import resolver happy
     .map(async name => ({
+      src: import(`../photos/large/${name}.jpg`),
       keyColor: quantisedColorMap[`${name}.jpg`] ?? "var(--opposite-mode-background)",
-      ...(await getPicture({
-        src: import(`../photos/large/${name}.jpg`),
-        alt: "",
-        widths: [640, 768, 1024, 1600, 1920],
-        formats: ["avif", "webp"],
-      })),
     }))
 );
 
@@ -34,19 +29,22 @@ const spacerElementList = [...Array(Math.ceil(photos.length * 0.4))];
   <div class="photo-container">
     {
       photos.map(photo => (
-        <picture data-transition-element="true" style={`--photo-key-color: ${photo.keyColor}`}>
-          {photo.sources.map(source => (
-            <source {...source} />
-          ))}
-          <img {...photo.image} loading="lazy" />
-        </picture>
+        <Picture
+          src={photo.src}
+          pictureAttributes={{ style: `--photo-key-color: ${photo.keyColor}` }}
+          data-transition-element="true"
+          alt=""
+          widths={[640, 768, 1024, 1600, 1920]}
+          formats={["avif", "webp"]}
+        />
       ))
     }
     {spacerElementList.map(() => <div class="spacer pointer-events-none" />)}
   </div>
 </Layout>
 
-<style>
+<!-- This needs to be global, as otherwise Astro's scoping logic would not work, as the required data attributes are not added to `Picture` elements -->
+<style is:global>
   .photo-container {
     margin: 10px;
     margin-top: -100px;
@@ -77,7 +75,7 @@ const spacerElementList = [...Array(Math.ceil(photos.length * 0.4))];
     transition: transform 2100ms cubic-bezier(0, 0.9, 0.1, 1);
   }
 
-  .photo-container picture img {
+  .photo-container picture {
     background-color: var(--photo-key-color);
   }
 
@@ -132,7 +130,11 @@ const spacerElementList = [...Array(Math.ceil(photos.length * 0.4))];
     }
 
     .photo-container picture:not(.loaded) {
-      transform: translate3d(var(--translate-x), calc((var(--translate-y) + 33% + var(--y)) * 0.5), 0);
+      transform: translate3d(
+        var(--translate-x),
+        calc((var(--translate-y) + 33% + var(--y)) * 0.5),
+        0
+      );
     }
   }
 </style>
