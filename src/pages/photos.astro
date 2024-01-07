@@ -31,8 +31,11 @@ const spacerElementList = [...Array(Math.ceil(photos.length * 0.4))];
       photos.map(photo => (
         <Picture
           src={photo.src}
-          pictureAttributes={{ style: `--photo-key-color: ${photo.keyColor}` }}
-          data-transition-element="true"
+          pictureAttributes={{
+            style: `--photo-key-color: ${photo.keyColor}`, 
+            // @ts-expect-error -- astro doesn't accept data attributes in the `pictureAttributes` prop types, but it works at runtime
+            "data-transition-element": "true"
+          }}
           alt=""
           widths={[640, 768, 1024, 1600, 1920]}
           formats={["avif", "webp"]}
