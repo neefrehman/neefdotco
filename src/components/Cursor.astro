@@ -304,6 +304,16 @@
     navLinks.forEach(link => {
       if (!link.href) return;
       link.addEventListener("click", e => {
+        // Preload the page first, so that the post-transition page load is as smooth as possible
+        // method inspired by instant.page: https://github.com/instantpage/instant.page
+        document.head.appendChild(Object.assign(
+          document.createElement('link'), {
+            rel: 'prefetch',
+            href: link.href,
+            fetchPriority: "high",
+          })
+        );
+
         const transitionElements = document.querySelectorAll("[data-transition-element=true]");
         let interval = 150;
         transitionElements.forEach((el, i) => {
