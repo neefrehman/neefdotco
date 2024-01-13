@@ -149,22 +149,25 @@ const spacerElementList = [...Array(Math.ceil(photos.length * 0.4))];
   import { shuffle } from "utils/math/shuffle";
 
   const photoContainer = document.querySelector(".photo-container");
-
   const photos = photoContainer.querySelectorAll<HTMLElement>(":scope > *");
-  const randomOffset = () => 10 * Math.floor(Math.random() * 9) - 40;
-  photos.forEach(photo => {
-    photo.style.setProperty("--x", `${randomOffset()}px`);
-    photo.style.setProperty("--y", `${randomOffset()}px`);
-  });
-  photoContainer.innerHTML = shuffle([...photos].map(photo => photo.outerHTML)).join("");
 
+  const getRandomOffset = () => 10 * Math.floor(Math.random() * 9) - 40;
+
+  const randomizedPhotos = shuffle(Array.from(photos)).map(photo => {
+    photo.style.setProperty("--x", `${getRandomOffset()}px`);
+    photo.style.setProperty("--y", `${getRandomOffset()}px`);
+    photo.classList.add("initial-loaded");
+    return photo.outerHTML;
+  }).join("");
+
+  photoContainer.innerHTML = randomizedPhotos;
   const photosAfterShuffle = photoContainer.querySelectorAll("picture");
-  photosAfterShuffle.forEach(photo => photo.classList.add("initial-loaded"));
 
   let loadedPhotoCount = 0;
   photosAfterShuffle.forEach((photo, i) => {
     const imageElement = photo.querySelector<HTMLImageElement>("img");
     if (i < 3) imageElement.fetchPriority = "high";
+
     imageElement.addEventListener("load", () => {
       // loadedPhotoCount delays the transition so they don't all load at the same time (for cached images)
       loadedPhotoCount++;
