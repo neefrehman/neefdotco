@@ -2,9 +2,9 @@ export const SKILLS = [
   // Outer circle
   "React",
   "Node.js",
-  "Accessibility",
-  "AWS",
   "Data visualisation",
+  "AWS",
+  "Accessibility",
   "CI/CD",
   "Interaction design",
   "Next.js",
@@ -29,7 +29,7 @@ export const SKILLS = [
   "Technical art",
   ":",
   "—",
-  ")",
+  "(",
   // Middle circle
   "Prototyping",
   "UI Engineering",
