@@ -304,6 +304,7 @@
 
     const page = window.location.pathname.replace("/", "") || "index"
     const socket = new WebSocket(`${import.meta.env.PUBLIC_SOCKET_URL}/parties/main/${page}`);
+
     const cursorBlueprint = cursor.cloneNode(true);
     const presenceContainer = document.querySelector(".cursor-presence-container");
     const cursorMap = new Map<string, HTMLDivElement>();
@@ -328,7 +329,7 @@
           setTimeout(() => document.getElementById(data.id).remove(), 500);
         case "UPDATE":
           // TODO: optimise mutations / reads
-          // TODO: map between different screen sizes
+          // TODO: map between different screen sizes, handle scrollTop
           // TODO: gravity between nearby cursors (delauney triangulation for high-scale? on the server?)
           const cursorToUpdate = cursorMap.get(data.id) ?? createCursorFromBlueprint(data.id);
           cursorToUpdate.className = data.message.className;
@@ -340,8 +341,7 @@
 
     socket.addEventListener("open", () => {
       const cursorInnerWithComputedBackgroundColor = cursor.querySelector<HTMLDivElement>(".cursor")
-      const cursorMutationObserver = new MutationObserver(throttle((list) => {
-        console.log(list);
+      const cursorMutationObserver = new MutationObserver(throttle(() => {
         socket.send(
           JSON.stringify({
             className: cursor.className,
