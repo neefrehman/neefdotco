@@ -23,3 +23,5 @@ pnpm-debug.log*
 .DS_Store
 .netlify/
 **/photos/_raw
+
+.partykit
