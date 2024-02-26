@@ -303,7 +303,7 @@
     });
 
     const page = window.location.pathname.replace("/", "") || "index"
-    const socket = new WebSocket(`ws://${import.meta.env.PUBLIC_SOCKET_HOST}/parties/main/${page}`);
+    const socket = new WebSocket(`${import.meta.env.PUBLIC_SOCKET_URL}/parties/main/${page}`);
     const cursorBlueprint = cursor.cloneNode(true);
     const presenceContainer = document.querySelector(".cursor-presence-container");
     const cursorMap = new Map<string, HTMLDivElement>();
@@ -338,22 +338,24 @@
       }
     });
 
-    const observer = new MutationObserver(throttle(() => {
-      socket.send(
-        JSON.stringify({
-          className: cursor.className,
-          innerText: cursorContents.innerText,
-          style: cursor.style.cssText,
-          color: getComputedStyle(cursor.querySelector<HTMLDivElement>(".cursor")).backgroundColor
-        })
-      );
-    }, 30));
-
     socket.addEventListener("open", () => {
-      observer.observe(cursor, {
+      const cursorInnerWithComputedBackgroundColor = cursor.querySelector<HTMLDivElement>(".cursor")
+      const cursorMutationObserver = new MutationObserver(throttle((list) => {
+        console.log(list);
+        socket.send(
+          JSON.stringify({
+            className: cursor.className,
+            innerText: cursorContents.innerText,
+            style: cursor.style.cssText,
+            color: getComputedStyle(cursorInnerWithComputedBackgroundColor).backgroundColor
+          })
+        );
+      }, 30)); // ~33fps
+
+      cursorMutationObserver.observe(cursor, {
         childList: true,
         subtree: true,
-        attributeFilter: ["innerText", "class", "stye"],
+        attributeFilter: ["innerText", "class", "style"],
       });
     }, { once: true })
 
