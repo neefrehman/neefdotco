@@ -13,7 +13,7 @@ export default class Server implements Party.Server {
 
   onConnect = (conn: Party.Connection) => {
     this.broadcastCursor({ id: conn.id, type: "JOIN" }, [conn.id]);
-  }
+  };
 
   onMessage = (message: string, sender: Party.Connection) => {
     const parsed = parseCursorInput(message);
@@ -22,15 +22,15 @@ export default class Server implements Party.Server {
       coords: [parsed.coords[0], parsed.coords[1] + parsed.scrollY] satisfies [number, number],
     };
     this.broadcastCursor({ id: sender.id, type: "UPDATE", message: mutableMessage }, [sender.id]);
-  }
+  };
 
   onClose = (conn: Party.Connection<unknown>): void | Promise<void> => {
     this.broadcastCursor({ id: conn.id, type: "LEAVE" }, [conn.id]);
-  }
+  };
 
   onError = (conn: Party.Connection<unknown>): void | Promise<void> => {
     this.broadcastCursor({ id: conn.id, type: "LEAVE" }, [conn.id]);
-  }
+  };
 }
 
 Server satisfies Party.Worker;

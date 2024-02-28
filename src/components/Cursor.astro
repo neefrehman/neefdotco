@@ -204,7 +204,7 @@ import { parseCursorOutput, serializeCursorInput } from "utils/cursors";
           [wellCenterX, wellCenterY],
           mapToRange(10 + weakPullThreshold - distanceToWell, 0, largestViewPortSize, 0, 2)
         );
-        cursor.style.translate = `${x}px ${y}px`;
+        handleCursorMove([x, y]);
       } else {
         cursor.classList.add("in-gravity-well", "xxx-large");
         const [x, y] = lerpVector(
@@ -212,7 +212,7 @@ import { parseCursorOutput, serializeCursorInput } from "utils/cursors";
           [mouseX, mouseY],
           mapToRange(distanceToWell, 0, largestViewPortSize, 0, 0.33)
         );
-        cursor.style.translate = `${x}px ${y}px`;
+        handleCursorMove([x, y]);
         if (gravityWell.dataset.cursorContentsInWell) {
           cursor.classList.add("has-contents");
           cursorContents.innerText = gravityWell.dataset.cursorContentsInWell;
@@ -312,14 +312,16 @@ import { parseCursorOutput, serializeCursorInput } from "utils/cursors";
 
     const cursorBlueprint = cursor.cloneNode(true);
     const presenceContainer = document.querySelector(".cursor-presence-container");
-    const cursorMap = new Map<string, HTMLDivElement>();
+    const cursorMap = new Map<string, { cursor: HTMLDivElement, cursorContents: HTMLDivElement }>();
 
     const createCursorFromBlueprint = (id: string) => {
       const newCursor = cursorBlueprint.cloneNode(true);
       newCursor.id = id;
       presenceContainer.append(newCursor);
-      cursorMap.set(id, newCursor);
-      return newCursor;
+      const cursorContents = newCursor.querySelector<HTMLDivElement>(".cursor-contents")
+      const cursorObject = { cursor: newCursor, cursorContents }
+      cursorMap.set(id, cursorObject);
+      return cursorObject;
     };
 
     socket.addEventListener("message", event => {
@@ -336,33 +338,30 @@ import { parseCursorOutput, serializeCursorInput } from "utils/cursors";
           break;
         case "UPDATE":
           // TODO: optimise mutations / reads
-          // TODO: map between different screen sizes
           // TODO: gravity between nearby cursors (delauney triangulation for high-scale? on the server?)
           // TODO: handle delayed colour/text changes due to throttling, maybe implement and listen to data attr changes only?
-          // TODO: update scroll when the user scrolls
+          // TODO: update scroll when the user scrolls, instead of one mouse move (and mroe generally, fractional updates)
           // TODO: rudimentary chat?
-          if (!("message" in data)) {
-            return
-          }
-          const { id, message } = data
-          const cursorToUpdate = cursorMap.get(id) ?? createCursorFromBlueprint(id);
-          cursorToUpdate.querySelector<HTMLDivElement>(".cursor-contents").innerText = message.innerText;
-          cursorToUpdate.style.translate = getCursorTranslateString([message.coords[0], message.coords[1] - window.scrollY]);
-          cursorToUpdate.style.setProperty("--cursor-background-color", message.color);
-          cursorToUpdate.className = message.className;
+          const { id, message: { className, color, coords, innerText } } = data
+          const { cursor: cursorToUpdate, cursorContents } = cursorMap.get(id) ?? createCursorFromBlueprint(id);
+          cursorContents.innerText = innerText;
+          cursorToUpdate.style.translate = getCursorTranslateString([coords[0], coords[1] - window.scrollY]);
+          cursorToUpdate.style.setProperty("--cursor-background-color", color);
+          cursorToUpdate.className = className;
           break;
       }
     });
 
     socket.addEventListener("open", () => {
-      const cursorInnerWithComputedBackgroundColor = cursor.querySelector<HTMLDivElement>(".cursor")
+      const innerCursorWithComputedBackgroundColor = cursor.querySelector<HTMLDivElement>(".cursor")
+
       const cursorMutationObserver = new MutationObserver(throttle(() => {
         socket.send(
           serializeCursorInput({
             className: cursor.className,
             innerText: cursorContents.innerText,
             style: cursor.style.cssText,
-            color: getComputedStyle(cursorInnerWithComputedBackgroundColor).backgroundColor,
+            color: getComputedStyle(innerCursorWithComputedBackgroundColor).backgroundColor,
             coords: [parseInt(cursor.dataset.x), parseInt(cursor.dataset.y)],
             scrollY: window.scrollY,
           })
@@ -377,7 +376,7 @@ import { parseCursorOutput, serializeCursorInput } from "utils/cursors";
 
       socket.addEventListener("close", () => {
         cursorMutationObserver.disconnect()
-        cursorMap.forEach(cursor => {
+        cursorMap.forEach(({ cursor }) => {
           cursor.classList.add("hide")
           setTimeout(() => document.getElementById(cursor.id).remove(), 500);
         })
