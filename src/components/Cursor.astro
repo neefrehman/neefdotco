@@ -9,7 +9,8 @@
 
 <style>
   .cursor-presence-container {
-    opacity: 0.75;
+    position: absolute;
+    z-index: -5;
   }
 
   .cursor-container {
@@ -173,8 +174,8 @@ import { parseCursorOutput, serializeCursorInput } from "utils/cursors";
     const getCursorTranslateString = ([mouseX, mouseY]: [number, number]) => `${mouseX}px ${mouseY}px`;
 
     const handleCursorMove = ([mouseX, mouseY]: [number, number]) => {
-      cursor.dataset.x = mouseX.toString();
-      cursor.dataset.y = mouseY.toString();
+      cursor.dataset.x = mouseX.toString(); // We also write to data attributes to make it
+      cursor.dataset.y = mouseY.toString(); // easier to send raw co-ordinates over the socket
       cursor.style.translate = getCursorTranslateString([mouseX, mouseY]);
     };
 
@@ -324,6 +325,13 @@ import { parseCursorOutput, serializeCursorInput } from "utils/cursors";
       return cursorObject;
     };
 
+    const removeCursor = (id: string) => {
+      cursorMap.delete(id);
+      const cursorToDelete = document.getElementById(id);
+      cursorToDelete.classList.add("hide")
+      setTimeout(() => document.getElementById(id).remove(), 500);
+    }
+
     socket.addEventListener("message", event => {
       const data = parseCursorOutput(event.data);
       switch (data.type) {
@@ -331,21 +339,18 @@ import { parseCursorOutput, serializeCursorInput } from "utils/cursors";
           createCursorFromBlueprint(data.id);
           break;
         case "LEAVE":
-          cursorMap.delete(data.id);
-          const cursorToDelete = document.getElementById(data.id);
-          cursorToDelete.classList.add("hide");
-          setTimeout(() => document.getElementById(data.id).remove(), 500);
+          removeCursor(data.id)
           break;
         case "UPDATE":
           // TODO: optimise mutations / reads
           // TODO: gravity between nearby cursors (delauney triangulation for high-scale? on the server?)
           // TODO: handle delayed colour/text changes due to throttling, maybe implement and listen to data attr changes only?
-          // TODO: update scroll when the user scrolls, instead of one mouse move (and mroe generally, fractional updates)
+          // TODO: update scroll when the user scrolls, instead of one mouse move (and more generally, fractional updates)
           // TODO: rudimentary chat?
-          const { id, message: { className, color, coords, innerText } } = data
+          const { id, message: { className, color, coords: [x, y], innerText } } = data
           const { cursor: cursorToUpdate, cursorContents } = cursorMap.get(id) ?? createCursorFromBlueprint(id);
           cursorContents.innerText = innerText;
-          cursorToUpdate.style.translate = getCursorTranslateString([coords[0], coords[1] - window.scrollY]);
+          cursorToUpdate.style.translate = getCursorTranslateString([x, y - window.scrollY]);
           cursorToUpdate.style.setProperty("--cursor-background-color", color);
           cursorToUpdate.className = className;
           break;
@@ -376,11 +381,7 @@ import { parseCursorOutput, serializeCursorInput } from "utils/cursors";
 
       socket.addEventListener("close", () => {
         cursorMutationObserver.disconnect()
-        cursorMap.forEach(({ cursor }) => {
-          cursor.classList.add("hide")
-          setTimeout(() => document.getElementById(cursor.id).remove(), 500);
-        })
-        cursorMap.clear()
+        cursorMap.forEach((_, id) => removeCursor(id))
       }, { once: true })
     })
     
