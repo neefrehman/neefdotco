@@ -319,6 +319,7 @@ import { parseCursorOutput, serializeCursorInput } from "utils/cursors";
       newCursor.id = id;
       presenceContainer.append(newCursor);
       cursorMap.set(id, newCursor);
+      console.log(newCursor);
       return newCursor;
     };
 
@@ -346,10 +347,10 @@ import { parseCursorOutput, serializeCursorInput } from "utils/cursors";
           }
           const { id, message } = data
           const cursorToUpdate = cursorMap.get(id) ?? createCursorFromBlueprint(id);
-          cursorToUpdate.className = message.className;
           cursorToUpdate.querySelector<HTMLDivElement>(".cursor-contents").innerText = message.innerText;
           cursorToUpdate.style.translate = getCursorTranslateString([message.coords[0], message.coords[1] - window.scrollY]);
           cursorToUpdate.style.setProperty("--cursor-background-color", message.color);
+          cursorToUpdate.className = message.className;
           break;
       }
     });

@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 
-type CursorInput = {
+export type CursorInput = {
   className: string;
   innerText: string;
   style: string;
@@ -31,7 +31,7 @@ export const parseCursorInput = (json: string): CursorInput => {
   return validateCursorInput(JSON.parse(json) as Partial<CursorInput>);
 };
 
-type CursorOutput = {
+export type CursorOutput = {
   id: string;
 } & (
   | { type: "LEAVE" | "JOIN" }
