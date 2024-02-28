@@ -5,16 +5,17 @@ export default class Server implements Party.Server {
   // TODO: test hibernation
   options: Party.ServerOptions = { hibernate: true };
 
-  broadcastCursor = (output: CursorOutput, without?: string[]) =>
+  broadcastCursor = (output: CursorOutput, without?: string[]) => {
     this.room.broadcast(serializeCursorOutput(output), without);
+  };
 
   constructor(readonly room: Party.Room) {}
 
-  onConnect(conn: Party.Connection) {
+  onConnect = (conn: Party.Connection) => {
     this.broadcastCursor({ id: conn.id, type: "JOIN" }, [conn.id]);
   }
 
-  onMessage(message: string, sender: Party.Connection) {
+  onMessage = (message: string, sender: Party.Connection) => {
     const parsed = parseCursorInput(message);
     const mutableMessage = {
       ...parsed,
@@ -23,11 +24,11 @@ export default class Server implements Party.Server {
     this.broadcastCursor({ id: sender.id, type: "UPDATE", message: mutableMessage }, [sender.id]);
   }
 
-  onClose(conn: Party.Connection<unknown>): void | Promise<void> {
+  onClose = (conn: Party.Connection<unknown>): void | Promise<void> => {
     this.broadcastCursor({ id: conn.id, type: "LEAVE" }, [conn.id]);
   }
 
-  onError(conn: Party.Connection<unknown>): void | Promise<void> {
+  onError = (conn: Party.Connection<unknown>): void | Promise<void> => {
     this.broadcastCursor({ id: conn.id, type: "LEAVE" }, [conn.id]);
   }
 }
