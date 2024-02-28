@@ -308,83 +308,89 @@ import { parseCursorOutput, serializeCursorInput } from "utils/cursors";
       });
     });
 
-    const page = window.location.pathname.replace("/", "") || "index"
-    const socket = new WebSocket(`${import.meta.env.PUBLIC_SOCKET_URL}/parties/main/${page}`);
-
-    const cursorBlueprint = cursor.cloneNode(true);
-    const presenceContainer = document.querySelector(".cursor-presence-container");
-    const cursorMap = new Map<string, { cursor: HTMLDivElement, cursorContents: HTMLDivElement }>();
-
-    const createCursorFromBlueprint = (id: string) => {
-      const newCursor = cursorBlueprint.cloneNode(true);
-      newCursor.id = id;
-      presenceContainer.append(newCursor);
-      const cursorContents = newCursor.querySelector<HTMLDivElement>(".cursor-contents")
-      const cursorObject = { cursor: newCursor, cursorContents }
-      cursorMap.set(id, cursorObject);
-      return cursorObject;
-    };
-
-    const removeCursor = (id: string) => {
-      cursorMap.delete(id);
-      const cursorToDelete = document.getElementById(id);
-      cursorToDelete.classList.add("hide")
-      setTimeout(() => document.getElementById(id).remove(), 500);
-    }
-
-    socket.addEventListener("message", event => {
-      const data = parseCursorOutput(event.data);
-      switch (data.type) {
-        case "JOIN":
-          createCursorFromBlueprint(data.id);
-          break;
-        case "LEAVE":
-          removeCursor(data.id)
-          break;
-        case "UPDATE":
-          // TODO: optimise mutations / reads
-          // TODO: gravity between nearby cursors (delauney triangulation for high-scale? on the server?)
-          // TODO: handle delayed colour/text changes due to throttling, maybe implement and listen to data attr changes only?
-          // TODO: update scroll when the user scrolls, instead of one mouse move (and more generally, fractional updates)
-          // TODO: rudimentary chat?
-          const { id, message: { className, color, coords: [x, y], innerText } } = data
-          const { cursor: cursorToUpdate, cursorContents } = cursorMap.get(id) ?? createCursorFromBlueprint(id);
-          cursorContents.innerText = innerText;
-          cursorToUpdate.style.translate = getCursorTranslateString([x, y - window.scrollY]);
-          cursorToUpdate.style.setProperty("--cursor-background-color", color);
-          cursorToUpdate.className = className;
-          break;
+    const connectToCursorSocket = () => {
+      const page = window.location.pathname.replace("/", "") || "index"
+      const socket = new WebSocket(`${import.meta.env.PUBLIC_SOCKET_URL}/parties/main/${page}`);
+  
+      const cursorBlueprint = cursor.cloneNode(true);
+      const presenceContainer = document.querySelector(".cursor-presence-container");
+      const cursorMap = new Map<string, { cursor: HTMLDivElement, cursorContents: HTMLDivElement }>();
+  
+      const createCursorFromBlueprint = (id: string) => {
+        const newCursor = cursorBlueprint.cloneNode(true);
+        newCursor.id = id;
+        presenceContainer.append(newCursor);
+        const cursorContents = newCursor.querySelector<HTMLDivElement>(".cursor-contents")
+        const cursorObject = { cursor: newCursor, cursorContents }
+        cursorMap.set(id, cursorObject);
+        return cursorObject;
+      };
+  
+      const removeCursor = (id: string) => {
+        cursorMap.delete(id);
+        const cursorToDelete = document.getElementById(id);
+        cursorToDelete.classList.add("hide")
+        setTimeout(() => document.getElementById(id).remove(), 500);
       }
-    });
-
-    socket.addEventListener("open", () => {
-      const innerCursorWithComputedBackgroundColor = cursor.querySelector<HTMLDivElement>(".cursor")
-
-      const cursorMutationObserver = new MutationObserver(throttle(() => {
-        socket.send(
-          serializeCursorInput({
-            className: cursor.className,
-            innerText: cursorContents.innerText,
-            style: cursor.style.cssText,
-            color: getComputedStyle(innerCursorWithComputedBackgroundColor).backgroundColor,
-            coords: [parseInt(cursor.dataset.x), parseInt(cursor.dataset.y)],
-            scrollY: window.scrollY,
-          })
-        );
-      }, 30)); // ~33fps
-
-      cursorMutationObserver.observe(cursor, {
-        childList: true,
-        subtree: true,
-        attributeFilter: ["innerText", "class", "style"],
+  
+      socket.addEventListener("message", event => {
+        const data = parseCursorOutput(event.data);
+        switch (data.type) {
+          case "JOIN":
+            createCursorFromBlueprint(data.id);
+            break;
+          case "LEAVE":
+            removeCursor(data.id)
+            break;
+          case "UPDATE":
+            // TODO: optimise mutations / reads
+            // TODO: gravity between nearby cursors (delauney triangulation for high-scale? on the server?)
+            // TODO: handle delayed colour/text changes due to throttling and getComputedStyle with transition, maybe implement and listen to data attr changes only?
+            // TODO: update scroll when the user scrolls, instead of one mouse move (and more generally, fractional updates)
+            // TODO: rudimentary chat?
+            const { id, message: { className, color, coords: [x, y], innerText } } = data
+            const { cursor: cursorToUpdate, cursorContents } = cursorMap.get(id) ?? createCursorFromBlueprint(id);
+            cursorContents.innerText = innerText;
+            cursorToUpdate.style.translate = getCursorTranslateString([x, y - window.scrollY]);
+            cursorToUpdate.style.setProperty("--cursor-background-color", color);
+            cursorToUpdate.className = className;
+            break;
+        }
       });
-
-      socket.addEventListener("close", () => {
-        cursorMutationObserver.disconnect()
-        cursorMap.forEach((_, id) => removeCursor(id))
-      }, { once: true })
-    })
-    
+  
+      let connectInterval: NodeJS.Timeout;
+      socket.addEventListener("open", () => {
+        clearInterval(connectInterval)
+        const innerCursorWithComputedBackgroundColor = cursor.querySelector<HTMLDivElement>(".cursor");
+  
+        const cursorMutationObserver = new MutationObserver(throttle(() => {
+          socket.send(
+            serializeCursorInput({
+              className: cursor.className,
+              innerText: cursorContents.innerText,
+              style: cursor.style.cssText,
+              color: getComputedStyle(innerCursorWithComputedBackgroundColor).backgroundColor,
+              coords: [parseInt(cursor.dataset.x), parseInt(cursor.dataset.y)],
+              scrollY: window.scrollY,
+            })
+          );
+        }, 30)); // ~33fps
+  
+        cursorMutationObserver.observe(cursor, {
+          childList: true,
+          subtree: true,
+          attributeFilter: ["innerText", "class", "style"],
+        });
+  
+        socket.addEventListener("close", () => {
+          cursorMutationObserver.disconnect()
+          cursorMap.forEach((_, id) => removeCursor(id))
+          connectInterval = setInterval(connectToCursorSocket, 1000);
+          setTimeout(() => clearInterval(connectInterval), 5000);
+        }, { once: true });
+      });
+    };
+    connectToCursorSocket();
 
     // TODO: break out into transition-specific script?
     const navLinks = document.querySelectorAll<HTMLAnchorElement>(
