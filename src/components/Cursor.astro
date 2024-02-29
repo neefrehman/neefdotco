@@ -9,8 +9,10 @@
 
 <style>
   .cursor-presence-container {
-    position: absolute;
-    z-index: -5;
+    .cursor-container  {
+      position: absolute;
+      z-index: -5;
+    }
   }
 
   .cursor-container {
@@ -29,13 +31,8 @@
     position: fixed;
     pointer-events: none;
     z-index: -1;
-    top: calc(
-      (var(--cursor-radius) * -1) + ((var(--cursor-down) - var(--cursor-up)) * var(--cursor-scale))
-    );
-    left: calc(
-      (var(--cursor-radius) * -1) +
-        ((var(--cursor-right) - var(--cursor-left)) * var(--cursor-scale))
-    );
+    top: calc((var(--cursor-radius) * -1) + ((var(--cursor-down) - var(--cursor-up)) * var(--cursor-scale)));
+    left: calc((var(--cursor-radius) * -1) + ((var(--cursor-right) - var(--cursor-left)) * var(--cursor-scale)));
     transition:
       translate 70ms,
       top 430ms cubic-bezier(1, 0.1, 0.1, 1),
@@ -163,7 +160,7 @@
   import { getDistance } from "utils/math/getDistance";
   import { lerpVector } from "utils/math/lerp";
   import { mapToRange } from "utils/math/maptoRange";
-import { parseCursorOutput, serializeCursorInput } from "utils/cursors";
+  import { parseCursorOutput, serializeCursorInput } from "utils/cursors";
 
   if (matchMedia("(pointer:fine)").matches) {
     const cursor = document.querySelector<HTMLDivElement>("div.cursor-container");
@@ -206,18 +203,19 @@ import { parseCursorOutput, serializeCursorInput } from "utils/cursors";
           mapToRange(10 + weakPullThreshold - distanceToWell, 0, largestViewPortSize, 0, 2)
         );
         handleCursorMove([x, y]);
-      } else {
-        cursor.classList.add("in-gravity-well", "xxx-large");
-        const [x, y] = lerpVector(
-          [wellCenterX, wellCenterY],
-          [mouseX, mouseY],
-          mapToRange(distanceToWell, 0, largestViewPortSize, 0, 0.33)
-        );
-        handleCursorMove([x, y]);
-        if (gravityWell.dataset.cursorContentsInWell) {
-          cursor.classList.add("has-contents");
-          cursorContents.innerText = gravityWell.dataset.cursorContentsInWell;
-        }
+        return
+      }
+
+      cursor.classList.add("in-gravity-well", "xxx-large");
+      const [x, y] = lerpVector(
+        [wellCenterX, wellCenterY],
+        [mouseX, mouseY],
+        mapToRange(distanceToWell, 0, largestViewPortSize, 0, 0.33)
+      );
+      handleCursorMove([x, y]);
+      if (gravityWell.dataset.cursorContentsInWell) {
+        cursor.classList.add("has-contents");
+        cursorContents.innerText = gravityWell.dataset.cursorContentsInWell;
       }
     };
 
@@ -308,7 +306,7 @@ import { parseCursorOutput, serializeCursorInput } from "utils/cursors";
       });
     });
 
-    const connectToCursorSocket = () => {
+    const connectToCursorPartySocket = () => {
       const page = window.location.pathname.replace("/", "") || "index"
       const socket = new WebSocket(`${import.meta.env.PUBLIC_SOCKET_URL}/parties/main/${page}`);
   
@@ -348,10 +346,12 @@ import { parseCursorOutput, serializeCursorInput } from "utils/cursors";
             // TODO: handle delayed colour/text changes due to throttling and getComputedStyle with transition, maybe implement and listen to data attr changes only?
             // TODO: update scroll when the user scrolls, instead of one mouse move (and more generally, fractional updates)
             // TODO: rudimentary chat?
+            // TODO: encapsulate and simplify cursor interface with custom elements
+            // TODO: dynamically import and run code only when cursor:pointer is true
             const { id, message: { className, color, coords: [x, y], innerText } } = data
             const { cursor: cursorToUpdate, cursorContents } = cursorMap.get(id) ?? createCursorFromBlueprint(id);
             cursorContents.innerText = innerText;
-            cursorToUpdate.style.translate = getCursorTranslateString([x, y - window.scrollY]);
+            cursorToUpdate.style.translate = getCursorTranslateString([x, y]);
             cursorToUpdate.style.setProperty("--cursor-background-color", color);
             cursorToUpdate.className = className;
             break;
@@ -385,12 +385,12 @@ import { parseCursorOutput, serializeCursorInput } from "utils/cursors";
         socket.addEventListener("close", () => {
           cursorMutationObserver.disconnect()
           cursorMap.forEach((_, id) => removeCursor(id))
-          connectInterval = setInterval(connectToCursorSocket, 1000);
+          connectInterval = setInterval(connectToCursorPartySocket, 1000);
           setTimeout(() => clearInterval(connectInterval), 5000);
         }, { once: true });
       });
     };
-    connectToCursorSocket();
+    connectToCursorPartySocket();
 
     // TODO: break out into transition-specific script?
     const navLinks = document.querySelectorAll<HTMLAnchorElement>(

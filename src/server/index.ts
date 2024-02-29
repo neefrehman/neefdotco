@@ -3,7 +3,7 @@ import { parseCursorInput, serializeCursorOutput, type CursorOutput } from "util
 
 export default class Server implements Party.Server {
   // TODO: test hibernation
-  options: Party.ServerOptions = { hibernate: true };
+  // options: Party.ServerOptions = { hibernate: true };
 
   broadcastCursor = (output: CursorOutput, without?: string[]) => {
     this.room.broadcast(serializeCursorOutput(output), without);

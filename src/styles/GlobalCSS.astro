@@ -5,9 +5,9 @@
   @layer base {
     html,
     body {
-      /* Give scrollbar to all pages to avoid jump */
-      height: 100%;
+      height: 100%; /* Give scrollbar to all pages to avoid jump */
       isolation: isolate;
+      overflow-x: hidden; /* HACK: this avoids other user's cursors widening the screen, as they are positioned absolutely (so they can maintain their position relative to the page when we scroll) */
     }
 
     *:focus {
