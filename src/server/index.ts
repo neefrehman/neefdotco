@@ -1,4 +1,5 @@
 import type * as Party from "partykit/server";
+import { Delaunay } from "d3-delaunay";
 import {
   parseCursorInput,
   serializeCursorOutput,
@@ -7,8 +8,9 @@ import {
 } from "utils/cursors";
 
 export default class Server implements Party.Server {
-  // TODO: test hibernation
-  // options: Party.ServerOptions = { hibernate: true };
+  options: Party.ServerOptions = { hibernate: true };
+
+  pointCoordinateMap = new Map<string, CursorCoordinates>();
 
   broadcastCursor = (output: CursorOutput, without?: string[]) => {
     this.room.broadcast(serializeCursorOutput(output), without);
@@ -26,15 +28,35 @@ export default class Server implements Party.Server {
       ...parsed,
       coords: [parsed.coords[0], parsed.coords[1] + parsed.scrollY] satisfies CursorCoordinates,
     };
+    this.pointCoordinateMap.set(sender.id, [parsed.coords[0], parsed.coords[1] + parsed.scrollY]);
     this.broadcastCursor({ id: sender.id, type: "UPDATE", message: newMessage }, [sender.id]);
+
+    if (this.pointCoordinateMap.size > 200) {
+      return;
+    }
+
+    const delaunay = Delaunay.from(this.pointCoordinateMap.values());
+
+    // We're doing a lot of nested iteration here! V bad.
+    // TODO: optimise this code, maybe with a reverse lookup Map, or ideally by using the default delaunay instantiation with a TypedArray
+    Array.from(this.pointCoordinateMap.keys()).forEach((id, i) => {
+      const neighbors = Array.from(delaunay.neighbors(i)).flatMap(index => {
+        return Array.from(this.pointCoordinateMap.keys()).find((_, i) => i === index) ?? [];
+      });
+      this.room
+        .getConnection(id)
+        .send(serializeCursorOutput({ id, type: "NEIGHBORS", message: { neighbors } }));
+    });
   };
 
   onClose = (conn: Party.Connection<unknown>): void | Promise<void> => {
     this.broadcastCursor({ id: conn.id, type: "LEAVE" }, [conn.id]);
+    this.pointCoordinateMap.delete(conn.id);
   };
 
   onError = (conn: Party.Connection<unknown>): void | Promise<void> => {
     this.broadcastCursor({ id: conn.id, type: "LEAVE" }, [conn.id]);
+    this.pointCoordinateMap.delete(conn.id);
   };
 }
 

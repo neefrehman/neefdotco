@@ -331,17 +331,22 @@
         setTimeout(() => document.getElementById(id).remove(), 500);
       }
 
+      let neighbors: string[] = []
+      const NEIGHBOR_PULL_THRESHOLD = 50;
       const pullCursor = (id: string) => {
         const otherCursor = cursorMap.get(id)
+        if (!otherCursor) {
+          return
+        }
         const myCursorCoords = [parseInt(cursor.dataset.x), parseInt(cursor.dataset.y)] satisfies CursorCoordinates
         const distance = getDistance(otherCursor.coords, myCursorCoords)
-        if (distance  > 50) {
+        if (distance  > NEIGHBOR_PULL_THRESHOLD) {
           return
         }
         const [x, y] = lerpVector(
           myCursorCoords,
           otherCursor.coords,
-          mapToRange(50 - distance, 0, 50, 0, 0.3)
+          mapToRange(NEIGHBOR_PULL_THRESHOLD - distance, 0, NEIGHBOR_PULL_THRESHOLD, 0, 0.3)
         );
         handleCursorMove([x, y]);
         return
@@ -358,10 +363,9 @@
             break;
           case "UPDATE":
             // TODO: optimise mutations / reads
-            // TODO: delauney triangulation for high-scale? on the server?
-            // TODO: handle delayed colour/text changes due to throttling and getComputedStyle with transition, maybe implement and listen to data attr changes only?
+            // TODO: pull cursors on animationFrame, send update over socket
             // TODO: update scroll when the user scrolls, instead of one mouse move (and more generally, fractional updates)
-            // TODO: rudimentary chat?
+            // TODO: rudimentary chat with cursorContents?
             // TODO: encapsulate and simplify cursor interface with custom elements
             // TODO: dynamically import and run code only when cursor:pointer is true
             const { id, message: { className, color, coords, innerText } } = data
@@ -373,15 +377,19 @@
             cursorToUpdate.cursor.className = className;
             pullCursor(id)
             break;
+          case "NEIGHBORS":
+          neighbors = data.message.neighbors
         }
       });
   
-      let connectInterval: NodeJS.Timeout;
+      let connectRetryInterval: NodeJS.Timeout;
       socket.addEventListener("open", () => {
-        clearInterval(connectInterval)
+        clearInterval(connectRetryInterval)
         const innerCursorWithComputedBackgroundColor = cursor.querySelector<HTMLDivElement>(".cursor");
   
+        let updateTimeout: NodeJS.Timeout;
         const cursorMutationObserver = new MutationObserver(throttle(() => {
+          clearTimeout(updateTimeout);
           socket.send(
             serializeCursorInput({
               className: cursor.className,
@@ -392,7 +400,22 @@
               scrollY: window.scrollY,
             })
           );
-          cursorMap.forEach((_, id) => pullCursor(id))
+          neighbors.forEach((id) => pullCursor(id));
+
+          // HACK: We send another, debounced update after a short while as a workaround for some "slower"
+          //       state updates, such as our background colour transition that uses `getComputedStyle`.
+          updateTimeout = setTimeout(() => {
+            socket.send(
+              serializeCursorInput({
+                className: cursor.className,
+                innerText: cursorContents.innerText,
+                style: cursor.style.cssText,
+                color: getComputedStyle(innerCursorWithComputedBackgroundColor).backgroundColor,
+                coords: [parseInt(cursor.dataset.x), parseInt(cursor.dataset.y)],
+                scrollY: window.scrollY,
+              })
+            );
+          }, 150);
         }, 30)); // ~33fps
   
         cursorMutationObserver.observe(cursor, {
@@ -404,8 +427,8 @@
         socket.addEventListener("close", () => {
           cursorMutationObserver.disconnect()
           cursorMap.forEach((_, id) => removeCursor(id))
-          connectInterval = setInterval(connectToCursorPartySocket, 1000);
-          setTimeout(() => clearInterval(connectInterval), 5000);
+          connectRetryInterval = setInterval(connectToCursorPartySocket, 1000);
+          setTimeout(() => clearInterval(connectRetryInterval), 5000);
         }, { once: true });
       });
     };
