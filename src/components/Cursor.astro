@@ -160,7 +160,7 @@
   import { getDistance } from "utils/math/getDistance";
   import { lerpVector } from "utils/math/lerp";
   import { mapToRange } from "utils/math/maptoRange";
-  import { parseCursorOutput, serializeCursorInput } from "utils/cursors";
+  import { parseCursorOutput, serializeCursorInput, type CursorCoordinates } from "utils/cursors";
 
   if (matchMedia("(pointer:fine)").matches) {
     const cursor = document.querySelector<HTMLDivElement>("div.cursor-container");
@@ -312,14 +312,14 @@
   
       const cursorBlueprint = cursor.cloneNode(true);
       const presenceContainer = document.querySelector(".cursor-presence-container");
-      const cursorMap = new Map<string, { cursor: HTMLDivElement, cursorContents: HTMLDivElement }>();
+      const cursorMap = new Map<string, { cursor: HTMLDivElement, contents: HTMLDivElement, coords: CursorCoordinates }>();
   
       const createCursorFromBlueprint = (id: string) => {
         const newCursor = cursorBlueprint.cloneNode(true);
         newCursor.id = id;
         presenceContainer.append(newCursor);
-        const cursorContents = newCursor.querySelector<HTMLDivElement>(".cursor-contents")
-        const cursorObject = { cursor: newCursor, cursorContents }
+        const contents = newCursor.querySelector<HTMLDivElement>(".cursor-contents")
+        const cursorObject = { cursor: newCursor, contents, coords: [0, 0] satisfies CursorCoordinates }
         cursorMap.set(id, cursorObject);
         return cursorObject;
       };
@@ -329,6 +329,22 @@
         const cursorToDelete = document.getElementById(id);
         cursorToDelete.classList.add("hide")
         setTimeout(() => document.getElementById(id).remove(), 500);
+      }
+
+      const pullCursor = (id: string) => {
+        const otherCursor = cursorMap.get(id)
+        const myCursorCoords = [parseInt(cursor.dataset.x), parseInt(cursor.dataset.y)] satisfies CursorCoordinates
+        const distance = getDistance(otherCursor.coords, myCursorCoords)
+        if (distance  > 50) {
+          return
+        }
+        const [x, y] = lerpVector(
+          myCursorCoords,
+          otherCursor.coords,
+          mapToRange(50 - distance, 0, 50, 0, 0.3)
+        );
+        handleCursorMove([x, y]);
+        return
       }
   
       socket.addEventListener("message", event => {
@@ -342,18 +358,20 @@
             break;
           case "UPDATE":
             // TODO: optimise mutations / reads
-            // TODO: gravity between nearby cursors (delauney triangulation for high-scale? on the server?)
+            // TODO: delauney triangulation for high-scale? on the server?
             // TODO: handle delayed colour/text changes due to throttling and getComputedStyle with transition, maybe implement and listen to data attr changes only?
             // TODO: update scroll when the user scrolls, instead of one mouse move (and more generally, fractional updates)
             // TODO: rudimentary chat?
             // TODO: encapsulate and simplify cursor interface with custom elements
             // TODO: dynamically import and run code only when cursor:pointer is true
-            const { id, message: { className, color, coords: [x, y], innerText } } = data
-            const { cursor: cursorToUpdate, cursorContents } = cursorMap.get(id) ?? createCursorFromBlueprint(id);
-            cursorContents.innerText = innerText;
-            cursorToUpdate.style.translate = getCursorTranslateString([x, y]);
-            cursorToUpdate.style.setProperty("--cursor-background-color", color);
-            cursorToUpdate.className = className;
+            const { id, message: { className, color, coords, innerText } } = data
+            const cursorToUpdate = cursorMap.get(id) ?? createCursorFromBlueprint(id);
+            cursorToUpdate.contents.innerText = innerText;
+            cursorToUpdate.cursor.style.translate = getCursorTranslateString(coords);
+            cursorToUpdate.coords = coords
+            cursorToUpdate.cursor.style.setProperty("--cursor-background-color", color);
+            cursorToUpdate.cursor.className = className;
+            pullCursor(id)
             break;
         }
       });
@@ -374,6 +392,7 @@
               scrollY: window.scrollY,
             })
           );
+          cursorMap.forEach((_, id) => pullCursor(id))
         }, 30)); // ~33fps
   
         cursorMutationObserver.observe(cursor, {

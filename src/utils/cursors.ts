@@ -1,11 +1,13 @@
 /* eslint-disable no-console */
 
+export type CursorCoordinates = [x: number, y: number];
+
 export type CursorInput = {
   className: string;
   innerText: string;
   style: string;
   color: string;
-  coords: [x: number, y: number];
+  coords: CursorCoordinates;
   scrollY: number;
 };
 
@@ -41,7 +43,7 @@ export type CursorOutput = {
         className: string;
         innerText: string;
         color: string;
-        coords: [x: number, y: number];
+        coords: CursorCoordinates;
       };
     }
 );

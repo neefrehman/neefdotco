@@ -1,5 +1,10 @@
 import type * as Party from "partykit/server";
-import { parseCursorInput, serializeCursorOutput, type CursorOutput } from "utils/cursors";
+import {
+  parseCursorInput,
+  serializeCursorOutput,
+  type CursorOutput,
+  type CursorCoordinates,
+} from "utils/cursors";
 
 export default class Server implements Party.Server {
   // TODO: test hibernation
@@ -17,11 +22,11 @@ export default class Server implements Party.Server {
 
   onMessage = (message: string, sender: Party.Connection) => {
     const parsed = parseCursorInput(message);
-    const mutableMessage = {
+    const newMessage = {
       ...parsed,
-      coords: [parsed.coords[0], parsed.coords[1] + parsed.scrollY] satisfies [number, number],
+      coords: [parsed.coords[0], parsed.coords[1] + parsed.scrollY] satisfies CursorCoordinates,
     };
-    this.broadcastCursor({ id: sender.id, type: "UPDATE", message: mutableMessage }, [sender.id]);
+    this.broadcastCursor({ id: sender.id, type: "UPDATE", message: newMessage }, [sender.id]);
   };
 
   onClose = (conn: Party.Connection<unknown>): void | Promise<void> => {
