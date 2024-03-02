@@ -331,25 +331,23 @@
         setTimeout(() => document.getElementById(id).remove(), 500);
       }
 
-      let neighbors: string[] = []
       const NEIGHBOR_PULL_THRESHOLD = 50;
-      const pullCursor = (id: string) => {
+      const attractCursor = (id: string) => {
         const otherCursor = cursorMap.get(id)
         if (!otherCursor) {
-          return
+          return;
         }
         const myCursorCoords = [parseInt(cursor.dataset.x), parseInt(cursor.dataset.y)] satisfies CursorCoordinates
         const distance = getDistance(otherCursor.coords, myCursorCoords)
         if (distance  > NEIGHBOR_PULL_THRESHOLD) {
-          return
+          return;
         }
         const [x, y] = lerpVector(
           myCursorCoords,
           otherCursor.coords,
-          mapToRange(3 + NEIGHBOR_PULL_THRESHOLD - distance, 0, NEIGHBOR_PULL_THRESHOLD, 0, 0.1)
+          mapToRange(5 + NEIGHBOR_PULL_THRESHOLD - distance, 0, NEIGHBOR_PULL_THRESHOLD, 0, 0.15)
         );
         handleCursorMove([x, y]);
-        return
       }
   
       socket.addEventListener("message", event => {
@@ -363,23 +361,30 @@
             break;
           case "UPDATE":
             // TODO: optimise mutations / reads
+            // TODO: handle socket latency on deployed server
             // TODO: pull between multiple neighbouring cursors, if they are close enough
-            // TODO: update scroll when the user scrolls, instead of one mouse move (and more generally, fractional updates)
+            // TODO: update scroll when the user scrolls, instead of on mouse move (and more generally, fractional updates)
             // TODO: rudimentary chat with cursorContents?
             // TODO: encapsulate and simplify cursor interface with custom elements
             // TODO: dynamically import and run code only when cursor:pointer is true
             const { id, message: { className, color, coords, innerText } } = data
-            const cursorToUpdate = cursorMap.get(id) ?? createCursorFromBlueprint(id);
-            cursorToUpdate.contents.innerText = innerText;
+            const cursorToUpdate = cursorMap.get(id);
+            if (!cursorToUpdate) {
+              return;
+            }
             cursorToUpdate.cursor.style.translate = getCursorTranslateString(coords);
+            cursorToUpdate.contents.innerText = innerText;
             cursorToUpdate.coords = coords
             cursorToUpdate.cursor.style.setProperty("--cursor-background-color", color);
             cursorToUpdate.cursor.className = className;
-            pullCursor(id)
             break;
           case "NEIGHBORS":
-          neighbors = data.message.neighbors
-        }
+            data.message.neighbors.forEach(attractCursor);
+            break;
+          case "SYNC":
+            setTimeout(() => data.message.cursors.forEach(createCursorFromBlueprint), 200)
+            break;
+          }
       });
   
       let connectRetryInterval: NodeJS.Timeout;
@@ -398,7 +403,6 @@
               scrollY: window.scrollY,
             })
           );
-          neighbors.forEach((id) => pullCursor(id));
         }, 30, 150)); // ~33fps, carries on for 150ms after last invocation
   
         cursorMutationObserver.observe(cursor, {
@@ -406,13 +410,16 @@
           subtree: true,
           attributeFilter: ["innerText", "class", "style"],
         });
-  
-        socket.addEventListener("close", () => {
+
+        const closeWithReconnectAttempts = () => {
           cursorMutationObserver.disconnect()
           cursorMap.forEach((_, id) => removeCursor(id))
           connectRetryInterval = setInterval(connectToCursorPartySocket, 1000);
           setTimeout(() => clearInterval(connectRetryInterval), 5000);
-        }, { once: true });
+        }
+  
+        socket.addEventListener("close", closeWithReconnectAttempts, { once: true });
+        socket.addEventListener("error", closeWithReconnectAttempts, { once: true });
       });
     };
     connectToCursorPartySocket();

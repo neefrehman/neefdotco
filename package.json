@@ -40,5 +40,10 @@
     "prettier-plugin-astro": "^0.13.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "@types/d3-delaunay@6.0.4": "patches/@types__d3-delaunay@6.0.4.patch"
+    }
   }
 }

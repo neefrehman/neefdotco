@@ -7,10 +7,33 @@ import {
   type CursorCoordinates,
 } from "utils/cursors";
 
-export default class Server implements Party.Server {
-  options: Party.ServerOptions = { hibernate: true };
+const MAX_CURSORS_SUPPORTED_FOR_NEIGHBOR_GRAPH = 512;
 
-  pointCoordinateMap = new Map<string, CursorCoordinates>();
+export default class Server implements Party.Server {
+  // Hibernation empties out the delaunay graph, making our neighbor calculations impossible to do.
+  options?: Party.ServerOptions = { hibernate: false };
+
+  delaunay = new Delaunay(new Uint16Array(MAX_CURSORS_SUPPORTED_FOR_NEIGHBOR_GRAPH * 2));
+  pointIndexMap = new Map<string, number>();
+  indexPointMap = new Map<number, string>();
+  currentPointIndex = -1;
+
+  getNextIndex = () => {
+    this.currentPointIndex += 1;
+    return this.currentPointIndex;
+  };
+
+  getFlattenedMatrixCoordinateIndicesFromIndex = (index: number) => {
+    return [index * 2, index * 2 + 1];
+  };
+
+  updateCoordinatesInDelaunayGraph = (id: string, [x, y]: CursorCoordinates) => {
+    const pointIndex = this.pointIndexMap.get(id);
+    const [xLocation, yLocation] = this.getFlattenedMatrixCoordinateIndicesFromIndex(pointIndex);
+    this.delaunay.points[xLocation] = x;
+    this.delaunay.points[yLocation] = y;
+    this.delaunay.update();
+  };
 
   broadcastCursor = (output: CursorOutput, without?: string[]) => {
     this.room.broadcast(serializeCursorOutput(output), without);
@@ -20,56 +43,63 @@ export default class Server implements Party.Server {
 
   onConnect = (conn: Party.Connection) => {
     this.broadcastCursor({ id: conn.id, type: "JOIN" }, [conn.id]);
+
+    const cursors = Array.from(this.pointIndexMap.keys());
+    conn.send(serializeCursorOutput({ id: conn.id, type: "SYNC", message: { cursors } }));
+
+    const index = this.getNextIndex();
+    this.pointIndexMap.set(conn.id, index);
+    this.indexPointMap.set(index, conn.id);
   };
 
   onMessage = (message: string, sender: Party.Connection) => {
     const parsed = parseCursorInput(message);
-    const newMessage = {
-      ...parsed,
-      coords: [parsed.coords[0], parsed.coords[1] + parsed.scrollY] satisfies CursorCoordinates,
-    };
-    this.pointCoordinateMap.set(sender.id, [parsed.coords[0], parsed.coords[1] + parsed.scrollY]);
-    this.broadcastCursor({ id: sender.id, type: "UPDATE", message: newMessage }, [sender.id]);
+    const coords = [parsed.coords[0], parsed.coords[1] + parsed.scrollY] as CursorCoordinates;
 
-    if (this.pointCoordinateMap.size < 5) {
-      const neighbors = Array.from(this.pointCoordinateMap.keys());
+    this.broadcastCursor({ id: sender.id, type: "UPDATE", message: { ...parsed, coords } }, [sender.id]);
+
+    if (this.pointIndexMap.size === 1) {
+      return;
+    }
+
+    if (this.pointIndexMap.size < 5) {
+      const neighbors = Array.from(this.pointIndexMap.keys());
       this.broadcastCursor({ id: sender.id, type: "NEIGHBORS", message: { neighbors } });
       return;
     }
 
-    if (this.pointCoordinateMap.size > 200) {
+    if (this.currentPointIndex > MAX_CURSORS_SUPPORTED_FOR_NEIGHBOR_GRAPH) {
       this.broadcastCursor({ id: sender.id, type: "NEIGHBORS", message: { neighbors: [] } });
       return;
     }
 
-    const delaunay = Delaunay.from(this.pointCoordinateMap.values());
-
-    // We're doing a lot of nested iteration here! V bad.
-    // TODO: optimise this code, maybe with a reverse lookup Map, or ideally by:
-    //       1. create typed array with set length (1024?)
-    //       2. let current with getNextIndex function (that clears points if too many)
-    //       2. Save map of index to point IDs that we can use to tell if a neighbouring index is a point or not
-    //       3. default new Delaunay instantiation
-    //       4. (have a predictable way to map back and forth between an ID and in index.)
-    Array.from(this.pointCoordinateMap.keys()).forEach((id, i) => {
-      const neighbors = Array.from(delaunay.neighbors(i)).flatMap(index => {
-        return Array.from(this.pointCoordinateMap.keys()).find((_, i) => i === index) ?? [];
-      });
+    this.updateCoordinatesInDelaunayGraph(sender.id, coords);
+    this.pointIndexMap.forEach((index, id) => {
+      const neighborIds = [];
+      const neighborIndicesIterable = this.delaunay.neighbors(index);
+      for (index of neighborIndicesIterable) {
+        const neighborId = this.indexPointMap.get(index);
+        // We need to do a truthy check as an 'empty' point may be considered a neighbor in the delaunay graph
+        if (neighborId) {
+          neighborIds.push(neighborId);
+        }
+      }
       this.room
         .getConnection(id)
-        .send(serializeCursorOutput({ id, type: "NEIGHBORS", message: { neighbors } }));
+        .send(serializeCursorOutput({ id, type: "NEIGHBORS", message: { neighbors: neighborIds } }));
     });
   };
 
-  onClose = (conn: Party.Connection<unknown>): void | Promise<void> => {
+  handleExit = (conn: Party.Connection<unknown>): void => {
     this.broadcastCursor({ id: conn.id, type: "LEAVE" }, [conn.id]);
-    this.pointCoordinateMap.delete(conn.id);
+    this.updateCoordinatesInDelaunayGraph(conn.id, [0, 0]);
+    const index = this.pointIndexMap.get(conn.id);
+    this.pointIndexMap.delete(conn.id);
+    this.indexPointMap.delete(index);
   };
 
-  onError = (conn: Party.Connection<unknown>): void | Promise<void> => {
-    this.broadcastCursor({ id: conn.id, type: "LEAVE" }, [conn.id]);
-    this.pointCoordinateMap.delete(conn.id);
-  };
+  onClose = this.handleExit;
+  onError = this.handleExit;
 }
 
 Server satisfies Party.Worker;

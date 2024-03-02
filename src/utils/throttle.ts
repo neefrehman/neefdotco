@@ -25,7 +25,7 @@ export const throttleWithLag = <F extends (...args: Parameters<F>) => ReturnType
     clearTimeout(endTimeout);
     updateInterval = setInterval(() => fn(...args), delay);
     endTimeout = setTimeout(() => clearTimeout(updateInterval), finalDelay);
-    return fn(...args);
+    return fn.apply(this, args);
   };
   return throttle(fnWithInterval, delay);
 };

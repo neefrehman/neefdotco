@@ -1,0 +1,22 @@
+diff --git a/index.d.ts b/index.d.ts
+index 2f09dbfa12cffb3cbe45ab7801775609575e7727..b18869225601c014c4a5a9b4957eb25ba34bf7d6 100644
+--- a/index.d.ts
++++ b/index.d.ts
+@@ -5,7 +5,7 @@ export class Delaunay<P> {
+     /**
+      * Returns the Delaunay triangulation for the given flat array [x0, y0, x1, y1, …] of points.
+      */
+-    constructor(points: ArrayLike<number>);
++    constructor(points: P);
+ 
+     /**
+      * Returns the Delaunay triangulation for the given array or iterable of points where each point is an array in the form: [x, y].
+@@ -28,7 +28,7 @@ export class Delaunay<P> {
+      * The coordinates of the points as an array [x0, y0, x1, y1, ...].
+      * Typically, this is a Float64Array, however you can use any array-like type in the constructor.
+      */
+-    points: ArrayLike<number>;
++    points: P;
+ 
+     /**
+      * The halfedge indices as an Int32Array [j0, j1, ...].

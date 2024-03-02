@@ -4,13 +4,18 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  '@types/d3-delaunay@6.0.4':
+    hash: qgdksvtipqgxwvzlhtsrlkaese
+    path: patches/@types__d3-delaunay@6.0.4.patch
+
 dependencies:
   '@astrojs/tailwind':
     specifier: ^5.1.0
     version: 5.1.0(astro@4.4.5)(tailwindcss@3.4.1)(ts-node@10.9.2)
   '@types/d3-delaunay':
     specifier: ^6.0.4
-    version: 6.0.4
+    version: 6.0.4(patch_hash=qgdksvtipqgxwvzlhtsrlkaese)
   astro:
     specifier: ^4.4.5
     version: 4.4.5(@types/node@20.11.20)(typescript@5.3.3)
@@ -1338,9 +1343,10 @@ packages:
       '@babel/types': 7.23.6
     dev: false
 
-  /@types/d3-delaunay@6.0.4:
+  /@types/d3-delaunay@6.0.4(patch_hash=qgdksvtipqgxwvzlhtsrlkaese):
     resolution: {integrity: sha512-ZMaSKu4THYCU6sV64Lhg6qjf1orxBthaC161plr5KuPHo3CNm8DTHiLw/5Eq2b6TsNP0W0iJrUOFscY6Q450Hw==}
     dev: false
+    patched: true
 
   /@types/debug@4.1.10:
     resolution: {integrity: sha512-tOSCru6s732pofZ+sMv9o4o3Zc+Sa8l3bxd/tweTQudFn06vAzb13ZX46Zi6m6EJ+RUbRTHvgQJ1gBtSgkaUYA==}
