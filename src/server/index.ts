@@ -43,10 +43,6 @@ export default class Server implements Party.Server {
 
   onConnect = (conn: Party.Connection) => {
     this.broadcastCursor({ id: conn.id, type: "JOIN" }, [conn.id]);
-
-    const cursors = Array.from(this.pointIndexMap.keys());
-    conn.send(serializeCursorOutput({ id: conn.id, type: "SYNC", message: { cursors } }));
-
     const index = this.getNextIndex();
     this.pointIndexMap.set(conn.id, index);
     this.indexPointMap.set(index, conn.id);
@@ -76,8 +72,7 @@ export default class Server implements Party.Server {
     this.updateCoordinatesInDelaunayGraph(sender.id, coords);
     this.pointIndexMap.forEach((index, id) => {
       const neighborIds = [];
-      const neighborIndicesIterable = this.delaunay.neighbors(index);
-      for (index of neighborIndicesIterable) {
+      for (index of this.delaunay.neighbors(index)) {
         const neighborId = this.indexPointMap.get(index);
         // We need to do a truthy check as an 'empty' point may be considered a neighbor in the delaunay graph
         if (neighborId) {

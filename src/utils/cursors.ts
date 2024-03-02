@@ -52,19 +52,10 @@ export type CursorOutput = {
         neighbors: string[];
       };
     }
-  | {
-      type: "SYNC";
-      message: {
-        cursors: string[];
-      };
-    }
 );
 
 const validateCursorOutput = (output: Partial<CursorOutput>): CursorOutput => {
-  if (
-    typeof output.id !== "string" ||
-    !["JOIN", "LEAVE", "UPDATE", "NEIGHBORS", "SYNC"].includes(output.type)
-  ) {
+  if (typeof output.id !== "string" || !["JOIN", "LEAVE", "UPDATE", "NEIGHBORS"].includes(output.type)) {
     throw new Error(`invalid output found: ${JSON.stringify(output)}`);
   }
   if (
@@ -77,9 +68,6 @@ const validateCursorOutput = (output: Partial<CursorOutput>): CursorOutput => {
     throw new Error(`invalid message found: ${JSON.stringify(output.message)}`);
   }
   if (output.type === "NEIGHBORS" && !Array.isArray(output.message.neighbors)) {
-    throw new Error(`invalid message found: ${JSON.stringify(output.message)}`);
-  }
-  if (output.type === "SYNC" && !Array.isArray(output.message.cursors)) {
     throw new Error(`invalid message found: ${JSON.stringify(output.message)}`);
   }
   return output as CursorOutput;
