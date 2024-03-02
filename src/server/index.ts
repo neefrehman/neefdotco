@@ -31,14 +31,26 @@ export default class Server implements Party.Server {
     this.pointCoordinateMap.set(sender.id, [parsed.coords[0], parsed.coords[1] + parsed.scrollY]);
     this.broadcastCursor({ id: sender.id, type: "UPDATE", message: newMessage }, [sender.id]);
 
+    if (this.pointCoordinateMap.size < 5) {
+      const neighbors = Array.from(this.pointCoordinateMap.keys());
+      this.broadcastCursor({ id: sender.id, type: "NEIGHBORS", message: { neighbors } });
+      return;
+    }
+
     if (this.pointCoordinateMap.size > 200) {
+      this.broadcastCursor({ id: sender.id, type: "NEIGHBORS", message: { neighbors: [] } });
       return;
     }
 
     const delaunay = Delaunay.from(this.pointCoordinateMap.values());
 
     // We're doing a lot of nested iteration here! V bad.
-    // TODO: optimise this code, maybe with a reverse lookup Map, or ideally by using the default delaunay instantiation with a TypedArray
+    // TODO: optimise this code, maybe with a reverse lookup Map, or ideally by:
+    //       1. create typed array with set length (1024?)
+    //       2. let current with getNextIndex function (that clears points if too many)
+    //       2. Save map of index to point IDs that we can use to tell if a neighbouring index is a point or not
+    //       3. default new Delaunay instantiation
+    //       4. (have a predictable way to map back and forth between an ID and in index.)
     Array.from(this.pointCoordinateMap.keys()).forEach((id, i) => {
       const neighbors = Array.from(delaunay.neighbors(i)).flatMap(index => {
         return Array.from(this.pointCoordinateMap.keys()).find((_, i) => i === index) ?? [];

@@ -6,14 +6,13 @@
  * @param inputMax - upper bound of the value's current range
  * @param outputMin - lower bound of the value's target range
  * @param outputMax - upper bound of the value's target range
- * @param options - A configuration object to set `clamp` which constrains the value to the newly mapped range
  *
  * @return the re-mapped number
  *
  * @example
  * // Converts normalized -1..1 coordinate to screen coordinate
  * const x = -1;
- * const pixel = mapToRange(x, -1, 1, 0, width, true);
+ * const pixel = mapToRange(x, -1, 1, 0, width);
  */
 export const mapToRange = (
   value: number,
