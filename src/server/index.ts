@@ -7,13 +7,13 @@ import {
   type CursorCoordinates,
 } from "utils/cursors";
 
-const MAX_CURSORS_SUPPORTED_FOR_NEIGHBOR_GRAPH = 512;
+const MAX_CURSORS_SUPPORTED_IN_GRAPH = 512;
 
 export default class Server implements Party.Server {
   // Hibernation empties out the delaunay graph, making our neighbor calculations impossible to do.
   options?: Party.ServerOptions = { hibernate: false };
 
-  delaunay = new Delaunay(new Uint16Array(MAX_CURSORS_SUPPORTED_FOR_NEIGHBOR_GRAPH * 2));
+  delaunay = new Delaunay(new Uint16Array(MAX_CURSORS_SUPPORTED_IN_GRAPH * 2));
   pointIndexMap = new Map<string, number>();
   indexPointMap = new Map<number, string>();
   currentPointIndex = -1;
@@ -64,7 +64,7 @@ export default class Server implements Party.Server {
       return;
     }
 
-    if (this.currentPointIndex > MAX_CURSORS_SUPPORTED_FOR_NEIGHBOR_GRAPH) {
+    if (this.currentPointIndex > MAX_CURSORS_SUPPORTED_IN_GRAPH) {
       this.broadcastCursor({ id: sender.id, type: "NEIGHBORS", message: { neighbors: [] } });
       return;
     }

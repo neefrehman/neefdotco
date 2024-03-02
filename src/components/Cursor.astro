@@ -219,13 +219,13 @@
       }
     };
 
+    const handleMouseMove = gravityWell ? handleCursorMoveWithGravityWell : handleCursorMove;
+
     document.addEventListener(
       "mousemove",
       throttle((e: MouseEvent) => {
         cursor.classList.remove("hide");
-        !!gravityWell
-          ? handleCursorMoveWithGravityWell([e.clientX, e.clientY])
-          : handleCursorMove([e.clientX, e.clientY]);
+        handleMouseMove([e.clientX, e.clientY]);
       }, 30) // ~33fps
     );
 
@@ -360,10 +360,7 @@
             removeCursor(data.id);
             break;
           case "UPDATE":
-            // TODO: optimise mutations / reads
-            // TODO: handle socket latency on deployed server
-            // TODO: pull between multiple neighbouring cursors, if they are close enough
-            // TODO: update scroll when the user scrolls, instead of on mouse move (and more generally, fractional updates)
+            // TODO: optimise mutations / reads, potentially move to fractional updates?
             // TODO: rudimentary chat with cursorContents?
             // TODO: encapsulate and simplify cursor interface with custom elements
             // TODO: dynamically import and run code only when cursor:pointer is true
@@ -405,7 +402,12 @@
           attributeFilter: ["innerText", "class", "style"],
         });
 
+        // HACK: ensures we trigger the mutation observer when the user scrolls, instead of waiting for the mouse to move after scrolling
+        const handleScroll = throttle(() => cursor.className = cursor.className, 30);
+        document.addEventListener("scroll", handleScroll)
+
         const closeWithReconnectAttempts = () => {
+          document.removeEventListener("scroll", handleScroll)
           cursorMutationObserver.disconnect()
           cursorMap.forEach((_, id) => removeCursor(id))
           connectRetryInterval = setInterval(connectToCursorPartySocket, 1000);
