@@ -6,7 +6,3 @@ declare interface HTMLImageElement extends HTMLElement {
 declare interface HTMLLinkElement extends HTMLElement {
   fetchPriority?: "high" | "low" | "auto";
 }
-
-declare interface Node extends EventTarget {
-  cloneNode(deep?: boolean): this;
-}
