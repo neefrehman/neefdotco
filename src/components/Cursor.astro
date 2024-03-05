@@ -4,13 +4,13 @@
 
 <style is:global>
   .cursor-presence-container {
-    .cursor-container {
+    custom-cursor {
       position: absolute;
       z-index: -5;
     }
   }
 
-  .cursor-container {
+  custom-cursor {
     --cursor-radius: 1rem;
     --cursor-scale: 1;
     --cursor-transition-overlay-scale: 0;
@@ -37,7 +37,7 @@
       display: none;
     }
 
-    .cursor,
+    .cursor-outer,
     .cursor-transition-overlay {
       position: fixed;
       border-radius: var(--cursor-border-radius);
@@ -45,7 +45,7 @@
       height: calc(var(--cursor-radius) * 2);
     }
 
-    .cursor {
+    .cursor-outer {
       overflow: hidden;
       background-color: var(--cursor-background-color);
       scale: var(--cursor-scale);
@@ -90,9 +90,6 @@
     &.xx-large {
       --cursor-scale: 5;
     }
-    &.xxx-large {
-      --cursor-scale: 6;
-    }
 
     &.hide {
       --cursor-scale: 0;
@@ -128,12 +125,12 @@
     }
 
     &.in-gravity-well {
-      /* Slower movement due to gravity */
-      transition: translate 200ms ease-out;
+      --cursor-scale: 6;
 
-      .cursor {
-        /* Slower growth in size to show off effect */
-        transition: scale 430ms ease;
+      transition: translate 200ms ease-out; /* Slower movement due to gravity */
+
+      .cursor-outer {
+        transition: scale 430ms ease; /* Slower growth in size to show off effect */
       }
 
       &.small {
@@ -167,14 +164,13 @@
     }
 
     connectedCallback() {
-      const cursor = document.createElement("div");
+      const visibleCursor = document.createElement("div");
       const cursorContents = document.createElement("div");
       const cursorTransitionOverlay = document.createElement("div");
 
-      this.classList.add("cursor-container", "hide");
-
-      this.appendChild(cursor).classList.add("cursor");
-      cursor.appendChild(cursorContents).classList.add("cursor-contents");
+      this.classList.add("hide");
+      this.appendChild(visibleCursor).classList.add("cursor-outer");
+      visibleCursor.appendChild(cursorContents).classList.add("cursor-contents");
       this.appendChild(cursorTransitionOverlay).classList.add("cursor-transition-overlay");
 
       this.cursorContentsElement = cursorContents
@@ -183,6 +179,7 @@
     move = ([x, y]: CursorCoordinates) => {
       this.position = [x, y];
       this.style.translate = `${x}px ${y}px`;
+      this.classList.remove("hide");
     };
 
     set innerText(text: string) {
@@ -221,7 +218,7 @@
       const distanceToWell = getDistance([wellCenterX, wellCenterY], [mouseX, mouseY]);
 
       if (distanceToWell > weakPullThreshold || !gravityWell.dataset.isActive) {
-        cursor.classList.remove("in-gravity-well", "xxx-large");
+        cursor.classList.remove("in-gravity-well");
         cursor.move([mouseX, mouseY]);
         if (gravityWell.dataset.cursorContentsInWell) {
           cursor.innerText = "";
@@ -238,7 +235,8 @@
         cursor.move([x, y]);
         return;
       }
-      cursor.classList.add("in-gravity-well", "xxx-large");
+
+      cursor.classList.add("in-gravity-well");
       const [x, y] = lerpVector(
         [wellCenterX, wellCenterY],
         [mouseX, mouseY],
@@ -254,10 +252,7 @@
 
     document.addEventListener(
       "mousemove",
-      throttle((e: MouseEvent) => {
-        cursor.classList.remove("hide");
-        handleMouseMove([e.clientX, e.clientY]);
-      }, 30) // ~33fps
+      throttle((e: MouseEvent) => handleMouseMove([e.clientX, e.clientY]), 30) // ~33fps
     );
 
     document.addEventListener("mousedown", () => cursor.classList.add("small"));
@@ -395,7 +390,7 @@
       let connectRetryInterval: NodeJS.Timeout;
       socket.addEventListener("open", () => {
         clearInterval(connectRetryInterval);
-        const innerCursorWithComputedBackgroundColor = cursor.querySelector<HTMLDivElement>(".cursor");
+        const innerCursorWithComputedBackgroundColor = cursor.querySelector<HTMLDivElement>(".cursor-outer");
 
         const cursorMutationObserver = new MutationObserver(throttleWithLag(() => {
           socket.send(
