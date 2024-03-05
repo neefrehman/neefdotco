@@ -32,7 +32,7 @@ export default class Server implements Party.Server {
     const [xLocation, yLocation] = this.getFlattenedMatrixCoordinateIndicesFromIndex(pointIndex);
     this.delaunay.points[xLocation] = x;
     this.delaunay.points[yLocation] = y;
-    this.delaunay.update(); // needed?
+    this.delaunay.update();
   };
 
   broadcastCursor = (output: CursorOutput, without?: string[]) => {
