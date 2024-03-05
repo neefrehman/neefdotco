@@ -166,7 +166,9 @@ const spacerElementList = [...Array(Math.ceil(photos.length * 0.4))];
   let loadedPhotoCount = 0;
   photosAfterShuffle.forEach((photo, i) => {
     const imageElement = photo.querySelector<HTMLImageElement>("img");
-    if (i < 3) imageElement.fetchPriority = "high";
+    if (i < 3) {
+      imageElement.fetchPriority = "high";
+    }
 
     imageElement.addEventListener("load", () => {
       // loadedPhotoCount delays the transition so they don't all load at the same time (for cached images)

@@ -71,10 +71,6 @@
     background-color: var(--background-color);
     text-size-adjust: 100%;
     -webkit-font-smoothing: antialiased;
-  }
-
-  /* Added in script below, to avoid initial load including a faded background */
-  body.loaded {
     transition: background-color 200ms ease-in-out;
   }
 
@@ -100,7 +96,3 @@
   }
 </style>
 
-<script>
-  // Added to avoid initial load including a faded background
-  setTimeout(() => document.body.classList.add("loaded"), 200);
-</script>

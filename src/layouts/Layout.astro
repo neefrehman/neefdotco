@@ -25,8 +25,7 @@ const {
       // for theming is handled in the DarkModeToggle script.
       if (
         localStorage.getItem("darkMode") == "1" ||
-        (!localStorage.getItem("darkMode") &&
-          window.matchMedia("(prefers-color-scheme: dark)").matches)
+        (!localStorage.getItem("darkMode") && window.matchMedia("(prefers-color-scheme: dark)").matches)
       ) {
         document.documentElement.classList.add("dark");
       }
@@ -40,7 +39,7 @@ const {
       document.documentElement.style.setProperty("--base-color", `${hue}deg, ${saturation}%`);
     </script>
 
-    <link rel="preload" href="/fonts/fleuronregular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/fleuronregular.woff2" as="font" type="font/woff2" crossorigin />
 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -83,3 +82,53 @@ const {
     </main>
   </body>
 </html>
+
+<script>
+  const transitionElements = document.querySelectorAll("[data-transition-element=true]");
+
+  document.querySelectorAll<HTMLAnchorElement>("[data-triggers-nav-transition=true]").forEach(link => {
+    if (!link.href) {
+      return
+    };
+
+    link.addEventListener("click", e => {
+      // Preload the page first, so that the post-transition page load is as smooth as possible
+      // method inspired by instant.page: https://github.com/instantpage/instant.page
+      document.head.appendChild(Object.assign(
+        document.createElement('link'), {
+          rel: 'prefetch',
+          href: link.href,
+          fetchPriority: "high",
+        })
+      );
+      
+      setTimeout(() => document.body.dataset.exiting = "true", 200);
+      
+      // start adding 'loaded' states to all elements that have more detailed loading
+      // animations that require them to be "index-aware".
+      // TODO: find a way to also drive these with `body.dataset.exiting`, maybe adding
+      //       delays when iterating to create the elements, and removing `transitionElements`
+      //       as a concept that this script needs to be concerned with.
+      let interval = 150;
+      transitionElements.forEach((el, i) => {
+        setTimeout(() => el.classList.remove("loaded"), interval * i);
+        interval -= 5;
+      });
+
+      const transitionDuration = Math.min(1000 + transitionElements.length * 100, 1700);
+      setTimeout(() => window.location.assign(link.href), transitionDuration);
+      e.preventDefault();
+    });
+  });
+
+  // We need to handle cases where the browser saves the post-exit-transition state in the
+  // bfcache, and quickly have those elements appear again if so
+  window.addEventListener("pageshow", e => {
+    if (!e.persisted) {
+      return
+    };
+
+    transitionElements.forEach(el => el.classList.add("loaded"));
+    document.body.dataset.exiting = null;
+  });
+</script>

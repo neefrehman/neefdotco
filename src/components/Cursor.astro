@@ -145,13 +145,13 @@
         --cursor-scale: 7;
       }
     }
-  
-    &.transition {
-      --cursor-scale: 1.33;
-      --cursor-inner-scale: 1.35;
-      --cursor-contents-scale: 0;
-      --cursor-inner-background-color: var(--background-color);
-    }
+  }
+
+  body[data-exiting="true"] .cursor-container {
+    --cursor-scale: 1.33;
+    --cursor-inner-scale: 1.35;
+    --cursor-contents-scale: 0;
+    --cursor-inner-background-color: var(--background-color);
   }
 </style>
 
@@ -238,9 +238,7 @@
     const cursorMoveElements = document.querySelectorAll<HTMLElement>("[data-cursor-move]");
     const cursorShapeElements = document.querySelectorAll<HTMLElement>("[data-cursor-shape]");
     const cursorContentsElements = document.querySelectorAll<HTMLElement>("[data-cursor-contents]");
-    const cursorRegrowElements = document.querySelectorAll<HTMLElement>(
-      "[data-cursor-regrow=true]"
-    );
+    const cursorRegrowElements = document.querySelectorAll<HTMLElement>("[data-cursor-regrow=true]");
 
     interactiveElements.forEach(link => {
       link.addEventListener("mouseenter", () => cursor.classList.add("large"));
@@ -266,8 +264,9 @@
       el.addEventListener("mouseenter", () => {
         cursor.classList.add("has-contents");
         /* annoyingly some characters, like +/-, aren't quite the right size in fleuron */
-        if (["+", "-", "–", "—"].includes(el.dataset.cursorContents))
+        if (["+", "-", "–", "—"].includes(el.dataset.cursorContents)) {
           cursor.classList.add("contents-small-chars");
+        }
         cursorContents.innerText = el.dataset.cursorContents;
       });
       el.addEventListener("mouseleave", () => {
@@ -291,18 +290,16 @@
 
     cursorRegrowElements.forEach(el => {
       el.addEventListener("click", () => {
-        if (!cursor.classList.contains(el.dataset.cursorSize)) return;
+        if (!cursor.classList.contains(el.dataset.cursorSize)) {
+          return;
+        }
         cursor.classList.remove(el.dataset.cursorSize, "large");
         const cursorReset = setTimeout(() => cursor.classList.add(el.dataset.cursorSize), 1000);
         el.addEventListener("click", () => clearTimeout(cursorReset), { once: true });
-        el.addEventListener(
-          "mouseleave",
-          () => {
-            clearTimeout(cursorReset);
-            cursor.classList.remove(el.dataset.cursorSize, "large");
-          },
-          { once: true }
-        );
+        el.addEventListener("mouseleave", () => {
+          clearTimeout(cursorReset);
+          cursor.classList.remove(el.dataset.cursorSize, "large");
+        }, { once: true });
       });
     });
 
@@ -362,6 +359,8 @@
           case "UPDATE":
             // TODO: optimise mutations / reads, potentially move to fractional updates?
             // TODO: rudimentary chat with cursorContents?
+            // TODO: improve attraction with two actual mice
+            // TODO: attract between multiple cursors, or only send closest neighbor
             // TODO: encapsulate and simplify cursor interface with custom elements
             // TODO: dynamically import and run code only when cursor:pointer is true
             const { id, message: { className, color, coords, innerText } } = data;
@@ -419,47 +418,5 @@
       });
     };
     connectToCursorPartySocket();
-
-    // TODO: break out into transition-specific script?
-    const navLinks = document.querySelectorAll<HTMLAnchorElement>(
-      "[data-triggers-nav-transition=true]"
-    );
-
-    navLinks.forEach(link => {
-      if (!link.href) return;
-      link.addEventListener("click", e => {
-        // Preload the page first, so that the post-transition page load is as smooth as possible
-        // method inspired by instant.page: https://github.com/instantpage/instant.page
-        document.head.appendChild(Object.assign(
-          document.createElement('link'), {
-            rel: 'prefetch',
-            href: link.href,
-            fetchPriority: "high",
-          })
-        );
-
-        const transitionElements = document.querySelectorAll("[data-transition-element=true]");
-        let interval = 150;
-        transitionElements.forEach((el, i) => {
-          setTimeout(() => el.classList.remove("loaded"), interval * i);
-          interval -= 5;
-        });
-
-        setTimeout(() => cursor.classList.add("transition"), 200);
-
-        const transitionDuration = Math.min(1000 + transitionElements.length * 100, 1700);
-        setTimeout(() => window.location.assign(link.href), transitionDuration);
-        e.preventDefault();
-      });
-    });
-
-    // We need to handle cases where the browser saves the post-exit-transition state in the
-    // bfcache, and quickly have those elements appear again if so
-    window.addEventListener("pageshow", e => {
-      if (!e.persisted) return;
-      const transitionElements = document.querySelectorAll("[data-transition-element=true]");
-      transitionElements.forEach(el => el.classList.add("loaded"));
-      cursor.classList.remove("transition");
-    });
   }
 </script>
