@@ -152,10 +152,11 @@
   import { getDistance } from "utils/math/getDistance";
   import { lerpVector } from "utils/math/lerp";
   import { mapToRange } from "utils/math/maptoRange";
-  import { parseCursorOutput, serializeCursorInput, type CursorCoordinates } from "utils/cursors";
+  import { parseCursorOutput, serializeCursorInput } from "utils/cursors";
+  import type { Vector } from "utils/math/types";
 
   class Cursor extends HTMLElement {
-    position: CursorCoordinates = [0, 0];
+    position: Vector<2> = [0, 0];
 
     cursorContentsElement: HTMLDivElement;
 
@@ -176,7 +177,7 @@
       this.cursorContentsElement = cursorContents
     }
 
-    move = ([x, y]: CursorCoordinates) => {
+    move = ([x, y]: Vector<2>) => {
       this.position = [x, y];
       this.style.translate = `${x}px ${y}px`;
       this.classList.remove("hide");

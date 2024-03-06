@@ -1,13 +1,13 @@
 /* eslint-disable no-console */
 
-export type CursorCoordinates = [x: number, y: number];
+import type { Vector } from "./math/types";
 
 export type CursorInput = {
   className: string;
   innerText: string;
   style: string;
   color: string;
-  coords: CursorCoordinates;
+  coords: Vector<2>;
   scrollY: number;
 };
 
@@ -43,7 +43,7 @@ export type CursorOutput = {
         className: string;
         innerText: string;
         color: string;
-        coords: CursorCoordinates;
+        coords: Vector<2>;
       };
     }
   | {
