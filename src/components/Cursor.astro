@@ -157,7 +157,6 @@
 
   class Cursor extends HTMLElement {
     position: Vector<2> = [0, 0];
-
     cursorContentsElement: HTMLDivElement;
 
     constructor() {
@@ -174,7 +173,7 @@
       visibleCursor.appendChild(cursorContents).classList.add("cursor-contents");
       this.appendChild(cursorTransitionOverlay).classList.add("cursor-transition-overlay");
 
-      this.cursorContentsElement = cursorContents
+      this.cursorContentsElement = cursorContents;
     }
 
     move = ([x, y]: Vector<2>) => {
@@ -187,9 +186,9 @@
       if (text === "") {
         this.classList.remove("has-contents", "contents-small-chars");
         this.cursorContentsElement.innerText = "";
-        return
+        return;
       }
-      // annoyingly some characters, like +/-, aren't quite the right size in fleuron
+      // annoyingly some characters, like +/-, aren't quite the right size in Fleuron
       if (["+", "-", "–", "—"].includes(text)) {
         this.classList.add("contents-small-chars");
       }
@@ -198,7 +197,7 @@
     };
 
     get innerText() {
-      return this.cursorContentsElement.innerText
+      return this.cursorContentsElement.innerText;
     }
   }
 
@@ -309,14 +308,10 @@
         cursor.classList.remove(el.dataset.cursorSize, "large");
         const cursorReset = setTimeout(() => cursor.classList.add(el.dataset.cursorSize), 1000);
         el.addEventListener("click", () => clearTimeout(cursorReset), { once: true });
-        el.addEventListener(
-          "mouseleave",
-          () => {
-            clearTimeout(cursorReset);
-            cursor.classList.remove(el.dataset.cursorSize, "large");
-          },
-          { once: true }
-        );
+        el.addEventListener("mouseleave", () => {
+          clearTimeout(cursorReset);
+          cursor.classList.remove(el.dataset.cursorSize, "large")
+        }, { once: true });
       });
     });
 
@@ -412,7 +407,7 @@
           attributeFilter: ["position", "class", "style"],
         });
 
-        // HACK: ensures we trigger the mutation observer when the user scrolls, instead of waiting for the mouse to move after scrolling
+        // ensures we trigger the mutation observer when the user scrolls, instead of waiting for the mouse to move after scrolling
         const handleScroll = throttle(() => (cursor.className = cursor.className), 30);
         document.addEventListener("scroll", handleScroll);
 
