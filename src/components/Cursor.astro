@@ -179,13 +179,12 @@
     move = ([x, y]: Vector<2>) => {
       this.position = [x, y];
       this.style.translate = `${x}px ${y}px`;
-      this.classList.remove("hide");
     };
 
-    set innerText(text: string) {
+    set textContent(text: string) {
       if (text === "") {
         this.classList.remove("has-contents", "contents-small-chars");
-        this.cursorContentsElement.innerText = "";
+        this.cursorContentsElement.textContent = "";
         return;
       }
       // annoyingly some characters, like +/-, aren't quite the right size in Fleuron
@@ -193,11 +192,11 @@
         this.classList.add("contents-small-chars");
       }
       this.classList.add("has-contents");
-      this.cursorContentsElement.innerText = text;
+      this.cursorContentsElement.textContent = text;
     };
 
-    get innerText() {
-      return this.cursorContentsElement.innerText;
+    get textContent() {
+      return this.cursorContentsElement.textContent;
     }
   }
 
@@ -221,7 +220,7 @@
         cursor.classList.remove("in-gravity-well");
         cursor.move([mouseX, mouseY]);
         if (gravityWell.dataset.cursorContentsInWell) {
-          cursor.innerText = "";
+          cursor.textContent = "";
         }
         return;
       }
@@ -244,16 +243,16 @@
       );
       cursor.move([x, y]);
       if (gravityWell.dataset.cursorContentsInWell) {
-        cursor.innerText = gravityWell.dataset.cursorContentsInWell;
+        cursor.textContent = gravityWell.dataset.cursorContentsInWell;
       }
     };
 
     const handleMouseMove = gravityWell ? handleCursorMoveWithGravityWell : cursor.move;
 
-    document.addEventListener(
-      "mousemove",
-      throttle((e: MouseEvent) => handleMouseMove([e.clientX, e.clientY]), 30) // ~33fps
-    );
+    document.addEventListener("mousemove", throttle((e: MouseEvent) => {
+      cursor.classList.remove("hide");
+      handleMouseMove([e.clientX, e.clientY]);
+    }, 30)); // ~33fps
 
     document.addEventListener("mousedown", () => cursor.classList.add("small"));
     document.addEventListener("mouseup", () => cursor.classList.remove("small"));
@@ -287,10 +286,10 @@
     });
 
     cursorContentsElements.forEach(el => {
-      el.addEventListener("mouseenter", () => cursor.innerText = el.dataset.cursorContents);
-      el.addEventListener("mouseleave", () => cursor.innerText = "");
+      el.addEventListener("mouseenter", () => cursor.textContent = el.dataset.cursorContents);
+      el.addEventListener("mouseleave", () => cursor.textContent = "");
       // some of these elements may change their data-cursor-contents attribute on click
-      el.addEventListener("click", () => setTimeout(() => cursor.innerText = el.dataset.cursorContents, 10));
+      el.addEventListener("click", () => setTimeout(() => cursor.textContent = el.dataset.cursorContents, 10));
     });
 
     cursorColorElements.forEach(el => {
@@ -322,7 +321,7 @@
       const presenceContainer = document.querySelector(".cursor-presence-container");
       const cursorMap = new Map<string, Cursor>();
 
-      const createCursorFromBlueprint = (id: string) => {
+      const createCursorPresence = (id: string) => {
         const newCursor = document.createElement("custom-cursor") as Cursor;
         newCursor.id = id;
         presenceContainer.append(newCursor);
@@ -359,7 +358,7 @@
         const data = parseCursorOutput(event.data);
         switch (data.type) {
           case "JOIN":
-            createCursorFromBlueprint(data.id);
+            createCursorPresence(data.id);
             break;
           case "LEAVE":
             removeCursor(data.id);
@@ -370,9 +369,9 @@
             // TODO: improve attraction when there's two actual cursors!
             // TODO: attract between multiple cursors, or only send closest neighbor
             // TODO: dynamically import and run code only when cursor:pointer is true
-            const { id, message: { className, color, coords, innerText } } = data;
-            const cursorToUpdate = cursorMap.get(id) ?? createCursorFromBlueprint(id);
-            cursorToUpdate.innerText = innerText;
+            const { id, message: { className, color, coords, textContent } } = data;
+            const cursorToUpdate = cursorMap.get(id) ?? createCursorPresence(id);
+            cursorToUpdate.textContent = textContent;
             cursorToUpdate.move(coords);
             cursorToUpdate.style.setProperty("--cursor-background-color", color);
             setTimeout(() => (cursorToUpdate.className = className), 8); // HACK: this small delay prevents an external cursor form appearing immediately after a refresh, if it is moving
@@ -392,7 +391,7 @@
           socket.send(
             serializeCursorInput({
               className: cursor.className,
-              innerText: cursor.innerText,
+              textContent: cursor.textContent,
               style: cursor.style.cssText,
               color: getComputedStyle(innerCursorWithComputedBackgroundColor).backgroundColor,
               coords: cursor.position,

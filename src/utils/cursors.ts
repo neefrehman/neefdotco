@@ -4,7 +4,7 @@ import type { Vector } from "./math/types";
 
 export type CursorInput = {
   className: string;
-  innerText: string;
+  textContent: string;
   style: string;
   color: string;
   coords: Vector<2>;
@@ -14,7 +14,7 @@ export type CursorInput = {
 const validateCursorInput = (input: Partial<CursorInput>): CursorInput => {
   if (
     typeof input.className !== "string" ||
-    typeof input.innerText !== "string" ||
+    typeof input.textContent !== "string" ||
     typeof input.style !== "string" ||
     typeof input.color !== "string" ||
     !Array.isArray(input.coords) ||
@@ -41,7 +41,7 @@ export type CursorOutput = {
       type: "UPDATE";
       message: {
         className: string;
-        innerText: string;
+        textContent: string;
         color: string;
         coords: Vector<2>;
       };
@@ -61,7 +61,7 @@ const validateCursorOutput = (output: Partial<CursorOutput>): CursorOutput => {
   if (
     output.type === "UPDATE" &&
     (typeof output.message.className !== "string" ||
-      typeof output.message.innerText !== "string" ||
+      typeof output.message.textContent !== "string" ||
       typeof output.message.color !== "string" ||
       !Array.isArray(output.message.coords))
   ) {
