@@ -364,7 +364,7 @@
             removeCursor(data.id);
             break;
           case "UPDATE":
-            // TODO: optimise mutations / reads, potentially move to fractional updates? (Ideally stop using `getComputedStyle` for colour updates, currently needed for e.g. dark mode hover, as the CSS var value won't be known to other visitors)
+            // TODO: optimise mutations / reads, potentially move to fractional updates?
             // TODO: rudimentary chat with cursorContents?
             // TODO: improve attraction when there's two actual cursors!
             // TODO: attract between multiple cursors, or only send closest neighbor
@@ -392,12 +392,13 @@
             serializeCursorInput({
               className: cursor.className,
               textContent: cursor.textContent,
-              color: getComputedStyle(innerCursorWithComputedBackgroundColor).backgroundColor,
+              // We must use `getComputedStyle`, as the `style.backgroundColor` value isn't known to others, if its a custom property itself
+              color: getComputedStyle(innerCursorWithComputedBackgroundColor).getPropertyValue("--cursor-background-color"), 
               coords: cursor.position,
               scrollY: window.scrollY,
             })
           );
-        }, 30, 150)); // ~33fps, carries on for 150ms after last invocation
+        }, 30, 50)); // ~33fps, carries on for 50ms after last invocation
 
         cursorMutationObserver.observe(cursor, {
           childList: true,
