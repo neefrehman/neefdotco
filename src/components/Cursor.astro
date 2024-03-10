@@ -364,7 +364,7 @@
             removeCursor(data.id);
             break;
           case "UPDATE":
-            // TODO: optimise mutations / reads, potentially move to fractional updates?
+            // TODO: optimise mutations / reads, potentially move to fractional updates? (Ideally stop using `getComputedStyle` for colour updates, currently needed for e.g. dark mode hover, as the CSS var value won't be known to other visitors)
             // TODO: rudimentary chat with cursorContents?
             // TODO: improve attraction when there's two actual cursors!
             // TODO: attract between multiple cursors, or only send closest neighbor
@@ -392,7 +392,6 @@
             serializeCursorInput({
               className: cursor.className,
               textContent: cursor.textContent,
-              style: cursor.style.cssText,
               color: getComputedStyle(innerCursorWithComputedBackgroundColor).backgroundColor,
               coords: cursor.position,
               scrollY: window.scrollY,

@@ -5,7 +5,6 @@ import type { Vector } from "./math/types";
 export type CursorInput = {
   className: string;
   textContent: string;
-  style: string;
   color: string;
   coords: Vector<2>;
   scrollY: number;
@@ -15,7 +14,6 @@ const validateCursorInput = (input: Partial<CursorInput>): CursorInput => {
   if (
     typeof input.className !== "string" ||
     typeof input.textContent !== "string" ||
-    typeof input.style !== "string" ||
     typeof input.color !== "string" ||
     !Array.isArray(input.coords) ||
     typeof input.scrollY !== "number"
