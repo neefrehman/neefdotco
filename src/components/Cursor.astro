@@ -181,18 +181,20 @@
       this.style.translate = `${x}px ${y}px`;
     };
 
+    clearCursorTextTimeout: NodeJS.Timeout;
     set textContent(text: string) {
       if (text === "") {
-        this.classList.remove("has-contents", "contents-small-chars");
-        this.cursorContentsElement.textContent = "";
+        this.classList.remove("has-contents");
+        this.clearCursorTextTimeout = setTimeout(() => this.cursorContentsElement.textContent = "", 500);
         return;
       }
       // annoyingly some characters, like +/-, aren't quite the right size in Fleuron
-      if (["+", "-", "–", "—"].includes(text)) {
-        this.classList.add("contents-small-chars");
-      }
+      ["+", "-", "–", "—"].includes(text)
+        ? this.classList.add("contents-small-chars")
+        : this.classList.remove("contents-small-chars");
       this.classList.add("has-contents");
       this.cursorContentsElement.textContent = text;
+      clearTimeout(this.clearCursorTextTimeout);
     };
 
     get textContent() {
@@ -364,8 +366,6 @@
             break;
           case "UPDATE":
             // TODO: optimise mutations / reads, potentially move to fractional updates?
-            // TODO: rudimentary chat with cursorContents?
-            // TODO: improve attraction when there's two actual cursors!
             // TODO: attract between multiple cursors, or only send closest neighbor
             // TODO: dynamically import and run code only when cursor:pointer is true
             const { id, message: { className, color, coords, textContent } } = data;
@@ -412,8 +412,8 @@
         let keydownTimeout: NodeJS.Timeout;
         window.addEventListener("keydown", (e) => {
           const clearCursor = () => {
-            cursor.textContent = "";
             cursor.classList.remove("large");
+            cursor.textContent = "";
           };
           clearTimeout(keydownTimeout);
           if (e.key === "Backspace") {
@@ -423,14 +423,14 @@
           if (document.activeElement.tagName !== "BODY" || e.key.length !== 1) {
             return;
           }
-          if (cursor.textContent === e.key) {
+          if (cursor.textContent === e.key && cursor.classList.contains("has-contents")) {
             cursor.classList.remove("has-contents");
-            setTimeout(() => cursor.classList.add("has-contents"), 80);
+            setTimeout(() => cursor.classList.add("has-contents"), 100);
             return;
           }
           cursor.textContent = e.key;
           cursor.classList.add("large");
-          keydownTimeout = setTimeout(clearCursor, 2000);
+          keydownTimeout = setTimeout(clearCursor, 1500);
         })
 
         const closeWithReconnectAttempts = () => {
