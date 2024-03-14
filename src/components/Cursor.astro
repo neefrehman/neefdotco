@@ -29,7 +29,7 @@
     top: calc((var(--cursor-radius) * -1) + ((var(--cursor-down) - var(--cursor-up)) * var(--cursor-scale)));
     left: calc((var(--cursor-radius) * -1) + ((var(--cursor-right) - var(--cursor-left)) * var(--cursor-scale)));
     transition:
-      translate 75ms,
+      translate 85ms,
       top 430ms cubic-bezier(1, 0.1, 0.1, 1),
       left 430ms cubic-bezier(1, 0.1, 0.1, 1);
 
@@ -148,7 +148,7 @@
 </style>
 
 <script>
-  import { throttle, throttleWithLag } from "utils/throttle";
+  import { throttle } from "utils/throttle";
   import { getDistance } from "utils/math/getDistance";
   import { lerpVector } from "utils/math/lerp";
   import { mapToRange } from "utils/math/maptoRange";
@@ -252,7 +252,7 @@
     document.addEventListener("mousemove", throttle((e: MouseEvent) => {
       cursor.classList.remove("hide");
       handleMouseMove([e.clientX, e.clientY]);
-    }, 30)); // ~33fps
+    }, 35)); // ~33fps
 
     document.addEventListener("mousedown", () => cursor.classList.add("small"));
     document.addEventListener("mouseup", () => cursor.classList.remove("small"));
@@ -319,26 +319,25 @@
       const socket = new WebSocket(`${import.meta.env.PUBLIC_SOCKET_URL}/parties/main/${page}`);
 
       const presenceContainer = document.querySelector(".cursor-presence-container");
-      const cursorMap = new Map<string, Cursor>();
+
+      const getCursor = (id: string) => document.getElementById(id) as Cursor | undefined;
 
       const createCursorPresence = (id: string) => {
         const newCursor = document.createElement("custom-cursor") as Cursor;
         newCursor.id = id;
         presenceContainer.append(newCursor);
-        cursorMap.set(id, newCursor);
         return newCursor;
       };
 
       const removeCursor = (id: string) => {
-        cursorMap.delete(id);
-        const cursorToDelete = document.getElementById(id);
+        const cursorToDelete = getCursor(id);
         cursorToDelete.classList.add("hide");
-        setTimeout(() => document.getElementById(id).remove(), 500);
+        setTimeout(() => cursorToDelete.remove(), 500);
       };
 
-      const NEIGHBOR_PULL_THRESHOLD = 70;
+      const NEIGHBOR_PULL_THRESHOLD = 65;
       const attractCursor = (id: string) => {
-        const otherCursor = cursorMap.get(id);
+        const otherCursor = getCursor(id);
         if (!otherCursor) {
           return;
         }
@@ -370,7 +369,7 @@
             // TODO: attract between multiple cursors, or only send closest neighbor
             // TODO: dynamically import and run code only when cursor:pointer is true
             const { id, message: { className, color, coords, textContent } } = data;
-            const cursorToUpdate = cursorMap.get(id) ?? createCursorPresence(id);
+            const cursorToUpdate = getCursor(id) ?? createCursorPresence(id);
             cursorToUpdate.textContent = textContent;
             cursorToUpdate.move(coords);
             cursorToUpdate.style.setProperty("--cursor-background-color", color);
@@ -387,7 +386,7 @@
         clearInterval(connectRetryInterval);
         const innerCursorWithComputedBackgroundColor = cursor.querySelector<HTMLDivElement>(".cursor-outer");
 
-        const cursorMutationObserver = new MutationObserver(throttleWithLag(() => {
+        const cursorMutationObserver = new MutationObserver((() => {
           socket.send(
             serializeCursorInput({
               className: cursor.className,
@@ -398,7 +397,7 @@
               scrollY: window.scrollY,
             })
           );
-        }, 30, 50)); // ~33fps, carries on for 50ms after last invocation
+        }));
 
         cursorMutationObserver.observe(cursor, {
           childList: true,
@@ -410,10 +409,34 @@
         const handleScroll = throttle(() => (cursor.className = cursor.className), 30);
         document.addEventListener("scroll", handleScroll);
 
+        let keydownTimeout: NodeJS.Timeout;
+        window.addEventListener("keydown", (e) => {
+          const clearCursor = () => {
+            cursor.textContent = "";
+            cursor.classList.remove("large");
+          };
+          clearTimeout(keydownTimeout);
+          if (e.key === "Backspace") {
+            clearCursor()
+            return;
+          }
+          if (document.activeElement.tagName !== "BODY" || e.key.length !== 1) {
+            return;
+          }
+          if (cursor.textContent === e.key) {
+            cursor.classList.remove("has-contents");
+            setTimeout(() => cursor.classList.add("has-contents"), 80);
+            return;
+          }
+          cursor.textContent = e.key;
+          cursor.classList.add("large");
+          keydownTimeout = setTimeout(clearCursor, 2000);
+        })
+
         const closeWithReconnectAttempts = () => {
           document.removeEventListener("scroll", handleScroll);
           cursorMutationObserver.disconnect();
-          cursorMap.forEach((_, id) => removeCursor(id));
+          presenceContainer.querySelectorAll("custom-cursor").forEach((el) => removeCursor(el.id));
           connectRetryInterval = setInterval(connectToCursorPartySocket, 1000);
           setTimeout(() => clearInterval(connectRetryInterval), 5000);
         };
