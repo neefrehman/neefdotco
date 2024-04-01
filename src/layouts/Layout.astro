@@ -85,14 +85,18 @@ const {
 
 <script>
   if (matchMedia("(pointer:fine)").matches) {
-    const transitionElements = document.querySelectorAll("[data-transition-element=true]");
+    // mutable as sometimes these elements change after initial load (e.g. with photos)
+    let transitionElements = document.querySelectorAll("[data-transition-element=true]");
+    setTimeout(() => transitionElements = document.querySelectorAll("[data-transition-element=true]"), 1000)
 
     document.querySelectorAll<HTMLAnchorElement>("[data-triggers-nav-transition=true]").forEach(link => {
       if (!link.href) {
         return
       };
-
+      
       link.addEventListener("click", e => {
+        transitionElements = document.querySelectorAll("[data-transition-element=true]");
+
         // Preload the page first, so that the post-transition page load is as smooth as possible
         // method inspired by instant.page: https://github.com/instantpage/instant.page
         document.head.appendChild(Object.assign(
