@@ -1,7 +1,7 @@
 ---
 import Cursor from "components/Cursor.astro";
 import Header from "components/Header.astro";
-import GlobalCSS from "styles/GlobalCSS.astro";
+import "styles/globals.css";
 
 interface Props {
   metaImageUrl?: string;
@@ -69,8 +69,6 @@ const {
     <meta name="generator" content={Astro.generator} />
 
     <slot name="head" />
-
-    <GlobalCSS />
   </head>
 
   <body>
