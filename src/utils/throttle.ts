@@ -1,9 +1,14 @@
-export const throttle = <F extends (...args: Parameters<F>) => ReturnType<F>>(fn: F, delay: number) => {
+export const throttle = <F extends (...args: Parameters<F>) => ReturnType<F>>(
+  fn: F,
+  delay: number
+) => {
   let inThrottle: boolean;
   return function (...args: Parameters<F>) {
     if (inThrottle) return;
     inThrottle = true;
-    setTimeout(() => (inThrottle = false), delay);
+    setTimeout(() => {
+      inThrottle = false;
+    }, delay);
     fn.apply(this, args);
   };
 };

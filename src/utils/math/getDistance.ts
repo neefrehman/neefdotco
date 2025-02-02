@@ -8,7 +8,10 @@ import type { Vector } from "./types";
  *
  * @returns The scalar distance between the two points
  */
-export const getDistance = <D extends UpTo4>(vector1: Vector<D>, vector2: Vector<D>): number => {
+export const getDistance = <D extends UpTo4>(
+  vector1: Vector<D>,
+  vector2: Vector<D>
+): number => {
   const [x1, y1 = 0, z1 = 0, t1 = 0] = vector1;
   const [x2, y2 = 0, z2 = 0, t2 = 0] = vector2;
 

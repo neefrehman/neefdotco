@@ -1,6 +1,10 @@
-import type * as Party from "partykit/server";
 import { Delaunay } from "d3-delaunay";
-import { parseCursorInput, serializeCursorOutput, type CursorOutput } from "utils/cursors";
+import type * as Party from "partykit/server";
+import {
+  type CursorOutput,
+  parseCursorInput,
+  serializeCursorOutput,
+} from "utils/cursors";
 import type { Vector } from "utils/math/types";
 
 const MAX_CURSORS_SUPPORTED_IN_GRAPH = 512;
@@ -25,7 +29,8 @@ export default class Server implements Party.Server {
 
   updateCoordinatesInDelaunayGraph = (id: string, [x, y]: Vector<2>) => {
     const pointIndex = this.pointIndexMap.get(id);
-    const [xLocation, yLocation] = this.getFlattenedMatrixCoordinateIndicesFromIndex(pointIndex);
+    const [xLocation, yLocation] =
+      this.getFlattenedMatrixCoordinateIndicesFromIndex(pointIndex);
     this.delaunay.points[xLocation] = x;
     this.delaunay.points[yLocation] = y;
     this.delaunay.update();
@@ -48,7 +53,10 @@ export default class Server implements Party.Server {
     const parsed = parseCursorInput(message);
     const coords = [parsed.coords[0], parsed.coords[1] + parsed.scrollY] as Vector<2>;
 
-    this.broadcastCursor({ id: sender.id, type: "UPDATE", message: { ...parsed, coords } }, [sender.id]);
+    this.broadcastCursor(
+      { id: sender.id, type: "UPDATE", message: { ...parsed, coords } },
+      [sender.id]
+    );
 
     if (this.pointIndexMap.size === 1) {
       return;
@@ -56,28 +64,40 @@ export default class Server implements Party.Server {
 
     if (this.pointIndexMap.size < 5) {
       const neighbors = Array.from(this.pointIndexMap.keys());
-      this.broadcastCursor({ id: sender.id, type: "NEIGHBORS", message: { neighbors } });
+      this.broadcastCursor({
+        id: sender.id,
+        type: "NEIGHBORS",
+        message: { neighbors },
+      });
       return;
     }
 
     if (this.currentPointIndex > MAX_CURSORS_SUPPORTED_IN_GRAPH) {
-      this.broadcastCursor({ id: sender.id, type: "NEIGHBORS", message: { neighbors: [] } });
+      this.broadcastCursor({
+        id: sender.id,
+        type: "NEIGHBORS",
+        message: { neighbors: [] },
+      });
       return;
     }
 
     this.updateCoordinatesInDelaunayGraph(sender.id, coords);
     this.pointIndexMap.forEach((index, id) => {
       const neighborIds = [];
-      for (index of this.delaunay.neighbors(index)) {
-        const neighborId = this.indexPointMap.get(index);
+      for (const neighborIndex of this.delaunay.neighbors(index)) {
+        const neighborId = this.indexPointMap.get(neighborIndex);
         // We need to do a truthy check as an 'empty' point may be considered a neighbor in the delaunay graph
         if (neighborId) {
           neighborIds.push(neighborId);
         }
       }
-      this.room
-        .getConnection(id)
-        .send(serializeCursorOutput({ id, type: "NEIGHBORS", message: { neighbors: neighborIds } }));
+      this.room.getConnection(id).send(
+        serializeCursorOutput({
+          id,
+          type: "NEIGHBORS",
+          message: { neighbors: neighborIds },
+        })
+      );
     });
   };
 

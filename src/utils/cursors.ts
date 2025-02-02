@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 import type { Vector } from "./math/types";
 
 export type CursorInput = {
@@ -53,7 +51,10 @@ export type CursorOutput = {
 );
 
 const validateCursorOutput = (output: Partial<CursorOutput>): CursorOutput => {
-  if (typeof output.id !== "string" || !["JOIN", "LEAVE", "UPDATE", "NEIGHBORS"].includes(output.type)) {
+  if (
+    typeof output.id !== "string" ||
+    !["JOIN", "LEAVE", "UPDATE", "NEIGHBORS"].includes(output.type)
+  ) {
     throw new Error(`invalid output found: ${JSON.stringify(output)}`);
   }
   if (

@@ -8,7 +8,7 @@
  * const vectorAnyD: Vector = [1, 3, 9, 0,..., 4]
  */
 // New Vector type discourse: https://github.com/microsoft/TypeScript/issues/26223
-export interface Vector<D extends number = any> extends Array<number> {
+export interface Vector<D extends number = number> extends Array<number> {
   0?: number;
   length: D;
 }
