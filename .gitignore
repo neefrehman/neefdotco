@@ -1,8 +1,9 @@
-# build output
-dist/
-
-# generated types
-.astro/
+**/dist/
+**/.astro/
+**/.turbo
+**/.partykit
+**/.netlify/
+**/photos/_raw
 
 # dependencies
 node_modules/
@@ -19,9 +20,3 @@ pnpm-debug.log*
 
 # macOS-specific files
 .DS_Store
-
-.DS_Store
-.netlify/
-**/photos/_raw
-
-.partykit

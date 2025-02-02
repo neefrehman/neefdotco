@@ -157,7 +157,7 @@
 
   class Cursor extends HTMLElement {
     position: Vector<2> = [0, 0];
-    cursorContentsElement: HTMLDivElement;
+    cursorContentsElement!: HTMLDivElement;
 
     constructor() {
       super();
@@ -181,13 +181,14 @@
       this.style.translate = `${x}px ${y}px`;
     };
 
-    clearCursorTextTimeout: NodeJS.Timeout;
-    set textContent(text: string) {
+    clearCursorTextTimeout = setTimeout(() => void 0);
+    override set textContent(text: string) {
       if (text === "") {
         this.classList.remove("has-contents");
         this.clearCursorTextTimeout = setTimeout(() => this.cursorContentsElement.textContent = "", 500);
         return;
       }
+
       // annoyingly some characters, like +/-, aren't quite the right size in Fleuron
       ["+", "-", "–", "—"].includes(text)
         ? this.classList.add("contents-small-chars")
@@ -197,18 +198,22 @@
       clearTimeout(this.clearCursorTextTimeout);
     };
 
-    get textContent() {
-      return this.cursorContentsElement.textContent;
+    override get textContent() {
+      return this.cursorContentsElement.textContent ?? "";
     }
   }
 
   customElements.define("custom-cursor", Cursor);
   
   if (matchMedia("(pointer:fine)").matches) {
-    const cursor = document.querySelector<Cursor>("custom-cursor");
+    const cursor = document.querySelector<Cursor>("custom-cursor")!;
     const gravityWell = document.querySelector<HTMLDivElement>("[data-gravity-well=true]");
 
     const handleCursorMoveWithGravityWell = ([mouseX, mouseY]: [number, number]) => {
+      if (!gravityWell) {
+        return
+      }
+      
       const largestViewPortSize = Math.max(window.innerWidth, window.innerHeight);
       const strongPullThreshold = largestViewPortSize / 4;
       const weakPullThreshold = strongPullThreshold + 50;
@@ -259,59 +264,51 @@
     document.addEventListener("mousedown", () => cursor.classList.add("small"));
     document.addEventListener("mouseup", () => cursor.classList.remove("small"));
 
-    const interactiveElements = document.querySelectorAll<HTMLAnchorElement>("a, button");
-    const cursorColorElements = document.querySelectorAll<HTMLElement>("[data-cursor-color]");
-    const cursorSizeElements = document.querySelectorAll<HTMLElement>("[data-cursor-size]");
-    const cursorMoveElements = document.querySelectorAll<HTMLElement>("[data-cursor-move]");
-    const cursorShapeElements = document.querySelectorAll<HTMLElement>("[data-cursor-shape]");
-    const cursorContentsElements = document.querySelectorAll<HTMLElement>("[data-cursor-contents]");
-    const cursorRegrowElements = document.querySelectorAll<HTMLElement>("[data-cursor-regrow=true]");
-
-    interactiveElements.forEach(link => {
+    document.querySelectorAll<HTMLAnchorElement>("a, button").forEach(link => {
       link.addEventListener("mouseenter", () => cursor.classList.add("large"));
       link.addEventListener("mouseleave", () => cursor.classList.remove("large"));
     });
 
-    cursorMoveElements.forEach(el => {
-      el.addEventListener("mouseenter", () => cursor.classList.add(el.dataset.cursorMove));
-      el.addEventListener("mouseleave", () => cursor.classList.remove(el.dataset.cursorMove));
+    document.querySelectorAll<HTMLElement>("[data-cursor-move]").forEach(el => {
+      el.addEventListener("mouseenter", () => cursor.classList.add(el.dataset.cursorMove!));
+      el.addEventListener("mouseleave", () => cursor.classList.remove(el.dataset.cursorMove!));
     });
 
-    cursorShapeElements.forEach(el => {
-      el.addEventListener("mouseenter", () => cursor.classList.add(el.dataset.cursorShape));
-      el.addEventListener("mouseleave", () => cursor.classList.remove(el.dataset.cursorShape));
+    document.querySelectorAll<HTMLElement>("[data-cursor-shape]").forEach(el => {
+      el.addEventListener("mouseenter", () => cursor.classList.add(el.dataset.cursorShape!));
+      el.addEventListener("mouseleave", () => cursor.classList.remove(el.dataset.cursorShape!));
     });
 
-    cursorSizeElements.forEach(el => {
-      el.addEventListener("mouseenter", () => cursor.classList.add(el.dataset.cursorSize));
-      el.addEventListener("mouseleave", () => cursor.classList.remove(el.dataset.cursorSize));
+    document.querySelectorAll<HTMLElement>("[data-cursor-size]").forEach(el => {
+      el.addEventListener("mouseenter", () => cursor.classList.add(el.dataset.cursorSize!));
+      el.addEventListener("mouseleave", () => cursor.classList.remove(el.dataset.cursorSize!));
     });
 
-    cursorContentsElements.forEach(el => {
-      el.addEventListener("mouseenter", () => cursor.textContent = el.dataset.cursorContents);
+    document.querySelectorAll<HTMLElement>("[data-cursor-contents]").forEach(el => {
+      el.addEventListener("mouseenter", () => cursor.textContent = el.dataset.cursorContents!);
       el.addEventListener("mouseleave", () => cursor.textContent = "");
       // some of these elements may change their data-cursor-contents attribute on click
-      el.addEventListener("click", () => setTimeout(() => cursor.textContent = el.dataset.cursorContents, 10));
+      el.addEventListener("click", () => setTimeout(() => cursor.textContent = el.dataset.cursorContents!, 10));
     });
 
-    cursorColorElements.forEach(el => {
+    document.querySelectorAll<HTMLElement>("[data-cursor-color]").forEach(el => {
       el.addEventListener("mouseenter", () => {
-        cursor.style.setProperty("--cursor-background-color", el.dataset.cursorColor);
+        cursor.style.setProperty("--cursor-background-color", el.dataset.cursorColor!);
       });
       el.addEventListener("mouseleave", () => cursor.style.setProperty("--cursor-background-color", null));
     });
 
-    cursorRegrowElements.forEach(el => {
+    document.querySelectorAll<HTMLElement>("[data-cursor-regrow=true]").forEach(el => {
       el.addEventListener("click", () => {
-        if (!cursor.classList.contains(el.dataset.cursorSize)) {
+        if (!cursor.classList.contains(el.dataset.cursorSize!)) {
           return;
         }
-        cursor.classList.remove(el.dataset.cursorSize, "large");
-        const cursorReset = setTimeout(() => cursor.classList.add(el.dataset.cursorSize), 1000);
+        cursor.classList.remove(el.dataset.cursorSize!, "large");
+        const cursorReset = setTimeout(() => cursor.classList.add(el.dataset.cursorSize!), 1000);
         el.addEventListener("click", () => clearTimeout(cursorReset), { once: true });
         el.addEventListener("mouseleave", () => {
           clearTimeout(cursorReset);
-          cursor.classList.remove(el.dataset.cursorSize, "large")
+          cursor.classList.remove(el.dataset.cursorSize!, "large")
         }, { once: true });
       });
     });
@@ -322,7 +319,11 @@
 
       const presenceContainer = document.querySelector(".cursor-presence-container");
 
-      const getCursor = (id: string) => document.getElementById(id) as Cursor | undefined;
+      if (!presenceContainer) {
+        return
+      }
+
+      const getCursor = (id: string) => document.getElementById(id) as Cursor | null;
 
       const createCursorPresence = (id: string) => {
         const newCursor = document.createElement("custom-cursor") as Cursor;
@@ -333,8 +334,8 @@
 
       const removeCursor = (id: string) => {
         const cursorToDelete = getCursor(id);
-        cursorToDelete.classList.add("hide");
-        setTimeout(() => cursorToDelete.remove(), 500);
+        cursorToDelete?.classList.add("hide");
+        setTimeout(() => cursorToDelete?.remove(), 500);
       };
 
       const NEIGHBOR_PULL_THRESHOLD = 65;
@@ -357,7 +358,7 @@
 
       socket.addEventListener("message", event => {
         const data = parseCursorOutput(event.data);
-        switch (data.type) {
+        switch (data?.type) {
           case "JOIN":
             createCursorPresence(data.id);
             break;
@@ -385,6 +386,10 @@
       socket.addEventListener("open", () => {
         clearInterval(connectRetryInterval);
         const innerCursorWithComputedBackgroundColor = cursor.querySelector<HTMLDivElement>(".cursor-outer");
+
+        if (!innerCursorWithComputedBackgroundColor) {
+          return
+        }
 
         const cursorMutationObserver = new MutationObserver((() => {
           socket.send(
@@ -420,7 +425,7 @@
             clearCursor()
             return;
           }
-          if (document.activeElement.tagName !== "BODY" || e.key.length !== 1) {
+          if (document.activeElement?.tagName !== "BODY" || e.key.length !== 1) {
             return;
           }
           if (cursor.textContent === e.key && cursor.classList.contains("has-contents")) {

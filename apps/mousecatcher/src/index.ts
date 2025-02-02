@@ -1,11 +1,11 @@
 import { Delaunay } from "d3-delaunay";
 import type * as Party from "partykit/server";
 import {
+  type Coords,
   type CursorOutput,
   parseCursorInput,
   serializeCursorOutput,
-} from "utils/cursors";
-import type { Vector } from "utils/math/types";
+} from "./utils";
 
 const MAX_CURSORS_SUPPORTED_IN_GRAPH = 512;
 
@@ -27,13 +27,18 @@ export default class Server implements Party.Server {
     return [index * 2, index * 2 + 1];
   };
 
-  updateCoordinatesInDelaunayGraph = (id: string, [x, y]: Vector<2>) => {
+  updateCoordinatesInDelaunayGraph = (id: string, [x, y]: Coords) => {
     const pointIndex = this.pointIndexMap.get(id);
+    if (!pointIndex) {
+      return;
+    }
     const [xLocation, yLocation] =
       this.getFlattenedMatrixCoordinateIndicesFromIndex(pointIndex);
-    this.delaunay.points[xLocation] = x;
-    this.delaunay.points[yLocation] = y;
-    this.delaunay.update();
+    if (xLocation && yLocation) {
+      this.delaunay.points[xLocation] = x;
+      this.delaunay.points[yLocation] = y;
+      this.delaunay.update();
+    }
   };
 
   broadcastCursor = (output: CursorOutput, without?: string[]) => {
@@ -51,7 +56,7 @@ export default class Server implements Party.Server {
 
   onMessage = (message: string, sender: Party.Connection) => {
     const parsed = parseCursorInput(message);
-    const coords = [parsed.coords[0], parsed.coords[1] + parsed.scrollY] as Vector<2>;
+    const coords = [parsed.coords[0], parsed.coords[1] + parsed.scrollY] as Coords;
 
     this.broadcastCursor(
       { id: sender.id, type: "UPDATE", message: { ...parsed, coords } },
@@ -91,7 +96,7 @@ export default class Server implements Party.Server {
           neighborIds.push(neighborId);
         }
       }
-      this.room.getConnection(id).send(
+      this.room.getConnection(id)?.send(
         serializeCursorOutput({
           id,
           type: "NEIGHBORS",
@@ -105,8 +110,10 @@ export default class Server implements Party.Server {
     this.broadcastCursor({ id: conn.id, type: "LEAVE" }, [conn.id]);
     this.updateCoordinatesInDelaunayGraph(conn.id, [0, 0]);
     const index = this.pointIndexMap.get(conn.id);
-    this.pointIndexMap.delete(conn.id);
-    this.indexPointMap.delete(index);
+    if (index) {
+      this.pointIndexMap.delete(conn.id);
+      this.indexPointMap.delete(index);
+    }
   };
 
   onClose = this.handleExit;
