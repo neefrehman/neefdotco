@@ -6,6 +6,9 @@
     "dev": "partykit dev"
   },
   "dependencies": {
+    "@repo/mouse": "workspace:*",
+    "@repo/utils": "workspace:*",
+    "banditypes": "^0.2.5",
     "d3-delaunay": "^6.0.4",
     "partykit": "0.0.111"
   },

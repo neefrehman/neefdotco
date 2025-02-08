@@ -9,6 +9,7 @@ export const throttle = <F extends (...args: Parameters<F>) => ReturnType<F>>(
     setTimeout(() => {
       inThrottle = false;
     }, delay);
+    // @ts-expect-error
     fn.apply(this, args);
   };
 };

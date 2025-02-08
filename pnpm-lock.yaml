@@ -22,6 +22,15 @@ importers:
 
   apps/mousecatcher:
     dependencies:
+      '@repo/mouse':
+        specifier: workspace:*
+        version: link:../../packages/mouse
+      '@repo/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
+      banditypes:
+        specifier: ^0.2.5
+        version: 0.2.5
       d3-delaunay:
         specifier: ^6.0.4
         version: 6.0.4
@@ -44,6 +53,12 @@ importers:
 
   apps/neefdotco:
     dependencies:
+      '@repo/mouse':
+        specifier: workspace:*
+        version: link:../../packages/mouse
+      '@repo/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
       '@tailwindcss/vite':
         specifier: ^4.0.3
         version: 4.0.3(vite@6.0.11(@types/node@22.13.0)(jiti@2.4.2)(lightningcss@1.29.1)(yaml@2.7.0))
@@ -62,6 +77,41 @@ importers:
       tailwindcss:
         specifier: ^4.0.3
         version: 4.0.3
+    devDependencies:
+      '@total-typescript/tsconfig':
+        specifier: 1.0.4
+        version: 1.0.4
+      '@types/node':
+        specifier: ^22.13.0
+        version: 22.13.0
+      typescript:
+        specifier: ^5.7.3
+        version: 5.7.3
+
+  packages/mouse:
+    dependencies:
+      banditypes:
+        specifier: ^0.2.5
+        version: 0.2.5
+    devDependencies:
+      '@repo/utils':
+        specifier: workspace:*
+        version: link:../utils
+      '@total-typescript/tsconfig':
+        specifier: 1.0.4
+        version: 1.0.4
+      '@types/node':
+        specifier: ^22.13.0
+        version: 22.13.0
+      typescript:
+        specifier: ^5.7.3
+        version: 5.7.3
+
+  packages/utils:
+    dependencies:
+      remeda:
+        specifier: ^2.20.1
+        version: 2.20.1
     devDependencies:
       '@total-typescript/tsconfig':
         specifier: 1.0.4
@@ -940,6 +990,10 @@ packages:
 
   bail@2.0.2:
     resolution: {integrity: sha512-0xO6mYd7JB2YesxDKplafRpsiOzPt9V02ddPCLbY1xYGPOX24NTyN50qnUxgCPcSoYMhKpAuBTjQoRZCAkUDRw==}
+
+  banditypes@0.2.5:
+    resolution: {integrity: sha512-yyfPhzlDEtH2CtqxkUKYO1R4eQ6HGGUsnztSpFgASTD82gZKN50YQQV3wmh+u26YEWAEKVnd3HmCXs7AaD8RgQ==}
+    engines: {node: ^14 || ^16 || >=18}
 
   base-64@1.0.0:
     resolution: {integrity: sha512-kwDPIFCGx0NZHog36dj+tHiwP4QMzsZ3AgMViUBKI0+V5n4U0ufTCUMhnQ04diaRI8EX/QcPfql7zlhZ7j4zgg==}
@@ -1906,6 +1960,9 @@ packages:
 
   remark-stringify@11.0.0:
     resolution: {integrity: sha512-1OSmLd3awB/t8qdoEOMazZkNsfVTeY4fTsgzcQFdXNq8ToTN4ZGwrMnlda4K6smTFKD+GRV6O48i6Z4iKgPPpw==}
+
+  remeda@2.20.1:
+    resolution: {integrity: sha512-gsEsSmjE0CHkNp6xEsWsU/6JVNWq7rqw+ZfzNMbVV4YFIPtTj/i0FfxurTRI6Z9sAnQufU9de2Cb3xHsUTFTMA==}
 
   request@2.88.2:
     resolution: {integrity: sha512-MsvtOrfG9ZcrOwAW+Qi+F6HbD0CWXEh9ou77uOb7FM2WPhwT7smM833PzanhJLsgXjN89Ir6V2PczXNnMpwKhw==}
@@ -3111,6 +3168,8 @@ snapshots:
   axobject-query@4.1.0: {}
 
   bail@2.0.2: {}
+
+  banditypes@0.2.5: {}
 
   base-64@1.0.0: {}
 
@@ -4333,6 +4392,10 @@ snapshots:
       '@types/mdast': 4.0.2
       mdast-util-to-markdown: 2.1.0
       unified: 11.0.5
+
+  remeda@2.20.1:
+    dependencies:
+      type-fest: 4.33.0
 
   request@2.88.2:
     dependencies:

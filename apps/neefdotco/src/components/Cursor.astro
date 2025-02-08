@@ -92,7 +92,7 @@
     }
 
     &.hide {
-      --cursor-scale: 0;
+      --cursor-scale: 0 !important;
       --cursor-transition-overlay-scale: 0;
       --cursor-contents-scale: 0;
     }
@@ -148,60 +148,13 @@
 </style>
 
 <script>
-  import { throttle } from "utils/throttle";
-  import { getDistance } from "utils/math/getDistance";
-  import { lerpVector } from "utils/math/lerp";
-  import { mapToRange } from "utils/math/maptoRange";
-  import { parseCursorOutput, serializeCursorInput } from "utils/cursors";
-  import type { Vector } from "utils/math/types";
+  import { getDistance } from "@repo/utils/math/getDistance.ts";
+  import { lerpVector } from "@repo/utils/math/lerp.ts";
+  import { mapToRange } from "@repo/utils/math/mapToRange.ts";
+  import { Cursor } from "@repo/mouse";
+  import { parseCursorEvent, serializeCursorEvent } from "@repo/mouse/presenceEvents";
 
-  class Cursor extends HTMLElement {
-    position: Vector<2> = [0, 0];
-    cursorContentsElement!: HTMLDivElement;
-
-    constructor() {
-      super();
-    }
-
-    connectedCallback() {
-      const visibleCursor = document.createElement("div");
-      const cursorContents = document.createElement("div");
-      const cursorTransitionOverlay = document.createElement("div");
-
-      this.classList.add("hide");
-      this.appendChild(visibleCursor).classList.add("cursor-outer");
-      visibleCursor.appendChild(cursorContents).classList.add("cursor-contents");
-      this.appendChild(cursorTransitionOverlay).classList.add("cursor-transition-overlay");
-
-      this.cursorContentsElement = cursorContents;
-    }
-
-    move = ([x, y]: Vector<2>) => {
-      this.position = [x, y];
-      this.style.translate = `${x}px ${y}px`;
-    };
-
-    clearCursorTextTimeout = setTimeout(() => void 0);
-    override set textContent(text: string) {
-      if (text === "") {
-        this.classList.remove("has-contents");
-        this.clearCursorTextTimeout = setTimeout(() => this.cursorContentsElement.textContent = "", 500);
-        return;
-      }
-
-      // annoyingly some characters, like +/-, aren't quite the right size in Fleuron
-      ["+", "-", "–", "—"].includes(text)
-        ? this.classList.add("contents-small-chars")
-        : this.classList.remove("contents-small-chars");
-      this.classList.add("has-contents");
-      this.cursorContentsElement.textContent = text;
-      clearTimeout(this.clearCursorTextTimeout);
-    };
-
-    override get textContent() {
-      return this.cursorContentsElement.textContent ?? "";
-    }
-  }
+  import { throttle } from "@repo/utils/throttle.ts";
 
   customElements.define("custom-cursor", Cursor);
   
@@ -254,63 +207,8 @@
       }
     };
 
-    const handleMouseMove = gravityWell ? handleCursorMoveWithGravityWell : cursor.move;
-
-    document.addEventListener("mousemove", throttle((e: MouseEvent) => {
-      cursor.classList.remove("hide");
-      handleMouseMove([e.clientX, e.clientY]);
-    }, 35)); // ~33fps
-
-    document.addEventListener("mousedown", () => cursor.classList.add("small"));
-    document.addEventListener("mouseup", () => cursor.classList.remove("small"));
-
-    document.querySelectorAll<HTMLAnchorElement>("a, button").forEach(link => {
-      link.addEventListener("mouseenter", () => cursor.classList.add("large"));
-      link.addEventListener("mouseleave", () => cursor.classList.remove("large"));
-    });
-
-    document.querySelectorAll<HTMLElement>("[data-cursor-move]").forEach(el => {
-      el.addEventListener("mouseenter", () => cursor.classList.add(el.dataset.cursorMove!));
-      el.addEventListener("mouseleave", () => cursor.classList.remove(el.dataset.cursorMove!));
-    });
-
-    document.querySelectorAll<HTMLElement>("[data-cursor-shape]").forEach(el => {
-      el.addEventListener("mouseenter", () => cursor.classList.add(el.dataset.cursorShape!));
-      el.addEventListener("mouseleave", () => cursor.classList.remove(el.dataset.cursorShape!));
-    });
-
-    document.querySelectorAll<HTMLElement>("[data-cursor-size]").forEach(el => {
-      el.addEventListener("mouseenter", () => cursor.classList.add(el.dataset.cursorSize!));
-      el.addEventListener("mouseleave", () => cursor.classList.remove(el.dataset.cursorSize!));
-    });
-
-    document.querySelectorAll<HTMLElement>("[data-cursor-contents]").forEach(el => {
-      el.addEventListener("mouseenter", () => cursor.textContent = el.dataset.cursorContents!);
-      el.addEventListener("mouseleave", () => cursor.textContent = "");
-      // some of these elements may change their data-cursor-contents attribute on click
-      el.addEventListener("click", () => setTimeout(() => cursor.textContent = el.dataset.cursorContents!, 10));
-    });
-
-    document.querySelectorAll<HTMLElement>("[data-cursor-color]").forEach(el => {
-      el.addEventListener("mouseenter", () => {
-        cursor.style.setProperty("--cursor-background-color", el.dataset.cursorColor!);
-      });
-      el.addEventListener("mouseleave", () => cursor.style.setProperty("--cursor-background-color", null));
-    });
-
-    document.querySelectorAll<HTMLElement>("[data-cursor-regrow=true]").forEach(el => {
-      el.addEventListener("click", () => {
-        if (!cursor.classList.contains(el.dataset.cursorSize!)) {
-          return;
-        }
-        cursor.classList.remove(el.dataset.cursorSize!, "large");
-        const cursorReset = setTimeout(() => cursor.classList.add(el.dataset.cursorSize!), 1000);
-        el.addEventListener("click", () => clearTimeout(cursorReset), { once: true });
-        el.addEventListener("mouseleave", () => {
-          clearTimeout(cursorReset);
-          cursor.classList.remove(el.dataset.cursorSize!, "large")
-        }, { once: true });
-      });
+    cursor.registerEventHandlers({
+      onMove: gravityWell ? handleCursorMoveWithGravityWell : cursor.move
     });
 
     const connectToCursorPartySocket = () => {
@@ -335,6 +233,7 @@
       const removeCursor = (id: string) => {
         const cursorToDelete = getCursor(id);
         cursorToDelete?.classList.add("hide");
+        setInterval(()=> cursorToDelete?.classList.add("hide"), 80); // HACK
         setTimeout(() => cursorToDelete?.remove(), 500);
       };
 
@@ -356,8 +255,8 @@
         cursor.move([x, y]);
       };
 
-      socket.addEventListener("message", event => {
-        const data = parseCursorOutput(event.data);
+      socket.addEventListener("message", event => {        
+        const data = parseCursorEvent(event.data);
         switch (data?.type) {
           case "JOIN":
             createCursorPresence(data.id);
@@ -368,16 +267,12 @@
           case "UPDATE":
             // TODO: optimise mutations / reads, potentially move to fractional updates?
             // TODO: attract between multiple cursors, or only send closest neighbor
-            // TODO: dynamically import and run code only when cursor:pointer is true
-            const { id, message: { className, color, coords, textContent } } = data;
+            const { id, cursorState } = data;
             const cursorToUpdate = getCursor(id) ?? createCursorPresence(id);
-            cursorToUpdate.textContent = textContent;
-            cursorToUpdate.move(coords);
-            cursorToUpdate.style.setProperty("--cursor-background-color", color);
-            setTimeout(() => (cursorToUpdate.className = className), 8); // HACK: this small delay prevents an external cursor form appearing immediately after a refresh, if it is moving
+            cursorToUpdate.setState(cursorState)
             break;
           case "NEIGHBORS":
-            data.message.neighbors.forEach(attractCursor);
+            data.neighbors.forEach(attractCursor);
             break;
         }
       });
@@ -392,16 +287,12 @@
         }
 
         const cursorMutationObserver = new MutationObserver((() => {
-          socket.send(
-            serializeCursorInput({
-              className: cursor.className,
-              textContent: cursor.textContent,
-              // We must use `getComputedStyle`, as the `style.backgroundColor` value isn't known to others, if its a custom property itself
-              color: getComputedStyle(innerCursorWithComputedBackgroundColor).getPropertyValue("--cursor-background-color"), 
-              coords: cursor.position,
-              scrollY: window.scrollY,
-            })
-          );
+          socket.send(serializeCursorEvent({
+            id: "",
+            type: "UPDATE",
+            cursorState: cursor.getState(),
+            scrollY: window.scrollY,
+          }));
         }));
 
         cursorMutationObserver.observe(cursor, {

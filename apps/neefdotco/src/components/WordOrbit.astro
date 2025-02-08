@@ -139,7 +139,7 @@ const INNER_CIRCLE = words.splice(0, INNER_CIRCLE_WORD_COUNT);
 </style>
 
 <script>
-  import { throttle } from "utils/throttle";
+  import { throttle } from "@repo/utils/throttle.ts";
 
   const rings = document.querySelectorAll<HTMLElement>(".system .word-ring");
   rings.forEach((ring, i) => {
@@ -147,7 +147,7 @@ const INNER_CIRCLE = words.splice(0, INNER_CIRCLE_WORD_COUNT);
   });
 
   // only pull cursor once rings have completed their transitions
-  const system = document.querySelector<HTMLElement>(".system");
+  const system = document.querySelector<HTMLElement>(".system")!;
   setTimeout(() => (system.dataset.isActive = "true"), 400 + rings.length * 300);
 
   if ("ontouchstart" in document.documentElement && "DeviceOrientationEvent" in window) {
@@ -167,7 +167,7 @@ const INNER_CIRCLE = words.splice(0, INNER_CIRCLE_WORD_COUNT);
       object.addEventListener("click", () => {
         if (hasOrientationListener) {
           window.removeEventListener("deviceorientation", tiltOrbit);
-          rings.forEach(ring => (ring.style.rotate = null));
+          rings.forEach(ring => (ring.style.rotate = ""));
           hasOrientationListener = false;
           return;
         }
@@ -175,7 +175,7 @@ const INNER_CIRCLE = words.splice(0, INNER_CIRCLE_WORD_COUNT);
         // For iOS devices that need permission, we request it and only add the event listener
         // when granted. This is a noop if we already have permissions.
         if ("requestPermission" in DOE) {
-          DOE.requestPermission()
+          DOE.requestPermission?.()
             .then(state => {
               if (state === "granted") {
                 window.addEventListener("deviceorientation", tiltOrbit);

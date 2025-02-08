@@ -1,11 +1,11 @@
+import {
+  type CursorEvent,
+  parseCursorUpdateEvent,
+  serializeCursorEvent,
+} from "@repo/mouse/presenceEvents";
+import type { Vector } from "@repo/utils/math/types.ts";
 import { Delaunay } from "d3-delaunay";
 import type * as Party from "partykit/server";
-import {
-  type Coords,
-  type CursorOutput,
-  parseCursorInput,
-  serializeCursorOutput,
-} from "./utils";
 
 const MAX_CURSORS_SUPPORTED_IN_GRAPH = 512;
 
@@ -27,13 +27,12 @@ export default class Server implements Party.Server {
     return [index * 2, index * 2 + 1];
   };
 
-  updateCoordinatesInDelaunayGraph = (id: string, [x, y]: Coords) => {
+  updateCoordinatesInDelaunayGraph = (id: string, [x, y]: Vector<2>) => {
     const pointIndex = this.pointIndexMap.get(id);
     if (!pointIndex) {
       return;
     }
-    const [xLocation, yLocation] =
-      this.getFlattenedMatrixCoordinateIndicesFromIndex(pointIndex);
+    const [xLocation, yLocation] = this.getFlattenedMatrixCoordinateIndicesFromIndex(pointIndex);
     if (xLocation && yLocation) {
       this.delaunay.points[xLocation] = x;
       this.delaunay.points[yLocation] = y;
@@ -41,8 +40,8 @@ export default class Server implements Party.Server {
     }
   };
 
-  broadcastCursor = (output: CursorOutput, without?: string[]) => {
-    this.room.broadcast(serializeCursorOutput(output), without);
+  broadcastCursor = (event: CursorEvent, without?: string[]) => {
+    this.room.broadcast(serializeCursorEvent(event), without);
   };
 
   constructor(readonly room: Party.Room) {}
@@ -55,11 +54,19 @@ export default class Server implements Party.Server {
   };
 
   onMessage = (message: string, sender: Party.Connection) => {
-    const parsed = parseCursorInput(message);
-    const coords = [parsed.coords[0], parsed.coords[1] + parsed.scrollY] as Coords;
+    const parsed = parseCursorUpdateEvent(message);
+    const coords = [
+      parsed.cursorState.coords[0],
+      parsed.cursorState.coords[1] + parsed.scrollY,
+    ] as Vector<2>;
 
     this.broadcastCursor(
-      { id: sender.id, type: "UPDATE", message: { ...parsed, coords } },
+      {
+        id: sender.id,
+        type: "UPDATE",
+        cursorState: { ...parsed.cursorState, coords },
+        scrollY: parsed.scrollY,
+      },
       [sender.id]
     );
 
@@ -72,7 +79,7 @@ export default class Server implements Party.Server {
       this.broadcastCursor({
         id: sender.id,
         type: "NEIGHBORS",
-        message: { neighbors },
+        neighbors,
       });
       return;
     }
@@ -81,7 +88,7 @@ export default class Server implements Party.Server {
       this.broadcastCursor({
         id: sender.id,
         type: "NEIGHBORS",
-        message: { neighbors: [] },
+        neighbors: [],
       });
       return;
     }
@@ -97,10 +104,10 @@ export default class Server implements Party.Server {
         }
       }
       this.room.getConnection(id)?.send(
-        serializeCursorOutput({
+        serializeCursorEvent({
           id,
           type: "NEIGHBORS",
-          message: { neighbors: neighborIds },
+          neighbors: neighborIds,
         })
       );
     });
