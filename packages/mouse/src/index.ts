@@ -1,6 +1,9 @@
 import type { Vector } from "@repo/utils/math/types";
 import { throttle } from "@repo/utils/throttle";
 
+// @ts-expect-error -- TODO: comment about vite
+import stylesString from "./styles.css?inline";
+
 export class Cursor extends HTMLElement {
   private cursorOuterElement!: HTMLDivElement;
   private cursorContentsElement!: HTMLDivElement;
@@ -10,11 +13,22 @@ export class Cursor extends HTMLElement {
     const cursorContents = document.createElement("div");
     const cursorTransitionOverlay = document.createElement("div");
 
-    this.classList.add("hide");
-    this.appendChild(cursorOuter).classList.add("cursor-outer");
-    cursorOuter.appendChild(cursorContents).classList.add("cursor-contents");
-    this.appendChild(cursorTransitionOverlay).classList.add("cursor-transition-overlay");
+    const shadowRoot = this.attachShadow({ mode: "open" });
 
+    cursorOuter.appendChild(cursorContents).classList.add("cursor-contents");
+    shadowRoot.appendChild(cursorOuter).classList.add("cursor-outer");
+    shadowRoot.appendChild(cursorTransitionOverlay).classList.add("cursor-transition-overlay");
+
+    const template = document.createElement("template");
+    template.innerHTML = `
+    <style>
+    ${stylesString}
+    </style>
+    `;
+
+    shadowRoot.appendChild(template.content.cloneNode(true));
+    
+    this.classList.add("hide");
     this.cursorOuterElement = cursorOuter;
     this.cursorContentsElement = cursorContents;
   }
