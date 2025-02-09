@@ -139,7 +139,7 @@ const INNER_CIRCLE = words.splice(0, INNER_CIRCLE_WORD_COUNT);
 </style>
 
 <script>
-  import { throttle } from "@repo/utils/throttle.ts";
+  import { throttle } from "@repo/utils/throttle";
 
   const rings = document.querySelectorAll<HTMLElement>(".system .word-ring");
   rings.forEach((ring, i) => {

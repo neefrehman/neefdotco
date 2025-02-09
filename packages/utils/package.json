@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.0.1",
   "exports": {
-    "./*": "./src/*"
+    "./*": "./src/*.ts"
   },
   "devDependencies": {
     "@total-typescript/tsconfig": "1.0.4",

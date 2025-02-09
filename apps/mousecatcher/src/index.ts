@@ -1,9 +1,6 @@
-import {
-  type CursorEvent,
-  parseCursorUpdateEvent,
-  serializeCursorEvent,
-} from "@repo/mouse/presenceEvents";
-import type { Vector } from "@repo/utils/math/types.ts";
+import { type CursorEvent, parseCursorEvent, serializeCursorEvent } from "@repo/mouse/presence";
+import type { Vector } from "@repo/utils/math/types";
+import { tryCatch } from "@repo/utils/tryCatch";
 import { Delaunay } from "d3-delaunay";
 import type * as Party from "partykit/server";
 
@@ -54,7 +51,12 @@ export default class Server implements Party.Server {
   };
 
   onMessage = (message: string, sender: Party.Connection) => {
-    const parsed = parseCursorUpdateEvent(message);
+    const [error, parsed] = tryCatch(() => parseCursorEvent(message));
+
+    if (error || !parsed || parsed.type !== "UPDATE") {
+      return;
+    }
+
     const coords = [
       parsed.cursorState.coords[0],
       parsed.cursorState.coords[1] + parsed.scrollY,

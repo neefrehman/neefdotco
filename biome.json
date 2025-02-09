@@ -46,7 +46,12 @@
     },
     {
       "include": ["packages/mouse/src/index.ts"],
-      "linter": { "rules": { "style": { "noNonNullAssertion": "off" } } }
+      "linter": {
+        "rules": {
+          "style": { "noNonNullAssertion": "off" },
+          "suspicious": { "noAssignInExpressions": "off" }
+        }
+      }
     }
   ]
 }

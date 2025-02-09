@@ -92,7 +92,7 @@
     }
 
     &.hide {
-      --cursor-scale: 0 !important;
+      --cursor-scale: 0;
       --cursor-transition-overlay-scale: 0;
       --cursor-contents-scale: 0;
     }
@@ -148,13 +148,13 @@
 </style>
 
 <script>
-  import { getDistance } from "@repo/utils/math/getDistance.ts";
-  import { lerpVector } from "@repo/utils/math/lerp.ts";
-  import { mapToRange } from "@repo/utils/math/mapToRange.ts";
+  import { getDistance } from "@repo/utils/math/getDistance";
+  import { lerpVector } from "@repo/utils/math/lerp";
+  import { mapToRange } from "@repo/utils/math/mapToRange";
   import { Cursor } from "@repo/mouse";
-  import { parseCursorEvent, serializeCursorEvent } from "@repo/mouse/presenceEvents";
-
-  import { throttle } from "@repo/utils/throttle.ts";
+  import { parseCursorEvent, serializeCursorEvent } from "@repo/mouse/presence";
+  import { throttle } from "@repo/utils/throttle";
+  import { tryCatch } from "@repo/utils/tryCatch";
 
   customElements.define("custom-cursor", Cursor);
   
@@ -233,7 +233,7 @@
       const removeCursor = (id: string) => {
         const cursorToDelete = getCursor(id);
         cursorToDelete?.classList.add("hide");
-        setInterval(()=> cursorToDelete?.classList.add("hide"), 80); // HACK
+        setInterval(() => cursorToDelete?.classList.add("hide"), 80); // HACK
         setTimeout(() => cursorToDelete?.remove(), 500);
       };
 
@@ -256,7 +256,7 @@
       };
 
       socket.addEventListener("message", event => {        
-        const data = parseCursorEvent(event.data);
+        const [_, data] = tryCatch(() => parseCursorEvent(event.data));
         switch (data?.type) {
           case "JOIN":
             createCursorPresence(data.id);
@@ -264,15 +264,21 @@
           case "LEAVE":
             removeCursor(data.id);
             break;
+          case "NEIGHBORS":
+            data.neighbors.forEach(attractCursor);
+            break;
           case "UPDATE":
             // TODO: optimise mutations / reads, potentially move to fractional updates?
             // TODO: attract between multiple cursors, or only send closest neighbor
             const { id, cursorState } = data;
             const cursorToUpdate = getCursor(id) ?? createCursorPresence(id);
-            cursorToUpdate.setState(cursorState)
-            break;
-          case "NEIGHBORS":
-            data.neighbors.forEach(attractCursor);
+
+            cursorToUpdate.textContent = cursorState.textContent;
+            cursorToUpdate.move(cursorState.coords);
+            cursorToUpdate.color = cursorState.color;
+            setTimeout(() => {
+              cursorToUpdate.className = cursorState.className;
+            }, 8); // HACK: prevents an external cursor appearing immediately after a refresh, if it is moving
             break;
         }
       });
@@ -290,7 +296,12 @@
           socket.send(serializeCursorEvent({
             id: "",
             type: "UPDATE",
-            cursorState: cursor.getState(),
+            cursorState: {
+              className: cursor.className,
+              textContent: cursor.textContent,
+              coords: cursor.position,
+              color: cursor.color,
+            },
             scrollY: window.scrollY,
           }));
         }));

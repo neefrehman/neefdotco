@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "exports": {
     ".": "./src/index.ts",
-    "./presenceEvents": "./src/presenceEvents.ts"
+    "./presence": "./src/presence.ts"
   },
   "devDependencies": {
     "@repo/utils": "workspace:*",

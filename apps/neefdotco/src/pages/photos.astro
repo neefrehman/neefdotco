@@ -145,7 +145,7 @@ const spacerElementList = [...Array(Math.ceil(photos.length * 0.4))];
 </style>
 
 <script>
-  import { shuffle } from "@repo/utils/math/shuffle.ts";
+  import { shuffle } from "@repo/utils/math/shuffle";
 
   const photoContainer = document.querySelector(".photo-container");
   const photos = photoContainer.querySelectorAll<HTMLElement>(":scope > *");
