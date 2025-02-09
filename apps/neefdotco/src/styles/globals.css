@@ -3,6 +3,18 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
+  /* Lighten bundle by removing some of tailwind's default theme */
+  --color-*: initial;
+  --font-*: initial;
+  --shadow-*: initial;
+  --inset-shadow-*: initial;
+  --drop-shadow-*: initial;
+  --blur-*: initial;
+  --perspective-*: initial;
+  --aspect-*: initial;
+  --ease-*: initial;
+  --animate-*: initial;
+
   --breakpoint-2xl: 1440px;
 }
 
