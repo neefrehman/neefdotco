@@ -64,19 +64,6 @@ export class Cursor extends HTMLElement {
     this.dispatchStateChange(name, newValue);
   }
 
-  private currentPosition: Vector<2> = [0, 0];
-  public move = throttle(([x, y]: Vector<2>) => {
-    this.currentPosition = [x, y];
-    this.cursorRootElement.style.translate = `${x}px ${y}px`;
-    this.dispatchStateChange("position", [x, y]);
-  }, 35); // ~33fps
-  public get position() {
-    return this.currentPosition;
-  }
-  public set position(pos: Vector<2>) {
-    this.move(pos);
-  }
-
   public get visibility() {
     return this.getAttribute("visibility");
   }
@@ -118,6 +105,19 @@ export class Cursor extends HTMLElement {
       "--cursor-background-color"
     );
     this.setAttribute("color", computed);
+  }
+
+  private currentPosition: Vector<2> = [0, 0];
+  public move = throttle(([x, y]: Vector<2>) => {
+    this.currentPosition = [x, y];
+    this.cursorRootElement.style.translate = `${x}px ${y}px`;
+    this.dispatchStateChange("position", [x, y]);
+  }, 35); // ~33fps
+  public get position() {
+    return this.currentPosition;
+  }
+  public set position(pos: Vector<2>) {
+    this.move(pos);
   }
 
   private clearCursorTextTimeout = setTimeout(() => void 0);
