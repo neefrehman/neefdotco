@@ -82,6 +82,8 @@ const {
 </html>
 
 <script>
+  import type { Cursor } from "@repo/mouse";
+
   if (matchMedia("(pointer:fine)").matches) {
     // mutable as sometimes these elements change after initial load (e.g. with photos)
     let transitionElements = document.querySelectorAll("[data-transition-element=true]");
@@ -104,11 +106,10 @@ const {
             fetchPriority: "high",
           })
         );
-        
-        // We need to target the cursor specifically so that we don't affect external cursors
-        // TODO: find a way to drive this with `body.dataset.exiting`, in a way that doesn't interfere
-        //       multi-cursor page transitions, and can be sent over a websocket.
-        setTimeout(() => document.querySelector<HTMLElement>("#user-cursor").classList.add("exiting"), 200);
+
+        const cursor = document.querySelector<Cursor>("#user-cursor")
+        cursor?.setAttribute("size", "lg")
+        setTimeout(() => cursor?.setAttribute("visibility", "exiting"), 200);
         
         // start adding 'loaded' states to all elements that have more detailed loading
         // animations that require them to be "index-aware".

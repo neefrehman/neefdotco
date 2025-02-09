@@ -51,22 +51,35 @@ export default class Server implements Party.Server {
   };
 
   onMessage = (message: string, sender: Party.Connection) => {
-    const [error, parsed] = tryCatch(() => parseCursorEvent(message));
+    const [_, parsed] = tryCatch(() => parseCursorEvent(message));
 
-    if (error || !parsed || parsed.type !== "UPDATE") {
+    if (parsed?.type !== "UPDATE") {
       return;
     }
 
-    const coords = [
-      parsed.cursorState.coords[0],
-      parsed.cursorState.coords[1] + parsed.scrollY,
+    if (!parsed.cursorState?.position) {
+      this.broadcastCursor(
+        {
+          id: sender.id,
+          type: "UPDATE",
+          cursorState: parsed.cursorState,
+          scrollY: parsed.scrollY,
+        },
+        [sender.id]
+      );
+      return;
+    }
+
+    const position = [
+      parsed.cursorState.position[0],
+      parsed.cursorState.position[1] + parsed.scrollY,
     ] as Vector<2>;
 
     this.broadcastCursor(
       {
         id: sender.id,
         type: "UPDATE",
-        cursorState: { ...parsed.cursorState, coords },
+        cursorState: { ...parsed.cursorState, position },
         scrollY: parsed.scrollY,
       },
       [sender.id]
@@ -95,7 +108,7 @@ export default class Server implements Party.Server {
       return;
     }
 
-    this.updateCoordinatesInDelaunayGraph(sender.id, coords);
+    this.updateCoordinatesInDelaunayGraph(sender.id, position);
     this.pointIndexMap.forEach((index, id) => {
       const neighborIds = [];
       for (const neighborIndex of this.delaunay.neighbors(index)) {

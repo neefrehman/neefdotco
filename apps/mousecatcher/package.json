@@ -3,7 +3,8 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "partykit dev"
+    "dev": "partykit dev",
+    "deploy": "partykit deploy"
   },
   "dependencies": {
     "@repo/mouse": "workspace:*",

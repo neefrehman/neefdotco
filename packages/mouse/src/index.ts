@@ -1,65 +1,174 @@
 import type { Vector } from "@repo/utils/math/types";
 import { throttle } from "@repo/utils/throttle";
+import type { HintedString } from "@repo/utils/types";
 
-// @ts-expect-error -- TODO: comment about vite
+// @ts-expect-error -- HACK: here we rely on the fact that the (currently only) consumer
+// of this packages uses vite for bundling, which can import this file as a string.
 import stylesString from "./styles.css?inline";
 
+const styleTemplate = document.createElement("template");
+styleTemplate.innerHTML = `<style>${stylesString}</style>`;
+
+type CursorState = {
+  position: Vector<2> | null;
+  visibility: HintedString<"hidden" | "shown" | "exiting"> | null;
+  size: HintedString<"sm" | "md" | "lg" | "xl" | "xxl" | "xxxl"> | null;
+  placement: HintedString<"center" | "top" | "bottom" | "left" | "right"> | null;
+  shape: HintedString<"circle" | "square"> | null;
+  color: string | null;
+  textContent: string | null;
+};
+
 export class Cursor extends HTMLElement {
-  private cursorOuterElement!: HTMLDivElement;
+  private cursorRootElement!: HTMLDivElement;
   private cursorContentsElement!: HTMLDivElement;
 
   private connectedCallback() {
+    const shadowRoot = this.attachShadow({ mode: "open" });
+
+    const cursorRoot = document.createElement("div");
     const cursorOuter = document.createElement("div");
     const cursorContents = document.createElement("div");
     const cursorTransitionOverlay = document.createElement("div");
 
-    const shadowRoot = this.attachShadow({ mode: "open" });
+    shadowRoot.appendChild(styleTemplate.content.cloneNode(true));
+    shadowRoot.appendChild(cursorRoot).classList.add("cursor-root");
 
+    cursorRoot.appendChild(cursorOuter).classList.add("cursor-outer");
+    cursorRoot.appendChild(cursorTransitionOverlay).classList.add("cursor-transition-overlay");
     cursorOuter.appendChild(cursorContents).classList.add("cursor-contents");
-    shadowRoot.appendChild(cursorOuter).classList.add("cursor-outer");
-    shadowRoot.appendChild(cursorTransitionOverlay).classList.add("cursor-transition-overlay");
 
-    const template = document.createElement("template");
-    template.innerHTML = `
-    <style>
-    ${stylesString}
-    </style>
-    `;
-
-    shadowRoot.appendChild(template.content.cloneNode(true));
-    
-    this.classList.add("hide");
-    this.cursorOuterElement = cursorOuter;
+    this.cursorRootElement = cursorRoot;
     this.cursorContentsElement = cursorContents;
+
+    this.visibility = "hidden";
+  }
+
+  private dispatchStateChange = <K extends keyof CursorState>(key: K, value: CursorState[K]) => {
+    this.shadowRoot?.dispatchEvent(
+      new CustomEvent<Partial<CursorState>>("statechange", {
+        composed: true,
+        detail: { [key]: key === "position" ? this.currentPosition : value },
+      })
+    );
+  };
+
+  public static observedAttributes: (keyof CursorState)[] = [
+    "size",
+    "color",
+    "placement",
+    "shape",
+    "visibility",
+  ];
+  private attributeChangedCallback(name: keyof CursorState, _: string, newValue: string) {
+    this.dispatchStateChange(name, newValue);
+  }
+
+  private currentPosition: Vector<2> = [0, 0];
+  public move = throttle(([x, y]: Vector<2>) => {
+    this.currentPosition = [x, y];
+    this.cursorRootElement.style.translate = `${x}px ${y}px`;
+    this.dispatchStateChange("position", [x, y]);
+  }, 35); // ~33fps
+  public get position() {
+    return this.currentPosition;
+  }
+  public set position(pos: Vector<2>) {
+    this.move(pos);
+  }
+
+  public get visibility() {
+    return this.getAttribute("visibility");
+  }
+  public set visibility(visibility: CursorState["visibility"]) {
+    this.setAttribute("visibility", visibility ?? "shown");
+  }
+
+  public get size() {
+    return this.getAttribute("size");
+  }
+  public set size(size: CursorState["size"]) {
+    if (this.size === size) {
+      return;
+    }
+    this.setAttribute("size", size ?? "md");
+  }
+
+  public get placement() {
+    return this.getAttribute("placement");
+  }
+  public set placement(placement: CursorState["placement"]) {
+    this.setAttribute("placement", placement ?? "center");
+  }
+
+  public get shape() {
+    return this.getAttribute("shape");
+  }
+  public set shape(shape: CursorState["shape"]) {
+    this.setAttribute("shape", shape ?? "circle");
+  }
+
+  public get color() {
+    return this.getAttribute("color");
+  }
+  public set color(color: CursorState["color"]) {
+    this.cursorRootElement.style.setProperty("--cursor-background-color", color);
+    // We must use `getComputedStyle`, as `style.backgroundColor` is not known to clients with different custom property values.
+    const computed = getComputedStyle(this.cursorRootElement).getPropertyValue(
+      "--cursor-background-color"
+    );
+    this.setAttribute("color", computed);
+  }
+
+  private clearCursorTextTimeout = setTimeout(() => void 0);
+  override set textContent(text: CursorState["textContent"]) {
+    this.dispatchStateChange("textContent", text);
+    if (!text) {
+      this.setAttribute("contents-type", "none");
+      this.clearCursorTextTimeout = setTimeout(() => {
+        this.cursorContentsElement.textContent = "";
+      }, 500);
+      return;
+    }
+    this.setAttribute("contents-type", ["+", "-", "–", "—"].includes(text) ? "small" : "regular");
+    this.cursorContentsElement.textContent = text;
+    clearTimeout(this.clearCursorTextTimeout);
+  }
+  override get textContent() {
+    return this.cursorContentsElement.textContent;
   }
 
   public registerEventHandlers = ({
     onMove = this.move,
-  }: { onMove?: (coords: Vector<2>) => void }) => {
-    document.addEventListener("mousemove", () => this.classList.remove("hide"), { once: true });
+  }: {
+    onMove?: (coords: Vector<2>) => void;
+  }) => {
+    document.addEventListener("mousemove", () => (this.visibility = "shown"), { once: true });
     document.addEventListener("mousemove", e => onMove([e.clientX, e.clientY]));
 
-    document.addEventListener("mousedown", () => this.classList.add("small"));
-    document.addEventListener("mouseup", () => this.classList.remove("small"));
+    document.addEventListener("mousedown", () => {
+      if (this.size === "md") this.size = "sm";
+    });
+    document.addEventListener("mouseup", () => (this.size = "md"));
 
-    document.querySelectorAll<HTMLAnchorElement>("a, button").forEach(link => {
-      link.addEventListener("mouseenter", () => this.classList.add("large"));
-      link.addEventListener("mouseleave", () => this.classList.remove("large"));
+    document.querySelectorAll<HTMLElement>("a, button").forEach(link => {
+      link.addEventListener("mouseenter", () => (this.size = "lg"));
+      link.addEventListener("mouseleave", () => (this.size = "md"));
     });
 
-    document.querySelectorAll<HTMLElement>("[data-cursor-move]").forEach(el => {
-      el.addEventListener("mouseenter", () => this.classList.add(el.dataset.cursorMove!));
-      el.addEventListener("mouseleave", () => this.classList.remove(el.dataset.cursorMove!));
+    document.querySelectorAll<HTMLElement>("[data-cursor-placement]").forEach(el => {
+      el.addEventListener("mouseenter", () => (this.placement = el.dataset.cursorPlacement!));
+      el.addEventListener("mouseleave", () => (this.placement = el.dataset.cursorPlacement!));
     });
 
     document.querySelectorAll<HTMLElement>("[data-cursor-shape]").forEach(el => {
-      el.addEventListener("mouseenter", () => this.classList.add(el.dataset.cursorShape!));
-      el.addEventListener("mouseleave", () => this.classList.remove(el.dataset.cursorShape!));
+      el.addEventListener("mouseenter", () => (this.shape = el.dataset.cursorShape!));
+      el.addEventListener("mouseleave", () => (this.shape = "circle"));
     });
 
     document.querySelectorAll<HTMLElement>("[data-cursor-size]").forEach(el => {
-      el.addEventListener("mouseenter", () => this.classList.add(el.dataset.cursorSize!));
-      el.addEventListener("mouseleave", () => this.classList.remove(el.dataset.cursorSize!));
+      el.addEventListener("mouseenter", () => (this.size = el.dataset.cursorSize!));
+      el.addEventListener("mouseleave", () => (this.size = "md"));
     });
 
     document.querySelectorAll<HTMLElement>("[data-cursor-contents]").forEach(el => {
@@ -77,59 +186,48 @@ export class Cursor extends HTMLElement {
 
     document.querySelectorAll<HTMLElement>("[data-cursor-regrow=true]").forEach(el => {
       el.addEventListener("click", () => {
-        if (!this.classList.contains(el.dataset.cursorSize!)) {
+        if (this.size === el.dataset.cursorSize!) {
           return;
         }
-        this.classList.remove(el.dataset.cursorSize!, "large");
-        const cursorReset = setTimeout(() => this.classList.add(el.dataset.cursorSize!), 1000);
+        this.size = "md";
+        const cursorReset = setTimeout(() => (this.size = el.dataset.cursorSize!), 1000);
         el.addEventListener("click", () => clearTimeout(cursorReset), { once: true });
         el.addEventListener(
           "mouseleave",
           () => {
             clearTimeout(cursorReset);
-            this.classList.remove(el.dataset.cursorSize!, "large");
+            this.size = "md";
           },
           { once: true }
         );
       });
     });
+
+    let keydownTimeout: NodeJS.Timeout;
+    window.addEventListener("keydown", e => {
+      clearTimeout(keydownTimeout);
+      const clearCursor = () => {
+        this.size = "md";
+        this.textContent = "";
+      };
+      const setCursor = (string: string) => {
+        this.textContent = string;
+        this.size = "lg";
+        keydownTimeout = setTimeout(clearCursor, 1500);
+      };
+      if (e.key === "Backspace") {
+        clearCursor();
+        return;
+      }
+      if (document.activeElement?.tagName !== "BODY" || e.key.length !== 1) {
+        return;
+      }
+      if (this.textContent === e.key) {
+        this.textContent = "";
+        setTimeout(() => setCursor(e.key), 100);
+        return;
+      }
+      setCursor(e.key);
+    });
   };
-
-  public position: Vector<2> = [0, 0];
-  public move = throttle(([x, y]: Vector<2>) => {
-    this.position = [x, y];
-    this.style.translate = `${x}px ${y}px`;
-  }, 35); // ~33fps
-
-  private clearCursorTextTimeout = setTimeout(() => void 0);
-  override set textContent(text: string) {
-    if (text === "") {
-      this.classList.remove("has-contents");
-      this.clearCursorTextTimeout = setTimeout(() => {
-        this.cursorContentsElement.textContent = "";
-      }, 500);
-      return;
-    }
-
-    // annoyingly some characters, like +/-, aren't quite the right size in Fleuron
-    ["+", "-", "–", "—"].includes(text)
-      ? this.classList.add("contents-small-chars")
-      : this.classList.remove("contents-small-chars");
-    this.classList.add("has-contents");
-    this.cursorContentsElement.textContent = text;
-    clearTimeout(this.clearCursorTextTimeout);
-  }
-
-  override get textContent() {
-    return this.cursorContentsElement.textContent ?? "";
-  }
-
-  public get color() {
-    // We must use `getComputedStyle`, as the `style.backgroundColor` is value not known to clients with different custom property values.
-    return getComputedStyle(this.cursorOuterElement).getPropertyValue("--cursor-background-color");
-  }
-
-  public set color(color: string) {
-    this.style.setProperty("--cursor-background-color", color);
-  }
 }

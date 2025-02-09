@@ -5,7 +5,7 @@
   data-dark-mode-toggle="true"
   data-cursor-regrow="true"
   data-cursor-color="var(--opposite-mode-background)"
-  data-cursor-size="xx-large"
+  data-cursor-size="xxl"
   class="before:inline before:content-['dark'] dark:before:content-['light']"
 >
   mode</a
@@ -15,8 +15,6 @@
   const darkModeToggle = document.querySelector<HTMLAnchorElement>("[data-dark-mode-toggle]");
   const baseColor = document.documentElement.style.getPropertyValue("--base-color");
   const favicon = document.querySelector<HTMLLinkElement>("link[rel=icon][type='image/svg+xml']");
-  /* See comment in layout as to why this are commented out */
-  // const themeMeta = document.querySelector("meta[name=theme-color]");
 
   const onDarkModeChange = (updateLocalStorage?: boolean) => {
     const isDark = document.documentElement.classList.contains("dark");
@@ -26,21 +24,20 @@
     favicon.href = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Crect fill='${encodeURIComponent(
       colorAsHsl
     )}' x='0' y='0' width='32' height='32'%3E%3C/rect%3E%3C/svg%3E`;
-    // themeMeta.content = colorAsHsl;
 
     if (updateLocalStorage) localStorage.setItem("darkMode", isDark ? "1" : "0");
   };
 
   onDarkModeChange();
 
-  darkModeToggle.addEventListener("click", e => {
+  darkModeToggle?.addEventListener("click", e => {
     e.preventDefault();
     document.documentElement.classList.toggle("dark");
     onDarkModeChange(true);
   });
 
   // Because the toggle is an achor element (for styling reasons), we must re-implement keyboard events
-  darkModeToggle.addEventListener("keydown", e => {
+  darkModeToggle?.addEventListener("keydown", e => {
     if (e.key === " " || e.key === "Enter") {
       e.preventDefault();
       darkModeToggle.click();

@@ -2,147 +2,11 @@
 
 <custom-cursor id="user-cursor" />
 
-<style is:global>
+<style>
   .cursor-presence-container {
     custom-cursor {
       position: absolute;
       z-index: -5;
-    }
-  }
-
-  custom-cursor {
-    --cursor-radius: 1rem;
-    --cursor-scale: 1;
-    --cursor-transition-overlay-scale: 0;
-    --cursor-contents-scale: 0;
-    --cursor-background-color: var(--primary-color-mid);
-    --cursor-transition-overlay-background-color: var(--background-color);
-    --cursor-border-radius: 100%;
-    --cursor-up: 0rem;
-    --cursor-down: 0rem;
-    --cursor-left: 0rem;
-    --cursor-right: 0rem;
-
-    position: fixed;
-    pointer-events: none;
-    z-index: -1;
-    top: calc((var(--cursor-radius) * -1) + ((var(--cursor-down) - var(--cursor-up)) * var(--cursor-scale)));
-    left: calc((var(--cursor-radius) * -1) + ((var(--cursor-right) - var(--cursor-left)) * var(--cursor-scale)));
-    transition:
-      translate 85ms,
-      top 430ms cubic-bezier(1, 0.1, 0.1, 1),
-      left 430ms cubic-bezier(1, 0.1, 0.1, 1);
-
-    @media (pointer: coarse) {
-      display: none;
-    }
-
-    .cursor-outer,
-    .cursor-transition-overlay {
-      position: fixed;
-      border-radius: var(--cursor-border-radius);
-      width: calc(var(--cursor-radius) * 2);
-      height: calc(var(--cursor-radius) * 2);
-    }
-
-    .cursor-outer {
-      overflow: hidden;
-      background-color: var(--cursor-background-color);
-      scale: var(--cursor-scale);
-      transition:
-        scale 430ms cubic-bezier(1, 0.1, 0.1, 1),
-        background-color 200ms ease-in-out,
-        border-radius 720ms ease;
-    }
-
-    .cursor-transition-overlay {
-      background-color: var(--cursor-transition-overlay-background-color);
-      scale: var(--cursor-transition-overlay-scale);
-      transition:
-        scale 780ms cubic-bezier(1, 0.1, 0.1, 1) 220ms,
-        background-color 200ms ease-in-out,
-        border-radius 430ms cubic-bezier(1, 0.1, 0.1, 1);
-    }
-
-    .cursor-contents {
-      font-size: 0.8em;
-      font-weight: bold;
-      display: block;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      translate: -50% -50%;
-      scale: var(--cursor-contents-scale);
-      transition:
-        translate 720ms ease,
-        scale 720ms ease;
-    }
-
-    &.small {
-      --cursor-scale: 0.5;
-    }
-    &.large {
-      --cursor-scale: 2.5;
-    }
-    &.x-large {
-      --cursor-scale: 3.5;
-    }
-    &.xx-large {
-      --cursor-scale: 5;
-    }
-
-    &.hide {
-      --cursor-scale: 0;
-      --cursor-transition-overlay-scale: 0;
-      --cursor-contents-scale: 0;
-    }
-
-    &.square {
-      --cursor-border-radius: 10%;
-    }
-
-    &.has-contents {
-      --cursor-contents-scale: 1;
-    }
-
-    &.contents-small-chars .cursor-contents {
-      font-weight: normal;
-      font-size: 2.2em;
-      top: 52%;
-    }
-
-    &.up {
-      --cursor-up: 1.2em;
-    }
-    &.down {
-      --cursor-down: 1.2em;
-    }
-    &.left {
-      --cursor-left: 1.2em;
-    }
-    &.right {
-      --cursor-right: 1.2em;
-    }
-
-    &.in-gravity-well {
-      --cursor-scale: 6;
-
-      transition: translate 200ms ease-out; /* Slower movement due to gravity */
-
-      .cursor-outer {
-        transition: scale 430ms ease; /* Slower growth in size to show off effect */
-      }
-
-      &.small {
-        --cursor-scale: 7;
-      }
-    }
-
-    &.exiting {
-      --cursor-scale: 1.33;
-      --cursor-transition-overlay-scale: 1.35;
-      --cursor-contents-scale: 0;
-      --cursor-transition-overlay-background-color: var(--background-color);
     }
   }
 </style>
@@ -152,8 +16,7 @@
   import { lerpVector } from "@repo/utils/math/lerp";
   import { mapToRange } from "@repo/utils/math/mapToRange";
   import { Cursor } from "@repo/mouse";
-  import { parseCursorEvent, serializeCursorEvent } from "@repo/mouse/presence";
-  import { throttle } from "@repo/utils/throttle";
+  import { parseCursorEvent, serializeCursorEvent, type CursorState } from "@repo/mouse/presence";
   import { tryCatch } from "@repo/utils/tryCatch";
 
   customElements.define("custom-cursor", Cursor);
@@ -177,7 +40,9 @@
       const distanceToWell = getDistance([wellCenterX, wellCenterY], [mouseX, mouseY]);
 
       if (distanceToWell > weakPullThreshold || !gravityWell.dataset.isActive) {
-        cursor.classList.remove("in-gravity-well");
+        if (cursor.size === "xxxl") {
+          cursor.size = "md"
+        }
         cursor.move([mouseX, mouseY]);
         if (gravityWell.dataset.cursorContentsInWell) {
           cursor.textContent = "";
@@ -185,7 +50,7 @@
         return;
       }
 
-      if (distanceToWell > strongPullThreshold && !cursor.classList.contains("in-gravity-well")) {
+      if (distanceToWell > strongPullThreshold && cursor.size !== "xxxl") {
         const [x, y] = lerpVector(
           [mouseX, mouseY],
           [wellCenterX, wellCenterY],
@@ -195,7 +60,9 @@
         return;
       }
 
-      cursor.classList.add("in-gravity-well");
+      if (cursor.size !== "xxxl") {
+        cursor.size = "xxxl"
+      }
       const [x, y] = lerpVector(
         [wellCenterX, wellCenterY],
         [mouseX, mouseY],
@@ -211,7 +78,7 @@
       onMove: gravityWell ? handleCursorMoveWithGravityWell : cursor.move
     });
 
-    const connectToCursorPartySocket = () => {
+    const connectToPresenceSocket = () => {
       const page = window.location.pathname.replace("/", "") || "index";
       const socket = new WebSocket(`${import.meta.env.PUBLIC_SOCKET_URL}/parties/main/${page}`);
 
@@ -232,8 +99,10 @@
 
       const removeCursor = (id: string) => {
         const cursorToDelete = getCursor(id);
-        cursorToDelete?.classList.add("hide");
-        setInterval(() => cursorToDelete?.classList.add("hide"), 80); // HACK
+        if (!cursorToDelete) {
+          return
+        }
+        cursorToDelete.visibility = "hidden"
         setTimeout(() => cursorToDelete?.remove(), 500);
       };
 
@@ -268,83 +137,41 @@
             data.neighbors.forEach(attractCursor);
             break;
           case "UPDATE":
-            // TODO: optimise mutations / reads, potentially move to fractional updates?
-            // TODO: attract between multiple cursors, or only send closest neighbor
             const { id, cursorState } = data;
             const cursorToUpdate = getCursor(id) ?? createCursorPresence(id);
-
-            cursorToUpdate.textContent = cursorState.textContent;
-            cursorToUpdate.move(cursorState.coords);
-            cursorToUpdate.color = cursorState.color;
-            setTimeout(() => {
-              cursorToUpdate.className = cursorState.className;
-            }, 8); // HACK: prevents an external cursor appearing immediately after a refresh, if it is moving
+            Object.assign(cursorToUpdate, cursorState)            
             break;
         }
       });
 
       let connectRetryInterval: NodeJS.Timeout;
       socket.addEventListener("open", () => {
+        const eventAbortController = new AbortController()
         clearInterval(connectRetryInterval);
-        const innerCursorWithComputedBackgroundColor = cursor.querySelector<HTMLDivElement>(".cursor-outer");
 
-        if (!innerCursorWithComputedBackgroundColor) {
-          return
-        }
-
-        const cursorMutationObserver = new MutationObserver((() => {
+        cursor.addEventListener("statechange", (e: CustomEventInit<CursorState>) => {
           socket.send(serializeCursorEvent({
             id: "",
             type: "UPDATE",
-            cursorState: {
-              className: cursor.className,
-              textContent: cursor.textContent,
-              coords: cursor.position,
-              color: cursor.color,
-            },
+            cursorState: e.detail,
             scrollY: window.scrollY,
           }));
-        }));
-
-        cursorMutationObserver.observe(cursor, {
-          childList: true,
-          subtree: true,
-          attributeFilter: ["position", "class", "style"],
-        });
-
-        // ensures we trigger the mutation observer when the user scrolls, instead of waiting for the mouse to move after scrolling
-        const handleScroll = throttle(() => (cursor.className = cursor.className), 30);
-        document.addEventListener("scroll", handleScroll);
-
-        let keydownTimeout: NodeJS.Timeout;
-        window.addEventListener("keydown", (e) => {
-          const clearCursor = () => {
-            cursor.classList.remove("large");
-            cursor.textContent = "";
-          };
-          clearTimeout(keydownTimeout);
-          if (e.key === "Backspace") {
-            clearCursor()
-            return;
-          }
-          if (document.activeElement?.tagName !== "BODY" || e.key.length !== 1) {
-            return;
-          }
-          if (cursor.textContent === e.key && cursor.classList.contains("has-contents")) {
-            cursor.classList.remove("has-contents");
-            setTimeout(() => cursor.classList.add("has-contents"), 100);
-            return;
-          }
-          cursor.textContent = e.key;
-          cursor.classList.add("large");
-          keydownTimeout = setTimeout(clearCursor, 1500);
+        }, eventAbortController)
+        
+        // Trigger some initial `statechange` events, to be dispatched to other socket clients
+        Object.assign(cursor, {
+          color: cursor.color,
+          visibility: cursor.visibility,
+          position: cursor.position
         })
 
+        // Ensures we trigger `statechange` events when the user scrolls, instead of waiting for the mouse to move after scrolling
+        document.addEventListener("scroll", () => (cursor.position = cursor.position), eventAbortController);
+
         const closeWithReconnectAttempts = () => {
-          document.removeEventListener("scroll", handleScroll);
-          cursorMutationObserver.disconnect();
+          eventAbortController.abort()
           presenceContainer.querySelectorAll("custom-cursor").forEach((el) => removeCursor(el.id));
-          connectRetryInterval = setInterval(connectToCursorPartySocket, 1000);
+          connectRetryInterval = setInterval(connectToPresenceSocket, 1000);
           setTimeout(() => clearInterval(connectRetryInterval), 5000);
         };
 
@@ -352,6 +179,7 @@
         socket.addEventListener("error", closeWithReconnectAttempts, { once: true });
       });
     };
-    connectToCursorPartySocket();
+
+    connectToPresenceSocket();
   }
 </script>
