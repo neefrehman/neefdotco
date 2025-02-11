@@ -10,12 +10,12 @@ const styleTemplate = document.createElement("template");
 styleTemplate.innerHTML = `<style>${stylesString}</style>`;
 
 type CursorState = {
-  position: Vector<2> | null;
-  visibility: HintedString<"hidden" | "shown" | "exiting"> | null;
-  size: HintedString<"sm" | "md" | "lg" | "xl" | "xxl" | "xxxl"> | null;
-  placement: HintedString<"center" | "top" | "bottom" | "left" | "right"> | null;
-  shape: HintedString<"circle" | "square"> | null;
-  color: string | null;
+  position: Vector<2>;
+  visibility: HintedString<"hidden" | "shown" | "exiting">;
+  size: HintedString<"sm" | "md" | "lg" | "xl" | "xxl" | "xxxl">;
+  placement: HintedString<"center" | "top" | "bottom" | "left" | "right">;
+  shape: HintedString<"circle" | "square">;
+  color: string;
   textContent: string | null;
 };
 
@@ -65,46 +65,45 @@ export class Cursor extends HTMLElement {
   }
 
   public get visibility() {
-    return this.getAttribute("visibility");
+    return this.getAttribute("visibility") ?? "hidden";
   }
   public set visibility(visibility: CursorState["visibility"]) {
-    this.setAttribute("visibility", visibility ?? "shown");
+    this.setAttribute("visibility", visibility);
   }
 
   public get size() {
-    return this.getAttribute("size");
+    return this.getAttribute("size") ?? "md";
   }
   public set size(size: CursorState["size"]) {
     if (this.size === size) {
       return;
     }
-    this.setAttribute("size", size ?? "md");
+    this.setAttribute("size", size);
   }
 
   public get placement() {
-    return this.getAttribute("placement");
+    return this.getAttribute("placement") ?? "center";
   }
   public set placement(placement: CursorState["placement"]) {
-    this.setAttribute("placement", placement ?? "center");
+    this.setAttribute("placement", placement);
   }
 
   public get shape() {
-    return this.getAttribute("shape");
+    return this.getAttribute("shape") ?? "circle";
   }
   public set shape(shape: CursorState["shape"]) {
-    this.setAttribute("shape", shape ?? "circle");
+    this.setAttribute("shape", shape);
   }
 
+  // We must use `getComputedStyle`, as `style.backgroundColor` is not known to clients with different custom property values.
+  private getComputedColor = () =>
+    getComputedStyle(this.cursorRootElement).getPropertyValue("--cursor-background-color");
   public get color() {
-    return this.getAttribute("color");
+    return this.getAttribute("color") ?? this.getComputedColor();
   }
   public set color(color: CursorState["color"]) {
     this.cursorRootElement.style.setProperty("--cursor-background-color", color);
-    // We must use `getComputedStyle`, as `style.backgroundColor` is not known to clients with different custom property values.
-    const computed = getComputedStyle(this.cursorRootElement).getPropertyValue(
-      "--cursor-background-color"
-    );
-    this.setAttribute("color", computed);
+    this.setAttribute("color", this.getComputedColor());
   }
 
   private currentPosition: Vector<2> = [0, 0];

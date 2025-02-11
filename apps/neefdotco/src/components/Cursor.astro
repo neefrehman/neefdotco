@@ -16,7 +16,7 @@
   import { lerpVector } from "@repo/utils/math/lerp";
   import { mapToRange } from "@repo/utils/math/mapToRange";
   import { Cursor } from "@repo/mouse";
-  import { parseCursorEvent, serializeCursorEvent, type CursorState } from "@repo/mouse/presence";
+  import { parseServerEvent, serializeClientEvent, type CursorState } from "@repo/mouse/presence";
   import { tryCatch } from "@repo/utils/tryCatch";
 
   customElements.define("custom-cursor", Cursor);
@@ -125,7 +125,7 @@
       };
 
       socket.addEventListener("message", event => {        
-        const [_, data] = tryCatch(() => parseCursorEvent(event.data));
+        const [_, data] = tryCatch(() => parseServerEvent(event.data));
         switch (data?.type) {
           case "JOIN":
             createCursorPresence(data.id);
@@ -139,7 +139,7 @@
           case "UPDATE":
             const { id, cursorState } = data;
             const cursorToUpdate = getCursor(id) ?? createCursorPresence(id);
-            Object.assign(cursorToUpdate, cursorState)            
+            Object.assign(cursorToUpdate, cursorState)
             break;
         }
       });
@@ -149,24 +149,25 @@
         const eventAbortController = new AbortController()
         clearInterval(connectRetryInterval);
 
-        cursor.addEventListener("statechange", (e: CustomEventInit<CursorState>) => {
-          socket.send(serializeCursorEvent({
-            id: "",
+        const sendUpdate = (cursorState: CursorState) => {
+          socket.send(serializeClientEvent({
             type: "UPDATE",
-            cursorState: e.detail,
+            cursorState,
             scrollY: window.scrollY,
-          }));
-        }, eventAbortController)
-        
+          }))
+        }
+
         // Trigger some initial `statechange` events, to be dispatched to other socket clients
-        Object.assign(cursor, {
-          color: cursor.color,
-          visibility: cursor.visibility,
-          position: cursor.position
-        })
+        sendUpdate({ color: cursor.color, visibility: cursor.visibility })
+
+        cursor.addEventListener("statechange", (e: CustomEventInit<CursorState>) => {
+          sendUpdate(e.detail);
+        }, eventAbortController)
 
         // Ensures we trigger `statechange` events when the user scrolls, instead of waiting for the mouse to move after scrolling
-        document.addEventListener("scroll", () => (cursor.position = cursor.position), eventAbortController);
+        document.addEventListener("scroll", () => {
+          sendUpdate({ position: cursor.position });
+        }, eventAbortController);
 
         const closeWithReconnectAttempts = () => {
           eventAbortController.abort()

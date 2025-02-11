@@ -1,4 +1,9 @@
-import { type CursorEvent, parseCursorEvent, serializeCursorEvent } from "@repo/mouse/presence";
+import {
+  type CursorState,
+  type ServerEvent,
+  parseClientEvent,
+  serializeServerEvent,
+} from "@repo/mouse/presence";
 import type { Vector } from "@repo/utils/math/types";
 import { tryCatch } from "@repo/utils/tryCatch";
 import { Delaunay } from "d3-delaunay";
@@ -11,10 +16,12 @@ export default class Server implements Party.Server {
   options?: Party.ServerOptions = { hibernate: false };
 
   delaunay = new Delaunay(new Uint16Array(MAX_CURSORS_SUPPORTED_IN_GRAPH * 2));
-  pointIndexMap = new Map<string, number>();
-  indexPointMap = new Map<number, string>();
-  currentPointIndex = -1;
 
+  idIndexMap = new Map<string, number>();
+  indexIdMap = new Map<number, string>();
+  idStateMap = new Map<string, CursorState>();
+
+  currentPointIndex = -1;
   getNextIndex = () => {
     this.currentPointIndex += 1;
     return this.currentPointIndex;
@@ -25,7 +32,7 @@ export default class Server implements Party.Server {
   };
 
   updateCoordinatesInDelaunayGraph = (id: string, [x, y]: Vector<2>) => {
-    const pointIndex = this.pointIndexMap.get(id);
+    const pointIndex = this.idIndexMap.get(id);
     if (!pointIndex) {
       return;
     }
@@ -37,60 +44,60 @@ export default class Server implements Party.Server {
     }
   };
 
-  broadcastCursor = (event: CursorEvent, without?: string[]) => {
-    this.room.broadcast(serializeCursorEvent(event), without);
+  broadcastCursor = (event: ServerEvent, without?: string[]) => {
+    this.room.broadcast(serializeServerEvent(event), without);
+  };
+
+  updateCursor = (id: string, cursorState: CursorState) => {
+    this.broadcastCursor({ id, type: "UPDATE", cursorState }, [id]);
+    this.idStateMap.set(id, Object.assign(this.idStateMap.get(id) ?? {}, cursorState));
   };
 
   constructor(readonly room: Party.Room) {}
 
   onConnect = (conn: Party.Connection) => {
     this.broadcastCursor({ id: conn.id, type: "JOIN" }, [conn.id]);
+
     const index = this.getNextIndex();
-    this.pointIndexMap.set(conn.id, index);
-    this.indexPointMap.set(index, conn.id);
+    this.idIndexMap.set(conn.id, index);
+    this.indexIdMap.set(index, conn.id);
+
+    let sendInterval = 500;
+    this.idStateMap.set(conn.id, {});
+    this.idStateMap.forEach((cursorState, id) => {
+      conn.send(serializeServerEvent({ id, type: "JOIN" }));
+      setTimeout(() => {
+        if (id !== conn.id) {
+          conn.send(serializeServerEvent({ id, type: "UPDATE", cursorState }));
+        }
+      }, sendInterval);
+      sendInterval += 250;
+    });
   };
 
   onMessage = (message: string, sender: Party.Connection) => {
-    const [_, parsed] = tryCatch(() => parseCursorEvent(message));
+    const [_, parsed] = tryCatch(() => parseClientEvent(message));
 
-    if (parsed?.type !== "UPDATE") {
+    if (!parsed) {
       return;
     }
 
-    if (!parsed.cursorState?.position) {
-      this.broadcastCursor(
-        {
-          id: sender.id,
-          type: "UPDATE",
-          cursorState: parsed.cursorState,
-          scrollY: parsed.scrollY,
-        },
-        [sender.id]
-      );
+    const { cursorState, scrollY } = parsed;
+
+    if (!cursorState?.position) {
+      this.updateCursor(sender.id, cursorState);
       return;
     }
 
-    const position = [
-      parsed.cursorState.position[0],
-      parsed.cursorState.position[1] + parsed.scrollY,
-    ] as Vector<2>;
+    const position = [cursorState.position[0], cursorState.position[1] + scrollY] as Vector<2>;
+    this.updateCursor(sender.id, { ...cursorState, position });
 
-    this.broadcastCursor(
-      {
-        id: sender.id,
-        type: "UPDATE",
-        cursorState: { ...parsed.cursorState, position },
-        scrollY: parsed.scrollY,
-      },
-      [sender.id]
-    );
-
-    if (this.pointIndexMap.size === 1) {
+    if (this.idIndexMap.size === 1) {
       return;
     }
 
-    if (this.pointIndexMap.size < 5) {
-      const neighbors = Array.from(this.pointIndexMap.keys());
+    if (this.idIndexMap.size < 5) {
+      const neighbors = Array.from(this.idIndexMap.keys());
       this.broadcastCursor({
         id: sender.id,
         type: "NEIGHBORS",
@@ -109,17 +116,17 @@ export default class Server implements Party.Server {
     }
 
     this.updateCoordinatesInDelaunayGraph(sender.id, position);
-    this.pointIndexMap.forEach((index, id) => {
+    this.idIndexMap.forEach((index, id) => {
       const neighborIds = [];
       for (const neighborIndex of this.delaunay.neighbors(index)) {
-        const neighborId = this.indexPointMap.get(neighborIndex);
+        const neighborId = this.indexIdMap.get(neighborIndex);
         // We need to do a truthy check as an 'empty' point may be considered a neighbor in the delaunay graph
         if (neighborId) {
           neighborIds.push(neighborId);
         }
       }
       this.room.getConnection(id)?.send(
-        serializeCursorEvent({
+        serializeServerEvent({
           id,
           type: "NEIGHBORS",
           neighbors: neighborIds,
@@ -131,10 +138,11 @@ export default class Server implements Party.Server {
   handleExit = (conn: Party.Connection<unknown>): void => {
     this.broadcastCursor({ id: conn.id, type: "LEAVE" }, [conn.id]);
     this.updateCoordinatesInDelaunayGraph(conn.id, [0, 0]);
-    const index = this.pointIndexMap.get(conn.id);
+    const index = this.idIndexMap.get(conn.id);
     if (index) {
-      this.pointIndexMap.delete(conn.id);
-      this.indexPointMap.delete(index);
+      this.idIndexMap.delete(conn.id);
+      this.indexIdMap.delete(index);
+      this.idStateMap.delete(conn.id);
     }
   };
 
