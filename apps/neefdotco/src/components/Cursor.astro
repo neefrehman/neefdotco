@@ -40,9 +40,7 @@
       const distanceToWell = getDistance([wellCenterX, wellCenterY], [mouseX, mouseY]);
 
       if (distanceToWell > weakPullThreshold || !gravityWell.dataset.isActive) {
-        if (cursor.size === "xxxl") {
-          cursor.size = "md"
-        }
+        if (cursor.size === "xxxl") cursor.size = "md";
         cursor.move([mouseX, mouseY]);
         if (gravityWell.dataset.cursorContentsInWell) {
           cursor.textContent = "";
@@ -60,9 +58,7 @@
         return;
       }
 
-      if (cursor.size !== "xxxl") {
-        cursor.size = "xxxl"
-      }
+      if (cursor.size !== "xxxl") cursor.size = "xxxl";
       const [x, y] = lerpVector(
         [wellCenterX, wellCenterY],
         [mouseX, mouseY],

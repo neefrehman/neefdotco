@@ -21,10 +21,10 @@ export default class Server implements Party.Server {
   indexIdMap = new Map<number, string>();
   idStateMap = new Map<string, CursorState>();
 
-  currentPointIndex = -1;
+  currentCursorIndex = -1;
   getNextIndex = () => {
-    this.currentPointIndex += 1;
-    return this.currentPointIndex;
+    this.currentCursorIndex += 1;
+    return this.currentCursorIndex;
   };
 
   getFlattenedMatrixCoordinateIndicesFromIndex = (index: number) => {
@@ -32,11 +32,11 @@ export default class Server implements Party.Server {
   };
 
   updateCoordinatesInDelaunayGraph = (id: string, [x, y]: Vector<2>) => {
-    const pointIndex = this.idIndexMap.get(id);
-    if (!pointIndex) {
+    const cursorIndex = this.idIndexMap.get(id);
+    if (!cursorIndex) {
       return;
     }
-    const [xLocation, yLocation] = this.getFlattenedMatrixCoordinateIndicesFromIndex(pointIndex);
+    const [xLocation, yLocation] = this.getFlattenedMatrixCoordinateIndicesFromIndex(cursorIndex);
     if (xLocation && yLocation) {
       this.delaunay.points[xLocation] = x;
       this.delaunay.points[yLocation] = y;
@@ -56,23 +56,24 @@ export default class Server implements Party.Server {
   constructor(readonly room: Party.Room) {}
 
   onConnect = (conn: Party.Connection) => {
+    // Broadcast join event to other cursors
     this.broadcastCursor({ id: conn.id, type: "JOIN" }, [conn.id]);
 
-    const index = this.getNextIndex();
-    this.idIndexMap.set(conn.id, index);
-    this.indexIdMap.set(index, conn.id);
-
+    // Send all existing cursors to newly connected client, with increasing delay
     let sendInterval = 500;
-    this.idStateMap.set(conn.id, {});
     this.idStateMap.forEach((cursorState, id) => {
       conn.send(serializeServerEvent({ id, type: "JOIN" }));
       setTimeout(() => {
-        if (id !== conn.id) {
-          conn.send(serializeServerEvent({ id, type: "UPDATE", cursorState }));
-        }
+        conn.send(serializeServerEvent({ id, type: "UPDATE", cursorState }));
       }, sendInterval);
       sendInterval += 250;
     });
+
+    // Update state
+    const index = this.getNextIndex();
+    this.idIndexMap.set(conn.id, index);
+    this.indexIdMap.set(index, conn.id);
+    this.idStateMap.set(conn.id, {});
   };
 
   onMessage = (message: string, sender: Party.Connection) => {
@@ -106,7 +107,7 @@ export default class Server implements Party.Server {
       return;
     }
 
-    if (this.currentPointIndex > MAX_CURSORS_SUPPORTED_IN_GRAPH) {
+    if (this.currentCursorIndex > MAX_CURSORS_SUPPORTED_IN_GRAPH) {
       this.broadcastCursor({
         id: sender.id,
         type: "NEIGHBORS",
