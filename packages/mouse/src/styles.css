@@ -13,12 +13,13 @@
   --cursor-scale-duration: 430ms;
   --cursor-scale-ease: cubic-bezier(1, 0.1, 0.1, 1);
 
+  position: fixed;
+  top: calc((var(--cursor-radius) * -1) + ((var(--cursor-down)) * var(--cursor-scale)));
+  left: calc((var(--cursor-radius) * -1) + ((var(--cursor-left)) * var(--cursor-scale)));
+  z-index: -1;
+  pointer-events: none;
+
   .cursor-root {
-    position: fixed;
-    pointer-events: none;
-    z-index: -1;
-    top: calc((var(--cursor-radius) * -1) + ((var(--cursor-down)) * var(--cursor-scale)));
-    left: calc((var(--cursor-radius) * -1) + ((var(--cursor-left)) * var(--cursor-scale)));
     transition: translate var(--cursor-translate-duration) var(--cursor-translate-ease), top 430ms
       cubic-bezier(1, 0.1, 0.1, 1), left 430ms cubic-bezier(1, 0.1, 0.1, 1);
   }
@@ -66,7 +67,7 @@
 :host([contents-type="regular"]) {
   --cursor-contents-scale: 1;
 }
-:host([contents-type="small"]) {
+:host([contents-type="small-chars"]) {
   --cursor-contents-scale: 3;
   .cursor-contents {
     top: 55%;

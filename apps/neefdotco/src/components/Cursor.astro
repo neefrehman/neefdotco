@@ -157,14 +157,12 @@
           }))
         }
 
-        // Trigger some initial `statechange` events, to be dispatched to other socket clients
         sendUpdate({ color: cursor.color, visibility: cursor.visibility })
 
         cursor.addEventListener("statechange", (e: CustomEventInit<CursorState>) => {
           sendUpdate(e.detail);
         }, eventAbortController)
 
-        // Ensures we trigger `statechange` events when the user scrolls, instead of waiting for the mouse to move after scrolling
         document.addEventListener("scroll", () => {
           sendUpdate({ position: cursor.position });
         }, eventAbortController);

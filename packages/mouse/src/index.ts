@@ -95,8 +95,8 @@ export class Cursor extends HTMLElement {
     this.setAttribute("shape", shape);
   }
 
-  // We must use `getComputedStyle`, as `style.backgroundColor` is not known to clients with different custom property values.
   private getComputedColor = () =>
+    // We must use `getComputedStyle`, as `style.backgroundColor` is not known to clients with different custom property values.
     getComputedStyle(this.cursorRootElement).getPropertyValue("--cursor-background-color");
   public get color() {
     return this.getAttribute("color") ?? this.getComputedColor();
@@ -129,7 +129,7 @@ export class Cursor extends HTMLElement {
       }, 500);
       return;
     }
-    this.setAttribute("contents-type", ["+", "-", "–", "—"].includes(text) ? "small" : "regular");
+    this.setAttribute("contents-type", ["+", "-", "–"].includes(text) ? "small-chars" : "regular");
     this.cursorContentsElement.textContent = text;
     clearTimeout(this.clearCursorTextTimeout);
   }
@@ -148,7 +148,9 @@ export class Cursor extends HTMLElement {
     document.addEventListener("mousedown", () => {
       if (this.size === "md") this.size = "sm";
     });
-    document.addEventListener("mouseup", () => (this.size = "md"));
+    document.addEventListener("mouseup", () => {
+      if (this.size === "sm") this.size = "md";
+    });
 
     document.querySelectorAll<HTMLElement>("a, button").forEach(link => {
       link.addEventListener("mouseenter", () => (this.size = "lg"));
@@ -185,11 +187,8 @@ export class Cursor extends HTMLElement {
 
     document.querySelectorAll<HTMLElement>("[data-cursor-regrow=true]").forEach(el => {
       el.addEventListener("click", () => {
-        if (this.size === el.dataset.cursorSize!) {
-          return;
-        }
         this.size = "md";
-        const cursorReset = setTimeout(() => (this.size = el.dataset.cursorSize!), 1000);
+        const cursorReset = setTimeout(() => (this.size = el.dataset.cursorSize ?? "lg"), 1000);
         el.addEventListener("click", () => clearTimeout(cursorReset), { once: true });
         el.addEventListener(
           "mouseleave",
