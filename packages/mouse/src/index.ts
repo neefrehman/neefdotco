@@ -179,7 +179,7 @@ export class Cursor extends HTMLElement {
         setTimeout(() => (this.textContent = el.dataset.cursorContents!), 10); // some elements may change their contents attribute on click
       });
     });
-    
+
     document.querySelectorAll<HTMLElement>("[data-cursor-color]").forEach(el => {
       el.addEventListener("mouseenter", () => (this.color = el.dataset.cursorColor!));
       el.addEventListener("mouseleave", () => (this.color = ""));

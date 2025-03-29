@@ -12,15 +12,12 @@ const cacheJsonFile = "./src/data/quantized-photo-colors.json";
 const rawPhotos = fs.readdirSync(rawPhotosDirectory).filter(name => name !== ".DS_Store");
 const processedPhotos = JSON.parse(fs.readFileSync(cacheJsonFile));
 
-const photosToDelete = Object.keys(processedPhotos).filter(
-  file => !rawPhotos.includes(file)
-);
+const photosToDelete = Object.keys(processedPhotos).filter(file => !rawPhotos.includes(file));
 const photosToProcess = rawPhotos.filter(
   photoName => !Object.keys(processedPhotos).includes(photoName)
 );
 
-const updateCache = () =>
-  fs.writeFileSync(cacheJsonFile, JSON.stringify(processedPhotos, null, 4));
+const updateCache = () => fs.writeFileSync(cacheJsonFile, JSON.stringify(processedPhotos, null, 4));
 
 const deleteRemovedPhotos = () => {
   console.log(`photos that have been removed: ${photosToDelete}`, "\n");
@@ -46,8 +43,7 @@ const updateFileExtension = file => {
 };
 
 const extractColorFromImage = async file => {
-  const rgb2hex = (r, g, b) =>
-    `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`;
+  const rgb2hex = (r, g, b) => `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`;
 
   const atcq = ATCQ({
     maxColors: 8,
