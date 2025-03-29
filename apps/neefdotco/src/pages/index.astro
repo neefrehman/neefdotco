@@ -10,11 +10,11 @@ import Layout from "layouts/Layout.astro";
     <div id="info" class="my-12 grid grid-cols-12 gap-8 md:mt-[max(5em,_80px)]">
       <section class="col-span-full flex flex-col gap-[0.85em] text-justify md:col-span-6 2xl:col-span-4">
         <p>
-          Neef Rehman is a Creative Technologist and Full-stack Engineer based in London. He enjoys
-          interaction design and product engineering, and has experience ranging from UI prototypes
-          to cloud infrastructure. Currently, he works at <ExternalLink href="https://isometric.com">
-          <!-- DO NOT FORMAT! Astro preserves newline characters as spaces -->
-          Isometric</ExternalLink>, building measurement and verification systems for carbon removal.
+          Neef Rehman is a Full-stack Engineer and Engineering Manager based in
+          London. He enjoys interaction design and product engineering, and has experience ranging from
+          UI prototypes to cloud infrastructure. Currently he leads a team at
+          <ExternalLink href="https://isometric.com">Isometric</ExternalLink>, building measurement and
+          verification systems for carbon removal.
         </p>
         <div>
           <button data-more-info-show="previously" data-cursor-contents="+" class="aria-current:no-underline">Previously</button>
@@ -28,7 +28,7 @@ import Layout from "layouts/Layout.astro";
           —
           <ExternalLink href="https://github.com/neefrehman">GitHub</ExternalLink>
           —
-          <span>neef.rehman[at]gmail.com</span>
+          <ExternalLink href="https://www.linkedin.com/in/neefrehman/">LinkedIn</ExternalLink>
         </footer>
       </section>
 
@@ -77,6 +77,10 @@ import Layout from "layouts/Layout.astro";
       <section id="speaking" class="flex flex-col gap-[0.85em] text-justify">
         <h2>Speaking</h2>
         <ul>
+          <li class="flex flex-row justify-between gap-8">
+            <span class="text-left">How to Zoom Out</span>
+            <span class="text-right flex-1">LDX3 (LeadDev)</span>
+          </li>
           <li class="flex flex-row justify-between gap-8">
             <span class="text-left"><ExternalLink href="https://videos.theconference.se/neef-rehman-machine-forgetting">Machine Forgetting</ExternalLink></span>
             <span class="text-right flex-1">The Conference</span>
@@ -133,21 +137,25 @@ import Layout from "layouts/Layout.astro";
     button.addEventListener("click", () => {
       const associatedElement = document.querySelector(`#${button.dataset.moreInfoShow}`);
 
+      if (!associatedElement) {
+        return;
+      }
+
       if (button.ariaCurrent === "true") {
-        moreInfoLiveRegion.removeChild(associatedElement);
-        moreInfoHiddenRegion.appendChild(associatedElement);
+        moreInfoLiveRegion?.removeChild(associatedElement);
+        moreInfoHiddenRegion?.appendChild(associatedElement);
         button.ariaCurrent = "false";
         button.dataset.cursorContents = "+";
         return;
       }
 
-      const existingChild = moreInfoLiveRegion.firstElementChild;
+      const existingChild = moreInfoLiveRegion?.firstElementChild;
       if (existingChild) {
         moreInfoLiveRegion.removeChild(existingChild);
-        moreInfoHiddenRegion.appendChild(existingChild);
+        moreInfoHiddenRegion?.appendChild(existingChild);
       }
-      moreInfoHiddenRegion.removeChild(associatedElement);
-      moreInfoLiveRegion.appendChild(associatedElement);
+      moreInfoHiddenRegion?.removeChild(associatedElement);
+      moreInfoLiveRegion?.appendChild(associatedElement);
 
       button.ariaCurrent = "true";
       button.dataset.cursorContents = "-";

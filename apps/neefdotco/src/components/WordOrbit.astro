@@ -50,14 +50,11 @@ const INNER_CIRCLE = words.splice(0, INNER_CIRCLE_WORD_COUNT);
   div.system {
     position: fixed;
     z-index: 0;
-    bottom: 13vh;
-    right: 8vw;
+    bottom: clamp(50px, 10vh, 180px);
+    right: clamp(25px, 10vw, 150px);
     transform: rotate(-10deg);
     
-    /* Lower opacity and move further from the top on shorter devices, to avoid clashes with page content */
-    @media (max-height: 700px) and (max-width: 800px) {
-      bottom: 7vh;
-      right: 3vw;
+    @media (max-height: 940px) {
       opacity: 0.37;
     }
 
@@ -67,7 +64,7 @@ const INNER_CIRCLE = words.splice(0, INNER_CIRCLE_WORD_COUNT);
       position: relative;
       transform-style: preserve-3d;
       transition:
-        transform 1000ms ease 100ms, /* small delay to avoid flickering when the mouse moves as it hovers */
+        transform 1000ms ease 100ms, /* small delay to avoid flickering when we stop hovering as it rotates */
         opacity 400ms ease,
         top 1000ms cubic-bezier(0, 0.9, 0.1, 1),
         rotate calc(700ms * var(--ring-index)) cubic-bezier(0, 0, 0.2, 1);

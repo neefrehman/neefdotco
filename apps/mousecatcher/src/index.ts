@@ -13,17 +13,17 @@ const MAX_CURSORS_SUPPORTED_IN_GRAPH = 512;
 
 export default class Server implements Party.Server {
   // Hibernation empties out the delaunay graph, making our neighbor calculations impossible to do.
-  options?: Party.ServerOptions = { hibernate: false };
+  public options?: Party.ServerOptions = { hibernate: false };
 
   constructor(readonly room: Party.Room) {}
 
-  delaunay = new Delaunay(new Uint16Array(MAX_CURSORS_SUPPORTED_IN_GRAPH * 2));
+  private delaunay = new Delaunay(new Uint16Array(MAX_CURSORS_SUPPORTED_IN_GRAPH * 2));
 
-  idIndexMap = new Map<string, number>();
-  indexIdMap = new Map<number, string>();
-  idStateMap = new Map<string, CursorState>();
+  private idIndexMap = new Map<string, number>();
+  private indexIdMap = new Map<number, string>();
+  private idStateMap = new Map<string, CursorState>();
 
-  currentCursorIndex = -1;
+  private currentCursorIndex = -1;
   private getNextIndex = () => {
     this.currentCursorIndex += 1;
     return this.currentCursorIndex;
