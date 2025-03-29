@@ -1,10 +1,17 @@
+:root {
+  --package-mouse-cursor-background-color: unset;
+  --package-mouse-cursor-transition-overlay-background-color: unset;
+}
+
 :host {
   --cursor-radius: 1rem;
   --cursor-scale: 1;
   --cursor-transition-overlay-scale: 0;
   --cursor-contents-scale: 0;
-  --cursor-background-color: var(--primary-color-mid);
-  --cursor-transition-overlay-background-color: var(--background-color);
+  --cursor-background-color: var(--package-mouse-cursor-background-color);
+  --cursor-transition-overlay-background-color: var(
+    --package-mouse-cursor-transition-overlay-background-color
+  );
   --cursor-border-radius: 100%;
   --cursor-down: 0rem;
   --cursor-left: 0rem;
@@ -23,11 +30,11 @@
     transition: translate var(--cursor-translate-duration) var(--cursor-translate-ease), top 430ms
       cubic-bezier(1, 0.1, 0.1, 1), left 430ms cubic-bezier(1, 0.1, 0.1, 1);
   }
-    
+
   @media (pointer: coarse) {
     display: none;
   }
-  
+
   .cursor-outer,
   .cursor-transition-overlay {
     position: fixed;
@@ -123,5 +130,4 @@
   --cursor-scale: 1.33;
   --cursor-transition-overlay-scale: 1.35;
   --cursor-contents-scale: 0;
-  --cursor-transition-overlay-background-color: var(--background-color);
 }

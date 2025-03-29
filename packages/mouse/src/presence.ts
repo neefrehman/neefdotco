@@ -18,7 +18,7 @@ const cursorState = object({
   shape: string().or(optional()),
   color: string().or(optional()),
   textContent: string().or(optional()).or(nullable()),
-}).or(optional());
+});
 
 export type CursorState = Infer<typeof cursorState>;
 

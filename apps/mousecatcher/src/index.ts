@@ -15,6 +15,8 @@ export default class Server implements Party.Server {
   // Hibernation empties out the delaunay graph, making our neighbor calculations impossible to do.
   options?: Party.ServerOptions = { hibernate: false };
 
+  constructor(readonly room: Party.Room) {}
+
   delaunay = new Delaunay(new Uint16Array(MAX_CURSORS_SUPPORTED_IN_GRAPH * 2));
 
   idIndexMap = new Map<string, number>();
@@ -22,16 +24,16 @@ export default class Server implements Party.Server {
   idStateMap = new Map<string, CursorState>();
 
   currentCursorIndex = -1;
-  getNextIndex = () => {
+  private getNextIndex = () => {
     this.currentCursorIndex += 1;
     return this.currentCursorIndex;
   };
 
-  getFlattenedMatrixCoordinateIndicesFromIndex = (index: number) => {
+  private getFlattenedMatrixCoordinateIndicesFromIndex = (index: number) => {
     return [index * 2, index * 2 + 1];
   };
 
-  updateCoordinatesInDelaunayGraph = (id: string, [x, y]: Vector<2>) => {
+  private updateCoordinatesInDelaunayGraph = (id: string, [x, y]: Vector<2>) => {
     const cursorIndex = this.idIndexMap.get(id);
     if (!cursorIndex) {
       return;
@@ -44,18 +46,11 @@ export default class Server implements Party.Server {
     }
   };
 
-  broadcastCursor = (event: ServerEvent, without?: string[]) => {
+  private broadcastCursor = (event: ServerEvent, without?: string[]) => {
     this.room.broadcast(serializeServerEvent(event), without);
   };
 
-  updateCursor = (id: string, cursorState: CursorState) => {
-    this.broadcastCursor({ id, type: "UPDATE", cursorState }, [id]);
-    this.idStateMap.set(id, Object.assign(this.idStateMap.get(id) ?? {}, cursorState));
-  };
-
-  constructor(readonly room: Party.Room) {}
-
-  onConnect = (conn: Party.Connection) => {
+  public onConnect = (conn: Party.Connection) => {
     // Broadcast join event to other cursors
     this.broadcastCursor({ id: conn.id, type: "JOIN" }, [conn.id]);
 
@@ -66,7 +61,7 @@ export default class Server implements Party.Server {
       setTimeout(() => {
         conn.send(serializeServerEvent({ id, type: "UPDATE", cursorState }));
       }, sendInterval);
-      sendInterval += 250;
+      sendInterval += 300;
     });
 
     // Update state
@@ -76,7 +71,12 @@ export default class Server implements Party.Server {
     this.idStateMap.set(conn.id, {});
   };
 
-  onMessage = (message: string, sender: Party.Connection) => {
+  private updateCursor = (id: string, cursorState: CursorState) => {
+    this.broadcastCursor({ id, type: "UPDATE", cursorState }, [id]);
+    this.idStateMap.set(id, Object.assign(this.idStateMap.get(id) ?? {}, cursorState));
+  };
+
+  public onMessage = (message: string, sender: Party.Connection) => {
     const [_, parsed] = tryCatch(() => parseClientEvent(message));
 
     if (!parsed) {
@@ -136,7 +136,7 @@ export default class Server implements Party.Server {
     });
   };
 
-  handleExit = (conn: Party.Connection<unknown>): void => {
+  private handleExit = (conn: Party.Connection<unknown>): void => {
     this.broadcastCursor({ id: conn.id, type: "LEAVE" }, [conn.id]);
     this.updateCoordinatesInDelaunayGraph(conn.id, [0, 0]);
     const index = this.idIndexMap.get(conn.id);
@@ -147,8 +147,8 @@ export default class Server implements Party.Server {
     }
   };
 
-  onClose = this.handleExit;
-  onError = this.handleExit;
+  public onClose = this.handleExit;
+  public onError = this.handleExit;
 }
 
 Server satisfies Party.Worker;

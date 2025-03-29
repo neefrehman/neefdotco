@@ -44,11 +44,11 @@ export class Cursor extends HTMLElement {
     this.visibility = "hidden";
   }
 
-  private dispatchStateChange = <K extends keyof CursorState>(key: K, value: CursorState[K]) => {
+  private dispatchStateChange = (changedState: Partial<CursorState>) => {
     this.shadowRoot?.dispatchEvent(
       new CustomEvent<Partial<CursorState>>("statechange", {
         composed: true,
-        detail: { [key]: key === "position" ? this.currentPosition : value },
+        detail: changedState,
       })
     );
   };
@@ -61,7 +61,7 @@ export class Cursor extends HTMLElement {
     "visibility",
   ];
   private attributeChangedCallback(name: keyof CursorState, _: string, newValue: string) {
-    this.dispatchStateChange(name, newValue);
+    this.dispatchStateChange({ [name]: newValue });
   }
 
   public get visibility() {
@@ -110,7 +110,7 @@ export class Cursor extends HTMLElement {
   public move = throttle(([x, y]: Vector<2>) => {
     this.currentPosition = [x, y];
     this.cursorRootElement.style.translate = `${x}px ${y}px`;
-    this.dispatchStateChange("position", [x, y]);
+    this.dispatchStateChange({ position: [x, y] });
   }, 35); // ~33fps
   public get position() {
     return this.currentPosition;
@@ -121,7 +121,7 @@ export class Cursor extends HTMLElement {
 
   private clearCursorTextTimeout = setTimeout(() => void 0);
   override set textContent(text: CursorState["textContent"]) {
-    this.dispatchStateChange("textContent", text);
+    this.dispatchStateChange({ textContent: text });
     if (!text) {
       this.setAttribute("contents-type", "none");
       this.clearCursorTextTimeout = setTimeout(() => {

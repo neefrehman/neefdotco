@@ -3,6 +3,11 @@
 <custom-cursor id="user-cursor" />
 
 <style>
+  custom-cursor {
+    --package-mouse-cursor-background-color: var(--primary-color-mid);
+    --package-mouse-cursor-transition-overlay-background-color: var(--background-color);
+  }
+  
   .cursor-presence-container {
     custom-cursor {
       position: absolute;
@@ -134,7 +139,10 @@
             break;
           case "UPDATE":
             const { id, cursorState } = data;
-            const cursorToUpdate = getCursor(id) ?? createCursorPresence(id);
+            const cursorToUpdate = getCursor(id);
+            if (!cursorToUpdate) {
+              return;
+            }
             Object.assign(cursorToUpdate, cursorState)
             break;
         }
@@ -153,9 +161,13 @@
           }))
         }
 
+        // First send required initial state that may not be sent by a state change
         sendUpdate({ color: cursor.color, visibility: cursor.visibility })
 
         cursor.addEventListener("statechange", (e: CustomEventInit<CursorState>) => {
+          if (!e.detail) {
+            return;
+          }
           sendUpdate(e.detail);
         }, eventAbortController)
 
