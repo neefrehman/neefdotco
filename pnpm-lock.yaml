@@ -108,10 +108,6 @@ importers:
         version: 5.7.3
 
   packages/utils:
-    dependencies:
-      remeda:
-        specifier: ^2.20.1
-        version: 2.20.1
     devDependencies:
       '@total-typescript/tsconfig':
         specifier: 1.0.4
@@ -1851,9 +1847,6 @@ packages:
 
   remark-stringify@11.0.0:
     resolution: {integrity: sha512-1OSmLd3awB/t8qdoEOMazZkNsfVTeY4fTsgzcQFdXNq8ToTN4ZGwrMnlda4K6smTFKD+GRV6O48i6Z4iKgPPpw==}
-
-  remeda@2.20.1:
-    resolution: {integrity: sha512-gsEsSmjE0CHkNp6xEsWsU/6JVNWq7rqw+ZfzNMbVV4YFIPtTj/i0FfxurTRI6Z9sAnQufU9de2Cb3xHsUTFTMA==}
 
   request@2.88.2:
     resolution: {integrity: sha512-MsvtOrfG9ZcrOwAW+Qi+F6HbD0CWXEh9ou77uOb7FM2WPhwT7smM833PzanhJLsgXjN89Ir6V2PczXNnMpwKhw==}
@@ -4166,10 +4159,6 @@ snapshots:
       '@types/mdast': 4.0.2
       mdast-util-to-markdown: 2.1.0
       unified: 11.0.5
-
-  remeda@2.20.1:
-    dependencies:
-      type-fest: 4.33.0
 
   request@2.88.2:
     dependencies:
