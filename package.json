@@ -1,31 +1,16 @@
 {
-  "name": "neefdotco",
-  "type": "module",
+  "name": "neefdotco-root",
+  "private": true,
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
     "check": "biome check",
-    "check:fix": "biome check --write",
-    "process-photos": "node scripts/process-photos.js"
-  },
-  "dependencies": {
-    "@tailwindcss/vite": "^4.0.3",
-    "astro": "^5.2.3",
-    "atcq": "^1.0.6",
-    "d3-delaunay": "^6.0.4",
-    "get-pixels": "^3.3.3",
-    "sharp": "^0.33.5",
-    "tailwindcss": "^4.0.3"
+    "check:fix": "biome check --write"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
-    "@types/d3-delaunay": "^6.0.4",
-    "@types/node": "^22.13.0",
-    "partykit": "0.0.111",
-    "typescript": "^5.7.3"
+    "turbo": "^2.4.4"
   },
+  "packageManager": "pnpm@9.15.4",
   "pnpm": {
     "patchedDependencies": {
       "@types/d3-delaunay@6.0.4": "patches/@types__d3-delaunay@6.0.4.patch"

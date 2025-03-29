@@ -1,0 +1,142 @@
+---
+import Cursor from "components/Cursor.astro";
+import Header from "components/Header.astro";
+import "styles/globals.css";
+
+interface Props {
+  metaImageUrl?: string;
+  title?: string;
+  description?: string;
+}
+
+const {
+  metaImageUrl = "https://neef.co/images/meta-image.png",
+  title = "Neef Rehman — Creative Technologist",
+  description = "Neef Rehman is a London-based Creative Technologist and Full-stack Engineer with a love for interaction design and product engineering.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <script is:inline>
+      // This script blocks the first paint while it sets the color scheme and chooses a background color.
+      // For performance reasons it must be inline, so can't use any TS or imports. the non-critical-path
+      // for theming is handled in the DarkModeToggle script.
+      if (
+        localStorage.getItem("darkMode") == "1" ||
+        (!localStorage.getItem("darkMode") && window.matchMedia("(prefers-color-scheme: dark)").matches)
+      ) {
+        document.documentElement.classList.add("dark");
+      }
+      const randomInRange = (min, max) => {
+        const upperBound = max ?? min;
+        const lowerBound = max ? min : 0;
+        return Math.random() * (upperBound - lowerBound) + lowerBound;
+      };
+      const hue = randomInRange(0, 360);
+      const saturation = randomInRange(0, 100);
+      document.documentElement.style.setProperty("--base-color", `${hue}deg, ${saturation}%`);
+    </script>
+
+    <link rel="preload" href="/fonts/fleuronregular.woff2" as="font" type="font/woff2" crossorigin />
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+
+    <title>{title}</title>
+    <meta name="description" content={title} />
+    <meta name="author" content="Neef Rehman" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url.href} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={metaImageUrl} />
+
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={Astro.url.href} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={metaImageUrl} />
+
+    <!-- dynamic SVG to be filled by dark mode toggle script, based on the current background color -->
+    <link rel="icon" type="image/svg+xml" />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
+    <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#1F092A" />
+
+    <meta name="generator" content={Astro.generator} />
+
+    <slot name="head" />
+  </head>
+
+  <body>
+    <Cursor />
+    <Header />
+
+    <main>
+      <slot />
+    </main>
+  </body>
+</html>
+
+<script>
+  import type { Cursor } from "@repo/mouse";
+
+  if (matchMedia("(pointer:fine)").matches) {
+    // mutable as sometimes these elements change after initial load (e.g. with photos)
+    let transitionElements = document.querySelectorAll("[data-transition-element=true]");
+    setTimeout(() => transitionElements = document.querySelectorAll("[data-transition-element=true]"), 1000)
+
+    document.querySelectorAll<HTMLAnchorElement>("[data-triggers-nav-transition=true]").forEach(link => {
+      if (!link.href) {
+        return
+      };
+      
+      link.addEventListener("click", e => {
+        transitionElements = document.querySelectorAll("[data-transition-element=true]");
+
+        // Preload the page first, so that the post-transition page load is as smooth as possible
+        // method inspired by instant.page: https://github.com/instantpage/instant.page
+        document.head.appendChild(Object.assign(
+          document.createElement('link'), {
+            rel: 'prefetch',
+            href: link.href,
+            fetchPriority: "high",
+          })
+        );
+
+        const cursor = document.querySelector<Cursor>("#user-cursor")
+        cursor?.setAttribute("size", "lg")
+        setTimeout(() => cursor?.setAttribute("visibility", "exiting"), 200);
+        
+        // start adding 'loaded' states to all elements that have more detailed loading
+        // animations that require them to be "index-aware".
+        // TODO: find a way to also drive these with `body.dataset.exiting`, maybe adding
+        //       delays when iterating to create the elements, and removing `transitionElements`
+        //       as a concept that this script needs to be concerned with.
+        let interval = 150;
+        transitionElements.forEach((el, i) => {
+          setTimeout(() => el.classList.remove("loaded"), interval * i);
+          interval -= 5;
+        });
+
+        const transitionDuration = Math.min(1000 + transitionElements.length * 100, 1700);
+        setTimeout(() => window.location.assign(link.href), transitionDuration);
+        e.preventDefault();
+      });
+    });
+
+    // We need to handle cases where the browser saves the post-exit-transition state in the
+    // bfcache, and quickly have those elements appear again if so
+    window.addEventListener("pageshow", e => {
+      if (!e.persisted) {
+        return
+      };
+
+      transitionElements.forEach(el => el.classList.add("loaded"));
+      document.body.dataset.exiting = undefined;
+    });
+  }
+</script>

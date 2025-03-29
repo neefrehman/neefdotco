@@ -1,0 +1,7 @@
+{
+  "$schema": "https://www.partykit.io/schema.json",
+  "name": "neefdotco",
+  "main": "src/index.ts",
+  "compatibilityDate": "2024-02-26",
+  "port": 1999
+}

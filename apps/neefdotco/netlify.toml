@@ -1,0 +1,5 @@
+[build]
+base = "/apps/neefdotco"
+command = "turbo build --filter neefdotco"
+publish = "dist/"
+ignore = "npx turbo-ignore --fallback=HEAD^"

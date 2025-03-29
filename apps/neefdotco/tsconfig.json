@@ -1,0 +1,8 @@
+{
+  "extends": ["@total-typescript/tsconfig/bundler/dom/app", "astro/tsconfigs/base"],
+  "include": [".astro/types.d.ts", "**/*"],
+  "exclude": ["dist"],
+  "compilerOptions": {
+    "baseUrl": "./src"
+  }
+}

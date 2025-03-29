@@ -1,0 +1,48 @@
+<!-- is an anchor tag with a button role to get around an inability to justify the text contents of a button -->
+<a
+  role="button"
+  tabindex="0"
+  data-dark-mode-toggle="true"
+  data-cursor-regrow="true"
+  data-cursor-color="var(--opposite-mode-background)"
+  data-cursor-size="xxl"
+  class="before:inline before:content-['dark'] dark:before:content-['light']"
+>
+  mode</a
+>
+
+<script>
+  const darkModeToggle = document.querySelector<HTMLAnchorElement>("[data-dark-mode-toggle]");
+  const baseColor = document.documentElement.style.getPropertyValue("--base-color");
+  const favicon = document.querySelector<HTMLLinkElement>("link[rel=icon][type='image/svg+xml']");
+
+  const onDarkModeChange = (options?: {updateLocalStorage?: boolean}) => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    if (favicon) {
+      favicon.href = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Crect fill='${encodeURIComponent(
+        `hsl(${baseColor}, ${isDark ? 10 : 90}%)` // favicons and other elements in the head can't inherit css custom properties
+      )}' x='0' y='0' width='32' height='32'%3E%3C/rect%3E%3C/svg%3E`;
+    }
+
+    if (options?.updateLocalStorage) {
+      localStorage.setItem("darkMode", isDark ? "1" : "0")
+    };
+  };
+
+  onDarkModeChange();
+
+  darkModeToggle?.addEventListener("click", e => {
+    e.preventDefault();
+    document.documentElement.classList.toggle("dark");
+    onDarkModeChange({ updateLocalStorage: true });
+  });
+
+  // Because the toggle is an achor element (for styling reasons), we must re-implement keyboard events
+  darkModeToggle?.addEventListener("keydown", e => {
+    if (e.key === " " || e.key === "Enter") {
+      e.preventDefault();
+      darkModeToggle.click();
+    }
+  });
+</script>

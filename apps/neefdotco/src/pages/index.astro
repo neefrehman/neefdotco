@@ -1,0 +1,170 @@
+---
+import ExternalLink from "components/ExternalLink.astro";
+import WordOrbit from "components/WordOrbit.astro";
+import { SKILLS } from "data/skills";
+import Layout from "layouts/Layout.astro";
+---
+
+<Layout>
+  <div>
+    <div id="info" class="my-12 grid grid-cols-12 gap-8 md:mt-[max(5em,_80px)]">
+      <section class="col-span-full flex flex-col gap-[0.85em] text-justify md:col-span-6 xxl:col-span-4!">
+        <p>
+          Neef Rehman is a Full-stack Engineer and Engineering Manager based in London. He enjoys
+          interaction design and product engineering, and has experience ranging from UI prototypes
+          to cloud infrastructure. Currently he leads a team at
+          <ExternalLink href="https://isometric.com">Isometric</ExternalLink>, building measurement and
+          verification systems for carbon removal.
+        </p>
+        <div>
+          <button data-more-info-show="previously" data-cursor-contents="+" class="aria-current:no-underline">Previously</button>
+          —
+          <button data-more-info-show="speaking" data-cursor-contents="+" class="aria-current:no-underline">Speaking</button>
+          —
+          <button data-more-info-show="education" data-cursor-contents="+" class="aria-current:no-underline">Teaching</button>
+        </div>
+        <footer>
+          <ExternalLink href="https://twitter.com/neefrehman_">Twitter</ExternalLink>
+          —
+          <ExternalLink href="https://github.com/neefrehman">GitHub</ExternalLink>
+          —
+          <ExternalLink href="https://www.linkedin.com/in/neefrehman/">LinkedIn</ExternalLink>
+        </footer>
+      </section>
+
+      <div
+        id="more-info-live-region"
+        aria-live="polite"
+        class="col-span-full [&:has(section)]:mb-8 [&:has(section)]:h-44 md:col-span-6 xxl:col-span-4!"
+      >
+      </div>
+    </div>
+
+    <!--
+      The user selectable info sections will move from here, to the live region above, when the 
+      [data-more-info-show] buttons above are clicked. It's a little unorthodox, but AFAICT
+      the a11y of this interaction is good, due to the aria attributes used. It would be nice
+      to achieve the same layout with details/summary elements (or similar), but I can't see
+      how without having to jump through a different set of hoops (yet!)
+    -->
+    <div id="more-info-hidden-region" aria-hidden="true" class="hidden">
+      <section id="previously" class="flex flex-col gap-[0.85em] text-justify">
+        <h2>Previously</h2>
+        <ol>
+          <li class="flex flex-row justify-between gap-8">
+            <span class="text-left">Full-stack Engineer</span>
+            <span class="text-right flex-1"><ExternalLink href="https://ustwo.com">ustwo</ExternalLink></span>
+          </li>
+          <li class="flex flex-row justify-between gap-8">
+            <span class="text-left">Venture Lead</span>
+            <span class="text-right flex-1"><ExternalLink href="https://adventure.ustwo.com">ustwo Adventure</ExternalLink></span>
+          </li>
+          <li class="flex flex-row justify-between gap-8">
+            <span class="text-left">Bioinformatics</span>
+            <span class="text-right flex-1"><ExternalLink href="https://www.illumina.com/">Illumina</ExternalLink></span>
+          </li>
+          <li class="flex flex-row justify-between gap-8">
+            <span class="text-left">Degree</span>
+            <span class="text-right flex-1"><ExternalLink href="https://wikipedia.org/wiki/Physics">Physics</ExternalLink></span>
+          </li>
+          <li class="flex flex-row justify-between gap-8">
+            <span class="text-left">Head barista</span>
+            <span class="text-right flex-1"><ExternalLink href="https://genesiscinema.co.uk">Genesis Cinema</ExternalLink></span>
+          </li>
+        </ol>
+      </section>
+
+      <section id="speaking" class="flex flex-col gap-[0.85em] text-justify">
+        <h2>Speaking</h2>
+        <ul>
+          <li class="flex flex-row justify-between gap-8">
+            <span class="text-left">How to Zoom Out</span>
+            <span class="text-right flex-1">LDX3 (LeadDev)</span>
+          </li>
+          <li class="flex flex-row justify-between gap-8">
+            <span class="text-left"><ExternalLink href="https://videos.theconference.se/neef-rehman-machine-forgetting">Machine Forgetting</ExternalLink></span>
+            <span class="text-right flex-1">The Conference</span>
+          </li>
+          <li class="flex flex-row justify-between gap-8">
+            <span class="text-left">Notes on Determinism</span>
+            <span class="text-right flex-1">London Design Festival</span>
+          </li>
+          <li class="flex flex-row justify-between gap-8">
+            <span class="text-left">Notes on Determinism</span>
+            <span class="text-right flex-1">Birmingham Design Festival</span>
+          </li>
+          <li class="flex flex-row justify-between gap-8">            
+            <span class="text-left">Rubber Duck Everything</span>
+            <span class="text-right flex-1">West of England Design Forum</span>
+          </li>
+        </ul>
+      </section>
+
+      <section id="education" class="flex flex-col gap-[0.85em] text-justify">
+        <h2>Teaching</h2>
+        <ul>
+          <li class="flex flex-row justify-between gap-8">
+            <span class="text-left">Guest lecturer</span>
+            <span class="text-right flex-1">D&AD New Blood Academy</span>
+          </li>
+          <li class="flex flex-row justify-between gap-8">
+            <span class="text-left">Guest lecturer</span>
+            <span class="text-right flex-1">UAL:CCI</span>
+          </li>
+          <li class="flex flex-row justify-between gap-8">
+            <span class="text-left">Guest lecturer</span>
+            <span class="text-right flex-1">Hyper Island</span>
+          </li>
+          <li class="flex flex-row justify-between gap-8">
+            <span class="text-left">Module Facilitator</span>
+            <span class="text-right flex-1">Falmouth University</span>
+          </li>
+        </ul>
+      </section>
+    </div>
+
+    <WordOrbit words={SKILLS.slice()} />
+  </div>
+</Layout>
+
+<script>
+  const moreInfoLiveRegion = document.querySelector("#more-info-live-region");
+  const moreInfoHiddenRegion = document.querySelector("#more-info-hidden-region");
+  const moreInfoButtons = document.querySelectorAll<HTMLButtonElement>("[data-more-info-show]");
+
+  moreInfoButtons.forEach(button => {
+    // We move elements around instead of copying them, so that their event listeners can come along for the ride
+    button.addEventListener("click", () => {
+      const associatedElement = document.querySelector(`#${button.dataset.moreInfoShow}`);
+
+      if (!associatedElement) {
+        return;
+      }
+
+      if (button.ariaCurrent === "true") {
+        moreInfoLiveRegion?.removeChild(associatedElement);
+        moreInfoHiddenRegion?.appendChild(associatedElement);
+        button.ariaCurrent = "false";
+        button.dataset.cursorContents = "+";
+        return;
+      }
+
+      const existingChild = moreInfoLiveRegion?.firstElementChild;
+      if (existingChild) {
+        moreInfoLiveRegion.removeChild(existingChild);
+        moreInfoHiddenRegion?.appendChild(existingChild);
+      }
+      moreInfoHiddenRegion?.removeChild(associatedElement);
+      moreInfoLiveRegion?.appendChild(associatedElement);
+
+      button.ariaCurrent = "true";
+      button.dataset.cursorContents = "-";
+
+      const siblings = [...moreInfoButtons].filter(sibling => sibling !== button);
+      siblings.forEach(sibling => {
+        sibling.ariaCurrent = "false";
+        sibling.dataset.cursorContents = "+";
+      });
+    });
+  });
+</script>
