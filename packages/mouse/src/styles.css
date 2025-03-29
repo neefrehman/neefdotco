@@ -77,7 +77,7 @@
 :host([contents-type="small-chars"]) {
   --cursor-contents-scale: 3;
   .cursor-contents {
-    top: 55%;
+    top: 52%;
   }
 }
 

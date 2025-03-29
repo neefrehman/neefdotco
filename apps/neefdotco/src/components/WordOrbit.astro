@@ -50,11 +50,11 @@ const INNER_CIRCLE = words.splice(0, INNER_CIRCLE_WORD_COUNT);
   div.system {
     position: fixed;
     z-index: 0;
-    bottom: clamp(50px, 10vh, 180px);
-    right: clamp(25px, 10vw, 150px);
+    bottom: clamp(50px, 12vh, 180px);
+    right: clamp(25px, 8vw, 150px);
     transform: rotate(-10deg);
     
-    @media (max-height: 940px) {
+    @media ((max-height: 940px) and (max-width: 800px)) or (max-height: 700px) {
       opacity: 0.37;
     }
 
