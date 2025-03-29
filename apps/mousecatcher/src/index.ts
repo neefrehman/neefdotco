@@ -19,9 +19,8 @@ export default class Server implements Party.Server {
 
   private delaunay = new Delaunay(new Uint16Array(MAX_CURSORS_SUPPORTED_IN_GRAPH * 2));
 
-  private idIndexMap = new Map<string, number>();
+  private idCursorMap = new Map<string, { index: number; state: CursorState }>();
   private indexIdMap = new Map<number, string>();
-  private idStateMap = new Map<string, CursorState>();
 
   private currentCursorIndex = -1;
   private getNextIndex = () => {
@@ -34,11 +33,11 @@ export default class Server implements Party.Server {
   };
 
   private updateCoordinatesInDelaunayGraph = (id: string, [x, y]: Vector<2>) => {
-    const cursorIndex = this.idIndexMap.get(id);
-    if (!cursorIndex) {
+    const cursor = this.idCursorMap.get(id);
+    if (!cursor) {
       return;
     }
-    const [xLocation, yLocation] = this.getFlattenedMatrixCoordinateIndicesFromIndex(cursorIndex);
+    const [xLocation, yLocation] = this.getFlattenedMatrixCoordinateIndicesFromIndex(cursor.index);
     if (xLocation && yLocation) {
       this.delaunay.points[xLocation] = x;
       this.delaunay.points[yLocation] = y;
@@ -56,24 +55,29 @@ export default class Server implements Party.Server {
 
     // Send all existing cursors to newly connected client, with increasing delay
     let sendInterval = 500;
-    this.idStateMap.forEach((cursorState, id) => {
+    this.idCursorMap.forEach((cursor, id) => {
       conn.send(serializeServerEvent({ id, type: "JOIN" }));
       setTimeout(() => {
-        conn.send(serializeServerEvent({ id, type: "UPDATE", cursorState }));
+        conn.send(serializeServerEvent({ id, type: "UPDATE", cursorState: cursor.state }));
       }, sendInterval);
       sendInterval += 300;
     });
 
     // Update state
     const index = this.getNextIndex();
-    this.idIndexMap.set(conn.id, index);
     this.indexIdMap.set(index, conn.id);
-    this.idStateMap.set(conn.id, {});
+    this.idCursorMap.set(conn.id, { index, state: {} });
   };
 
-  private updateCursor = (id: string, cursorState: CursorState) => {
+  private updateCursor = (id: string, cursorState: Partial<CursorState>) => {
     this.broadcastCursor({ id, type: "UPDATE", cursorState }, [id]);
-    this.idStateMap.set(id, Object.assign(this.idStateMap.get(id) ?? {}, cursorState));
+    const cursor = this.idCursorMap.get(id);
+    if (cursor) {
+      this.idCursorMap.set(id, {
+        index: cursor.index,
+        state: { ...cursor.state, ...cursorState },
+      });
+    }
   };
 
   public onMessage = (message: string, sender: Party.Connection) => {
@@ -93,12 +97,12 @@ export default class Server implements Party.Server {
     const position = [cursorState.position[0], cursorState.position[1] + scrollY] as Vector<2>;
     this.updateCursor(sender.id, { ...cursorState, position });
 
-    if (this.idIndexMap.size === 1) {
+    if (this.idCursorMap.size === 1) {
       return;
     }
 
-    if (this.idIndexMap.size < 5) {
-      const neighbors = Array.from(this.idIndexMap.keys());
+    if (this.idCursorMap.size < 5) {
+      const neighbors = Array.from(this.idCursorMap.keys());
       this.broadcastCursor({
         id: sender.id,
         type: "NEIGHBORS",
@@ -117,7 +121,7 @@ export default class Server implements Party.Server {
     }
 
     this.updateCoordinatesInDelaunayGraph(sender.id, position);
-    this.idIndexMap.forEach((index, id) => {
+    this.idCursorMap.forEach(({ index }, id) => {
       const neighborIds = [];
       for (const neighborIndex of this.delaunay.neighbors(index)) {
         const neighborId = this.indexIdMap.get(neighborIndex);
@@ -139,11 +143,10 @@ export default class Server implements Party.Server {
   private handleExit = (conn: Party.Connection<unknown>): void => {
     this.broadcastCursor({ id: conn.id, type: "LEAVE" }, [conn.id]);
     this.updateCoordinatesInDelaunayGraph(conn.id, [0, 0]);
-    const index = this.idIndexMap.get(conn.id);
-    if (index) {
-      this.idIndexMap.delete(conn.id);
-      this.indexIdMap.delete(index);
-      this.idStateMap.delete(conn.id);
+    const cursor = this.idCursorMap.get(conn.id);
+    if (cursor) {
+      this.indexIdMap.delete(cursor.index);
+      this.idCursorMap.delete(conn.id);
     }
   };
 
