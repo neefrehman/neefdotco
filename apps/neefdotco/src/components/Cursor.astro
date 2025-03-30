@@ -3,7 +3,7 @@
 <custom-cursor id="user-cursor" />
 
 <style>
-  custom-cursor {
+  :root {
     --package-mouse-cursor-background-color: var(--primary-color-mid);
     --package-mouse-cursor-transition-overlay-background-color: var(--background-color);
   }
@@ -169,6 +169,7 @@
 
         cursor.addEventListener("statechange", (e: CustomEventInit<CursorState>) => {
           if (e.detail) {
+            // These properties are required for a cursor to be initially correct when added to another client
             const requiredProps = { color: cursor.color, visibility: cursor.visibility };
             sendUpdate({ ...e.detail, ...requiredProps });
           }
