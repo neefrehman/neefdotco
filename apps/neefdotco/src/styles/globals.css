@@ -27,15 +27,19 @@
   }
   
   :root {
+    --base-color: unset; /* This is set in `Layout.astro` */
+
     --primary-color-light: hsl(var(--base-color), 90%);
+    --primary-color-light-transparent: hsla(var(--base-color), 90%, 30%);
     --primary-color-mid: hsl(var(--base-color), 46%);
     --primary-color-mid-transparent: hsla(var(--base-color), 46%, 30%);
     --primary-color-dark: hsl(var(--base-color), 10%);
+    --primary-color-dark-transparent: hsla(var(--base-color), 10%, 30%);
   
     --text-color: var(--primary-color-dark);
     --background-color: var(--primary-color-light);
     --opposite-mode-background: var(--primary-color-dark);
-    --link-background-color: var(--primary-color-mid-transparent);
+    --opposite-mode-background-transparent: var(--primary-color-dark-transparent);
   }
   
   :root.dark {
@@ -43,6 +47,7 @@
     --text-color: var(--primary-color-light);
     --background-color: var(--primary-color-dark);
     --opposite-mode-background: var(--primary-color-light);
+    --opposite-mode-background-transparent: var(--primary-color-light-transparent);
   }
 
   html,
@@ -52,7 +57,7 @@
   }
   
   body {
-    margin: clamp(16px, 2.2vw, 40px);
+    margin: clamp(18px, 2.2vw, 40px);
     font-family: "Fleuron", helvetica neue, arial, sans-serif;
     font-size: clamp(15px, 15px + 0.24vw, 19px);
     line-height: 1.38;
@@ -66,7 +71,7 @@
   }
   
   *::selection {
-    background-color: var(--opposite-mode-background);
+    background-color: var(--opposite-mode-background-transparent);
   }
 
   *:focus {

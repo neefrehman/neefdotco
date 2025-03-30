@@ -129,6 +129,9 @@
         const [_, data] = tryCatch(() => parseServerEvent(event.data));
         switch (data?.type) {
           case "JOIN":
+            if (getCursor(data.id)) {
+              return; // In cases where the session is restored from the bfcache, the cursor may already exist
+            }
             createCursorPresence(data.id);
             break;
           case "LEAVE":

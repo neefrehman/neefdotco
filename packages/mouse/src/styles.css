@@ -68,6 +68,7 @@
     translate: -50% -50%;
     scale: var(--cursor-contents-scale);
     transition: translate 720ms ease, scale 720ms ease, top 300ms;
+    user-select: none;
   }
 }
 

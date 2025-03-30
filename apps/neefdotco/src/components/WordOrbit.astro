@@ -50,11 +50,13 @@ const INNER_CIRCLE = words.splice(0, INNER_CIRCLE_WORD_COUNT);
   div.system {
     position: fixed;
     z-index: 0;
-    bottom: clamp(50px, 12vh, 180px);
+    --bottom: 12vh;
+    bottom: clamp(50px, var(--bottom), 180px);
     right: clamp(25px, 8vw, 150px);
     transform: rotate(-10deg);
     
-    @media ((max-height: 940px) and (max-width: 800px)) or (max-height: 700px) {
+    @media ((max-height: 940px) and (max-width: 767px)) or (max-height: 700px) {
+      --bottom: 8vh;
       opacity: 0.37;
     }
 
@@ -90,7 +92,7 @@ const INNER_CIRCLE = words.splice(0, INNER_CIRCLE_WORD_COUNT);
           padding: 0 4px;
           line-height: 1.3;
           width: max-content;
-          background-color: var(--link-background-color);
+          background-color: var(--primary-color-mid-transparent);
           color: var(--text-color);
           --r: clamp(var(--ring-index) * 250px, var(--ring-index) * 25vw, var(--ring-index) * 600px);
           --a: calc(var(--index) * (360 / var(--word-count)) * 1deg);
