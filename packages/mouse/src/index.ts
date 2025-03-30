@@ -13,6 +13,7 @@ type CursorState = {
   position: Vector<2>;
   visibility: HintedString<"hidden" | "shown" | "exiting">;
   size: HintedString<"sm" | "md" | "lg" | "xl" | "xxl" | "xxxl">;
+  speed: HintedString<"slow" | "regular">;
   placement: HintedString<"center" | "top" | "bottom" | "left" | "right">;
   shape: HintedString<"circle" | "square">;
   color: string;
@@ -55,6 +56,7 @@ export class Cursor extends HTMLElement {
 
   public static observedAttributes: (keyof CursorState)[] = [
     "size",
+    "speed",
     "color",
     "placement",
     "shape",
@@ -79,6 +81,16 @@ export class Cursor extends HTMLElement {
       return;
     }
     this.setAttribute("size", size);
+  }
+
+  public get speed() {
+    return this.getAttribute("speed") ?? "md";
+  }
+  public set speed(speed: CursorState["speed"]) {
+    if (this.speed === speed) {
+      return;
+    }
+    this.setAttribute("speed", speed);
   }
 
   public get placement() {
@@ -184,7 +196,7 @@ export class Cursor extends HTMLElement {
       el.addEventListener("mouseenter", () => (this.color = el.dataset.cursorColor!));
       el.addEventListener("mouseleave", () => (this.color = ""));
       el.addEventListener("click", () => {
-        setTimeout(() => this.dispatchStateChange({ color: this.getComputedColor() }), 10); // some elements may change the cursor's color on click
+        setTimeout(() => (this.color = el.dataset.cursorColor!), 10); // some elements may change the cursor's color on click
       });
     });
 

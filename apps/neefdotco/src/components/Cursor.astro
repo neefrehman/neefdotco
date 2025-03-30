@@ -92,6 +92,10 @@
       const getCursor = (id: string) => document.getElementById(id) as Cursor | null;
 
       const createCursorPresence = (id: string) => {
+        const existingCursor = getCursor(id);
+        if (existingCursor) {
+          return existingCursor; // In cases where the session is restored from the bfcache, the cursor may already exist
+        }
         const newCursor = document.createElement("custom-cursor") as Cursor;
         newCursor.id = id;
         presenceContainer.append(newCursor);
@@ -107,45 +111,44 @@
         setTimeout(() => cursorToDelete?.remove(), 500);
       };
 
-      const NEIGHBOR_PULL_THRESHOLD = 65;
-      const attractCursor = (id: string) => {
-        const otherCursor = getCursor(id);
-        if (!otherCursor) {
-          return;
-        }
-        const distance = getDistance(otherCursor.position, cursor.position);
-        if (distance > NEIGHBOR_PULL_THRESHOLD || distance < 15) {
-          return;
-        }
-        const [x, y] = lerpVector(
-          cursor.position,
-          otherCursor.position,
-          mapToRange(distance, 0, NEIGHBOR_PULL_THRESHOLD, 0, 0.15)
-        );
-        cursor.move([x, y]);
+      const NEIGHBOR_PULL_THRESHOLD = 70;
+      const NEIGHBOR_MIN_DISTANCE = 15;
+      let currentNeighbors: string[] = [];
+      let cursorAttractionFrame: number
+
+      const requestCursorAttractionFrame = () => {
+        let targetCursorSpeed: CursorState["speed"] = "regular"
+        currentNeighbors.forEach((id) => {
+          const otherCursor = getCursor(id) ?? createCursorPresence(id);
+          const distance = getDistance(otherCursor.position, cursor.position);
+          if (distance > NEIGHBOR_PULL_THRESHOLD || distance < NEIGHBOR_MIN_DISTANCE) {
+            return;
+          }
+          targetCursorSpeed = "slow"
+          const lerpStrength = mapToRange(distance, 0, NEIGHBOR_PULL_THRESHOLD, 0, 0.15);
+          // We only move _our_ cursor here, as we rely on feedback from the server to move the
+          // other cursors. This way, we are sure that all cursors are in-sync on every client.
+          cursor.move(lerpVector(cursor.position, otherCursor.position, lerpStrength));
+        });
+        cursor.speed = targetCursorSpeed
+        cursorAttractionFrame = requestAnimationFrame(requestCursorAttractionFrame);
       };
 
       socket.addEventListener("message", event => {        
         const [_, data] = tryCatch(() => parseServerEvent(event.data));
         switch (data?.type) {
           case "JOIN":
-            if (getCursor(data.id)) {
-              return; // In cases where the session is restored from the bfcache, the cursor may already exist
-            }
             createCursorPresence(data.id);
             break;
           case "LEAVE":
             removeCursor(data.id);
             break;
           case "NEIGHBORS":
-            data.neighbors.forEach(attractCursor);
+            currentNeighbors = data.neighbors;
             break;
           case "UPDATE":
             const { id, cursorState } = data;
-            const cursorToUpdate = getCursor(id);
-            if (!cursorToUpdate) {
-              return;
-            }
+            const cursorToUpdate = getCursor(id) ?? createCursorPresence(id);
             Object.assign(cursorToUpdate, cursorState)
             break;
         }
@@ -164,22 +167,22 @@
           }))
         }
 
-        // First send required initial state that may not be sent by a state change
-        sendUpdate({ color: cursor.color, visibility: cursor.visibility })
-
         cursor.addEventListener("statechange", (e: CustomEventInit<CursorState>) => {
-          if (!e.detail) {
-            return;
+          if (e.detail) {
+            const requiredProps = { color: cursor.color, visibility: cursor.visibility };
+            sendUpdate({ ...e.detail, ...requiredProps });
           }
-          sendUpdate(e.detail);
         }, eventAbortController)
 
         document.addEventListener("scroll", () => {
           sendUpdate({ position: cursor.position });
         }, eventAbortController);
 
+        requestCursorAttractionFrame();
+
         const closeWithReconnectAttempts = () => {
-          eventAbortController.abort()
+          eventAbortController.abort();
+          cancelAnimationFrame(cursorAttractionFrame);
           presenceContainer.querySelectorAll("custom-cursor").forEach((el) => removeCursor(el.id));
           connectRetryInterval = setInterval(connectToPresenceSocket, 1000);
           setTimeout(() => clearInterval(connectRetryInterval), 5000);

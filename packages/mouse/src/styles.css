@@ -101,6 +101,10 @@
   --cursor-scale-ease: ease;
 }
 
+:host([speed="slow"]) {
+  --cursor-translate-duration: 95ms;
+}
+
 :host([shape="square"]) {
   --cursor-border-radius: 10%;
 }

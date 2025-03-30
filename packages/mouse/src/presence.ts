@@ -14,6 +14,7 @@ const cursorState = object({
   position: tuple([number(), number()] as const).or(optional()),
   visibility: string().or(optional()),
   size: string().or(optional()),
+  speed: string().or(optional()),
   placement: string().or(optional()),
   shape: string().or(optional()),
   color: string().or(optional()),
