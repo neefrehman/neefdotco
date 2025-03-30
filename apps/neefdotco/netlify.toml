@@ -1,5 +1,8 @@
 [build]
-base = "/apps/neefdotco"
-command = "turbo build --filter neefdotco"
-publish = "dist/"
-ignore = "npx turbo-ignore --fallback=HEAD^"
+  base = "/apps/neefdotco"
+  command = "turbo build --filter neefdotco"
+  publish = "dist/"
+  ignore = "npx turbo-ignore --fallback=HEAD^"
+
+[build.environment]
+  NODE_VERSION = "22.13.1"
