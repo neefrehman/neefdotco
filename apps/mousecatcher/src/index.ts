@@ -101,16 +101,6 @@ export default class Server implements Party.Server {
       return;
     }
 
-    if (this.idCursorMap.size < 5) {
-      const neighbors = Array.from(this.idCursorMap.keys());
-      this.broadcastCursor({
-        id: sender.id,
-        type: "NEIGHBORS",
-        neighbors,
-      });
-      return;
-    }
-
     if (this.currentCursorIndex > MAX_CURSORS_SUPPORTED_IN_GRAPH) {
       this.broadcastCursor({
         id: sender.id,
@@ -125,7 +115,6 @@ export default class Server implements Party.Server {
       const neighborIds = [];
       for (const neighborIndex of this.delaunay.neighbors(index)) {
         const neighborId = this.indexIdMap.get(neighborIndex);
-        // We need to do a truthy check as an 'empty' point may be considered a neighbor in the delaunay graph
         if (neighborId) {
           neighborIds.push(neighborId);
         }
