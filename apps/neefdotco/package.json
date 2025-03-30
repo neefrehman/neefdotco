@@ -9,8 +9,9 @@
     "process-photos": "node scripts/process-photos.js"
   },
   "dependencies": {
-    "@repo/utils": "workspace:*",
+    "@astrojs/netlify": "^6.2.4",
     "@repo/mouse": "workspace:*",
+    "@repo/utils": "workspace:*",
     "@tailwindcss/vite": "4.0.17",
     "astro": "5.5.5",
     "atcq": "1.0.6",
