@@ -23,7 +23,15 @@ export default class Server implements Party.Server {
   private indexIdMap = new Map<number, string>();
 
   private currentCursorIndex = -1;
+  private availableCursorIndices = new Set<number>();
   private getNextIndex = () => {
+    if (this.availableCursorIndices.size > 0) {
+      const index = this.availableCursorIndices.values().next().value;
+      if (index !== undefined) {
+        this.availableCursorIndices.delete(index);
+        return index;
+      }
+    }
     this.currentCursorIndex += 1;
     return this.currentCursorIndex;
   };
@@ -130,12 +138,13 @@ export default class Server implements Party.Server {
   };
 
   private handleExit = (conn: Party.Connection<unknown>): void => {
+    const cursor = this.idCursorMap.get(conn.id);
     this.broadcastCursor({ id: conn.id, type: "LEAVE" }, [conn.id]);
     this.updateCoordinatesInDelaunayGraph(conn.id, [0, 0]);
-    const cursor = this.idCursorMap.get(conn.id);
     if (cursor) {
       this.indexIdMap.delete(cursor.index);
       this.idCursorMap.delete(conn.id);
+      this.availableCursorIndices.add(cursor.index);
     }
   };
 
