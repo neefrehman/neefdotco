@@ -18,7 +18,7 @@
     "atcq": "1.0.6",
     "get-pixels": "3.3.3",
     "sharp": "0.33.5",
-    "tailwindcss": "4.0.17"
+    "tailwindcss": "4.1.0"
   },
   "devDependencies": {
     "@total-typescript/tsconfig": "1.0.4",
