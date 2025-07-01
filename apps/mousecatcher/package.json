@@ -16,7 +16,7 @@
   "devDependencies": {
     "@total-typescript/tsconfig": "1.0.4",
     "@types/d3-delaunay": "6.0.4",
-    "@types/node": "22.13.14",
+    "@types/node": "24.0.9",
     "typescript": "5.8.2"
   }
 }
