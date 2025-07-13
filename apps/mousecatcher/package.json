@@ -11,12 +11,12 @@
     "@repo/utils": "workspace:*",
     "banditypes": "0.2.5",
     "d3-delaunay": "6.0.4",
-    "partykit": "0.0.114"
+    "partykit": "0.0.115"
   },
   "devDependencies": {
     "@total-typescript/tsconfig": "1.0.4",
     "@types/d3-delaunay": "6.0.4",
     "@types/node": "22.13.14",
-    "typescript": "5.8.2"
+    "typescript": "5.8.3"
   }
 }

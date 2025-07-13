@@ -1,7 +1,7 @@
 import {
-  type Infer,
   array,
   enums,
+  type Infer,
   nullable,
   number,
   object,

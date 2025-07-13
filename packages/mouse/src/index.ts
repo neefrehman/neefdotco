@@ -4,6 +4,7 @@ import type { HintedString } from "@repo/utils/types";
 
 // @ts-expect-error -- HACK: here we rely on the fact that the (currently only) consumer
 // of this packages uses vite for bundling, which can import this file as a string.
+// See: https://vite.dev/guide/assets.html#explicit-inline-handling
 import stylesString from "./styles.css?inline";
 
 const styleTemplate = document.createElement("template");

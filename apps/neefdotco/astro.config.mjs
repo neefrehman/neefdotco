@@ -1,8 +1,7 @@
 import netlify from "@astrojs/netlify";
+import compress from "@playform/compress";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
-
-import compress from "@playform/compress";
 
 export default defineConfig({
   output: "static",

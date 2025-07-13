@@ -1,7 +1,7 @@
 import {
   type CursorState,
-  type ServerEvent,
   parseClientEvent,
+  type ServerEvent,
   serializeServerEvent,
 } from "@repo/mouse/presence";
 import type { Vector } from "@repo/utils/math/types";

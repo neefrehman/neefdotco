@@ -1,4 +1,5 @@
 {
+  "$schema": "https://biomejs.dev/schemas/2.1.1/schema.json",
   "vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
   "formatter": {
     "enabled": true,
@@ -30,7 +31,7 @@
   },
   "overrides": [
     {
-      "include": ["*.astro"],
+      "includes": ["*.astro"],
       "linter": {
         "rules": {
           "style": {
@@ -41,11 +42,11 @@
       }
     },
     {
-      "include": ["**/scripts/**"],
+      "includes": ["**/scripts/**"],
       "linter": { "rules": { "suspicious": { "noConsole": "off" } } }
     },
     {
-      "include": ["packages/mouse/src/index.ts"],
+      "includes": ["packages/mouse/src/index.ts"],
       "linter": {
         "rules": {
           "style": { "noNonNullAssertion": "off" },
