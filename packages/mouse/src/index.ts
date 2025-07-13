@@ -51,7 +51,7 @@ export class Cursor extends HTMLElement {
       new CustomEvent<Partial<CursorState>>("statechange", {
         composed: true,
         detail: changedState,
-      })
+      }),
     );
   };
 
@@ -150,13 +150,15 @@ export class Cursor extends HTMLElement {
     return this.cursorContentsElement.textContent;
   }
 
+  /** biome-ignore-start lint/suspicious/noAssignInExpressions: here I'm being opinionated about formatting and prefer assignment-in-expressions over breaking across multiple lines */
+
   public registerEventHandlers = ({
     onMove = this.move,
   }: {
     onMove?: (coords: Vector<2>) => void;
   }) => {
     document.addEventListener("mousemove", () => (this.visibility = "shown"), { once: true });
-    document.addEventListener("mousemove", e => onMove([e.clientX, e.clientY]));
+    document.addEventListener("mousemove", (e) => onMove([e.clientX, e.clientY]));
 
     document.addEventListener("mousedown", () => {
       if (this.size === "md") this.size = "sm";
@@ -165,27 +167,29 @@ export class Cursor extends HTMLElement {
       if (this.size === "sm") this.size = "md";
     });
 
-    document.querySelectorAll<HTMLElement>("a, button").forEach(link => {
+    document.querySelectorAll<HTMLElement>("a, button").forEach((link) => {
       link.addEventListener("mouseenter", () => (this.size = "lg"));
       link.addEventListener("mouseleave", () => (this.size = "md"));
     });
 
-    document.querySelectorAll<HTMLElement>("[data-cursor-placement]").forEach(el => {
+    /** biome-ignore-start lint/style/noNonNullAssertion: to get the types to work we do non-null assertions on properties that we've know we've just queried for */
+
+    document.querySelectorAll<HTMLElement>("[data-cursor-placement]").forEach((el) => {
       el.addEventListener("mouseenter", () => (this.placement = el.dataset.cursorPlacement!));
       el.addEventListener("mouseleave", () => (this.placement = el.dataset.cursorPlacement!));
     });
 
-    document.querySelectorAll<HTMLElement>("[data-cursor-shape]").forEach(el => {
+    document.querySelectorAll<HTMLElement>("[data-cursor-shape]").forEach((el) => {
       el.addEventListener("mouseenter", () => (this.shape = el.dataset.cursorShape!));
       el.addEventListener("mouseleave", () => (this.shape = "circle"));
     });
 
-    document.querySelectorAll<HTMLElement>("[data-cursor-size]").forEach(el => {
+    document.querySelectorAll<HTMLElement>("[data-cursor-size]").forEach((el) => {
       el.addEventListener("mouseenter", () => (this.size = el.dataset.cursorSize!));
       el.addEventListener("mouseleave", () => (this.size = "md"));
     });
 
-    document.querySelectorAll<HTMLElement>("[data-cursor-contents]").forEach(el => {
+    document.querySelectorAll<HTMLElement>("[data-cursor-contents]").forEach((el) => {
       el.addEventListener("mouseenter", () => (this.textContent = el.dataset.cursorContents!));
       el.addEventListener("mouseleave", () => (this.textContent = ""));
       el.addEventListener("click", () => {
@@ -193,7 +197,7 @@ export class Cursor extends HTMLElement {
       });
     });
 
-    document.querySelectorAll<HTMLElement>("[data-cursor-color]").forEach(el => {
+    document.querySelectorAll<HTMLElement>("[data-cursor-color]").forEach((el) => {
       el.addEventListener("mouseenter", () => (this.color = el.dataset.cursorColor!));
       el.addEventListener("mouseleave", () => (this.color = ""));
       el.addEventListener("click", () => {
@@ -201,7 +205,7 @@ export class Cursor extends HTMLElement {
       });
     });
 
-    document.querySelectorAll<HTMLElement>("[data-cursor-regrow=true]").forEach(el => {
+    document.querySelectorAll<HTMLElement>("[data-cursor-regrow=true]").forEach((el) => {
       el.addEventListener("click", () => {
         this.size = "md";
         const cursorReset = setTimeout(() => (this.size = el.dataset.cursorSize ?? "lg"), 1000);
@@ -212,13 +216,16 @@ export class Cursor extends HTMLElement {
             clearTimeout(cursorReset);
             this.size = "md";
           },
-          { once: true }
+          { once: true },
         );
       });
     });
 
+    /** biome-ignore-end lint/style/noNonNullAssertion: we no longer need to use non-null assertions */
+    /** biome-ignore-end lint/suspicious/noAssignInExpressions: we no longer need to assign in expressions */
+
     let keydownTimeout: NodeJS.Timeout;
-    window.addEventListener("keydown", e => {
+    window.addEventListener("keydown", (e) => {
       clearTimeout(keydownTimeout);
       const clearCursor = () => {
         this.size = "md";

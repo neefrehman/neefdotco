@@ -13,7 +13,7 @@
 export const randomInRange = (
   min: number,
   max?: number,
-  options?: { isInteger?: boolean; not?: number }
+  options?: { isInteger?: boolean; not?: number },
 ): number => {
   const { isInteger = false, not = undefined } = options ?? {};
   const upperBound = max ?? min;

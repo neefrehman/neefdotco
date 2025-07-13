@@ -1,5 +1,6 @@
 import * as fs from "node:fs";
 import { promisify } from "node:util";
+
 import ATCQ from "atcq";
 import rawGetPixels from "get-pixels";
 import sharp from "sharp";
@@ -9,12 +10,12 @@ const getPixels = promisify(rawGetPixels);
 const rawPhotosDirectory = "./src/photos/_raw";
 const cacheJsonFile = "./src/data/quantized-photo-colors.json";
 
-const rawPhotos = fs.readdirSync(rawPhotosDirectory).filter(name => name !== ".DS_Store");
+const rawPhotos = fs.readdirSync(rawPhotosDirectory).filter((name) => name !== ".DS_Store");
 const processedPhotos = JSON.parse(fs.readFileSync(cacheJsonFile));
 
-const photosToDelete = Object.keys(processedPhotos).filter(file => !rawPhotos.includes(file));
+const photosToDelete = Object.keys(processedPhotos).filter((file) => !rawPhotos.includes(file));
 const photosToProcess = rawPhotos.filter(
-  photoName => !Object.keys(processedPhotos).includes(photoName)
+  (photoName) => !Object.keys(processedPhotos).includes(photoName),
 );
 
 const updateCache = () => fs.writeFileSync(cacheJsonFile, JSON.stringify(processedPhotos, null, 4));
@@ -32,7 +33,7 @@ const deleteRemovedPhotos = () => {
   }
 };
 
-const updateFileExtension = file => {
+const updateFileExtension = (file) => {
   let newFile = file;
   if (file.includes(".jpeg" || file.includes(".JPG"))) {
     console.log(`renaming extension for ${file}`);
@@ -42,7 +43,7 @@ const updateFileExtension = file => {
   return newFile;
 };
 
-const extractColorFromImage = async file => {
+const extractColorFromImage = async (file) => {
   const rgb2hex = (r, g, b) => `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`;
 
   const atcq = ATCQ({
@@ -66,7 +67,7 @@ const extractColorFromImage = async file => {
   return colorHex;
 };
 
-const resizeImage = async file => {
+const resizeImage = async (file) => {
   await sharp(`${rawPhotosDirectory}/${file}`)
     .resize({ width: 1920 })
     .withMetadata()
@@ -98,7 +99,7 @@ const main = () => {
   console.log(`starting processing for ${photosToProcess.length} new photos`);
   processPhotos()
     .then(() => console.log("✨ 🖼  done with photo processing 🖼  ✨", "\n"))
-    .catch(error => console.log("error:", error));
+    .catch((error) => console.log("error:", error));
 };
 
 main();

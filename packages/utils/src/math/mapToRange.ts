@@ -19,7 +19,7 @@ export const mapToRange = (
   inputMin: number,
   inputMax: number,
   outputMin: number,
-  outputMax: number
+  outputMax: number,
 ) => {
   if (Math.abs(inputMin - inputMax) < Number.EPSILON) return outputMin;
 

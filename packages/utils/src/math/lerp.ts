@@ -29,7 +29,7 @@ export const lerp = (start: number, end: number, alpha: number): number =>
 export const lerpVector = <D extends number>(
   startVector: Vector<D>,
   endVector: Vector<D>,
-  alpha: number
+  alpha: number,
 ): Vector<D> => {
   if (startVector.length !== endVector.length)
     throw new TypeError("start & end vectors should have the same length");

@@ -1,3 +1,6 @@
+import { Delaunay } from "d3-delaunay";
+import type * as Party from "partykit/server";
+
 import {
   type CursorState,
   parseClientEvent,
@@ -6,8 +9,6 @@ import {
 } from "@repo/mouse/presence";
 import type { Vector } from "@repo/utils/math/types";
 import { tryCatch } from "@repo/utils/tryCatch";
-import { Delaunay } from "d3-delaunay";
-import type * as Party from "partykit/server";
 
 const MAX_CURSORS_SUPPORTED_IN_GRAPH = 512;
 
@@ -132,7 +133,7 @@ export default class Server implements Party.Server {
           id,
           type: "NEIGHBORS",
           neighbors: neighborIds,
-        })
+        }),
       );
     });
   };

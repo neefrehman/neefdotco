@@ -3,56 +3,35 @@
   "vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
   "formatter": {
     "enabled": true,
-    "useEditorconfig": true,
     "formatWithErrors": false,
     "indentStyle": "space",
-    "indentWidth": 2,
-    "lineEnding": "lf",
-    "lineWidth": 100,
-    "attributePosition": "auto",
-    "bracketSpacing": true
+    "lineWidth": 100
   },
   "linter": {
     "enabled": true,
     "rules": { "complexity": { "noForEach": "off" } }
   },
-  "javascript": {
-    "formatter": {
-      "jsxQuoteStyle": "double",
-      "quoteProperties": "asNeeded",
-      "trailingCommas": "es5",
-      "semicolons": "always",
-      "arrowParentheses": "asNeeded",
-      "bracketSameLine": false,
-      "quoteStyle": "double",
-      "attributePosition": "auto",
-      "bracketSpacing": true
-    }
-  },
-  "overrides": [
-    {
-      "includes": ["*.astro"],
-      "linter": {
-        "rules": {
-          "style": {
-            "useConst": "off",
-            "useImportType": "off"
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": {
+          "level": "on",
+          "options": {
+            "groups": [
+              ":URL:",
+              ":BLANK_LINE:",
+              ":NODE:",
+              ":BLANK_LINE:",
+              ["astro:*"],
+              ":BLANK_LINE:",
+              [":PACKAGE:", "!@repo/**"],
+              ":BLANK_LINE:",
+              "@repo/**",
+              ":BLANK_LINE:"
+            ]
           }
         }
       }
-    },
-    {
-      "includes": ["**/scripts/**"],
-      "linter": { "rules": { "suspicious": { "noConsole": "off" } } }
-    },
-    {
-      "includes": ["packages/mouse/src/index.ts"],
-      "linter": {
-        "rules": {
-          "style": { "noNonNullAssertion": "off" },
-          "suspicious": { "noAssignInExpressions": "off" }
-        }
-      }
     }
-  ]
+  }
 }
