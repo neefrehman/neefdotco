@@ -14,7 +14,7 @@
     "@repo/mouse": "workspace:*",
     "@repo/utils": "workspace:*",
     "@tailwindcss/vite": "4.1.11",
-    "astro": "5.11.0",
+    "astro": "5.12.8",
     "atcq": "1.0.6",
     "get-pixels": "3.3.3",
     "sharp": "0.34.3",
