@@ -13,16 +13,16 @@
     "@playform/compress": "0.2.0",
     "@repo/mouse": "workspace:*",
     "@repo/utils": "workspace:*",
-    "@tailwindcss/vite": "4.1.11",
-    "astro": "5.11.0",
+    "@tailwindcss/vite": "4.1.12",
+    "astro": "5.13.5",
     "atcq": "1.0.6",
     "get-pixels": "3.3.3",
     "sharp": "0.34.3",
-    "tailwindcss": "4.1.11"
+    "tailwindcss": "4.1.12"
   },
   "devDependencies": {
     "@total-typescript/tsconfig": "1.0.4",
     "@types/node": "22.13.14",
-    "typescript": "5.8.2"
+    "typescript": "5.9.2"
   }
 }
