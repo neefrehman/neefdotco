@@ -25,8 +25,9 @@ const {
       document.documentElement.dataset.theme = localStorage.getItem("theme") ?? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
       const randomInRange = (min, max) => Math.random() * (max - min) + min;
       const hue = randomInRange(0, 360);
-      const saturation = randomInRange(0, 100);
-      document.documentElement.style.setProperty("--base-color", `${hue}deg, ${saturation}%`);
+      const chroma = randomInRange(0.02, 0.25);
+      document.documentElement.style.setProperty("--base-hue", `${hue}deg`);
+      document.documentElement.style.setProperty("--base-chroma", chroma.toFixed(4));
     </script>
 
     <link rel="preload" href="/fonts/fleuronregular.woff2" as="font" type="font/woff2" crossorigin />

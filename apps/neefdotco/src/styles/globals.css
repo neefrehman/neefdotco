@@ -10,14 +10,17 @@
 
   :root {
     color-scheme: light dark;
-    --base-color: unset; /* This is set in `Layout.astro` */
 
-    --primary-color-light: hsl(var(--base-color), 90%);
-    --primary-color-light-transparent: hsla(var(--base-color), 90%, 30%);
-    --primary-color-mid: hsl(var(--base-color), 46%);
-    --primary-color-mid-transparent: hsla(var(--base-color), 46%, 30%);
-    --primary-color-dark: hsl(var(--base-color), 10%);
-    --primary-color-dark-transparent: hsla(var(--base-color), 10%, 30%);
+    /* Colors are set in `Layout.astro` */
+    --base-hue: unset;
+    --base-chroma: unset;
+
+    --primary-color-light: oklch(85% var(--base-chroma) var(--base-hue));
+    --primary-color-light-transparent: oklch(85% var(--base-chroma) var(--base-hue) / 30%);
+    --primary-color-mid: oklch(46% var(--base-chroma) var(--base-hue));
+    --primary-color-mid-transparent: oklch(46% var(--base-chroma) var(--base-hue) / 30%);
+    --primary-color-dark: oklch(18% var(--base-chroma) var(--base-hue));
+    --primary-color-dark-transparent: oklch(18% var(--base-chroma) var(--base-hue) / 30%);
 
     --text-color: light-dark(var(--primary-color-dark), var(--primary-color-light));
     --background-color: light-dark(var(--primary-color-light), var(--primary-color-dark));
