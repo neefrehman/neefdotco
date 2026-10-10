@@ -1,22 +1,4 @@
-@import "tailwindcss";
-
-@custom-variant dark (&:is(.dark *));
-
-@theme {
-  /* Lighten bundle by removing some of tailwind's default theme */
-  --color-*: initial;
-  --font-*: initial;
-  --shadow-*: initial;
-  --inset-shadow-*: initial;
-  --drop-shadow-*: initial;
-  --blur-*: initial;
-  --perspective-*: initial;
-  --aspect-*: initial;
-  --ease-*: initial;
-  --animate-*: initial;
-
-  --breakpoint-xxl: 1440px;
-}
+@import "tailwindcss/preflight.css" layer(base);
 
 @layer base {
   @font-face {
@@ -25,7 +7,7 @@
     font-display: block;
     src: url("/fonts/fleuronregular.woff2");
   }
-  
+
   :root {
     --base-color: unset; /* This is set in `Layout.astro` */
 
@@ -35,13 +17,13 @@
     --primary-color-mid-transparent: hsla(var(--base-color), 46%, 30%);
     --primary-color-dark: hsl(var(--base-color), 10%);
     --primary-color-dark-transparent: hsla(var(--base-color), 10%, 30%);
-  
+
     --text-color: var(--primary-color-dark);
     --background-color: var(--primary-color-light);
     --opposite-mode-background: var(--primary-color-dark);
     --opposite-mode-background-transparent: var(--primary-color-dark-transparent);
   }
-  
+
   :root.dark {
     color-scheme: dark only;
     --text-color: var(--primary-color-light);
@@ -55,10 +37,14 @@
     height: 100%; /* Give scrollbar to all pages to avoid jump */
     isolation: isolate;
   }
-  
+
   body {
     margin: clamp(18px, 2.2vw, 40px);
-    font-family: "Fleuron", helvetica neue, arial, sans-serif;
+    font-family:
+      "Fleuron",
+      helvetica neue,
+      arial,
+      sans-serif;
     font-size: clamp(15px, 15px + 0.24vw, 19px);
     line-height: 1.38;
     color: var(--text-color);
@@ -69,7 +55,7 @@
 
     overflow-x: hidden; /* HACK: this avoids other user's cursors widening the screen, as they are positioned absolutely (so they can maintain their position relative to the page when we scroll) */
   }
-  
+
   *::selection {
     background-color: var(--opposite-mode-background-transparent);
   }
@@ -81,7 +67,7 @@
   *:focus-visible {
     outline: auto;
   }
-  
+
   button,
   a,
   a:visited {
@@ -98,7 +84,7 @@
     object-fit: cover;
     height: 100%;
   }
-  
+
   @media (pointer: fine) {
     button:hover,
     a:hover,
@@ -106,5 +92,17 @@
       font-style: italic;
       color: var(--background-color);
     }
-  }  
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
 }

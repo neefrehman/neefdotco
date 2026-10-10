@@ -7,19 +7,19 @@ import Layout from "layouts/Layout.astro";
 
 <Layout>
   <div>
-    <div id="info" class="my-12 grid grid-cols-12 gap-8 md:mt-[max(5em,_80px)]">
-      <section class="col-span-full flex flex-col gap-[0.85em] text-justify md:col-span-6 xxl:col-span-4!">
+    <div id="info">
+      <section>
         <p>
           Neef Rehman is an Engineering manager, Full-stack Engineer and Interaction Designer based in London.
           Currently he works at <ExternalLink href="https://isometric.com">Isometric</ExternalLink>, leading
           teams building measurement and verification systems for carbon removal.
         </p>
         <div>
-          <button data-more-info-show="previously" data-cursor-contents="+" class="aria-current:no-underline">Previously</button>
+          <button data-more-info-show="previously" data-cursor-contents="+">Previously</button>
           —
-          <button data-more-info-show="speaking" data-cursor-contents="+" class="aria-current:no-underline">Speaking</button>
+          <button data-more-info-show="speaking" data-cursor-contents="+">Speaking</button>
           —
-          <button data-more-info-show="education" data-cursor-contents="+" class="aria-current:no-underline">Teaching</button>
+          <button data-more-info-show="education" data-cursor-contents="+">Teaching</button>
         </div>
         <footer>
           <ExternalLink href="https://twitter.com/neefrehman_">Twitter</ExternalLink>
@@ -33,7 +33,7 @@ import Layout from "layouts/Layout.astro";
       <div
         id="more-info-live-region"
         aria-live="polite"
-        class="col-span-full [&:has(section)]:mb-8 [&:has(section)]:h-44 md:col-span-6 xxl:col-span-4!"
+
       >
       </div>
     </div>
@@ -45,77 +45,77 @@ import Layout from "layouts/Layout.astro";
       to achieve the same layout with details/summary elements (or similar), but I can't see
       how without having to jump through a different set of hoops (yet!)
     -->
-    <div id="more-info-hidden-region" aria-hidden="true" class="hidden">
-      <section id="previously" class="flex flex-col gap-[0.85em] text-justify">
+    <div id="more-info-hidden-region" aria-hidden="true">
+      <section id="previously">
         <h2>Previously</h2>
         <ol>
-          <li class="flex flex-row justify-between gap-8">
-            <span class="text-left">Full-stack Engineer</span>
-            <span class="text-right flex-1"><ExternalLink href="https://ustwo.com">ustwo</ExternalLink></span>
+          <li>
+            <span>Full-stack Engineer</span>
+            <span><ExternalLink href="https://ustwo.com">ustwo</ExternalLink></span>
           </li>
-          <li class="flex flex-row justify-between gap-8">
-            <span class="text-left">Venture Lead</span>
-            <span class="text-right flex-1"><ExternalLink href="https://adventure.ustwo.com">ustwo Adventure</ExternalLink></span>
+          <li>
+            <span>Venture Lead</span>
+            <span><ExternalLink href="https://adventure.ustwo.com">ustwo Adventure</ExternalLink></span>
           </li>
-          <li class="flex flex-row justify-between gap-8">
-            <span class="text-left">Bioinformatics</span>
-            <span class="text-right flex-1"><ExternalLink href="https://www.illumina.com/">Illumina</ExternalLink></span>
+          <li>
+            <span>Bioinformatics</span>
+            <span><ExternalLink href="https://www.illumina.com/">Illumina</ExternalLink></span>
           </li>
-          <li class="flex flex-row justify-between gap-8">
-            <span class="text-left">Degree</span>
-            <span class="text-right flex-1"><ExternalLink href="https://wikipedia.org/wiki/Physics">Physics</ExternalLink></span>
+          <li>
+            <span>Degree</span>
+            <span><ExternalLink href="https://wikipedia.org/wiki/Physics">Physics</ExternalLink></span>
           </li>
-          <li class="flex flex-row justify-between gap-8">
-            <span class="text-left">Head barista</span>
-            <span class="text-right flex-1"><ExternalLink href="https://genesiscinema.co.uk">Genesis Cinema</ExternalLink></span>
+          <li>
+            <span>Head barista</span>
+            <span><ExternalLink href="https://genesiscinema.co.uk">Genesis Cinema</ExternalLink></span>
           </li>
         </ol>
       </section>
 
-      <section id="speaking" class="flex flex-col gap-[0.85em] text-justify">
+      <section id="speaking">
         <h2>Speaking</h2>
         <ul>
-          <li class="flex flex-row justify-between gap-8">
-            <span class="text-left"><ExternalLink href=https://leaddev.com/leadership/how-to-zoom-out-and-when-to-stop">How to Zoom Out</ExternalLink></span>
-            <span class="text-right flex-1">LeadDev/LDX3</span>
+          <li>
+            <span><ExternalLink href=https://leaddev.com/leadership/how-to-zoom-out-and-when-to-stop">How to Zoom Out</ExternalLink></span>
+            <span>LeadDev/LDX3</span>
           </li>
-          <li class="flex flex-row justify-between gap-8">
-            <span class="text-left"><ExternalLink href="https://videos.theconference.se/neef-rehman-machine-forgetting">Machine Forgetting</ExternalLink></span>
-            <span class="text-right flex-1">The Conference</span>
+          <li>
+            <span><ExternalLink href="https://videos.theconference.se/neef-rehman-machine-forgetting">Machine Forgetting</ExternalLink></span>
+            <span>The Conference</span>
           </li>
-          <li class="flex flex-row justify-between gap-8">
-            <span class="text-left">Notes on Determinism</span>
-            <span class="text-right flex-1">London Design Festival</span>
+          <li>
+            <span>Notes on Determinism</span>
+            <span>London Design Festival</span>
           </li>
-          <li class="flex flex-row justify-between gap-8">
-            <span class="text-left">Notes on Determinism</span>
-            <span class="text-right flex-1">Birmingham Design Festival</span>
+          <li>
+            <span>Notes on Determinism</span>
+            <span>Birmingham Design Festival</span>
           </li>
-          <li class="flex flex-row justify-between gap-8">            
-            <span class="text-left">Rubber Duck Everything</span>
-            <span class="text-right flex-1">West of England Design Forum</span>
+          <li>
+            <span>Rubber Duck Everything</span>
+            <span>West of England Design Forum</span>
           </li>
         </ul>
       </section>
 
-      <section id="education" class="flex flex-col gap-[0.85em] text-justify">
+      <section id="education">
         <h2>Teaching</h2>
         <ul>
-          <li class="flex flex-row justify-between gap-8">
-            <span class="text-left">Guest lecturer</span>
-            <span class="text-right flex-1">D&AD New Blood Academy</span>
+          <li>
+            <span>Guest lecturer</span>
+            <span>D&AD New Blood Academy</span>
           </li>
-          <li class="flex flex-row justify-between gap-8">
-            <span class="text-left">Guest lecturer</span>
-            <span class="text-right flex-1">UAL:CCI</span>
+          <li>
+            <span>Guest lecturer</span>
+            <span>UAL:CCI</span>
           </li>
-          <li class="flex flex-row justify-between gap-8">
-            <span class="text-left">Guest lecturer</span>
-            <span class="text-right flex-1">Hyper Island</span>
+          <li>
+            <span>Guest lecturer</span>
+            <span>Hyper Island</span>
           </li>
-          <li class="flex flex-row justify-between gap-8">
-            <span class="text-left">Module Facilitator</span>
-            <span class="text-right flex-1">Falmouth University</span>
+          <li>
+            <span>Module Facilitator</span>
+            <span>Falmouth University</span>
           </li>
         </ul>
       </section>
@@ -124,6 +124,70 @@ import Layout from "layouts/Layout.astro";
     <WordOrbit words={SKILLS.slice()} />
   </div>
 </Layout>
+
+<style>
+  #info {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 2rem;
+    margin-block: 3rem;
+
+    > * {
+      grid-column: span 12;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85em;
+      text-align: justify;
+
+      [data-more-info-show][aria-current="true"] {
+        text-decoration: none;
+      }
+    }
+
+    #more-info-live-region {
+      > section {
+        display: flex;
+        flex-direction: column;
+        gap: 0.85em;
+        text-align: justify;
+
+        li {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          gap: 2rem;
+
+          > span:first-child {
+            text-align: left;
+          }
+
+          > span:last-child {
+            flex: 1;
+            text-align: right;
+          }
+        }
+      }
+    }
+
+    @media (min-width: 48rem) {
+      margin-top: max(5em, 80px);
+
+      > * {
+        grid-column: span 6;
+      }
+    }
+
+    @media (min-width: 1440px) {
+      > * {
+        grid-column: span 4;
+      }
+    }
+  }
+
+  #more-info-hidden-region {
+    display: none;
+  }
+</style>
 
 <script>
   const moreInfoLiveRegion = document.querySelector("#more-info-live-region");

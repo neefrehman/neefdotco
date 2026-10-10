@@ -13,7 +13,6 @@
     "@playform/compress": "0.2.0",
     "@repo/mouse": "workspace:*",
     "@repo/utils": "workspace:*",
-    "@tailwindcss/vite": "4.1.12",
     "astro": "5.13.5",
     "atcq": "1.0.6",
     "get-pixels": "3.3.3",

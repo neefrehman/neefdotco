@@ -4,10 +4,8 @@ import DarkModeToggle from "./DarkModeToggle.astro";
 const currentPageIs = (path: string) => [path, `${path}/`].includes(Astro.url.pathname);
 ---
 
-<header
-  class="text-[2.2em] leading-[1.13] uppercase text-justify [text-align-last:justify] md:text-[3.4em]"
->
-  <nav class="inline [&_h1]:inline">
+<header>
+  <nav>
     {
       // Mapping causes some problems with spaces inside elements, which has an effect on the link underlines
       currentPageIs("/") ? (
@@ -26,3 +24,22 @@ const currentPageIs = (path: string) => [path, `${path}/`].includes(Astro.url.pa
   </nav>{" "}
   <DarkModeToggle />
 </header>
+
+<style>
+  header {
+    font-size: 2.2em;
+    line-height: 1.13;
+    text-align: justify;
+    text-align-last: justify;
+    text-transform: uppercase;
+
+    @media (min-width: 48rem) {
+      font-size: 3.4em;
+    }
+
+    nav,
+    nav h1 {
+      display: inline;
+    }
+  }
+</style>

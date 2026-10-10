@@ -6,10 +6,19 @@
   data-cursor-regrow="true"
   data-cursor-color="var(--opposite-mode-background)"
   data-cursor-size="xxl"
-  class="before:inline before:content-['dark'] dark:before:content-['light']"
 >
-  mode</a
->
+  mode
+</a>
+
+<style>
+  a::before {
+    content: "dark";
+  }
+
+  :global(html.dark) a::before {
+    content: "light";
+  }
+</style>
 
 <script>
   const darkModeToggle = document.querySelector<HTMLAnchorElement>("[data-dark-mode-toggle]");

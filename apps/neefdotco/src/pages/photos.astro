@@ -43,15 +43,16 @@ const spacerElementList = [...Array(Math.ceil(photos.length * 0.4))];
         />
       ))
     }
-    {spacerElementList.map(() => <div class="spacer pointer-events-none" />)}
+    {spacerElementList.map(() => <div class="spacer" />)}
   </div>
 </Layout>
 
-<!-- This needs to be global, as otherwise Astro's scoping logic would not work, -->
-<!-- as the required data attributes are not added to `Picture` elements. -->
-<!-- The CSS nesting will scope the variables well enough anyway. -->
-<style is:global>
+<style>
   .photo-container {
+    .spacer {
+      pointer-events: none;
+    }
+
     margin: 10px;
     margin-top: -100px;
     padding-bottom: 80px;
