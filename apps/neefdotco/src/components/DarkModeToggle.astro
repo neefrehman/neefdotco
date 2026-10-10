@@ -15,36 +15,37 @@
     content: "dark";
   }
 
-  :global(html.dark) a::before {
+  :global(html[data-theme="dark"]) a::before {
     content: "light";
   }
 </style>
 
 <script>
   const darkModeToggle = document.querySelector<HTMLAnchorElement>("[data-dark-mode-toggle]");
-  const baseColor = document.documentElement.style.getPropertyValue("--base-color");
+  const root = document.documentElement;
+  const baseColor = root.style.getPropertyValue("--base-color");
   const favicon = document.querySelector<HTMLLinkElement>("link[rel=icon][type='image/svg+xml']");
 
-  const onDarkModeChange = (options?: {updateLocalStorage?: boolean}) => {
-    const isDark = document.documentElement.classList.contains("dark");
-
+  const onThemeChange = (theme: string) => {
     if (favicon) {
       favicon.href = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Crect fill='${encodeURIComponent(
-        `hsl(${baseColor}, ${isDark ? 10 : 90}%)` // favicons and other elements in the head can't inherit css custom properties
+        `hsl(${baseColor}, ${theme === "dark" ? 10 : 90}%)` // favicons and other elements in the head can't inherit css custom properties
       )}' x='0' y='0' width='32' height='32'%3E%3C/rect%3E%3C/svg%3E`;
     }
+  }
 
-    if (options?.updateLocalStorage) {
-      localStorage.setItem("darkMode", isDark ? "1" : "0")
-    };
-  };
-
-  onDarkModeChange();
-
+  onThemeChange(root.dataset.theme);
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e => {
+    if (localStorage.getItem("theme") === null) {
+      root.dataset.theme = e.matches ? "dark" : "light";
+      onThemeChange(e.matches ? "dark" : "light");
+    }
+  });
   darkModeToggle?.addEventListener("click", e => {
-    e.preventDefault();
-    document.documentElement.classList.toggle("dark");
-    onDarkModeChange({ updateLocalStorage: true });
+    const newTheme = root.dataset.theme === "light" ? "dark" : "light";
+    root.dataset.theme = newTheme;
+    onThemeChange(newTheme)
+    localStorage.setItem("theme", newTheme)
   });
 
   // Because the toggle is an achor element (for styling reasons), we must re-implement keyboard events

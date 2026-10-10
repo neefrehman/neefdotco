@@ -20,15 +20,9 @@ const {
 <html lang="en">
   <head>
     <script is:inline>
-      // This script blocks the first paint while it sets the color scheme and chooses a background color.
-      // For performance reasons it must be inline, so can't use any TS or imports. the non-critical-path
-      // for theming is handled in `DarkModeToggle.astro`.
-      if (
-        localStorage.getItem("darkMode") == "1" ||
-        (!localStorage.getItem("darkMode") && window.matchMedia("(prefers-color-scheme: dark)").matches)
-      ) {
-        document.documentElement.classList.add("dark");
-      }
+      // This script blocks first paint while it applies a saved theme override and chooses a random background color.
+      // `DarkModeToggle.astro` handles the non-critical theme behavior.
+      document.documentElement.dataset.theme = localStorage.getItem("theme") ?? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
       const randomInRange = (min, max) => Math.random() * (max - min) + min;
       const hue = randomInRange(0, 360);
       const saturation = randomInRange(0, 100);

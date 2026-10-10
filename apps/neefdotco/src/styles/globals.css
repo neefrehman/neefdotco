@@ -9,6 +9,7 @@
   }
 
   :root {
+    color-scheme: light dark;
     --base-color: unset; /* This is set in `Layout.astro` */
 
     --primary-color-light: hsl(var(--base-color), 90%);
@@ -18,18 +19,18 @@
     --primary-color-dark: hsl(var(--base-color), 10%);
     --primary-color-dark-transparent: hsla(var(--base-color), 10%, 30%);
 
-    --text-color: var(--primary-color-dark);
-    --background-color: var(--primary-color-light);
-    --opposite-mode-background: var(--primary-color-dark);
-    --opposite-mode-background-transparent: var(--primary-color-dark-transparent);
-  }
+    --text-color: light-dark(var(--primary-color-dark), var(--primary-color-light));
+    --background-color: light-dark(var(--primary-color-light), var(--primary-color-dark));
+    --opposite-mode-background: light-dark(var(--primary-color-dark), var(--primary-color-light));
+    --opposite-mode-background-transparent: light-dark(var(--primary-color-dark-transparent), var(--primary-color-light-transparent));
 
-  :root.dark {
-    color-scheme: dark only;
-    --text-color: var(--primary-color-light);
-    --background-color: var(--primary-color-dark);
-    --opposite-mode-background: var(--primary-color-light);
-    --opposite-mode-background-transparent: var(--primary-color-light-transparent);
+    &[data-theme="light"] {
+      color-scheme: light only;
+    }
+
+    &[data-theme="dark"] {
+      color-scheme: dark only;
+    }
   }
 
   html,
