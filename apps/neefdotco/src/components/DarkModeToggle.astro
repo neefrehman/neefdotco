@@ -1,8 +1,8 @@
 <!-- is an anchor tag with a button role to get around an inability to justify the text contents of a button -->
 <a
+  id="dark-mode-toggle"
   role="button"
   tabindex="0"
-  data-dark-mode-toggle="true"
   data-cursor-regrow="true"
   data-cursor-color="var(--opposite-mode-background)"
   data-cursor-size="xxl"
@@ -21,16 +21,16 @@
 </style>
 
 <script>
-  const darkModeToggle = document.querySelector<HTMLAnchorElement>("[data-dark-mode-toggle]");
+  const darkModeToggle = document.getElementById("dark-mode-toggle");
   const root = document.documentElement;
   const baseHue = root.style.getPropertyValue("--base-hue");
   const baseChroma = root.style.getPropertyValue("--base-chroma");
   const favicon = document.querySelector<HTMLLinkElement>("link[rel=icon][type='image/svg+xml']");
 
-  const onThemeChange = (theme: string) => {
+  const onThemeChange = (theme?: string) => {
     if (favicon) {
       favicon.href = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Crect fill='${encodeURIComponent(
-        `oklch(${theme === "dark" ? 10 : 90}% ${baseChroma} ${baseHue})` // favicons and other elements in the head can't inherit css custom properties
+        `oklch(${theme === "dark" ? 18 : 85}% ${baseChroma} ${baseHue})` // favicons and other elements in the head can't inherit css custom properties
       )}' x='0' y='0' width='32' height='32'%3E%3C/rect%3E%3C/svg%3E`;
     }
   }
