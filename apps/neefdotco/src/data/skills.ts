@@ -25,7 +25,7 @@ export const SKILLS = [
   "Creative coding",
   "CSS",
   "Vercel",
-  "Prioritisation",
+  "AI Engineering",
   "Technical art",
   ":",
   "—",

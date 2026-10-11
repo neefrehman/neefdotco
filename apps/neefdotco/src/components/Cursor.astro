@@ -28,7 +28,7 @@
   
   if (matchMedia("(pointer:fine)").matches) {
     const cursor = document.querySelector<Cursor>("custom-cursor")!;
-    const gravityWell = document.querySelector<HTMLDivElement>("[data-gravity-well=true]");
+    const gravityWell = document.querySelector<HTMLDivElement>("[data-cursor-gravity-well]");
 
     const handleCursorMoveWithGravityWell = ([mouseX, mouseY]: [number, number]) => {
       if (!gravityWell) {
@@ -44,7 +44,7 @@
 
       const distanceToWell = getDistance([wellCenterX, wellCenterY], [mouseX, mouseY]);
 
-      if (distanceToWell > weakPullThreshold || !gravityWell.dataset.isActive) {
+      if (distanceToWell > weakPullThreshold || gravityWell.dataset.cursorGravityWell !== "active") {
         if (cursor.size === "xxxl") cursor.size = "md";
         cursor.move([mouseX, mouseY]);
         if (gravityWell.dataset.cursorContentsInWell) {

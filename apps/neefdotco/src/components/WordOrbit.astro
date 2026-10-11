@@ -23,30 +23,36 @@ const INNER_CIRCLE = words.splice(0, INNER_CIRCLE_WORD_COUNT);
 
 <div
   class="system"
-  data-gravity-well="true"
+  data-cursor-gravity-well="dormant"
   data-cursor-contents-in-well={cursorContentsInWell}
   aria-hidden={ariahidden ?? "false"}
 >
-  <div class="word-ring" style="--ring-index: 3" data-transition-element="true">
+  <div>
     <ul style={`--word-count: ${OUTER_CIRCLE.length}`}>
-      {OUTER_CIRCLE.map((skill, i) => <li style={`--index: ${i}`}>{skill}</li>)}
+      {OUTER_CIRCLE.map((skill) => <li>{skill}</li>)}
     </ul>
   </div>
 
-  <div class="word-ring" style="--ring-index: 2" data-transition-element="true">
+  <div>
     <ul style={`--word-count: ${MIDDLE_CIRCLE.length}`}>
-      {MIDDLE_CIRCLE.map((skill, i) => <li style={`--index: ${i}`}>{skill}</li>)}
+      {MIDDLE_CIRCLE.map((skill) => <li>{skill}</li>)}
     </ul>
   </div>
 
-  <div class="word-ring" style="--ring-index: 1" data-transition-element="true">
+  <div>
     <ul style={`--word-count: ${INNER_CIRCLE.length}`}>
-      {INNER_CIRCLE.map((skill, i) => <li style={`--index: ${i}`}>{skill}</li>)}
+      {INNER_CIRCLE.map((skill) => <li>{skill}</li>)}
     </ul>
   </div>
 </div>
 
 <style>
+  @property --ring-index {
+    syntax: "<number>";
+    inherits: true; /* Ensures that sibling-index() is not resolved in the context of the element that reads it */
+    initial-value: 1;
+  }
+
   div.system {
     position: fixed;
     z-index: 0;
@@ -54,30 +60,31 @@ const INNER_CIRCLE = words.splice(0, INNER_CIRCLE_WORD_COUNT);
     bottom: clamp(50px, var(--bottom), 180px);
     right: clamp(25px, 8vw, 150px);
     transform: rotate(-10deg);
-    
+
     @media ((max-height: 940px) and (max-width: 767px)) or (max-height: 700px) {
       --bottom: 8vh;
       opacity: 0.37;
     }
 
-    .word-ring {
-      opacity: 1;
+    > div {
+      --ring-index: calc(sibling-count() + 1 - sibling-index());
+      --transition-delay: calc(100ms + 300ms * sibling-index());
+      --transition-top-duration: 1000ms;
+      --transition-top-easing: cubic-bezier(0, 0.9, 0.1, 1);
+      --hidden-top: 20vh;
+      --hidden-opacity: 0;
+
       top: 0px;
       position: relative;
-      transform-style: preserve-3d;
       transition:
         transform 1000ms ease 100ms, /* small delay to avoid flickering when we stop hovering as it rotates */
-        opacity 400ms ease,
-        top 1000ms cubic-bezier(0, 0.9, 0.1, 1),
+        opacity 400ms ease var(--transition-delay),
+        top var(--transition-top-duration) var(--transition-top-easing) var(--transition-delay),
         rotate calc(700ms * var(--ring-index)) cubic-bezier(0, 0, 0.2, 1);
 
-      &:not(.loaded) {
-        top: 20vh;
-        opacity: 0;
-        transition:
-          transform 1000ms ease,
-          opacity 400ms ease,
-          top 400ms cubic-bezier(0.9, 0, 0.6, 1);
+      @starting-style {
+        top: var(--hidden-top);
+        opacity: var(--hidden-opacity);
       }
 
       > ul {
@@ -95,7 +102,7 @@ const INNER_CIRCLE = words.splice(0, INNER_CIRCLE_WORD_COUNT);
           background-color: var(--primary-color-mid-transparent);
           color: var(--text-color);
           --r: clamp(var(--ring-index) * 250px, var(--ring-index) * 25vw, var(--ring-index) * 600px);
-          --a: calc(var(--index) * (360 / var(--word-count)) * 1deg);
+          --a: calc((sibling-index() - 1) * (360 / var(--word-count)) * 1deg);
           transform: translateX(-50%) rotateZ(var(--a)) translateY(var(--r)) rotateX(90deg);
         }
       }
@@ -105,26 +112,28 @@ const INNER_CIRCLE = words.splice(0, INNER_CIRCLE_WORD_COUNT);
       &:has(:hover) {
         --rotateZ: 5deg;
       }
-  
+
       &:has(:active) {
         --rotateZ: 10deg;
       }
-  
-      .word-ring {
-        &:nth-child(odd) {
-         transform: rotateZ(var(--rotateZ, 0deg));
-        }
 
-        &:nth-child(even) {
-          transform: rotateZ(calc(var(--rotateZ, 0deg) * -1));
-        }
-    
+      > div {
+        transform: rotateZ(calc(var(--rotateZ, 0deg) * pow(-1, sibling-index() + 1)));
+
         ul > li:hover {
           background-color: var(--opposite-mode-background);
           color: var(--background-color);
         }
       }
     }
+  }
+
+  :global(body[data-exiting="true"]) div.system > div {
+    top: var(--hidden-top);
+    opacity: var(--hidden-opacity);
+    --transition-delay: calc(150ms * (sibling-index() - 1));
+    --transition-top-duration: 400ms;
+    --transition-top-easing: cubic-bezier(0.9, 0, 0.6, 1);
   }
 
   @keyframes three-dimensions-circle {
@@ -140,14 +149,11 @@ const INNER_CIRCLE = words.splice(0, INNER_CIRCLE_WORD_COUNT);
 <script>
   import { throttle } from "@repo/utils/throttle";
 
-  const rings = document.querySelectorAll<HTMLElement>(".system .word-ring");
-  rings.forEach((ring, i) => {
-    setTimeout(() => ring.classList.add("loaded"), 500 + i * 300);
-  });
+  const rings = document.querySelectorAll<HTMLElement>(".system > div");
 
-  // only pull cursor once rings have completed their transitions
+  // only pull cursor once rings have ~completed their transitions
   const system = document.querySelector<HTMLElement>(".system")!;
-  setTimeout(() => (system.dataset.isActive = "true"), 400 + rings.length * 300);
+  setTimeout(() => (system.dataset.cursorGravityWell = "active"), 400 + rings.length * 300);
 
   if ("ontouchstart" in document.documentElement && "DeviceOrientationEvent" in window) {
     interface iOSDeviceOrientationEvent extends DeviceOrientationEvent {
@@ -181,7 +187,6 @@ const INNER_CIRCLE = words.splice(0, INNER_CIRCLE_WORD_COUNT);
                 hasOrientationListener = true;
               }
             })
-            .catch();
         }
         // for other devices, and for already granted iOS devices, we add the listener
         window.addEventListener("deviceorientation", tiltOrbit);
