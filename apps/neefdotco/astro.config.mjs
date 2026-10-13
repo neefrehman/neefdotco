@@ -6,6 +6,7 @@ export default defineConfig({
   output: "static",
   site: "https://neef.co",
   adapter: netlify({ imageCDN: false }),
+  prefetch: true,
   experimental: {
     preserveScriptOrder: true,
   },

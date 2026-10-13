@@ -11,14 +11,14 @@ const currentPageIs = (path: string) => [path, `${path}/`].includes(Astro.url.pa
       currentPageIs("/") ? (
         <h1 aria-current="page">Neef Rehman Creative Technologist</h1>
       ) : (
-        <a data-triggers-nav-transition="true" href="/">Neef Rehman Creative Technologist</a>
+        <a data-triggers-nav-transition="true" data-astro-prefetch="hover" href="/">Neef Rehman Creative Technologist</a>
       )
     }{" "}
     {
       currentPageIs("/photos") ? (
         <h1 aria-current="page">Photography</h1>
       ) : (
-        <a data-triggers-nav-transition="true" href="/photos">Photography</a>
+        <a data-triggers-nav-transition="true" data-astro-prefetch="hover" href="/photos">Photography</a>
       )
     }
   </nav>{" "}
@@ -33,7 +33,7 @@ const currentPageIs = (path: string) => [path, `${path}/`].includes(Astro.url.pa
     text-align-last: justify;
     text-transform: uppercase;
 
-    @media (min-width: 48rem) {
+    @media (width >= 48rem) {
       font-size: 3.4em;
     }
 

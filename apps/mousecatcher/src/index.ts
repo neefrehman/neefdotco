@@ -37,21 +37,15 @@ export default class Server implements Party.Server {
     return this.currentCursorIndex;
   };
 
-  private getFlattenedMatrixCoordinateIndicesFromIndex = (index: number) => {
-    return [index * 2, index * 2 + 1];
-  };
-
   private updateCoordinatesInDelaunayGraph = (id: string, [x, y]: Vector<2>) => {
     const cursor = this.idCursorMap.get(id);
     if (!cursor) {
       return;
     }
-    const [xLocation, yLocation] = this.getFlattenedMatrixCoordinateIndicesFromIndex(cursor.index);
-    if (xLocation && yLocation) {
-      this.delaunay.points[xLocation] = x;
-      this.delaunay.points[yLocation] = y;
-      this.delaunay.update();
-    }
+    // The graph's points are a flat array of x, y pairs
+    this.delaunay.points[cursor.index * 2] = x;
+    this.delaunay.points[cursor.index * 2 + 1] = y;
+    this.delaunay.update();
   };
 
   private broadcastCursor = (event: ServerEvent, without?: string[]) => {

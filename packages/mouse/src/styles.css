@@ -27,10 +27,7 @@
   pointer-events: none;
 
   .cursor-root {
-    transition:
-      translate var(--cursor-translate-duration) var(--cursor-translate-ease),
-      top 430ms cubic-bezier(1, 0.1, 0.1, 1),
-      left 430ms cubic-bezier(1, 0.1, 0.1, 1);
+    transition: translate var(--cursor-translate-duration) var(--cursor-translate-ease);
   }
 
   @media (pointer: coarse) {

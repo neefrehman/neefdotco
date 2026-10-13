@@ -75,7 +75,7 @@ import Layout from "layouts/Layout.astro";
         <h2>Speaking</h2>
         <ul>
           <li>
-            <span><ExternalLink href=https://leaddev.com/leadership/how-to-zoom-out-and-when-to-stop">How to Zoom Out</ExternalLink></span>
+            <span><ExternalLink href="https://leaddev.com/leadership/how-to-zoom-out-and-when-to-stop">How to Zoom Out</ExternalLink></span>
             <span>LeadDev/LDX3</span>
           </li>
           <li>
@@ -125,6 +125,14 @@ import Layout from "layouts/Layout.astro";
 </Layout>
 
 <style>
+  #info > *,
+  #more-info-live-region > section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85em;
+    text-align: justify;
+  }
+
   #info {
     display: grid;
     grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -133,10 +141,6 @@ import Layout from "layouts/Layout.astro";
 
     > * {
       grid-column: span 12;
-      display: flex;
-      flex-direction: column;
-      gap: 0.85em;
-      text-align: justify;
 
       [data-more-info-show][aria-current="true"] {
         text-decoration: none;
@@ -144,31 +148,24 @@ import Layout from "layouts/Layout.astro";
     }
 
     #more-info-live-region {
-      > section {
+      > section li {
         display: flex;
-        flex-direction: column;
-        gap: 0.85em;
-        text-align: justify;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 2rem;
 
-        li {
-          display: flex;
-          flex-direction: row;
-          justify-content: space-between;
-          gap: 2rem;
+        > span:first-child {
+          text-align: left;
+        }
 
-          > span:first-child {
-            text-align: left;
-          }
-
-          > span:last-child {
-            flex: 1;
-            text-align: right;
-          }
+        > span:last-child {
+          flex: 1;
+          text-align: right;
         }
       }
     }
 
-    @media (min-width: 48rem) {
+    @media (width >= 48rem) {
       margin-top: max(5em, 80px);
 
       > * {
@@ -176,7 +173,7 @@ import Layout from "layouts/Layout.astro";
       }
     }
 
-    @media (min-width: 1440px) {
+    @media (width >= 1440px) {
       > * {
         grid-column: span 4;
       }
@@ -202,29 +199,16 @@ import Layout from "layouts/Layout.astro";
         return;
       }
 
-      if (button.ariaCurrent === "true") {
-        moreInfoLiveRegion?.removeChild(associatedElement);
-        moreInfoHiddenRegion?.appendChild(associatedElement);
-        button.ariaCurrent = "false";
-        button.dataset.cursorContents = "+";
-        return;
+      const isOpening = button.ariaCurrent !== "true";
+      moreInfoHiddenRegion?.append(...(moreInfoLiveRegion?.children ?? []));
+      if (isOpening) {
+        moreInfoLiveRegion?.replaceChildren(associatedElement);
       }
 
-      const existingChild = moreInfoLiveRegion?.firstElementChild;
-      if (existingChild) {
-        moreInfoLiveRegion.removeChild(existingChild);
-        moreInfoHiddenRegion?.appendChild(existingChild);
-      }
-      moreInfoHiddenRegion?.removeChild(associatedElement);
-      moreInfoLiveRegion?.appendChild(associatedElement);
-
-      button.ariaCurrent = "true";
-      button.dataset.cursorContents = "-";
-
-      const siblings = [...moreInfoButtons].filter(sibling => sibling !== button);
-      siblings.forEach(sibling => {
-        sibling.ariaCurrent = "false";
-        sibling.dataset.cursorContents = "+";
+      moreInfoButtons.forEach(other => {
+        const isCurrent = isOpening && other === button;
+        other.ariaCurrent = String(isCurrent);
+        other.dataset.cursorContents = isCurrent ? "-" : "+";
       });
     });
   });

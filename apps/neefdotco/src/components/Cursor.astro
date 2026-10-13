@@ -148,7 +148,7 @@
         }
       });
 
-      let connectRetryInterval: NodeJS.Timeout;
+      let connectRetryInterval: ReturnType<typeof setInterval>;
       socket.addEventListener("open", () => {
         const eventAbortController = new AbortController()
         clearInterval(connectRetryInterval);
@@ -167,11 +167,11 @@
             const requiredProps = { color: cursor.color, visibility: cursor.visibility };
             sendUpdate({ ...e.detail, ...requiredProps });
           }
-        }, eventAbortController)
+        }, { signal: eventAbortController.signal })
 
         document.addEventListener("scroll", () => {
           sendUpdate({ position: cursor.position });
-        }, eventAbortController);
+        }, { signal: eventAbortController.signal });
 
         requestCursorAttractionFrame();
 
