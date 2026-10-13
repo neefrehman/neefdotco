@@ -1,61 +1,34 @@
 ---
+import { shuffleAndBalanceRings } from "utils/shuffleAndBalanceRings";
+
 interface Props {
-  /** An array of 60 words */
   words: string[];
   "aria-hidden"?: "true" | "false";
 }
 
 const { words, "aria-hidden": ariahidden } = Astro.props;
 
-/*
-  Circumference = 2 * PI * r, so doubling the radius also doubles the circumference, i.e. each
-  concentric ring should increase in word count by the number of words of the smallest ring.
-*/
-const OUTER_CIRCLE_WORD_COUNT = 30;
-const MIDDLE_CIRCLE_WORD_COUNT = 20;
-const INNER_CIRCLE_WORD_COUNT = 10;
-
-const OUTER_CIRCLE = words.splice(0, OUTER_CIRCLE_WORD_COUNT);
-const MIDDLE_CIRCLE = words.splice(0, MIDDLE_CIRCLE_WORD_COUNT);
-const INNER_CIRCLE = words.splice(0, INNER_CIRCLE_WORD_COUNT);
+const rings = shuffleAndBalanceRings(words);
 ---
 
-{/*
-  Rendered twice so the user's cursor (z-index: -1) can sit _between_ its rear and front halves,
-  since z-index can't interleave elements between `.system`'s' stacking contexts.
-*/}
-{(["rear", "front"] as const).map((layer) => (
-  <div
-    class="system"
-    data-layer={layer}
-    data-cursor-gravity-well={layer === "front" ? "dormant" : undefined}
-    aria-hidden={layer === "rear" ? "true" : (ariahidden ?? "false")}
-  >
-    {[OUTER_CIRCLE, MIDDLE_CIRCLE, INNER_CIRCLE].map((circle) => (
-      <div>
-        <ul>
-          {circle.map((skill) => <li>{skill}</li>)}
-        </ul>
-      </div>
-    ))}
-  </div>
-))}
+<div
+  class="system"
+  data-gravity-well="dormant"
+  aria-hidden={ariahidden ?? "false"}
+>
+  {rings.map((ring) => (
+    <div>
+      <ul>
+        {ring.map((word) => <li>{word}</li>)}
+      </ul>
+    </div>
+  ))}
+</div>
 
 <style>
-  @property --ring-index {
-    syntax: "<number>";
-    inherits: true; /* Ensures that sibling-index() is not resolved in the context of the element that reads it */
-    initial-value: 1;
-  }
-
   div.system {
     position: fixed;
     z-index: 0;
-    user-select: none;
-
-    &[data-layer="front"] {
-      --layer-phase: 0.5; /* half a spin out of phase with the rear layer */
-    }
 
     --bottom: 12vh;
     bottom: clamp(50px, var(--bottom), 180px);
@@ -67,6 +40,7 @@ const INNER_CIRCLE = words.splice(0, INNER_CIRCLE_WORD_COUNT);
       opacity: 0.37;
     }
 
+    /* This `div` needed as well as the `ul` since there are transforms that would clash when placed on the same element */
     > div {
       --ring-index: calc(sibling-count() + 1 - sibling-index());
       --transition-delay: calc(100ms + 300ms * sibling-index());
@@ -87,7 +61,6 @@ const INNER_CIRCLE = words.splice(0, INNER_CIRCLE_WORD_COUNT);
       }
 
       > ul {
-        position: relative;
         transform-style: preserve-3d;
         rotate: x -100deg;
         --spin-duration: 540s;
@@ -100,13 +73,15 @@ const INNER_CIRCLE = words.splice(0, INNER_CIRCLE_WORD_COUNT);
           padding: 0 4px;
           line-height: 1.3;
           width: max-content;
+          user-select: none;
           background-color: var(--mixed-text-background);
           color: var(--text-color);
-          --ring-position: calc((sibling-index() - 1) / sibling-count()); /* how far round the ring, 0 to <1 */
-          --r: calc(var(--ring-index) * clamp(250px, 25vw, 600px));
+          --ring-position: calc((sibling-index() - 1) / sibling-count());
+          --word-gap: calc(clamp(250px, 25vw, 600px) * pi / 5);
+          --r: calc(sibling-count() * var(--word-gap) / (2 * pi));
           --a: calc(var(--ring-position) * 360deg);
           transform: translateX(-50%) rotateZ(var(--a)) translateY(var(--r)) rotateX(90deg);
-          animation: hide-half var(--spin-duration) step-end infinite;
+          animation: var(--hide-half, none) var(--spin-duration) step-end infinite;
           animation-delay: calc(var(--spin-duration) * (var(--ring-position) - 1 - var(--layer-phase, 0)));
         }
       }
@@ -115,6 +90,11 @@ const INNER_CIRCLE = words.splice(0, INNER_CIRCLE_WORD_COUNT);
     @media (pointer: fine) {
       &:hover, &:hover + &, &:has(+ &:hover) {
         --rotateZ: 5deg;
+        li::after {
+          content: "";
+          position: absolute;
+          inset: -5px; /* Extra hitbox around the word, so the rotation doesn't immediately end the hover */
+        }
       }
       &:active, &:active + &, &:has(+ &:active) {
         --rotateZ: 10deg;
@@ -131,6 +111,10 @@ const INNER_CIRCLE = words.splice(0, INNER_CIRCLE_WORD_COUNT);
     }
   }
 
+  @keyframes spin {
+    to { transform: rotate(-360deg); }
+  }
+
   :global(body[data-exiting="true"]) .system > div {
     translate: 0 var(--hidden-top);
     opacity: var(--hidden-opacity);
@@ -139,16 +123,21 @@ const INNER_CIRCLE = words.splice(0, INNER_CIRCLE_WORD_COUNT);
     --transition-top-easing: cubic-bezier(0.9, 0, 0.6, 1);
   }
 
-  /*
-    The rear layer only drops behind the cursor once the gravity well has captured it.
-    Otherwise it sits level with the front layer, always above the cursor.
-  */
+  /* On successful layering by the JS pass */
+  .system[data-layer] {
+    --hide-half: hide-half; /* Hide half of each system */
+    &[data-layer="front"] {
+      --layer-phase: 0.5; /* half a spin out of phase with the rear layer */
+    }
+  }
+
+  /* Once the gravity well has captured the cursor */
   :global(body:has(#user-cursor[size="xxxl"])) {
+    .system[data-layer="rear"] {
+      z-index: -2; /* The rear layer drops behind the cursor */
+    }
     #user-cursor {
       pointer-events: auto; /* Also block hover interactions on words */
-    }
-    div.system[data-layer="rear"] {
-      z-index: -2;
     }
   }
 
@@ -156,20 +145,31 @@ const INNER_CIRCLE = words.splice(0, INNER_CIRCLE_WORD_COUNT);
     25% { visibility: hidden; }
     75% { visibility: visible; }
   }
-
-  @keyframes spin {
-    to { transform: rotate(-360deg); }
-  }
 </style>
 
 <script>
   import { throttle } from "@repo/utils/throttle";
+  import { shuffleAndBalanceRings } from "utils/shuffleAndBalanceRings";
+
+  const system = document.querySelector<HTMLElement>(".system")!;
+  const words = system.querySelectorAll("li");
+  const arrangement = shuffleAndBalanceRings([...words].map(li => li.textContent!)).flat();
+  words.forEach((li, i) => (li.textContent = arrangement[i]!));
+
+  if (matchMedia("(pointer:fine)").matches) {
+    // Add the rear layer, a copy of the front (before it, as the hover selectors expect)
+    const rearLayer = system.cloneNode(true) as HTMLElement;
+    rearLayer.dataset.layer = "rear";
+    rearLayer.ariaHidden = "true";
+    rearLayer.removeAttribute("data-gravity-well");
+    system.dataset.layer = "front";
+    system.before(rearLayer);
+  }
 
   const rings = document.querySelectorAll<HTMLElement>(".system > div");
 
   // only pull cursor once rings have ~completed their transitions
-  const system = document.querySelector<HTMLElement>(".system[data-layer='front']")!;
-  setTimeout(() => (system.dataset.cursorGravityWell = "active"), 400 + system.children.length * 300);
+  setTimeout(() => (system.dataset.gravityWell = "active"), 400 + system.children.length * 300);
 
   if ("ontouchstart" in document.documentElement && "DeviceOrientationEvent" in window) {
     interface iOSDeviceOrientationEvent extends DeviceOrientationEvent {

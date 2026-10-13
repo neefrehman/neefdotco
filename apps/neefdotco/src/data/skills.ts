@@ -1,5 +1,4 @@
 export const SKILLS = [
-  // Outer circle
   "React",
   "Node.js",
   "Data visualisation",
@@ -10,7 +9,7 @@ export const SKILLS = [
   "Next.js",
   "WebGL",
   "Observability",
-  "Jest",
+  "Vitest",
   "E2E testing",
   "Documentation",
   "API Design",
@@ -21,16 +20,15 @@ export const SKILLS = [
   "Technical writing",
   "Graphics",
   "Architecture",
-  "GLSL",
+  "Cloudflare",
   "Creative coding",
   "CSS",
   "Vercel",
   "AI Engineering",
   "Technical art",
-  ":",
-  "—",
-  "(",
-  // Middle circle
+  "Evals",
+  "Cost management",
+  "Performance",
   "Prototyping",
   "UI Engineering",
   "Postgres",
@@ -51,7 +49,6 @@ export const SKILLS = [
   "Maths",
   "Mentoring",
   "Workshops",
-  // Inner circle
   "Terraform",
   "Typescript",
   "GraphQL",
@@ -62,4 +59,4 @@ export const SKILLS = [
   "Infrastructure",
   "Python",
   "Build tooling",
-] as const satisfies { length: 60 };
+];
