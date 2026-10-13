@@ -36,7 +36,7 @@ const {
     <meta name="viewport" content="width=device-width" />
 
     <title>{title}</title>
-    <meta name="description" content={title} />
+    <meta name="description" content={description} />
     <meta name="author" content="Neef Rehman" />
 
     <meta property="og:type" content="website" />
@@ -46,10 +46,6 @@ const {
     <meta property="og:image" content={metaImageUrl} />
 
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={Astro.url.href} />
-    <meta property="twitter:title" content={title} />
-    <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={metaImageUrl} />
 
     <!-- dynamic SVG to be filled by `DarkModeToggle.astro`, based on the current background color -->
     <link rel="icon" type="image/svg+xml" />
@@ -76,31 +72,17 @@ const {
   import type { Cursor } from "@repo/mouse";
 
   if (matchMedia("(pointer:fine)").matches) {
-    document.querySelectorAll<HTMLAnchorElement>("[data-triggers-nav-transition=true]").forEach(link => {
-      if (!link.href) {
-        return
-      };
-      
+    document.querySelectorAll<HTMLAnchorElement>("a[data-triggers-nav-transition=true]").forEach(link => {
       link.addEventListener("click", e => {
-        // Preload the page first, so that the post-transition page load is as smooth as possible
-        // method inspired by instant.page: https://github.com/instantpage/instant.page
-        document.head.appendChild(Object.assign(
-          document.createElement('link'), {
-            rel: 'prefetch',
-            href: link.href,
-            fetchPriority: "high",
-          })
-        );
-
-        const cursor = document.querySelector<Cursor>("#user-cursor")
-        cursor?.setAttribute("size", "lg")
-        setTimeout(() => cursor?.setAttribute("visibility", "exiting"), 200);
-        
         document.body.dataset.exiting = "true";
-        Promise.race([
-          Promise.allSettled(document.getAnimations().filter(a => a instanceof CSSTransition).map(a => a.finished)),
-          new Promise(resolve => setTimeout(resolve, 1500)),
-        ]).then(() => window.location.assign(link.href));
+        const cursor = document.querySelector<Cursor>("#user-cursor");
+        cursor?.setAttribute("size", "lg");
+        setTimeout(() => {
+          cursor?.setAttribute("visibility", "exiting");
+          Promise
+            .allSettled(cursor?.shadowRoot?.getAnimations().filter(a => a instanceof CSSTransition).map(a => a.finished))
+            .then(() => window.location.assign(link.href));
+        }, 200);
         e.preventDefault();
       });
     });

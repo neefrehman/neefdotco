@@ -25,6 +25,8 @@
 
     --mixed-text-background: color-mix(in oklab, var(--text-color) 16.67%, var(--background-color));
 
+    --color-transition: 200ms ease-in-out;
+
     &[data-theme="light"] {
       color-scheme: light only;
     }
@@ -53,29 +55,19 @@
     background-color: var(--background-color);
     text-size-adjust: 100%;
     -webkit-font-smoothing: antialiased;
-    transition: background-color 200ms ease-in-out;
+    transition: background-color var(--color-transition), color var(--color-transition);
 
-    overflow-x: hidden; /* HACK: this avoids other user's cursors widening the screen, as they are positioned absolutely (so they can maintain their position relative to the page when we scroll) */
+    overflow-x: clip; /* HACK: this avoids other user's cursors widening the screen, as they are positioned absolutely (so they can maintain their position relative to the page when we scroll) */
   }
 
   *::selection {
     background-color: var(--mixed-text-background);
   }
 
-  *:focus {
-    outline: none;
-  }
-
-  *:focus-visible {
-    outline: auto;
-  }
-
   button,
-  a,
-  a:visited {
+  a {
     cursor: pointer;
-    text-decoration: underline;
-    color: var(--text-color);
+    text-decoration: underline; /* preflight resets this, and sets the colour to inherit (including visited) */
   }
 
   i {
@@ -88,9 +80,7 @@
   }
 
   @media (pointer: fine) {
-    button:hover,
-    a:hover,
-    a:visited:hover {
+    :is(button, a):hover {
       font-style: italic;
       color: var(--background-color);
     }
@@ -100,11 +90,8 @@
     position: absolute;
     width: 1px;
     height: 1px;
-    padding: 0;
-    margin: -1px;
     overflow: hidden;
-    clip: rect(0, 0, 0, 0);
+    clip-path: inset(50%);
     white-space: nowrap;
-    border: 0;
   }
 }

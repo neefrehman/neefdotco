@@ -28,7 +28,7 @@ const rings = shuffleAndBalanceRings(words);
 <style>
   div.system {
     position: fixed;
-    z-index: 0;
+    z-index: -1;
 
     --bottom: 12vh;
     bottom: clamp(50px, var(--bottom), 180px);
@@ -83,6 +83,7 @@ const rings = shuffleAndBalanceRings(words);
           transform: translateX(-50%) rotateZ(var(--a)) translateY(var(--r)) rotateX(90deg);
           animation: var(--hide-half, none) var(--spin-duration) step-end infinite;
           animation-delay: calc(var(--spin-duration) * (var(--ring-position) - 1 - var(--layer-phase, 0)));
+          transition: background-color var(--color-transition);
         }
       }
     }
@@ -90,10 +91,10 @@ const rings = shuffleAndBalanceRings(words);
     @media (pointer: fine) {
       &:hover, &:hover + &, &:has(+ &:hover) {
         --rotateZ: 5deg;
-        li::after {
+        li:hover::after {
           content: "";
           position: absolute;
-          inset: -5px; /* Extra hitbox around the word, so the rotation doesn't immediately end the hover */
+          inset: -8px; /* Extra hitbox around the word, so the rotation doesn't immediately end the hover */
         }
       }
       &:active, &:active + &, &:has(+ &:active) {
