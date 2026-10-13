@@ -16,16 +16,14 @@
     --base-chroma: unset;
 
     --primary-color-light: oklch(85% var(--base-chroma) var(--base-hue));
-    --primary-color-light-transparent: oklch(85% var(--base-chroma) var(--base-hue) / 30%);
     --primary-color-mid: oklch(46% var(--base-chroma) var(--base-hue));
-    --primary-color-mid-transparent: oklch(46% var(--base-chroma) var(--base-hue) / 30%);
     --primary-color-dark: oklch(18% var(--base-chroma) var(--base-hue));
-    --primary-color-dark-transparent: oklch(18% var(--base-chroma) var(--base-hue) / 30%);
 
     --text-color: light-dark(var(--primary-color-dark), var(--primary-color-light));
     --background-color: light-dark(var(--primary-color-light), var(--primary-color-dark));
     --opposite-mode-background: light-dark(var(--primary-color-dark), var(--primary-color-light));
-    --opposite-mode-background-transparent: light-dark(var(--primary-color-dark-transparent), var(--primary-color-light-transparent));
+
+    --mixed-text-background: color-mix(in oklab, var(--text-color) 16.67%, var(--background-color));
 
     &[data-theme="light"] {
       color-scheme: light only;
@@ -61,7 +59,7 @@
   }
 
   *::selection {
-    background-color: var(--opposite-mode-background-transparent);
+    background-color: var(--mixed-text-background);
   }
 
   *:focus {

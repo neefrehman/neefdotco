@@ -47,9 +47,6 @@
       if (distanceToWell > weakPullThreshold || gravityWell.dataset.cursorGravityWell !== "active") {
         if (cursor.size === "xxxl") cursor.size = "md";
         cursor.move([mouseX, mouseY]);
-        if (gravityWell.dataset.cursorContentsInWell) {
-          cursor.textContent = "";
-        }
         return;
       }
 
@@ -70,9 +67,6 @@
         mapToRange(distanceToWell, 0, largestViewPortSize, 0, 0.33)
       );
       cursor.move([x, y]);
-      if (gravityWell.dataset.cursorContentsInWell) {
-        cursor.textContent = gravityWell.dataset.cursorContentsInWell;
-      }
     };
 
     cursor.registerEventHandlers({

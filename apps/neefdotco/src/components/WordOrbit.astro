@@ -2,11 +2,10 @@
 interface Props {
   /** An array of 60 words */
   words: string[];
-  cursorContentsInWell?: string;
   "aria-hidden"?: "true" | "false";
 }
 
-const { words, "aria-hidden": ariahidden, cursorContentsInWell } = Astro.props;
+const { words, "aria-hidden": ariahidden } = Astro.props;
 
 /*
   Circumference = 2 * PI * r, so doubling the radius also doubles the circumference, i.e. each
@@ -21,30 +20,26 @@ const MIDDLE_CIRCLE = words.splice(0, MIDDLE_CIRCLE_WORD_COUNT);
 const INNER_CIRCLE = words.splice(0, INNER_CIRCLE_WORD_COUNT);
 ---
 
-<div
-  class="system"
-  data-cursor-gravity-well="dormant"
-  data-cursor-contents-in-well={cursorContentsInWell}
-  aria-hidden={ariahidden ?? "false"}
->
-  <div>
-    <ul style={`--word-count: ${OUTER_CIRCLE.length}`}>
-      {OUTER_CIRCLE.map((skill) => <li>{skill}</li>)}
-    </ul>
+{/*
+  Rendered twice so the user's cursor (z-index: -1) can sit _between_ its rear and front halves,
+  since z-index can't interleave elements between `.system`'s' stacking contexts.
+*/}
+{(["rear", "front"] as const).map((layer) => (
+  <div
+    class="system"
+    data-layer={layer}
+    data-cursor-gravity-well={layer === "front" ? "dormant" : undefined}
+    aria-hidden={layer === "rear" ? "true" : (ariahidden ?? "false")}
+  >
+    {[OUTER_CIRCLE, MIDDLE_CIRCLE, INNER_CIRCLE].map((circle) => (
+      <div>
+        <ul>
+          {circle.map((skill) => <li>{skill}</li>)}
+        </ul>
+      </div>
+    ))}
   </div>
-
-  <div>
-    <ul style={`--word-count: ${MIDDLE_CIRCLE.length}`}>
-      {MIDDLE_CIRCLE.map((skill) => <li>{skill}</li>)}
-    </ul>
-  </div>
-
-  <div>
-    <ul style={`--word-count: ${INNER_CIRCLE.length}`}>
-      {INNER_CIRCLE.map((skill) => <li>{skill}</li>)}
-    </ul>
-  </div>
-</div>
+))}
 
 <style>
   @property --ring-index {
@@ -56,12 +51,18 @@ const INNER_CIRCLE = words.splice(0, INNER_CIRCLE_WORD_COUNT);
   div.system {
     position: fixed;
     z-index: 0;
+    user-select: none;
+
+    &[data-layer="front"] {
+      --layer-phase: 0.5; /* half a spin out of phase with the rear layer */
+    }
+
     --bottom: 12vh;
     bottom: clamp(50px, var(--bottom), 180px);
     right: clamp(25px, 8vw, 150px);
     transform: rotate(-10deg);
 
-    @media ((max-height: 940px) and (max-width: 767px)) or (max-height: 700px) {
+    @media ((height <= 940px) and (width <= 767px)) or (height <= 700px) {
       --bottom: 8vh;
       opacity: 0.37;
     }
@@ -74,23 +75,23 @@ const INNER_CIRCLE = words.splice(0, INNER_CIRCLE_WORD_COUNT);
       --hidden-top: 20vh;
       --hidden-opacity: 0;
 
-      top: 0px;
-      position: relative;
       transition:
         transform 1000ms ease 100ms, /* small delay to avoid flickering when we stop hovering as it rotates */
         opacity 400ms ease var(--transition-delay),
-        top var(--transition-top-duration) var(--transition-top-easing) var(--transition-delay),
+        translate var(--transition-top-duration) var(--transition-top-easing) var(--transition-delay),
         rotate calc(700ms * var(--ring-index)) cubic-bezier(0, 0, 0.2, 1);
 
       @starting-style {
-        top: var(--hidden-top);
+        translate: 0 var(--hidden-top);
         opacity: var(--hidden-opacity);
       }
 
       > ul {
         position: relative;
         transform-style: preserve-3d;
-        animation: three-dimensions-circle 540s linear infinite;
+        rotate: x -100deg;
+        --spin-duration: 540s;
+        animation: spin var(--spin-duration) linear infinite;
 
         > li {
           position: absolute;
@@ -99,21 +100,23 @@ const INNER_CIRCLE = words.splice(0, INNER_CIRCLE_WORD_COUNT);
           padding: 0 4px;
           line-height: 1.3;
           width: max-content;
-          background-color: var(--primary-color-mid-transparent);
+          background-color: var(--mixed-text-background);
           color: var(--text-color);
-          --r: clamp(var(--ring-index) * 250px, var(--ring-index) * 25vw, var(--ring-index) * 600px);
-          --a: calc((sibling-index() - 1) * (360 / var(--word-count)) * 1deg);
+          --ring-position: calc((sibling-index() - 1) / sibling-count()); /* how far round the ring, 0 to <1 */
+          --r: calc(var(--ring-index) * clamp(250px, 25vw, 600px));
+          --a: calc(var(--ring-position) * 360deg);
           transform: translateX(-50%) rotateZ(var(--a)) translateY(var(--r)) rotateX(90deg);
+          animation: hide-half var(--spin-duration) step-end infinite;
+          animation-delay: calc(var(--spin-duration) * (var(--ring-position) - 1 - var(--layer-phase, 0)));
         }
       }
     }
 
     @media (pointer: fine) {
-      &:has(:hover) {
+      &:hover, &:hover + &, &:has(+ &:hover) {
         --rotateZ: 5deg;
       }
-
-      &:has(:active) {
+      &:active, &:active + &, &:has(+ &:active) {
         --rotateZ: 10deg;
       }
 
@@ -128,21 +131,34 @@ const INNER_CIRCLE = words.splice(0, INNER_CIRCLE_WORD_COUNT);
     }
   }
 
-  :global(body[data-exiting="true"]) div.system > div {
-    top: var(--hidden-top);
+  :global(body[data-exiting="true"]) .system > div {
+    translate: 0 var(--hidden-top);
     opacity: var(--hidden-opacity);
     --transition-delay: calc(150ms * (sibling-index() - 1));
     --transition-top-duration: 400ms;
     --transition-top-easing: cubic-bezier(0.9, 0, 0.6, 1);
   }
 
-  @keyframes three-dimensions-circle {
-    0% {
-      transform: rotateX(-100deg) rotate(0);
+  /*
+    The rear layer only drops behind the cursor once the gravity well has captured it.
+    Otherwise it sits level with the front layer, always above the cursor.
+  */
+  :global(body:has(#user-cursor[size="xxxl"])) {
+    #user-cursor {
+      pointer-events: auto; /* Also block hover interactions on words */
     }
-    100% {
-      transform: rotateX(-100deg) rotate(-360deg);
+    div.system[data-layer="rear"] {
+      z-index: -2;
     }
+  }
+
+  @keyframes hide-half {
+    25% { visibility: hidden; }
+    75% { visibility: visible; }
+  }
+
+  @keyframes spin {
+    to { transform: rotate(-360deg); }
   }
 </style>
 
@@ -152,12 +168,12 @@ const INNER_CIRCLE = words.splice(0, INNER_CIRCLE_WORD_COUNT);
   const rings = document.querySelectorAll<HTMLElement>(".system > div");
 
   // only pull cursor once rings have ~completed their transitions
-  const system = document.querySelector<HTMLElement>(".system")!;
-  setTimeout(() => (system.dataset.cursorGravityWell = "active"), 400 + rings.length * 300);
+  const system = document.querySelector<HTMLElement>(".system[data-layer='front']")!;
+  setTimeout(() => (system.dataset.cursorGravityWell = "active"), 400 + system.children.length * 300);
 
   if ("ontouchstart" in document.documentElement && "DeviceOrientationEvent" in window) {
     interface iOSDeviceOrientationEvent extends DeviceOrientationEvent {
-      requestPermission?: () => Promise<"granted" | "forbidden">;
+      requestPermission?: () => Promise<"granted" | "denied">;
     }
     const DOE = DeviceOrientationEvent as unknown as iOSDeviceOrientationEvent;
 
@@ -167,30 +183,21 @@ const INNER_CIRCLE = words.splice(0, INNER_CIRCLE_WORD_COUNT);
       rings.forEach(ring => (ring.style.rotate = `${tilt}deg`));
     }, 41); // ~24fps
 
-    let hasOrientationListener = false;
+    let ac: AbortController | undefined;
     orbiters.forEach(object => {
-      object.addEventListener("click", () => {
-        if (hasOrientationListener) {
-          window.removeEventListener("deviceorientation", tiltOrbit);
+      object.addEventListener("click", async () => {
+        if (ac && !ac.signal.aborted) {
+          ac.abort();
           rings.forEach(ring => (ring.style.rotate = ""));
-          hasOrientationListener = false;
           return;
         }
 
-        // For iOS devices that need permission, we request it and only add the event listener
-        // when granted. This is a noop if we already have permissions.
-        if ("requestPermission" in DOE) {
-          DOE.requestPermission?.()
-            .then(state => {
-              if (state === "granted") {
-                window.addEventListener("deviceorientation", tiltOrbit);
-                hasOrientationListener = true;
-              }
-            })
+        // iOS needs explicit permission (a noop if already granted); other devices don't have this method
+        if ((await DOE.requestPermission?.()) === "denied") {
+          return;
         }
-        // for other devices, and for already granted iOS devices, we add the listener
-        window.addEventListener("deviceorientation", tiltOrbit);
-        hasOrientationListener = true;
+        ac = new AbortController();
+        window.addEventListener("deviceorientation", tiltOrbit, { signal: ac.signal });
       });
     });
   }
