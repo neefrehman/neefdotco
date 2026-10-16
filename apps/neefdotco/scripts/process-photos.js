@@ -1,105 +1,90 @@
-import * as fs from "node:fs";
-import { promisify } from "node:util";
+import * as fs from "node:fs/promises";
+import path from "node:path";
 
 import ATCQ from "atcq";
-import rawGetPixels from "get-pixels";
 import sharp from "sharp";
 
-const getPixels = promisify(rawGetPixels);
+const appDirectory = path.join(import.meta.dirname, "..");
+const rawPhotosDirectory = path.join(appDirectory, "src/photos/_raw");
+const largePhotosDirectory = path.join(appDirectory, "src/photos/large");
+const cacheJsonFile = path.join(appDirectory, "src/data/quantized-photo-colors.json");
 
-const rawPhotosDirectory = "./src/photos/_raw";
-const cacheJsonFile = "./src/data/quantized-photo-colors.json";
+const JPEG_EXTENSION = /\.jpe?g$/i;
 
-const rawPhotos = fs.readdirSync(rawPhotosDirectory).filter((name) => name !== ".DS_Store");
-const processedPhotos = JSON.parse(fs.readFileSync(cacheJsonFile));
+const processedPhotos = JSON.parse(await fs.readFile(cacheJsonFile, "utf-8"));
 
-const photosToDelete = Object.keys(processedPhotos).filter((file) => !rawPhotos.includes(file));
-const photosToProcess = rawPhotos.filter(
-  (photoName) => !Object.keys(processedPhotos).includes(photoName),
-);
-
-const updateCache = () => fs.writeFileSync(cacheJsonFile, JSON.stringify(processedPhotos, null, 4));
-
-const deleteRemovedPhotos = () => {
-  console.log(`photos that have been removed: ${photosToDelete}`, "\n");
-
-  for (const photo of photosToDelete) {
-    if (fs.existsSync(`./src/photos/large/${photo}`)) {
-      fs.unlinkSync(`./src/photos/large/${photo}`);
-      console.log(`deleted ${photo}`, "\n");
-    }
-    delete processedPhotos[photo];
-    updateCache();
-  }
+const writeCache = async () => {
+  const sortedCache = Object.fromEntries(Object.entries(processedPhotos).sort(([a], [b]) => (a < b ? -1 : 1)));
+  await fs.writeFile(cacheJsonFile, `${JSON.stringify(sortedCache, null, 4)}\n`);
 };
 
-const updateFileExtension = (file) => {
-  let newFile = file;
-  if (file.includes(".jpeg" || file.includes(".JPG"))) {
-    console.log(`renaming extension for ${file}`);
-    newFile = file.replace("jpeg", "jpg").replace("JPG", "jpg");
-    fs.renameSync(`${rawPhotosDirectory}/${file}`, `${rawPhotosDirectory}/${newFile}`);
+// Raw photos are named `.jpg` from here on, renaming any `.jpeg` or `.JPG` files on disk
+const rawPhotos = [];
+for (const name of await fs.readdir(rawPhotosDirectory)) {
+  if (!JPEG_EXTENSION.test(name)) {
+    continue;
   }
-  return newFile;
-};
+  const normalisedName = name.replace(JPEG_EXTENSION, ".jpg");
+  if (normalisedName !== name) {
+    console.log(`renaming extension for ${name}`);
+    await fs.rename(path.join(rawPhotosDirectory, name), path.join(rawPhotosDirectory, normalisedName));
+  }
+  rawPhotos.push(normalisedName);
+}
 
-const extractColorFromImage = async (file) => {
-  const rgb2hex = (r, g, b) => `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`;
+const rawPhotoSet = new Set(rawPhotos);
+const photosToDelete = Object.keys(processedPhotos).filter((name) => !rawPhotoSet.has(name));
+const photosToProcess = rawPhotos.filter((name) => !(name in processedPhotos));
 
-  const atcq = ATCQ({
-    maxColors: 8,
-    disconnects: false,
-    maxIterations: 5,
-  });
-
-  const smallPhotoBuffer = await sharp(`${rawPhotosDirectory}/${file}`)
+const extractColor = async (name) => {
+  // Colour extraction doesn't need much detail, so we use a small version of the photo
+  const { data: pixels } = await sharp(path.join(rawPhotosDirectory, name))
     .resize({ width: 100 })
-    .toBuffer();
+    .ensureAlpha()
+    .raw()
+    .toBuffer({ resolveWithObject: true });
 
-  const { data: pixelData } = await getPixels(smallPhotoBuffer, "image/jpg");
-  atcq.addData(pixelData);
+  const atcq = ATCQ({ maxColors: 8, disconnects: false, maxIterations: 5 });
+  atcq.addData(pixels);
   await atcq.quantizeAsync();
 
-  const colorRgb = atcq.getWeightedPalette(1)[0].color;
-  const [colorHex] = rgb2hex(...colorRgb).split(".");
-  console.log(`${file} color is: `, colorHex, "\n");
-
-  return colorHex;
+  const { color } = atcq.getWeightedPalette(1)[0];
+  return `#${color.map((channel) => Math.round(channel).toString(16).padStart(2, "0")).join("")}`;
 };
 
-const resizeImage = async (file) => {
-  await sharp(`${rawPhotosDirectory}/${file}`)
+// So that the photos aren't too big to check into the repo, or for Astro to process
+const resizePhoto = (name) =>
+  sharp(path.join(rawPhotosDirectory, name))
+    .rotate() // apply the EXIF orientation, so that the width we resize to is the displayed width
     .resize({ width: 1920 })
-    .withMetadata()
-    .toFile(`${rawPhotosDirectory}/../large/${file}`);
-};
+    .toFile(path.join(largePhotosDirectory, name)); // metadata (e.g. location) is dropped by default
 
-const processPhotos = async () => {
-  for (const file of photosToProcess) {
-    const newFile = updateFileExtension(file);
-    const extractedColor = await extractColorFromImage(newFile);
-    processedPhotos[file] = extractedColor;
-    updateCache();
+if (photosToDelete.length === 0 && photosToProcess.length === 0) {
+  console.log("🙌🏾 no new photos to process 🙌🏾");
+  process.exit(0);
+}
 
-    // Also resize the photos so that they aren't too big to check into the repo, or for Astro to process
-    await resizeImage(`${rawPhotosDirectory}/${file}`);
-  }
-};
-
-const main = () => {
+try {
   if (photosToDelete.length > 0) {
-    deleteRemovedPhotos();
+    console.log(`photos that have been removed: ${photosToDelete}`, "\n");
+  }
+  for (const name of photosToDelete) {
+    await fs.rm(path.join(largePhotosDirectory, name), { force: true });
+    delete processedPhotos[name];
+    console.log(`deleted ${name}`, "\n");
   }
 
-  if (photosToProcess.length === 0) {
-    console.log("🙌🏾 no new photos to process 🙌🏾");
-    return;
+  if (photosToProcess.length > 0) {
+    console.log(`starting processing for ${photosToProcess.length} new photos`);
   }
-
-  console.log(`starting processing for ${photosToProcess.length} new photos`);
-  processPhotos()
-    .then(() => console.log("✨ 🖼  done with photo processing 🖼  ✨", "\n"))
-    .catch((error) => console.log("error:", error));
-};
-
-main();
+  for (const name of photosToProcess) {
+    const color = await extractColor(name);
+    await resizePhoto(name);
+    processedPhotos[name] = color;
+    console.log(`${name} color is: `, color, "\n");
+  }
+  console.log("✨ 🖼  done with photo processing 🖼  ✨", "\n");
+} finally {
+  // Keep the progress made so far if a photo fails, so that we don't redo the photos before it
+  await writeCache();
+}

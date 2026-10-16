@@ -15,7 +15,6 @@
     "@repo/utils": "workspace:*",
     "astro": "5.13.5",
     "atcq": "1.0.6",
-    "get-pixels": "3.3.3",
     "sharp": "0.34.3",
     "tailwindcss": "4.1.12"
   },
