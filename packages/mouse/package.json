@@ -2,6 +2,10 @@
   "name": "@repo/mouse",
   "type": "module",
   "version": "0.0.1",
+  "scripts": {
+    "check": "biome check .",
+    "typecheck": "tsc --noEmit"
+  },
   "exports": {
     ".": "./src/index.ts",
     "./presence": "./src/presence.ts"
@@ -12,7 +16,7 @@
   "devDependencies": {
     "@repo/utils": "workspace:*",
     "@total-typescript/tsconfig": "1.0.4",
-    "@types/node": "22.13.14",
-    "typescript": "5.9.2"
+    "@types/node": "26.6.5",
+    "typescript": "7.0.2"
   }
 }

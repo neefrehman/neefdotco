@@ -1,6 +1,6 @@
 import { shuffle } from "@repo/utils/math/shuffle";
 
-const MAX_INNER_WORD_LENGTH = 12;
+const MAX_INNER_WORD_LENGTH = 10;
 
 /**
  * Randomises the order of `words` across the rings of the orbit, so that:

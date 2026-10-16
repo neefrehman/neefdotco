@@ -1,3 +1,10 @@
 packages:
   - "apps/*"
   - "packages/*"
+allowBuilds:
+  esbuild: false
+  lefthook: true
+  sharp: false
+  workerd: false
+patchedDependencies:
+  "@types/d3-delaunay@6.0.4": "patches/@types__d3-delaunay@6.0.4.patch"

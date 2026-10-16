@@ -26,7 +26,7 @@ export class Cursor extends HTMLElement {
   private cursorRootElement!: HTMLDivElement;
   private cursorContentsElement!: HTMLDivElement;
 
-  private connectedCallback() {
+  connectedCallback() {
     const shadowRoot = this.attachShadow({ mode: "open" });
 
     const cursorRoot = document.createElement("div");
@@ -64,7 +64,7 @@ export class Cursor extends HTMLElement {
     "shape",
     "visibility",
   ];
-  private attributeChangedCallback(name: keyof CursorState, _: string, newValue: string) {
+  attributeChangedCallback(name: keyof CursorState, _: string, newValue: string) {
     this.dispatchStateChange({ [name]: newValue });
   }
 
@@ -134,7 +134,7 @@ export class Cursor extends HTMLElement {
   }
 
   private clearCursorTextTimeout: ReturnType<typeof setTimeout> | undefined;
-  override set textContent(text: CursorState["textContent"]) {
+  override set textContent(text: string) {
     this.dispatchStateChange({ textContent: text });
     if (!text) {
       this.setAttribute("contents-type", "none");
@@ -147,8 +147,8 @@ export class Cursor extends HTMLElement {
     this.cursorContentsElement.textContent = text;
     clearTimeout(this.clearCursorTextTimeout);
   }
-  override get textContent() {
-    return this.cursorContentsElement.textContent;
+  override get textContent(): string {
+    return this.cursorContentsElement.textContent ?? "";
   }
 
   /** biome-ignore-start lint/suspicious/noAssignInExpressions: here I'm being opinionated about formatting and prefer assignment-in-expressions over breaking across multiple lines */

@@ -34,9 +34,10 @@ export const lerpVector = <D extends number>(
   if (startVector.length !== endVector.length)
     throw new TypeError("start & end vectors should have the same length");
 
-  const lerpedVector: Vector = startVector
-    .slice()
-    .map((_, i) => lerp(startVector[i], endVector[i], alpha));
-
-  return lerpedVector;
+  return startVector.map((start, i) => {
+    const end = endVector[i];
+    if (end === undefined)
+      throw new TypeError("end vector must contain a number for each dimension");
+    return lerp(start, end, alpha);
+  }) as Vector<D>;
 };

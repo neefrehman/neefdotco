@@ -1,12 +1,13 @@
-<!-- is an anchor tag with a button role to get around an inability to justify the text contents of a button -->
+<!-- biome-ignore lint/a11y/useValidAnchor lint/a11y/useSemanticElements: is an anchor tag with a button role to get around an inability to justify the text contents of a button -->
 <a
-  id="dark-mode-toggle"
   role="button"
+  id="dark-mode-toggle"
   tabindex="0"
   data-cursor-regrow="true"
   data-cursor-color="var(--opposite-mode-background)"
   data-cursor-size="xxl"
 >
+  {" "}
   mode
 </a>
 
@@ -30,27 +31,27 @@
   const onThemeChange = (theme?: string) => {
     if (favicon) {
       favicon.href = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Crect fill='${encodeURIComponent(
-        `oklch(${theme === "dark" ? 18 : 85}% ${baseChroma} ${baseHue})` // favicons and other elements in the head can't inherit css custom properties
+        `oklch(${theme === "dark" ? 18 : 85}% ${baseChroma} ${baseHue})`, // favicons and other elements in the head can't inherit css custom properties
       )}' x='0' y='0' width='32' height='32'%3E%3C/rect%3E%3C/svg%3E`;
     }
-  }
+  };
 
   onThemeChange(root.dataset.theme);
-  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e => {
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
     if (localStorage.getItem("theme") === null) {
       root.dataset.theme = e.matches ? "dark" : "light";
       onThemeChange(e.matches ? "dark" : "light");
     }
   });
-  darkModeToggle?.addEventListener("click", e => {
+  darkModeToggle?.addEventListener("click", () => {
     const newTheme = root.dataset.theme === "light" ? "dark" : "light";
     root.dataset.theme = newTheme;
-    onThemeChange(newTheme)
-    localStorage.setItem("theme", newTheme)
+    onThemeChange(newTheme);
+    localStorage.setItem("theme", newTheme);
   });
 
   // Because the toggle is an achor element (for styling reasons), we must re-implement keyboard events
-  darkModeToggle?.addEventListener("keydown", e => {
+  darkModeToggle?.addEventListener("keydown", (e) => {
     if (e.key === " " || e.key === "Enter") {
       darkModeToggle.click();
     }

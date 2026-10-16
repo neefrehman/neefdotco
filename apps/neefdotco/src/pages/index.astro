@@ -10,31 +10,34 @@ import Layout from "layouts/Layout.astro";
     <div id="info">
       <section>
         <p>
-          Neef Rehman is an Engineering manager, Full-stack Engineer and Interaction Designer based in London.
-          Currently he works at <ExternalLink href="https://isometric.com">Isometric</ExternalLink>, leading
-          teams building measurement and verification systems for carbon removal.
+          Neef Rehman is an Engineering manager, Full-stack Engineer and Interaction Designer based
+          in London. Currently he works at{" "}
+          <ExternalLink href="https://isometric.com">Isometric</ExternalLink>, leading teams
+          building measurement and verification systems for carbon removal.
         </p>
-        <div>
-          <button data-more-info-show="previously" data-cursor-contents="+">Previously</button>
-          —
-          <button data-more-info-show="speaking" data-cursor-contents="+">Speaking</button>
-          —
-          <button data-more-info-show="education" data-cursor-contents="+">Teaching</button>
+        <div class="links">
+          <button type="button" data-more-info-show="previously" data-cursor-contents="+">
+            Previously
+          </button>
+          <span>—</span>
+          <button type="button" data-more-info-show="speaking" data-cursor-contents="+">
+            Speaking
+          </button>
+          <span>—</span>
+          <button type="button" data-more-info-show="education" data-cursor-contents="+">
+            Teaching
+          </button>
         </div>
-        <footer>
+        <footer class="links">
           <ExternalLink href="https://twitter.com/neefrehman_">Twitter</ExternalLink>
-          —
+          <span>—</span>
           <ExternalLink href="https://github.com/neefrehman">GitHub</ExternalLink>
-          —
+          <span>—</span>
           <ExternalLink href="https://www.linkedin.com/in/neefrehman/">LinkedIn</ExternalLink>
         </footer>
       </section>
 
-      <div
-        id="more-info-live-region"
-        aria-live="polite"
-      >
-      </div>
+      <div id="more-info-live-region" aria-live="polite"></div>
     </div>
 
     <!--
@@ -50,23 +53,33 @@ import Layout from "layouts/Layout.astro";
         <ol>
           <li>
             <span>Full-stack Engineer</span>
-            <span><ExternalLink href="https://ustwo.com">ustwo</ExternalLink></span>
+            <span>
+              <ExternalLink href="https://ustwo.com">ustwo</ExternalLink>
+            </span>
           </li>
           <li>
             <span>Venture Lead</span>
-            <span><ExternalLink href="https://adventure.ustwo.com">ustwo Adventure</ExternalLink></span>
+            <span>
+              <ExternalLink href="https://adventure.ustwo.com">ustwo Adventure</ExternalLink>
+            </span>
           </li>
           <li>
             <span>Bioinformatics</span>
-            <span><ExternalLink href="https://www.illumina.com/">Illumina</ExternalLink></span>
+            <span>
+              <ExternalLink href="https://www.illumina.com/">Illumina</ExternalLink>
+            </span>
           </li>
           <li>
             <span>Degree</span>
-            <span><ExternalLink href="https://wikipedia.org/wiki/Physics">Physics</ExternalLink></span>
+            <span>
+              <ExternalLink href="https://wikipedia.org/wiki/Physics">Physics</ExternalLink>
+            </span>
           </li>
           <li>
             <span>Head barista</span>
-            <span><ExternalLink href="https://genesiscinema.co.uk">Genesis Cinema</ExternalLink></span>
+            <span>
+              <ExternalLink href="https://genesiscinema.co.uk">Genesis Cinema</ExternalLink>
+            </span>
           </li>
         </ol>
       </section>
@@ -75,11 +88,19 @@ import Layout from "layouts/Layout.astro";
         <h2>Speaking</h2>
         <ul>
           <li>
-            <span><ExternalLink href="https://leaddev.com/leadership/how-to-zoom-out-and-when-to-stop">How to Zoom Out</ExternalLink></span>
+            <span>
+              <ExternalLink href="https://leaddev.com/leadership/how-to-zoom-out-and-when-to-stop">
+                How to Zoom Out
+              </ExternalLink>
+            </span>
             <span>LeadDev/LDX3</span>
           </li>
           <li>
-            <span><ExternalLink href="https://videos.theconference.se/neef-rehman-machine-forgetting">Machine Forgetting</ExternalLink></span>
+            <span>
+              <ExternalLink href="https://videos.theconference.se/neef-rehman-machine-forgetting">
+                Machine Forgetting
+              </ExternalLink>
+            </span>
             <span>The Conference</span>
           </li>
           <li>
@@ -147,6 +168,11 @@ import Layout from "layouts/Layout.astro";
       }
     }
 
+    .links {
+      display: flex;
+      gap: 0.3rem;
+    }
+
     #more-info-live-region {
       > section li {
         display: flex;
@@ -190,7 +216,7 @@ import Layout from "layouts/Layout.astro";
   const moreInfoHiddenRegion = document.querySelector("#more-info-hidden-region");
   const moreInfoButtons = document.querySelectorAll<HTMLButtonElement>("[data-more-info-show]");
 
-  moreInfoButtons.forEach(button => {
+  moreInfoButtons.forEach((button) => {
     // We move elements around instead of copying them, so that their event listeners can come along for the ride
     button.addEventListener("click", () => {
       const associatedElement = document.querySelector(`#${button.dataset.moreInfoShow}`);
@@ -205,7 +231,7 @@ import Layout from "layouts/Layout.astro";
         moreInfoLiveRegion?.replaceChildren(associatedElement);
       }
 
-      moreInfoButtons.forEach(other => {
+      moreInfoButtons.forEach((other) => {
         const isCurrent = isOpening && other === button;
         other.ariaCurrent = String(isCurrent);
         other.dataset.cursorContents = isCurrent ? "-" : "+";

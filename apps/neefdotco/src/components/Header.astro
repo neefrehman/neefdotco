@@ -6,22 +6,22 @@ const currentPageIs = (path: string) => [path, `${path}/`].includes(Astro.url.pa
 
 <header>
   <nav>
-    {
-      // Mapping causes some problems with spaces inside elements, which has an effect on the link underlines
-      currentPageIs("/") ? (
-        <h1 aria-current="page">Neef Rehman Creative Technologist</h1>
-      ) : (
-        <a data-triggers-nav-transition="true" data-astro-prefetch="hover" href="/">Neef Rehman Creative Technologist</a>
-      )
-    }{" "}
-    {
-      currentPageIs("/photos") ? (
-        <h1 aria-current="page">Photography</h1>
-      ) : (
-        <a data-triggers-nav-transition="true" data-astro-prefetch="hover" href="/photos">Photography</a>
-      )
-    }
-  </nav>{" "}
+    {currentPageIs("/") ? (
+      <h1 aria-current="page">Neef Rehman Creative Technologist</h1>
+    ) : (
+      <a data-triggers-nav-transition="true" data-astro-prefetch="hover" href="/">
+        Neef Rehman Creative Technologist
+      </a>
+    )}{" "}
+    {currentPageIs("/photos") ? (
+      <h1 aria-current="page">Photography</h1>
+    ) : (
+      <a data-triggers-nav-transition="true" data-astro-prefetch="hover" href="/photos">
+        Photography
+      </a>
+    )}
+  </nav>
+  {" "}
   <DarkModeToggle />
 </header>
 

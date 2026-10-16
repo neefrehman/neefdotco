@@ -6,21 +6,24 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "process-photos": "node scripts/process-photos.js"
+    "process-photos": "node scripts/process-photos.js",
+    "check": "biome check .",
+    "typecheck": "astro check"
   },
   "dependencies": {
-    "@astrojs/netlify": "6.4.1",
-    "@playform/compress": "0.2.0",
+    "@astrojs/netlify": "8.2.10",
+    "@playform/compress": "0.2.5",
     "@repo/mouse": "workspace:*",
     "@repo/utils": "workspace:*",
-    "astro": "5.13.5",
+    "astro": "7.4.0",
     "atcq": "1.0.6",
-    "sharp": "0.34.3",
-    "tailwindcss": "4.1.12"
+    "sharp": "0.35.5",
+    "tailwindcss": "4.3.3"
   },
   "devDependencies": {
+    "@astrojs/check": "0.9.10",
     "@total-typescript/tsconfig": "1.0.4",
-    "@types/node": "22.13.14",
-    "typescript": "5.9.2"
+    "@types/node": "26.6.5",
+    "typescript": "6.0.3"
   }
 }

@@ -3,6 +3,7 @@
   "include": [".astro/types.d.ts", "**/*"],
   "exclude": ["dist"],
   "compilerOptions": {
+    "lib": ["es2023", "dom", "dom.iterable"],
     "paths": {
       "components/*": ["./src/components/*"],
       "data/*": ["./src/data/*"],

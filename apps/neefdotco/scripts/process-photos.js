@@ -14,7 +14,9 @@ const JPEG_EXTENSION = /\.jpe?g$/i;
 const processedPhotos = JSON.parse(await fs.readFile(cacheJsonFile, "utf-8"));
 
 const writeCache = async () => {
-  const sortedCache = Object.fromEntries(Object.entries(processedPhotos).sort(([a], [b]) => (a < b ? -1 : 1)));
+  const sortedCache = Object.fromEntries(
+    Object.entries(processedPhotos).sort(([a], [b]) => (a < b ? -1 : 1)),
+  );
   await fs.writeFile(cacheJsonFile, `${JSON.stringify(sortedCache, null, 4)}\n`);
 };
 
@@ -27,7 +29,10 @@ for (const name of await fs.readdir(rawPhotosDirectory)) {
   const normalisedName = name.replace(JPEG_EXTENSION, ".jpg");
   if (normalisedName !== name) {
     console.log(`renaming extension for ${name}`);
-    await fs.rename(path.join(rawPhotosDirectory, name), path.join(rawPhotosDirectory, normalisedName));
+    await fs.rename(
+      path.join(rawPhotosDirectory, name),
+      path.join(rawPhotosDirectory, normalisedName),
+    );
   }
   rawPhotos.push(normalisedName);
 }

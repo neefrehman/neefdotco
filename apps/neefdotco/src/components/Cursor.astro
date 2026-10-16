@@ -7,7 +7,7 @@
     --package-mouse-cursor-background-color: var(--primary-color-mid);
     --package-mouse-cursor-transition-overlay-background-color: var(--background-color);
   }
-  
+
   .cursor-presence-container {
     custom-cursor {
       position: absolute;
@@ -17,24 +17,24 @@
 </style>
 
 <script>
+  import { Cursor } from "@repo/mouse";
+  import { type CursorState, parseServerEvent, serializeClientEvent } from "@repo/mouse/presence";
   import { getDistance } from "@repo/utils/math/getDistance";
   import { lerpVector } from "@repo/utils/math/lerp";
   import { mapToRange } from "@repo/utils/math/mapToRange";
-  import { Cursor } from "@repo/mouse";
-  import { parseServerEvent, serializeClientEvent, type CursorState } from "@repo/mouse/presence";
   import { tryCatch } from "@repo/utils/tryCatch";
 
   customElements.define("custom-cursor", Cursor);
-  
-  if (matchMedia("(pointer:fine)").matches) {
-    const cursor = document.querySelector<Cursor>("custom-cursor")!;
+
+  const cursor = document.querySelector<Cursor>("custom-cursor");
+  if (cursor && matchMedia("(pointer:fine)").matches) {
     const gravityWell = document.querySelector<HTMLDivElement>("[data-gravity-well]");
 
     const handleCursorMoveWithGravityWell = ([mouseX, mouseY]: [number, number]) => {
       if (!gravityWell) {
-        return
+        return;
       }
-      
+
       const largestViewPortSize = Math.max(window.innerWidth, window.innerHeight);
       const strongPullThreshold = largestViewPortSize / 4;
       const weakPullThreshold = strongPullThreshold + 50;
@@ -54,7 +54,7 @@
         const [x, y] = lerpVector(
           [mouseX, mouseY],
           [wellCenterX, wellCenterY],
-          mapToRange(10 + weakPullThreshold - distanceToWell, 0, largestViewPortSize, 0, 2)
+          mapToRange(10 + weakPullThreshold - distanceToWell, 0, largestViewPortSize, 0, 2),
         );
         cursor.move([x, y]);
         return;
@@ -64,13 +64,13 @@
       const [x, y] = lerpVector(
         [wellCenterX, wellCenterY],
         [mouseX, mouseY],
-        mapToRange(distanceToWell, 0, largestViewPortSize, 0, 0.33)
+        mapToRange(distanceToWell, 0, largestViewPortSize, 0, 0.33),
       );
       cursor.move([x, y]);
     };
 
     cursor.registerEventHandlers({
-      onMove: gravityWell ? handleCursorMoveWithGravityWell : cursor.move
+      onMove: gravityWell ? handleCursorMoveWithGravityWell : cursor.move,
     });
 
     const connectToPresenceSocket = () => {
@@ -80,7 +80,7 @@
       const presenceContainer = document.querySelector(".cursor-presence-container");
 
       if (!presenceContainer) {
-        return
+        return;
       }
 
       const getCursor = (id: string) => document.getElementById(id) as Cursor | null;
@@ -99,36 +99,36 @@
       const removeCursor = (id: string) => {
         const cursorToDelete = getCursor(id);
         if (!cursorToDelete) {
-          return
+          return;
         }
-        cursorToDelete.visibility = "hidden"
+        cursorToDelete.visibility = "hidden";
         setTimeout(() => cursorToDelete?.remove(), 500);
       };
 
       const NEIGHBOR_PULL_THRESHOLD = 70;
       const NEIGHBOR_MIN_DISTANCE = 15;
       let currentNeighbors: string[] = [];
-      let cursorAttractionFrame: number
+      let cursorAttractionFrame: number;
 
       const requestCursorAttractionFrame = () => {
-        let targetCursorSpeed: CursorState["speed"] = "regular"
+        let targetCursorSpeed: CursorState["speed"] = "regular";
         currentNeighbors.forEach((id) => {
           const otherCursor = getCursor(id) ?? createCursorPresence(id);
           const distance = getDistance(otherCursor.position, cursor.position);
           if (distance > NEIGHBOR_PULL_THRESHOLD || distance < NEIGHBOR_MIN_DISTANCE) {
             return;
           }
-          targetCursorSpeed = "slow"
+          targetCursorSpeed = "slow";
           const lerpStrength = mapToRange(distance, 0, NEIGHBOR_PULL_THRESHOLD, 0, 0.15);
           // We only move _our_ cursor here, as we rely on feedback from the server to move the
           // other cursors. This way, we are sure that all cursors are in-sync on every client.
           cursor.move(lerpVector(cursor.position, otherCursor.position, lerpStrength));
         });
-        cursor.speed = targetCursorSpeed
+        cursor.speed = targetCursorSpeed;
         cursorAttractionFrame = requestAnimationFrame(requestCursorAttractionFrame);
       };
 
-      socket.addEventListener("message", event => {        
+      socket.addEventListener("message", (event) => {
         const [_, data] = tryCatch(() => parseServerEvent(event.data));
         switch (data?.type) {
           case "JOIN":
@@ -140,45 +140,58 @@
           case "NEIGHBORS":
             currentNeighbors = data.neighbors;
             break;
-          case "UPDATE":
+          case "UPDATE": {
             const { id, cursorState } = data;
             const cursorToUpdate = getCursor(id) ?? createCursorPresence(id);
-            Object.assign(cursorToUpdate, cursorState)
+            Object.assign(cursorToUpdate, cursorState);
             break;
+          }
         }
       });
 
       let connectRetryInterval: ReturnType<typeof setInterval>;
       socket.addEventListener("open", () => {
-        const eventAbortController = new AbortController()
+        const eventAbortController = new AbortController();
         clearInterval(connectRetryInterval);
 
         const sendUpdate = (cursorState: CursorState) => {
-          socket.send(serializeClientEvent({
-            type: "UPDATE",
-            cursorState,
-            scrollY: window.scrollY,
-          }))
-        }
+          socket.send(
+            serializeClientEvent({
+              type: "UPDATE",
+              cursorState,
+              scrollY: window.scrollY,
+            }),
+          );
+        };
 
-        cursor.addEventListener("statechange", (e: CustomEventInit<CursorState>) => {
-          if (e.detail) {
-            // These properties are required for a cursor to be initially correct when added to another client
-            const requiredProps = { color: cursor.color, visibility: cursor.visibility };
-            sendUpdate({ ...e.detail, ...requiredProps });
-          }
-        }, { signal: eventAbortController.signal })
+        cursor.addEventListener(
+          "statechange",
+          (e: CustomEventInit<CursorState>) => {
+            if (e.detail) {
+              // These properties are required for a cursor to be initially correct when added to another client
+              const requiredProps = { color: cursor.color, visibility: cursor.visibility };
+              sendUpdate({ ...e.detail, ...requiredProps });
+            }
+          },
+          { signal: eventAbortController.signal },
+        );
 
-        document.addEventListener("scroll", () => {
-          sendUpdate({ position: cursor.position });
-        }, { signal: eventAbortController.signal });
+        document.addEventListener(
+          "scroll",
+          () => {
+            sendUpdate({ position: cursor.position });
+          },
+          { signal: eventAbortController.signal },
+        );
 
         requestCursorAttractionFrame();
 
         const closeWithReconnectAttempts = () => {
           eventAbortController.abort();
           cancelAnimationFrame(cursorAttractionFrame);
-          presenceContainer.querySelectorAll("custom-cursor").forEach((el) => removeCursor(el.id));
+          presenceContainer.querySelectorAll("custom-cursor").forEach((el) => {
+            removeCursor(el.id);
+          });
           connectRetryInterval = setInterval(connectToPresenceSocket, 1000);
           setTimeout(() => clearInterval(connectRetryInterval), 5000);
         };

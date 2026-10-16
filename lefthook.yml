@@ -1,0 +1,9 @@
+pre-commit:
+  parallel: false
+  jobs:
+    - name: check & fix
+      run: turbo run check -- --write
+      stage_fixed: true
+    - name: typecheck
+      glob: "*.{astro,js,jsx,ts,tsx}"
+      run: turbo run typecheck

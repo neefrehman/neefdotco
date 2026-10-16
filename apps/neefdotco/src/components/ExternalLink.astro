@@ -6,4 +6,7 @@ interface Props {
 const { href } = Astro.props;
 ---
 
-<a href={href} target="_blank" rel="noopener noreferrer" data-cursor-contents="↗"><slot /></a>
+<!-- biome-ignore lint/a11y/useAnchorContent: Astro's slot supplies the visible and accessible link text. -->
+<a href={href} target="_blank" rel="noopener noreferrer" data-cursor-contents="↗">
+  <slot />
+</a>

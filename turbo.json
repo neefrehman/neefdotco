@@ -1,6 +1,7 @@
 {
   "$schema": "./node_modules/turbo/schema.json",
   "ui": "tui",
+  "globalDependencies": ["biome.json", ".prettierrc.json"],
   "tasks": {
     "build": {
       "outputs": ["dist/**"]
@@ -8,6 +9,14 @@
     "dev": {
       "persistent": true,
       "cache": false
+    },
+    "check": {
+      "outputs": []
+    },
+    "typecheck": {
+      "dependsOn": ["^typecheck"],
+      "cache": false,
+      "outputs": []
     }
   }
 }

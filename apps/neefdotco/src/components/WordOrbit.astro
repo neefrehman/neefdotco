@@ -11,15 +11,13 @@ const { words, "aria-hidden": ariahidden } = Astro.props;
 const rings = shuffleAndBalanceRings(words);
 ---
 
-<div
-  class="system"
-  data-gravity-well="dormant"
-  aria-hidden={ariahidden ?? "false"}
->
+<div class="system" data-gravity-well="dormant" aria-hidden={ariahidden ?? "false"}>
   {rings.map((ring) => (
     <div>
       <ul>
-        {ring.map((word) => <li>{word}</li>)}
+        {ring.map((word) => (
+          <li>{word}</li>
+        ))}
       </ul>
     </div>
   ))}
@@ -50,9 +48,10 @@ const rings = shuffleAndBalanceRings(words);
       --hidden-opacity: 0;
 
       transition:
-        transform 1000ms ease 100ms, /* small delay to avoid flickering when we stop hovering as it rotates */
+        transform 1000ms ease 100ms,
         opacity 400ms ease var(--transition-delay),
-        translate var(--transition-top-duration) var(--transition-top-easing) var(--transition-delay),
+        translate var(--transition-top-duration) var(--transition-top-easing)
+        var(--transition-delay),
         rotate calc(700ms * var(--ring-index)) cubic-bezier(0, 0, 0.2, 1);
 
       @starting-style {
@@ -82,14 +81,19 @@ const rings = shuffleAndBalanceRings(words);
           --a: calc(var(--ring-position) * 360deg);
           transform: translateX(-50%) rotateZ(var(--a)) translateY(var(--r)) rotateX(90deg);
           animation: var(--hide-half, none) var(--spin-duration) step-end infinite;
-          animation-delay: calc(var(--spin-duration) * (var(--ring-position) - 1 - var(--layer-phase, 0)));
+          animation-delay: calc(
+            var(--spin-duration) *
+            (var(--ring-position) - 1 - var(--layer-phase, 0))
+          );
           transition: background-color var(--color-transition);
         }
       }
     }
 
     @media (pointer: fine) {
-      &:hover, &:hover + &, &:has(+ &:hover) {
+      &:hover,
+      &:hover + &,
+      &:has(+ &:hover) {
         --rotateZ: 5deg;
         li:hover::after {
           content: "";
@@ -97,7 +101,9 @@ const rings = shuffleAndBalanceRings(words);
           inset: -8px; /* Extra hitbox around the word, so the rotation doesn't immediately end the hover */
         }
       }
-      &:active, &:active + &, &:has(+ &:active) {
+      &:active,
+      &:active + &,
+      &:has(+ &:active) {
         --rotateZ: 10deg;
       }
 
@@ -113,7 +119,9 @@ const rings = shuffleAndBalanceRings(words);
   }
 
   @keyframes spin {
-    to { transform: rotate(-360deg); }
+    to {
+      transform: rotate(-360deg);
+    }
   }
 
   :global(body[data-exiting="true"]) .system > div {
@@ -143,19 +151,30 @@ const rings = shuffleAndBalanceRings(words);
   }
 
   @keyframes hide-half {
-    25% { visibility: hidden; }
-    75% { visibility: visible; }
+    25% {
+      visibility: hidden;
+    }
+    75% {
+      visibility: visible;
+    }
   }
 </style>
 
 <script>
-  import { throttle } from "@repo/utils/throttle";
   import { shuffleAndBalanceRings } from "utils/shuffleAndBalanceRings";
 
-  const system = document.querySelector<HTMLElement>(".system")!;
+  import { throttle } from "@repo/utils/throttle";
+
+  const system = document.querySelector<HTMLElement>(".system");
+  if (!system) {
+    throw new Error("WordOrbit requires a .system element");
+  }
+
   const words = system.querySelectorAll("li");
-  const arrangement = shuffleAndBalanceRings([...words].map(li => li.textContent!)).flat();
-  words.forEach((li, i) => (li.textContent = arrangement[i]!));
+  const arrangement = shuffleAndBalanceRings([...words].map((li) => li.textContent ?? "")).flat();
+  words.forEach((li, i) => {
+    li.textContent = arrangement[i] ?? "";
+  });
 
   if (matchMedia("(pointer:fine)").matches) {
     // Add the rear layer, a copy of the front (before it, as the hover selectors expect)
@@ -181,15 +200,19 @@ const rings = shuffleAndBalanceRings(words);
     const orbiters = document.querySelectorAll<HTMLElement>(".system li");
     const tiltOrbit = throttle((e: DeviceOrientationEvent) => {
       const tilt = window.innerHeight > window.innerWidth ? e.gamma : e.beta;
-      rings.forEach(ring => (ring.style.rotate = `${tilt}deg`));
+      rings.forEach((ring) => {
+        ring.style.rotate = `${tilt}deg`;
+      });
     }, 41); // ~24fps
 
     let ac: AbortController | undefined;
-    orbiters.forEach(object => {
+    orbiters.forEach((object) => {
       object.addEventListener("click", async () => {
         if (ac && !ac.signal.aborted) {
           ac.abort();
-          rings.forEach(ring => (ring.style.rotate = ""));
+          rings.forEach((ring) => {
+            ring.style.rotate = "";
+          });
           return;
         }
 

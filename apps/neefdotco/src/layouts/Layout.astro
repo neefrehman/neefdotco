@@ -22,38 +22,39 @@ const {
     <script is:inline>
       // This script blocks first paint while it applies a saved theme override and chooses a random background color.
       // `DarkModeToggle.astro` handles the non-critical theme behavior.
-      document.documentElement.dataset.theme = localStorage.getItem("theme") ?? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      document.documentElement.dataset.theme =
+        localStorage.getItem("theme") ??
+        (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
       const randomInRange = (min, max) => Math.random() * (max - min) + min;
       const hue = randomInRange(0, 360);
       const chroma = randomInRange(0.02, 0.25);
       document.documentElement.style.setProperty("--base-hue", `${hue}deg`);
       document.documentElement.style.setProperty("--base-chroma", chroma.toFixed(4));
     </script>
+    <link rel="preload" href="/fonts/fleuronregular.woff2" as="font" type="font/woff2" crossorigin>
 
-    <link rel="preload" href="/fonts/fleuronregular.woff2" as="font" type="font/woff2" crossorigin />
-
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
 
     <title>{title}</title>
-    <meta name="description" content={description} />
-    <meta name="author" content="Neef Rehman" />
+    <meta name="description" content={description}>
+    <meta name="author" content="Neef Rehman">
 
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={Astro.url.href} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:image" content={metaImageUrl} />
+    <meta property="og:type" content="website">
+    <meta property="og:url" content={Astro.url.href}>
+    <meta property="og:title" content={title}>
+    <meta property="og:description" content={description}>
+    <meta property="og:image" content={metaImageUrl}>
 
-    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:card" content="summary_large_image">
 
     <!-- dynamic SVG to be filled by `DarkModeToggle.astro`, based on the current background color -->
-    <link rel="icon" type="image/svg+xml" />
+    <link rel="icon" type="image/svg+xml">
 
-    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
-    <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#1F092A" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#1F092A">
 
-    <meta name="generator" content={Astro.generator} />
+    <meta name="generator" content={Astro.generator}>
 
     <slot name="head" />
   </head>
@@ -72,26 +73,31 @@ const {
   import type { Cursor } from "@repo/mouse";
 
   if (matchMedia("(pointer:fine)").matches) {
-    document.querySelectorAll<HTMLAnchorElement>("a[data-triggers-nav-transition=true]").forEach(link => {
-      link.addEventListener("click", e => {
-        document.body.dataset.exiting = "true";
-        const cursor = document.querySelector<Cursor>("#user-cursor");
-        cursor?.setAttribute("size", "lg");
-        setTimeout(() => {
-          cursor?.setAttribute("visibility", "exiting");
-          Promise
-            .allSettled(cursor?.shadowRoot?.getAnimations().filter(a => a instanceof CSSTransition).map(a => a.finished))
-            .then(() => window.location.assign(link.href));
-        }, 200);
-        e.preventDefault();
+    document
+      .querySelectorAll<HTMLAnchorElement>("a[data-triggers-nav-transition=true]")
+      .forEach((link) => {
+        link.addEventListener("click", (e) => {
+          document.body.dataset.exiting = "true";
+          const cursor = document.querySelector<Cursor>("#user-cursor");
+          cursor?.setAttribute("size", "lg");
+          setTimeout(() => {
+            cursor?.setAttribute("visibility", "exiting");
+            Promise.allSettled(
+              cursor?.shadowRoot
+                ?.getAnimations()
+                .filter((a) => a instanceof CSSTransition)
+                .map((a) => a.finished) ?? [],
+            ).then(() => window.location.assign(link.href));
+          }, 200);
+          e.preventDefault();
+        });
       });
-    });
 
     // Handle the browser saving the exit state in the bfcache
-    window.addEventListener("pageshow", e => {
+    window.addEventListener("pageshow", (e) => {
       if (!e.persisted) {
-        return
-      };
+        return;
+      }
 
       delete document.body.dataset.exiting;
     });
