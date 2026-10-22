@@ -11,7 +11,12 @@ const { words, "aria-hidden": ariahidden } = Astro.props;
 const rings = shuffleAndBalanceRings(words);
 ---
 
-<div class="system" data-gravity-well="dormant" aria-hidden={ariahidden ?? "false"}>
+<div
+  class="system"
+  data-gravity-well="dormant"
+  aria-hidden={ariahidden ?? "false"}
+  style="display: none;"
+>
   {rings.map((ring) => (
     <div>
       <ul>
@@ -90,6 +95,14 @@ const rings = shuffleAndBalanceRings(words);
       }
     }
 
+    /* After layering by JS */
+    &[data-layer] {
+      --hide-half: hide-half; /* Hide half of each system */
+      &[data-layer="front"] {
+        --layer-phase: 0.5; /* half a spin out of phase with the rear layer */
+      }
+    }
+
     @media (pointer: fine) {
       &:hover,
       &:hover + &,
@@ -130,14 +143,6 @@ const rings = shuffleAndBalanceRings(words);
     --transition-delay: calc(150ms * (sibling-index() - 1));
     --transition-top-duration: 400ms;
     --transition-top-easing: cubic-bezier(0.9, 0, 0.6, 1);
-  }
-
-  /* On successful layering by the JS pass */
-  .system[data-layer] {
-    --hide-half: hide-half; /* Hide half of each system */
-    &[data-layer="front"] {
-      --layer-phase: 0.5; /* half a spin out of phase with the rear layer */
-    }
   }
 
   /* Once the gravity well has captured the cursor */
@@ -184,7 +189,10 @@ const rings = shuffleAndBalanceRings(words);
     rearLayer.removeAttribute("data-gravity-well");
     system.dataset.layer = "front";
     system.before(rearLayer);
+    rearLayer.style.display = "block";
   }
+
+  system.style.display = "block";
 
   const rings = document.querySelectorAll<HTMLElement>(".system > div");
 
