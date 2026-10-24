@@ -3,8 +3,8 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "partykit dev",
-    "deploy": "partykit deploy",
+    "dev": "cf dev",
+    "deploy": "cf deploy",
     "check": "biome check .",
     "typecheck": "tsc --noEmit"
   },
@@ -12,12 +12,15 @@
     "@repo/mouse": "workspace:*",
     "@repo/utils": "workspace:*",
     "d3-delaunay": "6.0.4",
-    "partykit": "0.0.115"
+    "partyserver": "^0.5.10"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261023.1",
     "@total-typescript/tsconfig": "1.0.4",
     "@types/d3-delaunay": "6.0.4",
     "@types/node": "26.6.5",
-    "typescript": "7.0.2"
+    "cf": "1.0.0-beta.21",
+    "typescript": "7.0.2",
+    "wrangler": "^4.152.0"
   }
 }

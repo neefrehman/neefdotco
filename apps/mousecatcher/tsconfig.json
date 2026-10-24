@@ -1,6 +1,6 @@
 {
   "extends": "@total-typescript/tsconfig/bundler/no-dom/app",
   "compilerOptions": {
-    "types": ["node"]
+    "types": ["node", "@cloudflare/workers-types"]
   }
 }

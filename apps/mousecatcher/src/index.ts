@@ -1,5 +1,5 @@
 import { Delaunay } from "d3-delaunay";
-import type * as Party from "partykit/server";
+import { type Connection, routePartykitRequest, Server, type WSMessage } from "partyserver";
 
 import {
   type CursorState,
@@ -12,11 +12,11 @@ import { tryCatch } from "@repo/utils/tryCatch";
 
 const MAX_CURSORS_SUPPORTED_IN_GRAPH = 512;
 
-export default class Server implements Party.Server {
-  // Hibernation empties out the delaunay graph, making our neighbor calculations impossible to do.
-  public options?: Party.ServerOptions = { hibernate: false };
+type Env = { Main: DurableObjectNamespace<MouseCatcher> };
 
-  constructor(readonly room: Party.Room) {}
+export class MouseCatcher extends Server<Env> {
+  // Hibernation empties out the delaunay graph, making our neighbor calculations impossible to do.
+  static override options = { hibernate: false };
 
   private delaunay = new Delaunay(new Uint16Array(MAX_CURSORS_SUPPORTED_IN_GRAPH * 2));
 
@@ -49,10 +49,10 @@ export default class Server implements Party.Server {
   };
 
   private broadcastCursor = (event: ServerEvent, without?: string[]) => {
-    this.room.broadcast(serializeServerEvent(event), without);
+    this.broadcast(serializeServerEvent(event), without);
   };
 
-  public onConnect = (conn: Party.Connection) => {
+  override onConnect = (conn: Connection) => {
     // Broadcast join event to other cursors
     this.broadcastCursor({ id: conn.id, type: "JOIN" }, [conn.id]);
 
@@ -83,7 +83,11 @@ export default class Server implements Party.Server {
     }
   };
 
-  public onMessage = (message: string, sender: Party.Connection) => {
+  override onMessage(sender: Connection, message: WSMessage) {
+    if (typeof message !== "string") {
+      return;
+    }
+
     const [_, parsed] = tryCatch(() => parseClientEvent(message));
 
     if (!parsed) {
@@ -122,7 +126,7 @@ export default class Server implements Party.Server {
           neighborIds.push(neighborId);
         }
       }
-      this.room.getConnection(id)?.send(
+      this.getConnection(id)?.send(
         serializeServerEvent({
           id,
           type: "NEIGHBORS",
@@ -130,9 +134,9 @@ export default class Server implements Party.Server {
         }),
       );
     });
-  };
+  }
 
-  private handleExit = (conn: Party.Connection<unknown>): void => {
+  private handleExit = (conn: Connection): void => {
     const cursor = this.idCursorMap.get(conn.id);
     this.broadcastCursor({ id: conn.id, type: "LEAVE" }, [conn.id]);
     this.updateCoordinatesInDelaunayGraph(conn.id, [0, 0]);
@@ -143,8 +147,17 @@ export default class Server implements Party.Server {
     }
   };
 
-  public onClose = this.handleExit;
-  public onError = this.handleExit;
+  override onClose = (conn: Connection) => {
+    this.handleExit(conn);
+  };
+
+  override onError = (conn: Connection) => {
+    this.handleExit(conn);
+  };
 }
 
-Server satisfies Party.Worker;
+export default {
+  async fetch(request: Request, env: Env): Promise<Response> {
+    return (await routePartykitRequest(request, env)) || new Response("Not Found", { status: 404 });
+  },
+} satisfies ExportedHandler<Env>;

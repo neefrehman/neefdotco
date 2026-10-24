@@ -10,5 +10,8 @@
     "lefthook": "2.2.2",
     "turbo": "2.11.8"
   },
-  "packageManager": "pnpm@12.11.2"
+  "packageManager": "pnpm@12.11.2",
+  "dependencies": {
+    "cf": "1.0.0-beta.21"
+  }
 }
