@@ -4,22 +4,18 @@ import { shuffleAndBalanceRings } from "utils/shuffleAndBalanceRings";
 interface Props {
   words: string[];
   "aria-hidden"?: "true" | "false";
+  "aria-label"?: string;
 }
 
-const { words, "aria-hidden": ariahidden } = Astro.props;
+const { words, "aria-hidden": ariaHidden, "aria-label": ariaLabel } = Astro.props;
 
 const rings = shuffleAndBalanceRings(words);
 ---
 
-<div
-  class="system"
-  data-gravity-well="dormant"
-  aria-hidden={ariahidden ?? "false"}
-  style="display: none;"
->
-  {rings.map((ring) => (
+<div class="system" data-gravity-well="dormant" style="display: none;">
+  {rings.map((ring, i) => (
     <div>
-      <ul>
+      <ul aria-label={i === 1 ? ariaLabel : undefined} aria-hidden={ariaHidden}>
         {ring.map((word) => (
           <li>{word}</li>
         ))}
