@@ -1,9 +1,9 @@
 {
-  "name": "neefdotco",
+  "name": "neef",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
+    "dev": "portless neef astro dev",
     "build": "astro build",
     "preview": "astro preview",
     "process-photos": "node scripts/process-photos.js",

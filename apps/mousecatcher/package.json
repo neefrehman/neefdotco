@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "cf dev",
+    "dev": "portless mousecatcher.neef cf dev",
     "deploy": "cf deploy",
     "check": "biome check .",
     "typecheck": "tsc --noEmit"
