@@ -1,6 +1,6 @@
 [build]
   base = "."
-  command = "turbo build --filter neefdotco"
+  command = "turbo build --filter neef"
   publish = "dist/"
   ignore = "npx turbo-ignore --fallback=HEAD^"
 
