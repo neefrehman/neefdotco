@@ -5,14 +5,17 @@ import { defineConfig } from "astro/config";
 export default defineConfig({
   output: "static",
   site: "https://neef.co",
-  adapter: netlify({
-    imageCDN: false,
-    devFeatures: {
-      images: true,
-      environmentVariables: false,
-      edgeFunctions: false,
-    },
-  }),
+  adapter:
+    process.env.NODE_ENV === "production"
+      ? netlify({
+          imageCDN: false,
+          devFeatures: {
+            images: true,
+            environmentVariables: false,
+            edgeFunctions: false,
+          },
+        })
+      : undefined,
   prefetch: true,
   integrations: [
     compress({
