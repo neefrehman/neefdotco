@@ -1,6 +1,7 @@
 :root {
   --package-mouse-cursor-background-color: unset;
   --package-mouse-cursor-transition-overlay-background-color: unset;
+  --package-mouse-cursor-z-index: -1;
 }
 
 :host {
@@ -23,7 +24,7 @@
   position: fixed;
   top: calc((var(--cursor-radius) * -1) + ((var(--cursor-down)) * var(--cursor-scale)));
   left: calc((var(--cursor-radius) * -1) + ((var(--cursor-left)) * var(--cursor-scale)));
-  z-index: -1;
+  z-index: var(--package-mouse-cursor-z-index);
   pointer-events: none;
 
   .cursor-root {

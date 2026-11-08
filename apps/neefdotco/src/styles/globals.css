@@ -27,6 +27,11 @@
 
     --color-transition: 200ms ease-in-out;
 
+    --z-index-cursor: -4;
+    --z-index-orbit-rear: -3;
+    --z-index-cursor-captured: -2;
+    --z-index-orbit-front: -1;
+
     &[data-theme="light"] {
       color-scheme: light only;
     }

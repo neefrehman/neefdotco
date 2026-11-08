@@ -27,7 +27,11 @@ const rings = shuffleAndBalanceRings(words);
 <style>
   div.system {
     position: fixed;
-    z-index: -1;
+    z-index: var(--z-index-orbit-front);
+
+    &[data-layer="rear"] {
+      z-index: var(--z-index-orbit-rear);
+    }
 
     --bottom: 12vh;
     bottom: clamp(50px, var(--bottom), 180px);
@@ -141,13 +145,11 @@ const rings = shuffleAndBalanceRings(words);
     --transition-top-easing: cubic-bezier(0.9, 0, 0.6, 1);
   }
 
-  /* Once the gravity well has captured the cursor */
-  :global(body:has(#user-cursor[size="xxxl"])) {
-    .system[data-layer="rear"] {
-      z-index: -2; /* The rear layer drops behind the cursor */
-    }
-    #user-cursor {
-      pointer-events: auto; /* Also block hover interactions on words */
+  /* Once the gravity well has captured a cursor */
+  :global(custom-cursor[size="xxxl"]) {
+    --package-mouse-cursor-z-index: var(--z-index-cursor-captured); /* Move between ring layers */
+    &#user-cursor {
+      pointer-events: auto; /* Also block hover interactions on words for suer's cursor */
     }
   }
 
