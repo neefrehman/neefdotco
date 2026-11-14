@@ -15,7 +15,7 @@
     "@playform/compress": "0.2.5",
     "@repo/mouse": "workspace:*",
     "@repo/utils": "workspace:*",
-    "astro": "7.4.0",
+    "astro": "7.4.7",
     "atcq": "1.0.6",
     "sharp": "0.35.5",
     "tailwindcss": "4.3.3"
